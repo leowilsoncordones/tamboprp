@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{09C13C61-B450-4BCA-84B9-4F1EA157A3A9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>tamboprp_mp1Lib</RootNamespace>
+    <AssemblyName>tamboprp_mp1Lib</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GeneratedCode\Aborto.cs" />
+    <Compile Include="GeneratedCode\Animal.cs" />
+    <Compile Include="GeneratedCode\Calificacion.cs" />
+    <Compile Include="GeneratedCode\Categoria.cs" />
+    <Compile Include="GeneratedCode\Categorias_concurso.cs" />
+    <Compile Include="GeneratedCode\Celo_Sin_Servicio.cs" />
+    <Compile Include="GeneratedCode\Consurso.cs" />
+    <Compile Include="GeneratedCode\Control_Producc.cs" />
+    <Compile Include="GeneratedCode\Diag_Prenez.cs" />
+    <Compile Include="GeneratedCode\Empleado.cs" />
+    <Compile Include="GeneratedCode\Empresas.cs" />
+    <Compile Include="GeneratedCode\Enfermedades.cs" />
+    <Compile Include="GeneratedCode\Evento.cs" />
+    <Compile Include="GeneratedCode\Lugar_Concurso.cs" />
+    <Compile Include="GeneratedCode\Motivos_Secado.cs" />
+    <Compile Include="GeneratedCode\Muerte.cs" />
+    <Compile Include="GeneratedCode\Parto.cs" />
+    <Compile Include="GeneratedCode\Premio.cs" />
+    <Compile Include="GeneratedCode\Remito.cs" />
+    <Compile Include="GeneratedCode\Secado.cs" />
+    <Compile Include="GeneratedCode\Semen.cs" />
+    <Compile Include="GeneratedCode\Servicio.cs" />
+    <Compile Include="GeneratedCode\Ternera.cs" />
+    <Compile Include="GeneratedCode\Ternero.cs" />
+    <Compile Include="GeneratedCode\Toro.cs" />
+    <Compile Include="GeneratedCode\Usuario.cs" />
+    <Compile Include="GeneratedCode\Vaca.cs" />
+    <Compile Include="GeneratedCode\Vaquillona.cs" />
+    <Compile Include="GeneratedCode\Venta.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

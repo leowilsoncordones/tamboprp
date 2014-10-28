@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="file:///C:/PROGRAM FILES (X86)/MICROSOFT VISUAL STUDIO 12.0/COMMON7/IDE/EXTENSIONS/MICROSOFT/ARCHITECTURE TOOLS/EXTENSIBILITY/Logging/CodeGenLog.xslt"?>
+<Log xmlns="http://schemas.microsoft.com/VisualStudio/2010/CodeGen.RE.Log" Label="Code Generation/Text Transformation Log">
+  <MessageClass Name="Message" Label="Message" Option="Show informational messages" />
+  <MessageClass Name="Warning" Label="Warning" Option="Show warnings" />
+  <MessageClass Name="Error" Label="Error" Option="Show errors" />
+  <MessageClass Name="Property" Label="Property" Option="Show metadata" />
+  <MessageClass Name="Diagnostic" Label="Message" Option="Show diagnostic messages" />
+  <Message Timestamp="2014-10-23T22:35:30" Importance="High" Text="Code generation or text transformation started." />
+  <Message Timestamp="2014-10-23T22:35:31" Importance="Diagnostic" Text="Name = ClassTemplate" />
+  <Message Timestamp="2014-10-23T22:35:31" Importance="Diagnostic" Text="Overwrite = True" />
+  <Message Timestamp="2014-10-23T22:35:31" Importance="Diagnostic" Text="ProjectPath = ..\tamboprp_mp1Lib\tamboprp_mp1Lib.csproj" />
+  <Message Timestamp="2014-10-23T22:35:31" Importance="Diagnostic" Text="TargetDirectory = GeneratedCode\{PackageStructure}" />
+  <Message Timestamp="2014-10-23T22:35:31" Importance="Diagnostic" Text="TargetName = {Name}" />
+  <Message Timestamp="2014-10-23T22:35:31" Importance="Diagnostic" Text="TemplateFilePath = C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 12.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\ClassTemplate.t4" />
+  <Message Timestamp="2014-10-23T22:35:31" Importance="Diagnostic" Text="ResolvedTemplateFilePath = C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 12.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\ClassTemplate.t4" />
+  <Message Timestamp="2014-10-23T22:35:31" Importance="Medium" Text="tamboprp_mp1's Text Template Binding: 'ClassTemplate' will apply ClassTemplate.t4 to: 'tamboprp_mp1::Evento' -  (Class), 'tamboprp_mp1::Animal' -  (Class), 'tamboprp_mp1::Categoria' -  (Class), 'tamboprp_mp1::Diag_Prenez' -  (Class), 'tamboprp_mp1::Parto' -  (Class), 'tamboprp_mp1::Celo_Sin_Servicio' -  (Class), 'tamboprp_mp1::Servicio' -  (Class), 'tamboprp_mp1::Secado' -  (Class), 'tamboprp_mp1::Control_Producc' -  (Class), 'tamboprp_mp1::Aborto' -  (Class), 'tamboprp_mp1::Muerte' -  (Class), 'tamboprp_mp1::Venta' -  (Class), 'tamboprp_mp1::Calificacion' -  (Class), 'tamboprp_mp1::Consurso' -  (Class), 'tamboprp_mp1::Ternera' -  (Class), 'tamboprp_mp1::Vaca' -  (Class), 'tamboprp_mp1::Vaquillona' -  (Class), 'tamboprp_mp1::Semen' -  (Class), 'tamboprp_mp1::Toro' -  (Class), 'tamboprp_mp1::Ternero' -  (Class), 'tamboprp_mp1::Empleado' -  (Class), 'tamboprp_mp1::Premio' -  (Class), 'tamboprp_mp1::Usuario' -  (Class), 'tamboprp_mp1::Remito' -  (Class) " />
+  <Message Timestamp="2014-10-23T22:35:32" Importance="Medium" Text="'tamboprp_mp1::Evento' -  (Class) : success (file replaced) - E:\ORT\visual studio 2013\Projects\tamboprp\tamboprp_mp1Lib\GeneratedCode\Evento.cs" />
+  <Message Timestamp="2014-10-23T22:35:33" Importance="Medium" Text="'tamboprp_mp1::Animal' -  (Class) : success (file replaced) - E:\ORT\visual studio 2013\Projects\tamboprp\tamboprp_mp1Lib\GeneratedCode\Animal.cs" />
+  <Message Timestamp="2014-10-23T22:35:34" Importance="Medium" Text="'tamboprp_mp1::Categoria' -  (Class) : success (file replaced) - E:\ORT\visual studio 2013\Projects\tamboprp\tamboprp_mp1Lib\GeneratedCode\Categoria.cs" />
+  <Message Timestamp="2014-10-23T22:35:34" Importance="Medium" Text="'tamboprp_mp1::Diag_Prenez' -  (Class) : success (file created) - E:\ORT\visual studio 2013\Projects\tamboprp\tamboprp_mp1Lib\GeneratedCode\Diag_Prenez.cs" />
+  <Message Timestamp="2014-10-23T22:35:35" Importance="Medium" Text="'tamboprp_mp1::Parto' -  (Class) : success (file created) - E:\ORT\visual studio 2013\Projects\tamboprp\tamboprp_mp1Lib\GeneratedCode\Parto.cs" />
+  <Message Timestamp="2014-10-23T22:35:36" Importance="Medium" Text="'tamboprp_mp1::Celo_Sin_Servicio' -  (Class) : success (file created) - E:\ORT\visual studio 2013\Projects\tamboprp\tamboprp_mp1Lib\GeneratedCode\Celo_Sin_Servicio.cs" />
+  <Message Timestamp="2014-10-23T22:35:36" Importance="Medium" Text="'tamboprp_mp1::Servicio' -  (Class) : success (file created) - E:\ORT\visual studio 2013\Projects\tamboprp\tamboprp_mp1Lib\GeneratedCode\Servicio.cs" />
+  <Message Timestamp="2014-10-23T22:35:37" Importance="Medium" Text="'tamboprp_mp1::Secado' -  (Class) : success (file created) - E:\ORT\visual studio 2013\Projects\tamboprp\tamboprp_mp1Lib\GeneratedCode\Secado.cs" />
+  <Message Timestamp="2014-10-23T22:35:37" Importance="Medium" Text="'tamboprp_mp1::Control_Producc' -  (Class) : success (file created) - E:\ORT\visual studio 2013\Projects\tamboprp\tamboprp_mp1Lib\GeneratedCode\Control_Producc.cs" />
+  <Message Timestamp="2014-10-23T22:35:38" Importance="Medium" Text="'tamboprp_mp1::Aborto' -  (Class) : success (file created) - E:\ORT\visual studio 2013\Projects\tamboprp\tamboprp_mp1Lib\GeneratedCode\Aborto.cs" />
+  <Message Timestamp="2014-10-23T22:35:38" Importance="Medium" Text="'tamboprp_mp1::Muerte' -  (Class) : success (file created) - E:\ORT\visual studio 2013\Projects\tamboprp\tamboprp_mp1Lib\GeneratedCode\Muerte.cs" />
+  <Message Timestamp="2014-10-23T22:35:39" Importance="Medium" Text="'tamboprp_mp1::Venta' -  (Class) : success (file created) - E:\ORT\visual studio 2013\Projects\tamboprp\tamboprp_mp1Lib\GeneratedCode\Venta.cs" />
+  <Message Timestamp="2014-10-23T22:35:39" Importance="Medium" Text="'tamboprp_mp1::Calificacion' -  (Class) : success (file created) - E:\ORT\visual studio 2013\Projects\tamboprp\tamboprp_mp1Lib\GeneratedCode\Calificacion.cs" />
+  <Message Timestamp="2014-10-23T22:35:40" Importance="Medium" Text="'tamboprp_mp1::Consurso' -  (Class) : success (file created) - E:\ORT\visual studio 2013\Projects\tamboprp\tamboprp_mp1Lib\GeneratedCode\Consurso.cs" />
+  <Message Timestamp="2014-10-23T22:35:40" Importance="Medium" Text="'tamboprp_mp1::Ternera' -  (Class) : success (file created) - E:\ORT\visual studio 2013\Projects\tamboprp\tamboprp_mp1Lib\GeneratedCode\Ternera.cs" />
+  <Message Timestamp="2014-10-23T22:35:40" Importance="Medium" Text="'tamboprp_mp1::Vaca' -  (Class) : success (file replaced) - E:\ORT\visual studio 2013\Projects\tamboprp\tamboprp_mp1Lib\GeneratedCode\Vaca.cs" />
+  <Message Timestamp="2014-10-23T22:35:40" Importance="Medium" Text="'tamboprp_mp1::Vaquillona' -  (Class) : success (file replaced) - E:\ORT\visual studio 2013\Projects\tamboprp\tamboprp_mp1Lib\GeneratedCode\Vaquillona.cs" />
+  <Message Timestamp="2014-10-23T22:35:41" Importance="Medium" Text="'tamboprp_mp1::Semen' -  (Class) : success (file replaced) - E:\ORT\visual studio 2013\Projects\tamboprp\tamboprp_mp1Lib\GeneratedCode\Semen.cs" />
+  <Message Timestamp="2014-10-23T22:35:41" Importance="Medium" Text="'tamboprp_mp1::Toro' -  (Class) : success (file replaced) - E:\ORT\visual studio 2013\Projects\tamboprp\tamboprp_mp1Lib\GeneratedCode\Toro.cs" />
+  <Message Timestamp="2014-10-23T22:35:41" Importance="Medium" Text="'tamboprp_mp1::Ternero' -  (Class) : success (file created) - E:\ORT\visual studio 2013\Projects\tamboprp\tamboprp_mp1Lib\GeneratedCode\Ternero.cs" />
+  <Message Timestamp="2014-10-23T22:35:41" Importance="Medium" Text="'tamboprp_mp1::Empleado' -  (Class) : success (file replaced) - E:\ORT\visual studio 2013\Projects\tamboprp\tamboprp_mp1Lib\GeneratedCode\Empleado.cs" />
+  <Message Timestamp="2014-10-23T22:35:42" Importance="Medium" Text="'tamboprp_mp1::Premio' -  (Class) : success (file created) - E:\ORT\visual studio 2013\Projects\tamboprp\tamboprp_mp1Lib\GeneratedCode\Premio.cs" />
+  <Message Timestamp="2014-10-23T22:35:43" Importance="Medium" Text="'tamboprp_mp1::Usuario' -  (Class) : success (file created) - E:\ORT\visual studio 2013\Projects\tamboprp\tamboprp_mp1Lib\GeneratedCode\Usuario.cs" />
+  <Message Timestamp="2014-10-23T22:35:43" Importance="Medium" Text="'tamboprp_mp1::Remito' -  (Class) : success (file created) - E:\ORT\visual studio 2013\Projects\tamboprp\tamboprp_mp1Lib\GeneratedCode\Remito.cs" />
+  <Message Timestamp="2014-10-23T22:35:43" Importance="Diagnostic" Text="Name = EnumTemplate" />
+  <Message Timestamp="2014-10-23T22:35:43" Importance="Diagnostic" Text="Overwrite = True" />
+  <Message Timestamp="2014-10-23T22:35:43" Importance="Diagnostic" Text="ProjectPath = ..\tamboprp_mp1Lib\tamboprp_mp1Lib.csproj" />
+  <Message Timestamp="2014-10-23T22:35:43" Importance="Diagnostic" Text="TargetDirectory = GeneratedCode\{PackageStructure}" />
+  <Message Timestamp="2014-10-23T22:35:43" Importance="Diagnostic" Text="TargetName = {Name}" />
+  <Message Timestamp="2014-10-23T22:35:43" Importance="Diagnostic" Text="TemplateFilePath = C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 12.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\EnumTemplate.t4" />
+  <Message Timestamp="2014-10-23T22:35:43" Importance="Diagnostic" Text="ResolvedTemplateFilePath = C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 12.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\EnumTemplate.t4" />
+  <Message Timestamp="2014-10-23T22:35:43" Importance="Medium" Text="tamboprp_mp1's Text Template Binding: 'EnumTemplate' will apply EnumTemplate.t4 to: 'tamboprp_mp1::Motivos_Secado' -  (Enumeration), 'tamboprp_mp1::Enfermedades' -  (Enumeration), 'tamboprp_mp1::Lugar_Concurso' -  (Enumeration), 'tamboprp_mp1::Categorias_concurso' -  (Enumeration), 'tamboprp_mp1::Empresas' -  (Enumeration) " />
+  <Message Timestamp="2014-10-23T22:35:45" Importance="Medium" Text="'tamboprp_mp1::Motivos_Secado' -  (Enumeration) : success (file created) - E:\ORT\visual studio 2013\Projects\tamboprp\tamboprp_mp1Lib\GeneratedCode\Motivos_Secado.cs" />
+  <Message Timestamp="2014-10-23T22:35:45" Importance="Medium" Text="'tamboprp_mp1::Enfermedades' -  (Enumeration) : success (file created) - E:\ORT\visual studio 2013\Projects\tamboprp\tamboprp_mp1Lib\GeneratedCode\Enfermedades.cs" />
+  <Message Timestamp="2014-10-23T22:35:46" Importance="Medium" Text="'tamboprp_mp1::Lugar_Concurso' -  (Enumeration) : success (file created) - E:\ORT\visual studio 2013\Projects\tamboprp\tamboprp_mp1Lib\GeneratedCode\Lugar_Concurso.cs" />
+  <Message Timestamp="2014-10-23T22:35:46" Importance="Medium" Text="'tamboprp_mp1::Categorias_concurso' -  (Enumeration) : success (file created) - E:\ORT\visual studio 2013\Projects\tamboprp\tamboprp_mp1Lib\GeneratedCode\Categorias_concurso.cs" />
+  <Message Timestamp="2014-10-23T22:35:46" Importance="Medium" Text="'tamboprp_mp1::Empresas' -  (Enumeration) : success (file created) - E:\ORT\visual studio 2013\Projects\tamboprp\tamboprp_mp1Lib\GeneratedCode\Empresas.cs" />
+  <Message Timestamp="2014-10-23T22:35:46" Importance="Diagnostic" Text="Name = StructTemplate" />
+  <Message Timestamp="2014-10-23T22:35:46" Importance="Diagnostic" Text="Overwrite = True" />
+  <Message Timestamp="2014-10-23T22:35:46" Importance="Diagnostic" Text="ProjectPath = ..\tamboprp_mp1Lib\tamboprp_mp1Lib.csproj" />
+  <Message Timestamp="2014-10-23T22:35:46" Importance="Diagnostic" Text="TargetDirectory = GeneratedCode\{PackageStructure}" />
+  <Message Timestamp="2014-10-23T22:35:46" Importance="Diagnostic" Text="TargetName = {Name}" />
+  <Message Timestamp="2014-10-23T22:35:46" Importance="Diagnostic" Text="TemplateFilePath = C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 12.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\StructTemplate.t4" />
+  <Message Timestamp="2014-10-23T22:35:46" Importance="Diagnostic" Text="ResolvedTemplateFilePath = C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 12.0\COMMON7\IDE\EXTENSIONS\MICROSOFT\ARCHITECTURE TOOLS\EXTENSIBILITY\Templates\Text\StructTemplate.t4" />
+  <Message Timestamp="2014-10-23T22:35:46" Importance="Medium" Text="tamboprp_mp1's Text Template Binding: 'StructTemplate' will apply StructTemplate.t4 to: 'tamboprp_mp1::Evento' -  (Class), 'tamboprp_mp1::Animal' -  (Class), 'tamboprp_mp1::Categoria' -  (Class), 'tamboprp_mp1::Diag_Prenez' -  (Class), 'tamboprp_mp1::Parto' -  (Class), 'tamboprp_mp1::Celo_Sin_Servicio' -  (Class), 'tamboprp_mp1::Servicio' -  (Class), 'tamboprp_mp1::Secado' -  (Class), 'tamboprp_mp1::Control_Producc' -  (Class), 'tamboprp_mp1::Aborto' -  (Class), 'tamboprp_mp1::Muerte' -  (Class), 'tamboprp_mp1::Venta' -  (Class), 'tamboprp_mp1::Calificacion' -  (Class), 'tamboprp_mp1::Consurso' -  (Class), 'tamboprp_mp1::Ternera' -  (Class), 'tamboprp_mp1::Vaca' -  (Class), 'tamboprp_mp1::Vaquillona' -  (Class), 'tamboprp_mp1::Semen' -  (Class), 'tamboprp_mp1::Toro' -  (Class), 'tamboprp_mp1::Ternero' -  (Class), 'tamboprp_mp1::Empleado' -  (Class), 'tamboprp_mp1::Premio' -  (Class), 'tamboprp_mp1::Usuario' -  (Class), 'tamboprp_mp1::Remito' -  (Class) " />
+  <Message Timestamp="2014-10-23T22:35:47" Importance="Diagnostic" Text="'tamboprp_mp1::Evento' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2014-10-23T22:35:47" Importance="Diagnostic" Text="'tamboprp_mp1::Animal' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2014-10-23T22:35:47" Importance="Diagnostic" Text="'tamboprp_mp1::Categoria' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2014-10-23T22:35:47" Importance="Diagnostic" Text="'tamboprp_mp1::Diag_Prenez' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2014-10-23T22:35:47" Importance="Diagnostic" Text="'tamboprp_mp1::Parto' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2014-10-23T22:35:47" Importance="Diagnostic" Text="'tamboprp_mp1::Celo_Sin_Servicio' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2014-10-23T22:35:47" Importance="Diagnostic" Text="'tamboprp_mp1::Servicio' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2014-10-23T22:35:47" Importance="Diagnostic" Text="'tamboprp_mp1::Secado' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2014-10-23T22:35:47" Importance="Diagnostic" Text="'tamboprp_mp1::Control_Producc' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2014-10-23T22:35:47" Importance="Diagnostic" Text="'tamboprp_mp1::Aborto' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2014-10-23T22:35:48" Importance="Diagnostic" Text="'tamboprp_mp1::Muerte' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2014-10-23T22:35:48" Importance="Diagnostic" Text="'tamboprp_mp1::Venta' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2014-10-23T22:35:48" Importance="Diagnostic" Text="'tamboprp_mp1::Calificacion' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2014-10-23T22:35:48" Importance="Diagnostic" Text="'tamboprp_mp1::Consurso' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2014-10-23T22:35:48" Importance="Diagnostic" Text="'tamboprp_mp1::Ternera' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2014-10-23T22:35:48" Importance="Diagnostic" Text="'tamboprp_mp1::Vaca' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2014-10-23T22:35:48" Importance="Diagnostic" Text="'tamboprp_mp1::Vaquillona' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2014-10-23T22:35:48" Importance="Diagnostic" Text="'tamboprp_mp1::Semen' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2014-10-23T22:35:48" Importance="Diagnostic" Text="'tamboprp_mp1::Toro' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2014-10-23T22:35:48" Importance="Diagnostic" Text="'tamboprp_mp1::Ternero' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2014-10-23T22:35:49" Importance="Diagnostic" Text="'tamboprp_mp1::Empleado' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2014-10-23T22:35:49" Importance="Diagnostic" Text="'tamboprp_mp1::Premio' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2014-10-23T22:35:49" Importance="Diagnostic" Text="'tamboprp_mp1::Usuario' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2014-10-23T22:35:49" Importance="Diagnostic" Text="'tamboprp_mp1::Remito' -  (Class): no file generated because the 'AppliesToElement' method of the template 'StructTemplate.t4' evaluated to false." />
+  <Message Timestamp="2014-10-23T22:35:50" Importance="Diagnostic" Text="The selection included 27 elements which were not bound to a template." />
+  <Message Timestamp="2014-10-23T22:35:50" Importance="Diagnostic" Text="'tamboprp_mp1::' -  (Association): no bound template." />
+  <Message Timestamp="2014-10-23T22:35:50" Importance="Diagnostic" Text="'tamboprp_mp1::' -  (Association): no bound template." />
+  <Message Timestamp="2014-10-23T22:35:50" Importance="Diagnostic" Text="'02277d7e-783f-4abf-8ea0-15c89d85d6e7' -  (Generalization): no bound template." />
+  <Message Timestamp="2014-10-23T22:35:50" Importance="Diagnostic" Text="'80deab2c-1f57-4f09-a308-e4989f914ec9' -  (Generalization): no bound template." />
+  <Message Timestamp="2014-10-23T22:35:50" Importance="Diagnostic" Text="'95fd0fb9-fd7f-4524-b3ea-b08b07062a4d' -  (Generalization): no bound template." />
+  <Message Timestamp="2014-10-23T22:35:50" Importance="Diagnostic" Text="'50cc2ae9-64c5-42eb-992c-9a60bd6bcdf7' -  (Generalization): no bound template." />
+  <Message Timestamp="2014-10-23T22:35:50" Importance="Diagnostic" Text="'2021ef5c-841f-44cf-8214-fed6697f7665' -  (Generalization): no bound template." />
+  <Message Timestamp="2014-10-23T22:35:50" Importance="Diagnostic" Text="'5110d6bd-781f-4d72-8288-f7f97af35794' -  (Generalization): no bound template." />
+  <Message Timestamp="2014-10-23T22:35:50" Importance="Diagnostic" Text="'55e48ebc-dec4-44ca-beb6-2370419cc55e' -  (Generalization): no bound template." />
+  <Message Timestamp="2014-10-23T22:35:50" Importance="Diagnostic" Text="'e7210f69-2cea-4141-8a8f-361d9a889688' -  (Generalization): no bound template." />
+  <Message Timestamp="2014-10-23T22:35:50" Importance="Diagnostic" Text="'8814d0dc-5a22-4cdd-8fc4-70c6b72cc94e' -  (Generalization): no bound template." />
+  <Message Timestamp="2014-10-23T22:35:50" Importance="Diagnostic" Text="'d4bc6182-24ce-4344-aa1c-38859b58de6e' -  (Generalization): no bound template." />
+  <Message Timestamp="2014-10-23T22:35:50" Importance="Diagnostic" Text="'fb6a89e2-6600-45e3-bafb-64e6397cd823' -  (Generalization): no bound template." />
+  <Message Timestamp="2014-10-23T22:35:50" Importance="Diagnostic" Text="'tamboprp_mp1::' -  (Association): no bound template." />
+  <Message Timestamp="2014-10-23T22:35:50" Importance="Diagnostic" Text="'tamboprp_mp1::' -  (Dependency): no bound template." />
+  <Message Timestamp="2014-10-23T22:35:50" Importance="Diagnostic" Text="'tamboprp_mp1::' -  (Dependency): no bound template." />
+  <Message Timestamp="2014-10-23T22:35:50" Importance="Diagnostic" Text="'tamboprp_mp1::' -  (Dependency): no bound template." />
+  <Message Timestamp="2014-10-23T22:35:50" Importance="Diagnostic" Text="'5694e2e4-9612-410b-92e8-9a465d5dbc1f' -  (Generalization): no bound template." />
+  <Message Timestamp="2014-10-23T22:35:50" Importance="Diagnostic" Text="'5392de9b-8bb8-4e12-a339-40351a3ec657' -  (Generalization): no bound template." />
+  <Message Timestamp="2014-10-23T22:35:50" Importance="Diagnostic" Text="'548b0b5e-e526-4c58-bc9e-9b72f3fdacfd' -  (Generalization): no bound template." />
+  <Message Timestamp="2014-10-23T22:35:50" Importance="Diagnostic" Text="'686ab59f-96bb-4c6d-b3a4-fc5eefcc39b7' -  (Generalization): no bound template." />
+  <Message Timestamp="2014-10-23T22:35:50" Importance="Diagnostic" Text="'19b6d70f-cd8a-4885-879a-2faac676a8ad' -  (Generalization): no bound template." />
+  <Message Timestamp="2014-10-23T22:35:50" Importance="Diagnostic" Text="'092213de-5bfb-419e-a211-81287f8eebbb' -  (Generalization): no bound template." />
+  <Message Timestamp="2014-10-23T22:35:50" Importance="Diagnostic" Text="'tamboprp_mp1::' -  (Association): no bound template." />
+  <Message Timestamp="2014-10-23T22:35:50" Importance="Diagnostic" Text="'tamboprp_mp1::' -  (Association): no bound template." />
+  <Message Timestamp="2014-10-23T22:35:50" Importance="Diagnostic" Text="'tamboprp_mp1::' -  (Dependency): no bound template." />
+  <Message Timestamp="2014-10-23T22:35:50" Importance="Diagnostic" Text="'tamboprp_mp1::' -  (Dependency): no bound template." />
+  <Message Timestamp="2014-10-23T22:35:50" Importance="High" Text="Code generation complete. Errors: 0. Warnings: 0." />
+</Log>
