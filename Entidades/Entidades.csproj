@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{09C13C61-B450-4BCA-84B9-4F1EA157A3A9}</ProjectGuid>
+    <ProjectGuid>{388BC54C-1397-4913-B927-E878DAA3278D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>tamboprp_mp1Lib</RootNamespace>
-    <AssemblyName>tamboprp_mp1Lib</AssemblyName>
+    <RootNamespace>Entidades</RootNamespace>
+    <AssemblyName>Entidades</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,10 +39,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aborto.cs" />
+    <Compile Include="Animal.cs" />
+    <Compile Include="Calificacion.cs" />
+    <Compile Include="Categoria.cs" />
+    <Compile Include="Categorias_concurso.cs" />
+    <Compile Include="Celo_Sin_Servicio.cs" />
+    <Compile Include="Consurso.cs" />
+    <Compile Include="Control_Producc.cs" />
+    <Compile Include="Diag_Prenez.cs" />
+    <Compile Include="Empleado.cs" />
+    <Compile Include="Empresas.cs" />
+    <Compile Include="Enfermedades.cs" />
+    <Compile Include="Evento.cs" />
+    <Compile Include="Lugar_Concurso.cs" />
+    <Compile Include="Motivos_Secado.cs" />
+    <Compile Include="Muerte.cs" />
+    <Compile Include="Parto.cs" />
+    <Compile Include="Premio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
+    <Compile Include="Remito.cs" />
+    <Compile Include="Secado.cs" />
+    <Compile Include="Semen.cs" />
+    <Compile Include="Servicio.cs" />
+    <Compile Include="Ternera.cs" />
+    <Compile Include="Ternero.cs" />
+    <Compile Include="Toro.cs" />
+    <Compile Include="Usuario.cs" />
+    <Compile Include="Vaca.cs" />
+    <Compile Include="Vaquillona.cs" />
+    <Compile Include="Venta.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
