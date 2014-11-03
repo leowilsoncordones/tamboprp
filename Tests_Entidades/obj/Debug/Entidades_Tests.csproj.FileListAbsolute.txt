@@ -9,3 +9,6 @@ D:\ORT laptop\2014-S5-Proyecto\tamboprp-git\Tests_Entidades\bin\Debug\nunit.fram
 D:\ORT laptop\2014-S5-Proyecto\tamboprp-git\Tests_Entidades\obj\Debug\Entidades_Tests.csprojResolveAssemblyReference.cache
 D:\ORT laptop\2014-S5-Proyecto\tamboprp-git\Tests_Entidades\obj\Debug\Tests_Entidades.dll
 D:\ORT laptop\2014-S5-Proyecto\tamboprp-git\Tests_Entidades\obj\Debug\Tests_Entidades.pdb
+D:\ORT laptop\2014-S5-Proyecto\tamboprp-git\Tests_Entidades\bin\Debug\Tests_Entidades.dll.config
+D:\ORT laptop\2014-S5-Proyecto\tamboprp-git\Tests_Entidades\bin\Debug\Datos.dll
+D:\ORT laptop\2014-S5-Proyecto\tamboprp-git\Tests_Entidades\bin\Debug\Datos.pdb

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Datos;
 using NUnit.Framework;
 
 
@@ -18,6 +19,14 @@ namespace Tests_Entidades
             var emp = new Empleado{Id_empleado = 1, Activo = true, Apellido = "Perez", Nombre = "Juan" };
             var result = emp.Id_empleado.ToString();
             Assert.IsNotEmpty(result);
+        }
+
+        [Test]
+        public void empleado_should_get_all()
+        {
+            List<Empleado> listEmp;
+            listEmp = new EmpleadoMapper().GetAll();
+            Assert.IsNotEmpty(listEmp);
         }
 
     }

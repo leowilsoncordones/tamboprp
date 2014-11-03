@@ -30,7 +30,7 @@ namespace Datos
             return drResults;
         }
 
-        protected int DataModifySentece(OperationType opType)
+        protected int DataModifySentence(OperationType opType)
         {
             int nRetunValue = -1;
             string sConnectionString = GetConnectionString();
@@ -48,17 +48,17 @@ namespace Datos
 
         public int Insert()
         {
-            return DataModifySentece(OperationType.INSERT);
+            return DataModifySentence(OperationType.INSERT);
         }
 
         public int Update()
         {
-            return DataModifySentece(OperationType.UPDATE);
+            return DataModifySentence(OperationType.UPDATE);
         }
 
         public int Delete()
         {
-            return DataModifySentece(OperationType.DELETE);
+            return DataModifySentence(OperationType.DELETE);
         }
 
     }

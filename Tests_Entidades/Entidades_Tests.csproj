@@ -47,9 +47,14 @@
     <Compile Include="TestEmpleado.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Datos\Datos.csproj">
+      <Project>{69ED8AD9-6A4C-4799-90C4-59F3F5241FFC}</Project>
+      <Name>Datos</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Entidades\Entidades.csproj">
       <Project>{388bc54c-1397-4913-b927-e878daa3278d}</Project>
       <Name>Entidades</Name>
