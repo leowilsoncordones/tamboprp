@@ -15,21 +15,26 @@ public class Empleado
     {
     }
 
-    public Empleado(string apellido, string nombre, int idEmpleado, bool activo)
+    public Empleado(Int16 idEmpleado, string nombre, string apellido, string iniciales, bool? activo)
     {
-        Apellido = apellido;
-        Nombre = nombre;
         Id_empleado = idEmpleado;
+        Nombre = nombre;
+        Apellido = apellido;
+        Iniciales = iniciales;
         Activo = activo;
     }
 
-    public bool Activo { get; set; }
+    
 
-    public int Id_empleado { get; set; }
+    public Int16 Id_empleado { get; set; }
 
     public string Nombre { get ; set; }
 
     public string Apellido { get; set; }
+
+    public string Iniciales { get; set; }
+
+    public bool? Activo { get; set; }
 
 }
 
