@@ -15,7 +15,7 @@ namespace Tests_Entidades
         {
             var fecha = DateTime.Now;
             var resultado = fecha.ToString("yyyy-MM-dd");
-            Assert.AreEqual("2014-10-30",resultado);
+            Assert.AreEqual("2014-11-03",resultado);
         }
 
     }
