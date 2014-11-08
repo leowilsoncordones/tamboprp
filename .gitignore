@@ -1,3 +1,5 @@
 *.dll
 *.obj
 *.pdb
+/Entidades/bin/Debug/*.pdb
+bin/
