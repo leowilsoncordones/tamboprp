@@ -48,7 +48,7 @@ namespace Datos
         public List<Animal> GetSearch(string buscar, int criterio)
         {
             List<Animal> result = new List<Animal>();
-            if (criterio < 0 || criterio > 11) return result;
+            if (criterio < 0 || criterio > 1) return result;
             SqlCommand cmd = null;
             cmd = new SqlCommand();
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
