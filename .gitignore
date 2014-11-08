@@ -15,3 +15,5 @@
 /Tests_Entidades/bin
 /Tests_Entidades/obj
 /packages
+/*.user
+/*.suo
