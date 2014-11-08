@@ -12,6 +12,7 @@ namespace tamboprp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            LimpiarRegistro();
             //if (!Page.IsPostBack)
             //{
             //    //Animal a = new Animal();
@@ -54,8 +55,36 @@ namespace tamboprp
             //this.CargarFicha(a2);
 
             List<Animal> animals = amap.GetSearch(this.regBuscar.Value, 0);
-            //if (animals!=)
-            this.CargarFichaAnimal(animals[0]);
+            if (animals.Count > 0)
+            {
+                if (animals.Count > 1)
+                {
+
+                }
+                this.CargarFichaAnimal(animals[0]);
+            }
+            else
+            {
+                LimpiarRegistro();
+                this.lblAnimal.Text = "No existe :(";
+            }
+        }
+
+        private void LimpiarRegistro()
+        {
+            this.lblAnimal.Text = "Registro";
+            this.lblIdentif.Text = "";
+            this.lblGen.Text = "";
+            this.lblCategoria.Text = "";
+            this.lblNombre.Text = "";
+            this.lblTraz.Text = "";
+            this.lblSexo.Text = "";
+            this.lblFechaNac.Text = "";
+            this.lblOrigen.Text = "";
+            this.lblRegPadre.Text = "";
+            this.lblRegMadre.Text = "";
+            this.lblVivo.Text = "VIVO/MUERTO";
+            this.lblVivo.CssClass = "label label-default";
         }
     }
 }
