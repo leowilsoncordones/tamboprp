@@ -2,4 +2,4 @@
 *.obj
 *.pdb
 /Entidades/bin/Debug/*.pdb
-bin/
+/Entidades/bin/
