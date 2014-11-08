@@ -4,22 +4,23 @@
 //     Changes to this file will be lost if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-public abstract class Evento
+namespace Entidades
 {
-    protected Evento()
+    public abstract class Evento
     {
+        protected Evento()
+        {
+        }
+
+        public virtual DateTime Fecha { get; set; }
+
+        public virtual int Id_evento { get; set; }
+
+        public virtual string Comentarios { get; set; }
+
     }
-
-    public virtual DateTime Fecha { get; set; }
-
-    public virtual int Id_evento { get; set; }
-
-    public virtual string Comentarios { get; set; }
-
 }
 

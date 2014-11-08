@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Datos;
+using Entidades;
+
 
 namespace Negocio
 {
@@ -22,6 +25,29 @@ namespace Negocio
                 }
                 return _instance;
             }
+        }
+
+
+        public List<Animal> GetSearchAnimal(string registro)
+        {
+            var a = new Animal();
+            a.Registro = registro;
+            var amap = new AnimalMapper(a);
+            List<Animal> animals = amap.GetSearch(registro, 0);
+            return animals;
+        }
+
+        public Animal GetEventosAnimal(string registro)
+        {
+            var a = new Animal {Registro = registro};
+            var calMap = new CalificacionMapper();           
+            List<Evento> listEv = calMap.GetCalificacionesRegistro(registro);
+            a.Eventos.AddRange(listEv);
+            var conMap = new Control_ProduccMapper(registro);
+            var lisConProd = conMap.GetControlesProduccRegistro();
+            a.Eventos.AddRange(lisConProd);
+
+            return a;
         }
 
     }

@@ -4,23 +4,22 @@
 //     Changes to this file will be lost if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-public class Muerte : Evento
+namespace Entidades
 {
-    public Muerte()
+    public class Muerte : Evento
     {
+        public Muerte()
+        {
+        }
+
+        public Muerte(Enfermedades enfermedad)
+        {
+            Enfermedad = enfermedad;
+        }
+
+        public Enfermedades Enfermedad { get; set; }
+
     }
-
-    public Muerte(Enfermedades enfermedad)
-    {
-        Enfermedad = enfermedad;
-    }
-
-    public Enfermedades Enfermedad { get; set; }
-
 }
 

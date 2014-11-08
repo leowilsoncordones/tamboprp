@@ -4,28 +4,29 @@
 //     Changes to this file will be lost if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using System;
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-public class Consurso : Evento
+namespace Entidades
 {
-    public Consurso()
+    public class Consurso : Evento
     {
+        public Consurso()
+        {
+        }
+
+        public Consurso(List<Premio> premios, int anio)
+        {
+            Premios = premios;
+            Anio = anio;
+        }
+
+        public int Anio { get; set; }
+
+        public List<Premio> Premios { get; set; }
+
+        //public virtual IEnumerable<Premio> Premio { get; set; }
+
     }
-
-    public Consurso(List<Premio> premios, int anio)
-    {
-        Premios = premios;
-        Anio = anio;
-    }
-
-    public int Anio { get; set; }
-
-    public List<Premio> Premios { get; set; }
-
-	//public virtual IEnumerable<Premio> Premio { get; set; }
-
 }
 

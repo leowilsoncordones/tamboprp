@@ -4,66 +4,68 @@
 //     Changes to this file will be lost if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-public class Animal
+namespace Entidades
 {
-    public Animal()
+    public class Animal
     {
+        public Animal()
+        {
+        }
+
+        public Animal(bool vivo, IEnumerable<Evento> evento, Categoria categoria, List<Evento> eventos, List<string> imagenes, string identificacion, string origen, string regMadre, string regPadre, DateTime fechaNacim, char sexo, string regTrazab, int gen, string registro, string nombre)
+        {
+            Vivo = vivo;
+            Evento = evento;
+            Categoria = categoria;
+            Eventos = eventos;
+            Imagenes = imagenes;
+            Identificacion = identificacion;
+            Origen = origen;
+            Reg_madre = regMadre;
+            Reg_padre = regPadre;
+            Fecha_nacim = fechaNacim;
+            Sexo = sexo;
+            Reg_trazab = regTrazab;
+            Gen = gen;
+            Registro = registro;
+            Nombre = nombre;
+        }
+
+        public bool Vivo { get; set; }
+
+        public string Nombre { get; set; }
+
+        public string Registro { get; set; }
+
+        public int Gen { get; set; }
+
+        public string Reg_trazab { get; set; }
+
+        public Char Sexo { get; set; }
+
+        public DateTime Fecha_nacim { get; set; }
+
+        public string Reg_padre { get; set; }
+
+        public string Reg_madre { get; set; }
+
+        public string Origen { get; set; }
+
+        public string Identificacion { get; set; }
+
+        public List<String> Imagenes { get; set;}
+
+        public List<Evento> Eventos{ get; set; }
+
+        public virtual Categoria Categoria { get; set; }
+
+        public virtual IEnumerable<Evento> Evento { get; set; }
+
+
     }
-
-    public Animal(bool vivo, IEnumerable<Evento> evento, Categoria categoria, List<Evento> eventos, List<string> imagenes, string identificacion, string origen, string regMadre, string regPadre, DateTime fechaNacim, char sexo, string regTrazab, int gen, string registro, string nombre)
-    {
-        Vivo = vivo;
-        Evento = evento;
-        Categoria = categoria;
-        Eventos = eventos;
-        Imagenes = imagenes;
-        Identificacion = identificacion;
-        Origen = origen;
-        Reg_madre = regMadre;
-        Reg_padre = regPadre;
-        Fecha_nacim = fechaNacim;
-        Sexo = sexo;
-        Reg_trazab = regTrazab;
-        Gen = gen;
-        Registro = registro;
-        Nombre = nombre;
-    }
-
-    public bool Vivo { get; set; }
-
-    public string Nombre { get; set; }
-
-    public string Registro { get; set; }
-
-    public int Gen { get; set; }
-
-    public string Reg_trazab { get; set; }
-
-    public Char Sexo { get; set; }
-
-    public DateTime Fecha_nacim { get; set; }
-
-    public string Reg_padre { get; set; }
-
-    public string Reg_madre { get; set; }
-
-    public string Origen { get; set; }
-
-    public string Identificacion { get; set; }
-
-    public List<String> Imagenes { get; set;}
-
-    public List<Evento> Eventos{ get; set; }
-
-	public virtual Categoria Categoria { get; set; }
-
-	public virtual IEnumerable<Evento> Evento { get; set; }
-
-
 }
 

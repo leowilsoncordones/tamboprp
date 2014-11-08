@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Datos;
+using Negocio;
+using Entidades;
 
 namespace tamboprp
 {
@@ -47,14 +49,8 @@ namespace tamboprp
 
         protected void btnBuscarAnimal_Click(object sender, EventArgs e)
         {
-            Animal a = new Animal();
-            a.Registro = this.regBuscar.Value;
-            var amap = new AnimalMapper(a);
-            //Animal a2 = amap.GetAnimalbyId();
-            //Animal a2 = amap.GetAnimalbyId();
-            //this.CargarFicha(a2);
-
-            List<Animal> animals = amap.GetSearch(this.regBuscar.Value, 0);
+            List<Animal> animals =  Fachada.Instance.GetSearchAnimal(regBuscar.Value);
+           
             if (animals.Count > 0)
             {
                 if (animals.Count > 1)

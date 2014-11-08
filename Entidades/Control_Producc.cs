@@ -4,29 +4,28 @@
 //     Changes to this file will be lost if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-public class Control_Producc : Evento
+namespace Entidades
 {
-    public Control_Producc()
+    public class Control_Producc : Evento
     {
+        public Control_Producc()
+        {
+        }
+
+        public Control_Producc(int diasParaControl, float leche, float grasa)
+        {
+            Dias_para_control = diasParaControl;
+            Leche = leche;
+            Grasa = grasa;
+        }
+
+        public float Grasa { get; set; }
+
+        public float Leche { get; set; }
+
+        public int Dias_para_control { get; set; }
+
     }
-
-    public Control_Producc(int diasParaControl, float leche, float grasa)
-    {
-        Dias_para_control = diasParaControl;
-        Leche = leche;
-        Grasa = grasa;
-    }
-
-    public float Grasa { get; set; }
-
-    public float Leche { get; set; }
-
-    public int Dias_para_control { get; set; }
-
 }
 

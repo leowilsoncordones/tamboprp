@@ -4,15 +4,14 @@
 //     Changes to this file will be lost if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-public enum Motivos_Secado
+namespace Entidades
 {
-	LACTANCIA_COMPLETA = 1,
-	RAZONES_SANITARIAS = 2,
-	BAJA_PRODUCCION = 3,
-	PRENEZ_AVANZADA = 4,
+    public enum Motivos_Secado
+    {
+        LACTANCIA_COMPLETA = 1,
+        RAZONES_SANITARIAS = 2,
+        BAJA_PRODUCCION = 3,
+        PRENEZ_AVANZADA = 4,
+    }
 }

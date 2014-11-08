@@ -4,16 +4,15 @@
 //     Changes to this file will be lost if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-public enum Lugar_Concurso
+namespace Entidades
 {
-	MONTEVIDEO__Expo_Prado,
-	CARDAL_Fiesta__Nacional_de_la_Leche,
-	SAN_JOSE__Expo,
-	TARARIRAS,
-    COLONIA,
+    public enum Lugar_Concurso
+    {
+        MONTEVIDEO__Expo_Prado,
+        CARDAL_Fiesta__Nacional_de_la_Leche,
+        SAN_JOSE__Expo,
+        TARARIRAS,
+        COLONIA,
+    }
 }

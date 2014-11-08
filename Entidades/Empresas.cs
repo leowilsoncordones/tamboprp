@@ -4,14 +4,13 @@
 //     Changes to this file will be lost if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-public enum Empresas
+namespace Entidades
 {
-    SCHREIBER_DULEI_SA = 0,
-    CONAPROLE = 1,
-	ECOLAT = 2,
+    public enum Empresas
+    {
+        SCHREIBER_DULEI_SA = 0,
+        CONAPROLE = 1,
+        ECOLAT = 2,
+    }
 }

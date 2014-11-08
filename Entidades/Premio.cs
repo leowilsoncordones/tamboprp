@@ -4,26 +4,25 @@
 //     Changes to this file will be lost if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-public class Premio
+namespace Entidades
 {
-    public Premio()
+    public class Premio
     {
+        public Premio()
+        {
+        }
+
+        public Premio(Categorias_concurso categConcuros, string nombrePremio)
+        {
+            Categ_concuros = categConcuros;
+            Nombre_premio = nombrePremio;
+        }
+
+        public string Nombre_premio { get; set; }
+
+        public virtual Categorias_concurso Categ_concuros { get; set; }
+
     }
-
-    public Premio(Categorias_concurso categConcuros, string nombrePremio)
-    {
-        Categ_concuros = categConcuros;
-        Nombre_premio = nombrePremio;
-    }
-
-    public string Nombre_premio { get; set; }
-
-	public virtual Categorias_concurso Categ_concuros { get; set; }
-
 }
 

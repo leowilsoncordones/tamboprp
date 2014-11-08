@@ -4,15 +4,14 @@
 //     Changes to this file will be lost if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-public class Semen : Categoria
+namespace Entidades
 {
-    public Semen()
+    public class Semen : Categoria
     {
+        public Semen()
+        {
+        }
     }
 }
 

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using Entidades;
+using Negocio;
 
 namespace Tests_Entidades
 {
@@ -16,6 +18,14 @@ namespace Tests_Entidades
             var fecha = DateTime.Now;
             var resultado = fecha.ToString("yyyy-MM-dd");
             Assert.AreEqual("2014-11-03",resultado);
+        }
+
+        [Test]
+        public void getEventosAnimal_should_collect() 
+        {
+            var anim = new Animal();
+            anim = Fachada.Instance.GetEventosAnimal("3110");
+            Assert.IsNotNull(anim);
         }
 
     }

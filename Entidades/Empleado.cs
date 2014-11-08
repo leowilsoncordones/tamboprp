@@ -4,44 +4,45 @@
 //     Changes to this file will be lost if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-public class Empleado
+namespace Entidades
 {
-    public Empleado()
+    public class Empleado
     {
-    }
+        public Empleado()
+        {
+        }
 
-    public Empleado(string nombre, string apellido, string iniciales, bool? activo)
-    {
-        Nombre = nombre;
-        Apellido = apellido;
-        Iniciales = iniciales;
-        Activo = activo;
-    }
+        public Empleado(string nombre, string apellido, string iniciales, bool? activo)
+        {
+            Nombre = nombre;
+            Apellido = apellido;
+            Iniciales = iniciales;
+            Activo = activo;
+        }
 
-    public Empleado(Int16 idEmpleado, string nombre, string apellido, string iniciales, bool? activo)
-    {
-        Id_empleado = idEmpleado;
-        Nombre = nombre;
-        Apellido = apellido;
-        Iniciales = iniciales;
-        Activo = activo;
-    }
+        public Empleado(Int16 idEmpleado, string nombre, string apellido, string iniciales, bool? activo)
+        {
+            Id_empleado = idEmpleado;
+            Nombre = nombre;
+            Apellido = apellido;
+            Iniciales = iniciales;
+            Activo = activo;
+        }
     
 
-    public Int16 Id_empleado { get; set; }
+        public Int16 Id_empleado { get; set; }
 
-    public string Nombre { get ; set; }
+        public string Nombre { get ; set; }
 
-    public string Apellido { get; set; }
+        public string Apellido { get; set; }
 
-    public string Iniciales { get; set; }
+        public string Iniciales { get; set; }
 
-    public bool? Activo { get; set; }
+        public bool? Activo { get; set; }
 
+    }
 }
 

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Datos;
 using NUnit.Framework;
+using Entidades;
 
 
 namespace Tests_Entidades

@@ -4,26 +4,25 @@
 //     Changes to this file will be lost if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-public class Calificacion : Evento
+namespace Entidades
 {
-    public Calificacion()
+    public class Calificacion : Evento
     {
+        public Calificacion()
+        {
+        }
+
+        public Calificacion(int puntos, string letras)
+        {
+            Puntos = puntos;
+            Letras = letras;
+        }
+
+        public string Letras { get; set; }
+
+        public int Puntos { get; set; }
+
     }
-
-    public Calificacion(int puntos, string letras)
-    {
-        Puntos = puntos;
-        Letras = letras;
-    }
-
-    public string Letras { get; set; }
-
-    public int Puntos { get; set; }
-
 }
 
