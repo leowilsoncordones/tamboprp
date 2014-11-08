@@ -30,6 +30,20 @@ namespace Datos
             return drResults;
         }
 
+        protected SqlDataReader FindByCmd(SqlCommand pcmd)
+        {
+            SqlDataReader drResults;
+            string sConnectionString = GetConnectionString();
+            SqlConnection conn = new SqlConnection(sConnectionString);
+
+            SqlCommand cmd = pcmd;
+            cmd.Connection = conn;
+            conn.Open();
+            drResults = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            return drResults;
+        }
+
         protected int DataModifySentence(OperationType opType)
         {
             int nRetunValue = -1;

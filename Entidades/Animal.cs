@@ -15,7 +15,7 @@ public class Animal
     {
     }
 
-    public Animal(bool vivo, IEnumerable<Evento> evento, Categoria categoria, List<Evento> eventos, List<string> imagenes, string identificacion, string origen, Animal regMadre, Animal regPadre, DateTime fechaNacim, char sexo, string regTrazab, int gen, string registro, string nombre)
+    public Animal(bool vivo, IEnumerable<Evento> evento, Categoria categoria, List<Evento> eventos, List<string> imagenes, string identificacion, string origen, string regMadre, string regPadre, DateTime fechaNacim, char sexo, string regTrazab, int gen, string registro, string nombre)
     {
         Vivo = vivo;
         Evento = evento;
@@ -48,9 +48,9 @@ public class Animal
 
     public DateTime Fecha_nacim { get; set; }
 
-    public Animal Reg_padre { get; set; }
+    public string Reg_padre { get; set; }
 
-    public Animal Reg_madre { get; set; }
+    public string Reg_madre { get; set; }
 
     public string Origen { get; set; }
 
