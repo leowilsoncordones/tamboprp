@@ -74,7 +74,7 @@ namespace Datos
             {
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.CommandText = "Emplead_Delete";
+                cmd.CommandText = "Empleado_Delete";
                 cmd.Parameters.Add(new SqlParameter("@ID_EMPLEADO", _empleado.Id_empleado));
             }
             else if (opType == OperationType.INSERT)

@@ -1,5 +1,0 @@
-D:\ORT laptop\2014-S5-Proyecto\tamboprp-git\Entidades\bin\Debug\Entidades.dll
-D:\ORT laptop\2014-S5-Proyecto\tamboprp-git\Entidades\bin\Debug\Entidades.pdb
-D:\ORT laptop\2014-S5-Proyecto\tamboprp-git\Entidades\obj\Debug\Entidades.csprojResolveAssemblyReference.cache
-D:\ORT laptop\2014-S5-Proyecto\tamboprp-git\Entidades\obj\Debug\Entidades.dll
-D:\ORT laptop\2014-S5-Proyecto\tamboprp-git\Entidades\obj\Debug\Entidades.pdb

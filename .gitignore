@@ -6,3 +6,7 @@
 /Datos/bin/Debug/*.pdb
 /Datos/bin/Debug/*.dll
 /tamboprp/bin/*.*
+/Entidades/bin
+/Entidades/obj
+/Datos/bin
+/Datos/obj

@@ -15,6 +15,14 @@ public class Empleado
     {
     }
 
+    public Empleado(string nombre, string apellido, string iniciales, bool? activo)
+    {
+        Nombre = nombre;
+        Apellido = apellido;
+        Iniciales = iniciales;
+        Activo = activo;
+    }
+
     public Empleado(Int16 idEmpleado, string nombre, string apellido, string iniciales, bool? activo)
     {
         Id_empleado = idEmpleado;
@@ -23,7 +31,6 @@ public class Empleado
         Iniciales = iniciales;
         Activo = activo;
     }
-
     
 
     public Int16 Id_empleado { get; set; }
