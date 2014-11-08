@@ -2,4 +2,7 @@
 *.obj
 *.pdb
 /Entidades/bin/Debug/*.pdb
-/Entidades/bin/
+/Entidades/bin/Debug/*.dll
+/Datos/bin/Debug/*.pdb
+/Datos/bin/Debug/*.dll
+/tamboprp/bin/*.*
