@@ -15,6 +15,8 @@ namespace Entidades
         {
         }
 
+        public virtual string Nombre { get; set; }
+
         public virtual DateTime Fecha { get; set; }
 
         public virtual int Id_evento { get; set; }
@@ -23,7 +25,7 @@ namespace Entidades
 
         public override string ToString()
         {
-            return Fecha.ToShortDateString() + " | " + Id_evento.ToString() + " | " + Comentarios;
+            return Fecha.ToShortDateString() + " | " + Nombre + " | " + Comentarios;
         }
 
     }

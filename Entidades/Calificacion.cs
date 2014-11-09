@@ -11,6 +11,7 @@ namespace Entidades
     {
         public Calificacion()
         {
+            Nombre = "Calificación";
         }
 
         public Calificacion(int puntos, string letras)
@@ -25,7 +26,7 @@ namespace Entidades
 
         public override string ToString()
         {
-            return Fecha.ToShortDateString() + " | Calificación | " + Letras + " " + Puntos.ToString(); 
+            return Letras + " " + Puntos.ToString(); 
         }
 
     }

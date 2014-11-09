@@ -57,7 +57,7 @@ namespace tamboprp
                 {
                     var eventStr = new EventoString();
                     eventStr.Fecha = a.Eventos[i].Fecha.ToShortDateString();
-                    eventStr.NombreEvento = a.Eventos[i].Id_evento.ToString();
+                    eventStr.NombreEvento = a.Eventos[i].Nombre;
                     eventStr.Comentario = a.Eventos[i].ToString();
                     list.Add(eventStr);
                 }
@@ -106,6 +106,8 @@ namespace tamboprp
             this.lblVivo.Text = "VIVO/MUERTO";
             this.lblHistorico.Text = "";
             this.lblVivo.CssClass = "label label-default";
+            this.gvHistoria.DataSource = null;
+            this.gvHistoria.DataBind();
         }
 
         public class EventoString

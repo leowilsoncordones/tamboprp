@@ -11,6 +11,7 @@ namespace Entidades
     {
         public Control_Producc()
         {
+            Nombre = "Control de Producción";
         }
 
         public Control_Producc(int diasParaControl, double leche, double grasa)
@@ -28,7 +29,7 @@ namespace Entidades
 
         public override string ToString()
         {
-            return Fecha.ToShortDateString() + " | Control de Producción | Días para control " + Dias_para_control + " Leche: " + Leche.ToString() + " Grasa: " + Grasa.ToString();
+            return "Leche: " + Leche.ToString() + " Grasa: " + Grasa.ToString() + " Días para control: " + Dias_para_control.ToString();
         }
 
     }
