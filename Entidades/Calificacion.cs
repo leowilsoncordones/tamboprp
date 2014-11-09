@@ -23,6 +23,11 @@ namespace Entidades
 
         public int Puntos { get; set; }
 
+        public override string ToString()
+        {
+            return Fecha.ToShortDateString() + " | Calificación | " + Letras + " " + Puntos.ToString(); 
+        }
+
     }
 }
 

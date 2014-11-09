@@ -28,6 +28,21 @@
                 <a class="btn btn-default" href="#" role="button">Ver fotos</a>
             </p>
             <p>
+                <asp:GridView ID="gvHistoria" runat="server" AutoGenerateColumns="False" GridLines="None" 
+            HorizontalAlign="Left" CssClass="table table-hover table-striped table-bordered table-condensed dataTable" Caption="Historia del animal" CaptionAlign="Left" >
+            <RowStyle HorizontalAlign="Left"  />
+            <Columns>
+                <asp:BoundField DataField="Fecha" HeaderText="Fecha" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                <asp:BoundField DataField="NombreEvento" HeaderText="Evento" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />    
+                <asp:BoundField DataField="Comentario" HeaderText="Comentario" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+            </Columns>
+            <FooterStyle />
+            <PagerStyle HorizontalAlign="Left" />
+            <SelectedRowStyle />
+            <HeaderStyle />
+            <EditRowStyle />
+            <AlternatingRowStyle />
+        </asp:GridView>
                 <asp:Label ID="titHistorico" runat="server" Text="Cantidad de eventos: " ></asp:Label><asp:Label ID="lblHistorico" runat="server" ></asp:Label><br/>
             </p>
         </div>

@@ -26,6 +26,11 @@ namespace Entidades
 
         public int Dias_para_control { get; set; }
 
+        public override string ToString()
+        {
+            return Fecha.ToShortDateString() + " | Control de Producción | Días para control " + Dias_para_control + " Leche: " + Leche.ToString() + " Grasa: " + Grasa.ToString();
+        }
+
     }
 }
 

@@ -21,6 +21,11 @@ namespace Entidades
 
         public virtual string Comentarios { get; set; }
 
+        public override string ToString()
+        {
+            return Fecha.ToShortDateString() + " | " + Id_evento.ToString() + " | " + Comentarios;
+        }
+
     }
 }
 

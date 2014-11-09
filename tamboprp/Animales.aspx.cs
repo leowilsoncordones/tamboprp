@@ -43,20 +43,28 @@ namespace tamboprp
                 this.lblRegMadre.Text = a.Reg_madre;
                 this.lblVivo.Text = (a.Vivo) ? "VIVO" : "MUERTO";
                 this.lblVivo.CssClass = (a.Vivo) ? "label label-success" : "label label-danger";
-                if (a.Eventos.Count > 0)
-                {
-                    this.lblHistorico.Text = a.Eventos.Count.ToString();
-                }
+                EventosAGrilla(a);
             }
             else this.lblAnimal.Text = "No existe :(";
         }
 
-        public void EventosAString(Animal a)
+        public void EventosAGrilla(Animal a)
         {
+            List<EventoString> list = new List<EventoString>();
             if (a.Eventos.Count > 0)
             {
-                this.lblHistorico.Text = a.Eventos.Count.ToString();
+                for (int i = 0; i < a.Eventos.Count; i++)
+                {
+                    var eventStr = new EventoString();
+                    eventStr.Fecha = a.Eventos[i].Fecha.ToShortDateString();
+                    eventStr.NombreEvento = a.Eventos[i].Id_evento.ToString();
+                    eventStr.Comentario = a.Eventos[i].ToString();
+                    list.Add(eventStr);
+                }
+                this.gvHistoria.DataSource = list;
+                this.gvHistoria.DataBind();
             }
+            this.lblHistorico.Text = a.Eventos.Count.ToString();
         }
 
 
@@ -99,5 +107,24 @@ namespace tamboprp
             this.lblHistorico.Text = "";
             this.lblVivo.CssClass = "label label-default";
         }
+
+        public class EventoString
+        {
+            public EventoString() { }
+
+            public EventoString(string fecha, string nombreEvento, string comentario)
+            {
+                Fecha = fecha;
+                NombreEvento = nombreEvento;
+                Comentario = comentario;
+            }
+
+            public string Fecha { get ; set; }
+
+            public string NombreEvento { get ; set; }
+
+            public string Comentario { get ; set; }
+
+          }
     }
 }
