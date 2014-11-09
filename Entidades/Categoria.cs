@@ -4,29 +4,33 @@
 //     Changes to this file will be lost if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-public abstract class Categoria
+namespace Entidades
 {
-    public Categoria()
+    public abstract class Categoria
     {
+        public Categoria()
+        {
+        }
+
+        protected Categoria(string nombre, string observacion, int idCateg)
+        {
+            Nombre = nombre;
+            Observacion = observacion;
+            Id_categ = idCateg;
+        }
+
+        protected virtual int Id_categ { get; set; }
+
+        protected virtual string Observacion { get; set; }
+
+        protected virtual string Nombre { get; set; }
+
+        public string ToString()
+        {
+            return Id_categ.ToString() + " - " + Nombre;
+        }
+
     }
-
-    protected Categoria(string nombre, string observacion, int idCateg)
-    {
-        Nombre = nombre;
-        Observacion = observacion;
-        Id_categ = idCateg;
-    }
-
-    protected virtual int Id_categ { get; set; }
-
-	protected virtual string Observacion { get; set; }
-
-	protected virtual string Nombre { get; set; }
-
 }
 

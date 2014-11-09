@@ -4,23 +4,22 @@
 //     Changes to this file will be lost if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-public class Secado : Evento
+namespace Entidades
 {
-    public Secado()
+    public class Secado : Evento
     {
+        public Secado()
+        {
+        }
+
+        public Secado(Motivos_Secado motivosSecado)
+        {
+            Motivos_secado = motivosSecado;
+        }
+
+        public virtual Motivos_Secado Motivos_secado { get; set; }
+
     }
-
-    public Secado(Motivos_Secado motivosSecado)
-    {
-        Motivos_secado = motivosSecado;
-    }
-
-    public virtual Motivos_Secado Motivos_secado { get; set; }
-
 }
 

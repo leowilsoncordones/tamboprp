@@ -42,6 +42,8 @@
   <ItemGroup>
     <Compile Include="AbstractMapper.cs" />
     <Compile Include="AnimalMapper.cs" />
+    <Compile Include="CalificacionMapper.cs" />
+    <Compile Include="Control_ProduccMapper.cs" />
     <Compile Include="EmpleadoMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

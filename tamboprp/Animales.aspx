@@ -27,6 +27,9 @@
                 <asp:Label ID="titOrigen" runat="server" Text="Origen: "></asp:Label><asp:Label ID="lblOrigen" runat="server" ></asp:Label><br/><br/>
                 <a class="btn btn-default" href="#" role="button">Ver fotos</a>
             </p>
+            <p>
+                <asp:Label ID="titHistorico" runat="server" Text="Cantidad de eventos: " ></asp:Label><asp:Label ID="lblHistorico" runat="server" ></asp:Label><br/>
+            </p>
         </div>
         
         <!-- Small modal -->

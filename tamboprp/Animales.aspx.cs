@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Datos;
+using Negocio;
+using Entidades;
 
 namespace tamboprp
 {
@@ -41,27 +43,37 @@ namespace tamboprp
                 this.lblRegMadre.Text = a.Reg_madre;
                 this.lblVivo.Text = (a.Vivo) ? "VIVO" : "MUERTO";
                 this.lblVivo.CssClass = (a.Vivo) ? "label label-success" : "label label-danger";
+                if (a.Eventos.Count > 0)
+                {
+                    this.lblHistorico.Text = a.Eventos.Count.ToString();
+                }
             }
             else this.lblAnimal.Text = "No existe :(";
         }
 
+        public void EventosAString(Animal a)
+        {
+            if (a.Eventos.Count > 0)
+            {
+                this.lblHistorico.Text = a.Eventos.Count.ToString();
+            }
+        }
+
+
         protected void btnBuscarAnimal_Click(object sender, EventArgs e)
         {
-            Animal a = new Animal();
-            a.Registro = this.regBuscar.Value;
-            var amap = new AnimalMapper(a);
-            //Animal a2 = amap.GetAnimalbyId();
-            //Animal a2 = amap.GetAnimalbyId();
-            //this.CargarFicha(a2);
-
-            List<Animal> animals = amap.GetSearch(this.regBuscar.Value, 0);
+            List<Animal> animals =  Fachada.Instance.GetSearchAnimal(regBuscar.Value);
+           
             if (animals.Count > 0)
             {
                 if (animals.Count > 1)
                 {
 
                 }
-                this.CargarFichaAnimal(animals[0]);
+                var unAnimal = animals[0];
+                var retAnimal = Fachada.Instance.GetEventosAnimal(unAnimal.Registro);
+                unAnimal.Eventos = retAnimal.Eventos;
+                this.CargarFichaAnimal(unAnimal);
             }
             else
             {
@@ -84,6 +96,7 @@ namespace tamboprp
             this.lblRegPadre.Text = "";
             this.lblRegMadre.Text = "";
             this.lblVivo.Text = "VIVO/MUERTO";
+            this.lblHistorico.Text = "";
             this.lblVivo.CssClass = "label label-default";
         }
     }

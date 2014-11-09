@@ -4,35 +4,34 @@
 //     Changes to this file will be lost if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-public class Usuario
+namespace Entidades
 {
-    public Usuario()
+    public class Usuario
     {
+        public Usuario()
+        {
+        }
+
+        public Usuario(string nickname, string password, string nombre, string apellido, string email)
+        {
+            Nickname = nickname;
+            Password = password;
+            Nombre = nombre;
+            Apellido = apellido;
+            Email = email;
+        }
+
+        public string Nickname { get; set; }
+
+        public string Password { get; set; }
+
+        public string Nombre { get; set; }
+
+        public string Apellido { get; set; }
+
+        public string Email {  get; set; }
+
     }
-
-    public Usuario(string nickname, string password, string nombre, string apellido, string email)
-    {
-        Nickname = nickname;
-        Password = password;
-        Nombre = nombre;
-        Apellido = apellido;
-        Email = email;
-    }
-
-    public string Nickname { get; set; }
-
-    public string Password { get; set; }
-
-    public string Nombre { get; set; }
-
-    public string Apellido { get; set; }
-
-    public string Email {  get; set; }
-
 }
 

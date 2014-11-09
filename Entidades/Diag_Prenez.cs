@@ -4,23 +4,24 @@
 //     Changes to this file will be lost if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-public class Diag_Prenez : Evento
+namespace Entidades
 {
-    public Diag_Prenez()
+    public class Diag_Prenez : Evento
     {
+        public Diag_Prenez()
+        {
+        }
+
+        public Diag_Prenez(char diagnostico)
+        {
+            Diagnostico = diagnostico;
+        }
+
+        public Char Diagnostico { get; set; }
+
     }
-
-    public Diag_Prenez(char diagnostico)
-    {
-        Diagnostico = diagnostico;
-    }
-
-    public Char Diagnostico { get; set; }
-
 }
 

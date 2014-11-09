@@ -4,15 +4,14 @@
 //     Changes to this file will be lost if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-public class Celo_Sin_Servicio : Evento
+namespace Entidades
 {
-    public Celo_Sin_Servicio()
+    public class Celo_Sin_Servicio : Evento
     {
+        public Celo_Sin_Servicio()
+        {
+        }
     }
 }
 
