@@ -52,9 +52,7 @@ namespace tamboprp
         {
             List<EventoString> list = new List<EventoString>();
             if (a.Eventos.Count > 0)
-            {
-                a.Eventos.Sort();
-                a.Eventos.Reverse();
+            {                
                 for (int i = 0; i < a.Eventos.Count; i++)
                 {
                     var eventStr = new EventoString();

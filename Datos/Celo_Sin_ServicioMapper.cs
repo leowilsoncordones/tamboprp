@@ -10,24 +10,24 @@ using Entidades;
 
 namespace Datos
 {
-    public class CalificacionMapper : AbstractMapper
+    public class Celo_Sin_ServicioMapper : AbstractMapper
     {
-        private Calificacion _calificacion;
+        private Celo_Sin_Servicio _celo;
         private string _registroAnimal;
 
-        private static string Calificacion_SelecByRegistro = "Calificacion_SelecByRegistro";
+        private static string Celo_Sin_Servicio_SelecByRegistro = "Celo_Sin_Servicio_SelecByRegistro";
 
-        public CalificacionMapper(Calificacion Calificacion)
+        public Celo_Sin_ServicioMapper(Celo_Sin_Servicio CeloSS)
         {
-            _calificacion = Calificacion;
+            _celo = CeloSS;
         }
 
-        public CalificacionMapper(string  registroAnimal)
+        public Celo_Sin_ServicioMapper(string  registroAnimal)
         {
             _registroAnimal = registroAnimal;
         }
 
-        public CalificacionMapper()
+        public Celo_Sin_ServicioMapper()
         {
         }
 
@@ -36,39 +36,39 @@ namespace Datos
             return ConfigurationManager.ConnectionStrings["con"].ConnectionString;
         }
 
-        public Calificacion GetCelobyId()
+        public Celo_Sin_Servicio GetCelobyId()
         {
             SqlDataReader dr = Find(OperationType.SELECT_ID);
             dr.Read();
-            return (Calificacion)load(dr);
+            return (Celo_Sin_Servicio)load(dr);
         }
 
 
-        public List<Calificacion> GetAll()
+        public List<Celo_Sin_Servicio> GetAll()
         {
-            List<Calificacion> ls = new List<Calificacion>();
+            List<Celo_Sin_Servicio> ls = new List<Celo_Sin_Servicio>();
             ls = loadAll(Find(OperationType.SELECT_DEF));
             return ls;
         }
 
 
-        protected List<Calificacion> loadAll(SqlDataReader rs)
+        protected List<Celo_Sin_Servicio> loadAll(SqlDataReader rs)
         {
-            List<Calificacion> result = new List<Calificacion>();
+            List<Celo_Sin_Servicio> result = new List<Celo_Sin_Servicio>();
             while (rs.Read())
                 result.Add(load(rs));
             rs.Close();
             return result;
         }
 
-        public List<Evento> GetCalificacionesRegistro(string regAnimal)
+        public List<Evento> GetCelosRegistro(string regAnimal)
         {
             List<Evento> result = new List<Evento>();
             SqlCommand cmd = null;
             cmd = new SqlCommand();
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.Add(new SqlParameter("@REGISTRO", regAnimal));
-            cmd.CommandText = Calificacion_SelecByRegistro;
+            cmd.CommandText = "Celo_Sin_Servicio_SelecByRegistro";
 
             SqlDataReader dr = FindByCmd(cmd);
             while (dr.Read())
@@ -77,9 +77,6 @@ namespace Datos
             return result;
         }
 
-
-
-
         protected override SqlCommand GetStatement(OperationType opType)
         {
             SqlCommand cmd = null;
@@ -87,7 +84,7 @@ namespace Datos
             {
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.CommandText = "Calificacion_SelecById";
+                cmd.CommandText = "Celo_Sin_Servicio_SelecById";
                 //cmd.Parameters.Add(new SqlParameter("@REGISTRO", _calificacion.));
             }
 
@@ -95,50 +92,48 @@ namespace Datos
             {
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.CommandText = "Calificacion_SelectAll";
+                cmd.CommandText = "Celo_Sin_Servicio_SelectAll";
             }
             else if (opType == OperationType.DELETE)
             {
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.CommandText = "Calificacion_Delete";
+                cmd.CommandText = "Celo_Sin_Servicio_Delete";
                 cmd.Parameters.Add(new SqlParameter("@REGISTRO", _registroAnimal));
             }
             else if (opType == OperationType.INSERT)
             {
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.CommandText = "Calificacion_Insert";
+                cmd.CommandText = "Celo_Sin_Servicio_Insert";
                 cmd.Parameters.Add(new SqlParameter("@REGISTRO", _registroAnimal));
-                cmd.Parameters.Add(new SqlParameter("@EVENTO", _calificacion.Id_evento));
-                cmd.Parameters.Add(new SqlParameter("@LETRAS", _calificacion.Letras));
-                cmd.Parameters.Add(new SqlParameter("@PUNTOS", _calificacion.Puntos));
-                cmd.Parameters.Add(new SqlParameter("@FECHA_CALIF", _calificacion.Fecha));
+                cmd.Parameters.Add(new SqlParameter("@EVENTO", _celo.Id_evento));
+                cmd.Parameters.Add(new SqlParameter("@FECHA", _celo.Fecha));
+                cmd.Parameters.Add(new SqlParameter("@COMENTARIO", _celo.Comentario));
 
             }
             else if (opType == OperationType.UPDATE)
             {
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.CommandText = "Calificacion_Update";
+                cmd.CommandText = "Celo_Sin_Servicio_Update";
                 cmd.Parameters.Add(new SqlParameter("@REGISTRO", _registroAnimal));
-                cmd.Parameters.Add(new SqlParameter("@EVENTO", _calificacion.Id_evento));
-                cmd.Parameters.Add(new SqlParameter("@LETRAS", _calificacion.Letras));
-                cmd.Parameters.Add(new SqlParameter("@PUNTOS", _calificacion.Puntos));
-                cmd.Parameters.Add(new SqlParameter("@FECHA_CALIF", _calificacion.Fecha));
+                cmd.Parameters.Add(new SqlParameter("@EVENTO", _celo.Id_evento));
+                cmd.Parameters.Add(new SqlParameter("@FECHA", _celo.Fecha));
+                cmd.Parameters.Add(new SqlParameter("@COMENTARIO", _celo.Comentario));
             }
             return cmd;
         }
 
-        protected Calificacion load(SqlDataReader record)
+        protected Celo_Sin_Servicio load(SqlDataReader record)
         {
-            var calif = new Calificacion();
-            calif.Id_evento = (short)((DBNull.Value == record["EVENTO"]) ? 0 : (Int16)record["EVENTO"]);
-            calif.Puntos = (short)((DBNull.Value == record["PUNTOS"]) ? 0 : (Int16)record["PUNTOS"]);
-            calif.Letras = (DBNull.Value == record["LETRAS"]) ? string.Empty : (string)record["LETRAS"];
-            string strDate = (DBNull.Value == record["FECHA_CALIF"]) ? string.Empty : record["FECHA_CALIF"].ToString();
-            if (strDate != string.Empty) calif.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
-            return calif;
+            var celo = new Celo_Sin_Servicio();
+            celo.Id_evento = (short)((DBNull.Value == record["EVENTO"]) ? 0 : (Int16)record["EVENTO"]);
+            string strDate = (DBNull.Value == record["FECHA"]) ? string.Empty : record["FECHA"].ToString();
+            if (strDate != string.Empty) celo.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+            celo.Comentario = (DBNull.Value == record["COMENTARIO"]) ? string.Empty : (string)record["COMENTARIO"];
+
+            return celo;
         }
 
     }
