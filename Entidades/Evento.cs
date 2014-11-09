@@ -9,7 +9,7 @@ using System;
 
 namespace Entidades
 {
-    public abstract class Evento
+    public abstract class Evento : IComparable
     {
         protected Evento()
         {
@@ -26,6 +26,16 @@ namespace Entidades
         public override string ToString()
         {
             return Fecha.ToShortDateString() + " | " + Nombre + " | " + Comentarios;
+        }
+
+        public int CompareTo(Object obj)
+        {
+            Evento ev = obj as Evento;
+            if (ev != null)
+            {
+                return this.Fecha.CompareTo(ev.Fecha);
+            }
+            return 0;
         }
 
     }
