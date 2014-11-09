@@ -63,6 +63,15 @@ namespace Entidades
 
         public virtual Categoria Categoria { get; set; }
 
+        public bool esHembra()
+        {
+            return Sexo == 'H';
+        }
+        public bool esMacho()
+        {
+            return Sexo == 'M';
+        }
+
         public virtual IEnumerable<Evento> Evento { get; set; }
 
 

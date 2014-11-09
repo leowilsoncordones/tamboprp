@@ -13,12 +13,17 @@ namespace Entidades
         {
         }
 
-        public Aborto(Animal regPadre)
+        public Aborto(string regPadre)
         {
             Reg_padre = regPadre;
         }
 
-        public Animal Reg_padre { get;set; }
+        public string Reg_padre { get;set; }
+
+        public override string ToString()
+        {
+            return "Registro Padre: " + Reg_padre + ", " + Comentarios;
+        }
 
     }
 }

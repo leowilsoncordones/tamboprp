@@ -46,7 +46,7 @@ namespace Datos
             return ls;
         }
 
-        public List<Animal> GetSearch(string buscar, int criterio)
+        public List<Animal> GetBusqAnimal(string buscar, int criterio)
         {
             List<Animal> result = new List<Animal>();
             if (criterio < 0 || criterio > 1) return result;
@@ -153,7 +153,7 @@ namespace Datos
 
             anim.Nombre = (DBNull.Value == record["NOMBRE"]) ? string.Empty : (string)record["NOMBRE"];
             anim.Reg_trazab = (DBNull.Value == record["REG_TRAZAB"]) ? string.Empty : (string)record["REG_TRAZAB"];
-            anim.Sexo = (DBNull.Value == record["SEXO"]) ? 'Q' : Convert.ToChar(record["SEXO"]);
+            anim.Sexo = (DBNull.Value == record["SEXO"]) ? ' ' : Convert.ToChar(record["SEXO"]);
             
             string strDate = (DBNull.Value == record["FECHA_NACIM"]) ? string.Empty : record["FECHA_NACIM"].ToString();
             if (strDate != string.Empty) anim.Fecha_nacim = DateTime.Parse(strDate, new CultureInfo("fr-FR"));

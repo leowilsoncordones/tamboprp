@@ -13,6 +13,7 @@ namespace Entidades
     {
         public Parto()
         {
+            Nombre = "Parto";
         }
 
         public Parto(int idParto, DateTime fechaServ, string observaciones, char sexoParto, string regHijo)
@@ -33,6 +34,11 @@ namespace Entidades
         public Char Sexo_parto { get; set; }
 
         public string Reg_hijo { get; set; }
+
+        public override string ToString()
+        {
+            return "Registro Hijo: " + Reg_hijo + " (" + Sexo_parto.ToString() + ") Fecha de Servicio: " + Fecha_serv.ToString() + ". Obs: " + Observaciones;
+        }
 
     }
 }

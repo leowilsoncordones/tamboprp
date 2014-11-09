@@ -36,7 +36,7 @@ namespace Datos
             return ConfigurationManager.ConnectionStrings["con"].ConnectionString;
         }
 
-        public Celo_Sin_Servicio GetCelobyId()
+        public Celo_Sin_Servicio GetCelosById()
         {
             SqlDataReader dr = Find(OperationType.SELECT_ID);
             dr.Read();
@@ -61,7 +61,7 @@ namespace Datos
             return result;
         }
 
-        public List<Evento> GetCelosRegistro(string regAnimal)
+        public List<Evento> GetCelosByRegistro(string regAnimal)
         {
             List<Evento> result = new List<Evento>();
             SqlCommand cmd = null;

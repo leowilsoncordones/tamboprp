@@ -59,7 +59,7 @@ namespace Datos
             return ls;
         }
 
-        public List<Evento> GetControlesProduccRegistro()
+        public List<Evento> GetControlesProduccByRegistro()
         {
             List<Evento> result = new List<Evento>();
             SqlCommand cmd = null;
