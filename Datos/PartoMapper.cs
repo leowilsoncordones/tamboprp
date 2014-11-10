@@ -68,7 +68,7 @@ namespace Datos
             cmd = new SqlCommand();
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.Add(new SqlParameter("@REGISTRO", regAnimal));
-            cmd.CommandText = "Parto_SelecByRegistro";
+            cmd.CommandText = "Parto_SelectByRegistro";
 
             SqlDataReader dr = FindByCmd(cmd);
             while (dr.Read())

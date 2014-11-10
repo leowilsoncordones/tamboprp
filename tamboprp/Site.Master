@@ -29,6 +29,7 @@
                         <li><a runat="server" href="~/">Home</a></li>
                         <li><a runat="server" href="~/Animales.aspx">Animales</a></li>
                         <li><a runat="server" href="~/Personal.aspx">Personal</a></li>
+                        <li><a runat="server" href="~/Datos_Generales.aspx">Datos Generales</a></li>
                         <li><a runat="server" href="~/About">About</a></li>
                         <li><a runat="server" href="~/Contact">Contact</a></li>
                     </ul>

@@ -15,7 +15,7 @@ namespace Datos
         private Diag_Prenez _diag;
         private string _registroAnimal;
 
-        private static string Diag_prenez_SelecByRegistro = "Diag_prenez_SelecByRegistro";
+        private static string Diag_prenez_SelecByRegistro = "Diag_prenez_SelectByRegistro";
 
         public Diag_PrenezMapper(Diag_Prenez diag)
         {

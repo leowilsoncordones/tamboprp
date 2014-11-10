@@ -75,5 +75,20 @@ namespace Datos
             return DataModifySentence(OperationType.DELETE);
         }
 
+        protected object ReturnScalarValue(SqlCommand pcmd)
+        {
+            object value;
+            string sConnectionString = GetConnectionString();
+            SqlConnection conn = new SqlConnection(sConnectionString);
+
+            SqlCommand cmd = pcmd;
+            cmd.Connection = conn;
+            conn.Open();
+            value = cmd.ExecuteScalar();
+
+            return value;
+        }
+
+
     }
 }

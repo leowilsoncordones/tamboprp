@@ -16,6 +16,7 @@ namespace Datos
         private string _registroAnimal;
 
         private static string Aborto_SelecByRegistro = "Aborto_SelecByRegistro";
+        private string Aborto_SelectCountEsteAnio = "Aborto_SelectCountEsteAnio";
 
         public AbortoMapper(Aborto aborto)
         {
@@ -74,6 +75,18 @@ namespace Datos
             while (dr.Read())
                 result.Add(load(dr));
             dr.Close();
+            return result;
+        }
+
+        public int GetCantAbortosEsteAnio()
+        {
+            int result;
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = Aborto_SelectCountEsteAnio;
+
+            result = (int)ReturnScalarValue(cmd);
             return result;
         }
 

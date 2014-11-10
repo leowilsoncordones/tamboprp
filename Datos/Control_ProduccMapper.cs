@@ -75,6 +75,56 @@ namespace Datos
             return result;
         }
 
+        public int GetCantAnimalesUltControl()
+        {
+            return GetCantInt("Control_producc_SelectCantAnimalesUltimo");
+        }
+
+        public float GetSumLecheUltControl()
+        {
+            return GetCantFloat("Control_producc_SelectSumLecheUltimo");
+        }
+
+        public float GetPromLecheUltControl()
+        {
+            return GetCantFloat("Control_producc_SelectPromLecheUltimo");
+        }
+
+        public float GetSumGrasaUltControl()
+        {
+            return GetCantFloat("Control_producc_SelectSumGrasaUltimo");
+        }
+
+        public float GetPromGrasaUltControl()
+        {
+            return GetCantFloat("Control_producc_SelectPromGrasaUltimo");
+        }
+
+
+        private int GetCantInt(string storedProcedure)
+        {
+            int result;
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = storedProcedure;
+            result = (int)ReturnScalarValue(cmd);
+            return result;
+        }
+
+        private float GetCantFloat(string storedProcedure)
+        {
+            float result;
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = storedProcedure;
+            var scalar = ReturnScalarValue(cmd).ToString();
+            result = float.Parse(scalar);
+            return result;
+        }
+
+
 
         protected List<Control_Producc> loadAll(SqlDataReader rs)
         {

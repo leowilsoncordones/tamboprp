@@ -35,7 +35,7 @@ namespace Tests_Entidades
         {
             Empleado emp = new Empleado();
             emp.Id_empleado = 1;
-            var result  = new EmpleadoMapper(emp).GetEmpleadobyId();
+            var result = new EmpleadoMapper(emp).GetEmpleadoById();
             Assert.AreEqual(result.Id_empleado, emp.Id_empleado);
         }
 

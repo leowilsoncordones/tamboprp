@@ -10,6 +10,7 @@ namespace Negocio
     public class Fachada
     {
         private static Fachada _instance;
+        private static Control_ProduccMapper _controlProdMapper = new Control_ProduccMapper();
 
         private Fachada()
         {
@@ -99,6 +100,37 @@ namespace Negocio
             a.Eventos.Sort();
             a.Eventos.Reverse();
             return a;
+        }
+
+        public int GetCantAbortosEsteAnio()
+        {
+            var abmap = new AbortoMapper();
+            return abmap.GetCantAbortosEsteAnio();
+        }
+
+        public int GetCantAnimalesUltControl()
+        {
+            return _controlProdMapper.GetCantAnimalesUltControl();
+        }
+
+        public float GetSumLecheUltControl()
+        {
+            return _controlProdMapper.GetSumLecheUltControl();
+        }
+
+        public float GetPromLecheUltControl()
+        {
+            return _controlProdMapper.GetPromLecheUltControl();
+        }
+
+        public float GetSumGrasaUltControl()
+        {
+            return _controlProdMapper.GetSumGrasaUltControl();
+        }
+
+        public float GetPromGrasaUltControl()
+        {
+            return _controlProdMapper.GetPromGrasaUltControl();
         }
 
     }
