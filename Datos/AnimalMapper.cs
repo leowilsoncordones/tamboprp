@@ -32,7 +32,7 @@ namespace Datos
             return ConfigurationManager.ConnectionStrings["con"].ConnectionString;
         }
 
-        public Animal GetAnimalbyId()
+        public Animal GetAnimalById()
         {
             SqlDataReader dr = Find(OperationType.SELECT_ID);
             dr.Read();

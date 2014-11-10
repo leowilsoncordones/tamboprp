@@ -10,24 +10,24 @@ using Entidades;
 
 namespace Datos
 {
-    public class CalificacionMapper : AbstractMapper
+    public class SecadoMapper : AbstractMapper
     {
-        private Calificacion _calificacion;
+        private Secado _secado;
         private string _registroAnimal;
 
-        private static string Calificacion_SelecByRegistro = "Calificacion_SelecByRegistro";
+        private static string Secado_SelecByRegistro = "Secado_SelecByRegistro";
 
-        public CalificacionMapper(Calificacion Calificacion)
+        public SecadoMapper(Secado secado)
         {
-            _calificacion = Calificacion;
+            _secado = secado;
         }
 
-        public CalificacionMapper(string  registroAnimal)
+        public SecadoMapper(string  registroAnimal)
         {
             _registroAnimal = registroAnimal;
         }
 
-        public CalificacionMapper()
+        public SecadoMapper()
         {
         }
 
@@ -36,39 +36,39 @@ namespace Datos
             return ConfigurationManager.ConnectionStrings["con"].ConnectionString;
         }
 
-        public Calificacion GetCalificacionById()
+        public Secado GetSecadoById()
         {
             SqlDataReader dr = Find(OperationType.SELECT_ID);
             dr.Read();
-            return (Calificacion)load(dr);
+            return (Secado)load(dr);
         }
 
 
-        public List<Calificacion> GetAll()
+        public List<Secado> GetAll()
         {
-            List<Calificacion> ls = new List<Calificacion>();
+            List<Secado> ls = new List<Secado>();
             ls = loadAll(Find(OperationType.SELECT_DEF));
             return ls;
         }
 
 
-        protected List<Calificacion> loadAll(SqlDataReader rs)
+        protected List<Secado> loadAll(SqlDataReader rs)
         {
-            List<Calificacion> result = new List<Calificacion>();
+            List<Secado> result = new List<Secado>();
             while (rs.Read())
                 result.Add(load(rs));
             rs.Close();
             return result;
         }
 
-        public List<Evento> GetCalificacionesByRegistro(string regAnimal)
+        public List<Evento> GetSecadosByRegistro(string regAnimal)
         {
             List<Evento> result = new List<Evento>();
             SqlCommand cmd = null;
             cmd = new SqlCommand();
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.Add(new SqlParameter("@REGISTRO", regAnimal));
-            cmd.CommandText = Calificacion_SelecByRegistro;
+            cmd.CommandText = Secado_SelecByRegistro;
 
             SqlDataReader dr = FindByCmd(cmd);
             while (dr.Read())
@@ -78,8 +78,6 @@ namespace Datos
         }
 
 
-
-
         protected override SqlCommand GetStatement(OperationType opType)
         {
             SqlCommand cmd = null;
@@ -87,7 +85,7 @@ namespace Datos
             {
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.CommandText = "Calificacion_SelecById";
+                cmd.CommandText = "Secado_SelecById";
                 //cmd.Parameters.Add(new SqlParameter("@REGISTRO", _calificacion.));
             }
 
@@ -95,50 +93,53 @@ namespace Datos
             {
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.CommandText = "Calificacion_SelectAll";
+                cmd.CommandText = "Secado_SelectAll";
             }
             else if (opType == OperationType.DELETE)
             {
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.CommandText = "Calificacion_Delete";
+                cmd.CommandText = "Secado_Delete";
                 cmd.Parameters.Add(new SqlParameter("@REGISTRO", _registroAnimal));
             }
             else if (opType == OperationType.INSERT)
             {
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.CommandText = "Calificacion_Insert";
+                cmd.CommandText = "Secado_Insert";
                 cmd.Parameters.Add(new SqlParameter("@REGISTRO", _registroAnimal));
-                cmd.Parameters.Add(new SqlParameter("@EVENTO", _calificacion.Id_evento));
-                cmd.Parameters.Add(new SqlParameter("@LETRAS", _calificacion.Letras));
-                cmd.Parameters.Add(new SqlParameter("@PUNTOS", _calificacion.Puntos));
-                cmd.Parameters.Add(new SqlParameter("@FECHA_CALIF", _calificacion.Fecha));
-
+                cmd.Parameters.Add(new SqlParameter("@EVENTO", _secado.Id_evento));
+                cmd.Parameters.Add(new SqlParameter("@FECHA", _secado.Fecha));
+                cmd.Parameters.Add(new SqlParameter("@COMENTARIO", _secado.Comentarios));
+                cmd.Parameters.Add(new SqlParameter("@MOTIVO_SECADO", _secado.Motivos_secado));
+                cmd.Parameters.Add(new SqlParameter("@ENFERMEDAD", _secado.Enfermedad));
             }
             else if (opType == OperationType.UPDATE)
             {
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.CommandText = "Calificacion_Update";
+                cmd.CommandText = "Secado_Update";
                 cmd.Parameters.Add(new SqlParameter("@REGISTRO", _registroAnimal));
-                cmd.Parameters.Add(new SqlParameter("@EVENTO", _calificacion.Id_evento));
-                cmd.Parameters.Add(new SqlParameter("@LETRAS", _calificacion.Letras));
-                cmd.Parameters.Add(new SqlParameter("@PUNTOS", _calificacion.Puntos));
-                cmd.Parameters.Add(new SqlParameter("@FECHA_CALIF", _calificacion.Fecha));
+                cmd.Parameters.Add(new SqlParameter("@EVENTO", _secado.Id_evento));
+                cmd.Parameters.Add(new SqlParameter("@FECHA", _secado.Fecha));
+                cmd.Parameters.Add(new SqlParameter("@COMENTARIO", _secado.Comentarios));
+                cmd.Parameters.Add(new SqlParameter("@MOTIVO_SECADO", _secado.Motivos_secado));
+                cmd.Parameters.Add(new SqlParameter("@ENFERMEDAD", _secado.Enfermedad));
             }
             return cmd;
         }
 
-        protected Calificacion load(SqlDataReader record)
+        protected Secado load(SqlDataReader record)
         {
-            var calif = new Calificacion();
-            calif.Id_evento = (short)((DBNull.Value == record["EVENTO"]) ? 0 : (Int16)record["EVENTO"]);
-            calif.Puntos = (short)((DBNull.Value == record["PUNTOS"]) ? 0 : (Int16)record["PUNTOS"]);
-            calif.Letras = (DBNull.Value == record["LETRAS"]) ? string.Empty : (string)record["LETRAS"];
-            string strDate = (DBNull.Value == record["FECHA_CALIF"]) ? string.Empty : record["FECHA_CALIF"].ToString();
-            if (strDate != string.Empty) calif.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
-            return calif;
+            var sec = new Secado();
+            sec.Id_evento = (short)((DBNull.Value == record["EVENTO"]) ? 0 : (Int16)record["EVENTO"]);
+            string strDate = (DBNull.Value == record["FECHA"]) ? string.Empty : record["FECHA"].ToString();
+            if (strDate != string.Empty) sec.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+            sec.Comentarios = (DBNull.Value == record["COMENTARIO"]) ? string.Empty : (string)record["COMENTARIO"];
+            //sec.Motivos_secado = (DBNull.Value == record["MOTIVO_SECADO"]) ? 0 : (Int16)record["MOTIVO_SECADO"];
+            //sec.Enfermedad = (DBNull.Value == record["PUNTOS"]) ? 0 : (Int16)record["PUNTOS"];
+
+            return sec;
         }
 
     }

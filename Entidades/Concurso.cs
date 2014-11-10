@@ -9,24 +9,33 @@ using System.Collections.Generic;
 
 namespace Entidades
 {
-    public class Consurso : Evento
+    public class Concurso : Evento
     {
-        public Consurso()
+        public Concurso()
         {
+            Nombre = "Concurso";
         }
 
-        public Consurso(List<Premio> premios, int anio)
+        public Concurso(List<Premio> premios, int anio, Lugar_Concurso lugar)
         {
             Premios = premios;
             Anio = anio;
+            Lugar = lugar;
         }
 
         public int Anio { get; set; }
 
         public List<Premio> Premios { get; set; }
 
-        //public virtual IEnumerable<Premio> Premio { get; set; }
+        public Lugar_Concurso Lugar { get; set; }
+        
+        public override string ToString()
+        {
+            return "Exposición: " + Lugar.ToString() + " Año: " + Anio.ToString();
+        }
 
+        //public virtual IEnumerable<Premio> Premio { get; set; }
+        
     }
 }
 

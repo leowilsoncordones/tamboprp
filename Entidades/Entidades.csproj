@@ -45,7 +45,7 @@
     <Compile Include="Categoria.cs" />
     <Compile Include="Categorias_concurso.cs" />
     <Compile Include="Celo_Sin_Servicio.cs" />
-    <Compile Include="Consurso.cs" />
+    <Compile Include="Concurso.cs" />
     <Compile Include="Control_Producc.cs" />
     <Compile Include="Diag_Prenez.cs" />
     <Compile Include="Empleado.cs" />

@@ -11,6 +11,7 @@ namespace Entidades
     {
         public Aborto()
         {
+            Nombre = "Aborto";
         }
 
         public Aborto(string regPadre)

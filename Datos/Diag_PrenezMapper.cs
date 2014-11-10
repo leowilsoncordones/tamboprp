@@ -10,24 +10,24 @@ using Entidades;
 
 namespace Datos
 {
-    public class CalificacionMapper : AbstractMapper
+    public class Diag_PrenezMapper : AbstractMapper
     {
-        private Calificacion _calificacion;
+        private Diag_Prenez _diag;
         private string _registroAnimal;
 
-        private static string Calificacion_SelecByRegistro = "Calificacion_SelecByRegistro";
+        private static string Diag_prenez_SelecByRegistro = "Diag_prenez_SelecByRegistro";
 
-        public CalificacionMapper(Calificacion Calificacion)
+        public Diag_PrenezMapper(Diag_Prenez diag)
         {
-            _calificacion = Calificacion;
+            _diag = diag;
         }
 
-        public CalificacionMapper(string  registroAnimal)
+        public Diag_PrenezMapper(string  registroAnimal)
         {
             _registroAnimal = registroAnimal;
         }
 
-        public CalificacionMapper()
+        public Diag_PrenezMapper()
         {
         }
 
@@ -36,39 +36,39 @@ namespace Datos
             return ConfigurationManager.ConnectionStrings["con"].ConnectionString;
         }
 
-        public Calificacion GetCalificacionById()
+        public Diag_Prenez GetDiag_PrenezById()
         {
             SqlDataReader dr = Find(OperationType.SELECT_ID);
             dr.Read();
-            return (Calificacion)load(dr);
+            return (Diag_Prenez)load(dr);
         }
 
 
-        public List<Calificacion> GetAll()
+        public List<Diag_Prenez> GetAll()
         {
-            List<Calificacion> ls = new List<Calificacion>();
+            List<Diag_Prenez> ls = new List<Diag_Prenez>();
             ls = loadAll(Find(OperationType.SELECT_DEF));
             return ls;
         }
 
 
-        protected List<Calificacion> loadAll(SqlDataReader rs)
+        protected List<Diag_Prenez> loadAll(SqlDataReader rs)
         {
-            List<Calificacion> result = new List<Calificacion>();
+            List<Diag_Prenez> result = new List<Diag_Prenez>();
             while (rs.Read())
                 result.Add(load(rs));
             rs.Close();
             return result;
         }
 
-        public List<Evento> GetCalificacionesByRegistro(string regAnimal)
+        public List<Evento> GetDiag_PrenezByRegistro(string regAnimal)
         {
             List<Evento> result = new List<Evento>();
             SqlCommand cmd = null;
             cmd = new SqlCommand();
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.Add(new SqlParameter("@REGISTRO", regAnimal));
-            cmd.CommandText = Calificacion_SelecByRegistro;
+            cmd.CommandText = Diag_prenez_SelecByRegistro;
 
             SqlDataReader dr = FindByCmd(cmd);
             while (dr.Read())
@@ -76,10 +76,7 @@ namespace Datos
             dr.Close();
             return result;
         }
-
-
-
-
+        
         protected override SqlCommand GetStatement(OperationType opType)
         {
             SqlCommand cmd = null;
@@ -87,7 +84,7 @@ namespace Datos
             {
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.CommandText = "Calificacion_SelecById";
+                cmd.CommandText = "Diag_prenez_SelecById";
                 //cmd.Parameters.Add(new SqlParameter("@REGISTRO", _calificacion.));
             }
 
@@ -95,50 +92,49 @@ namespace Datos
             {
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.CommandText = "Calificacion_SelectAll";
+                cmd.CommandText = "Diag_prenez_SelectAll";
             }
             else if (opType == OperationType.DELETE)
             {
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.CommandText = "Calificacion_Delete";
+                cmd.CommandText = "Diag_prenez_Delete";
                 cmd.Parameters.Add(new SqlParameter("@REGISTRO", _registroAnimal));
             }
             else if (opType == OperationType.INSERT)
             {
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.CommandText = "Calificacion_Insert";
+                cmd.CommandText = "Diag_prenez_Insert";
                 cmd.Parameters.Add(new SqlParameter("@REGISTRO", _registroAnimal));
-                cmd.Parameters.Add(new SqlParameter("@EVENTO", _calificacion.Id_evento));
-                cmd.Parameters.Add(new SqlParameter("@LETRAS", _calificacion.Letras));
-                cmd.Parameters.Add(new SqlParameter("@PUNTOS", _calificacion.Puntos));
-                cmd.Parameters.Add(new SqlParameter("@FECHA_CALIF", _calificacion.Fecha));
-
+                cmd.Parameters.Add(new SqlParameter("@EVENTO", _diag.Id_evento));
+                cmd.Parameters.Add(new SqlParameter("@FECHA", _diag.Fecha));
+                cmd.Parameters.Add(new SqlParameter("@COMENTARIO", _diag.Comentarios));
+                cmd.Parameters.Add(new SqlParameter("@DIAGNOSTIC", _diag.Diagnostico));
             }
             else if (opType == OperationType.UPDATE)
             {
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.CommandText = "Calificacion_Update";
+                cmd.CommandText = "Diag_prenez_Update";
                 cmd.Parameters.Add(new SqlParameter("@REGISTRO", _registroAnimal));
-                cmd.Parameters.Add(new SqlParameter("@EVENTO", _calificacion.Id_evento));
-                cmd.Parameters.Add(new SqlParameter("@LETRAS", _calificacion.Letras));
-                cmd.Parameters.Add(new SqlParameter("@PUNTOS", _calificacion.Puntos));
-                cmd.Parameters.Add(new SqlParameter("@FECHA_CALIF", _calificacion.Fecha));
+                cmd.Parameters.Add(new SqlParameter("@EVENTO", _diag.Id_evento));
+                cmd.Parameters.Add(new SqlParameter("@FECHA", _diag.Fecha));
+                cmd.Parameters.Add(new SqlParameter("@COMENTARIO", _diag.Comentarios));
+                cmd.Parameters.Add(new SqlParameter("@DIAGNOSTIC", _diag.Diagnostico));
             }
             return cmd;
         }
 
-        protected Calificacion load(SqlDataReader record)
+        protected Diag_Prenez load(SqlDataReader record)
         {
-            var calif = new Calificacion();
-            calif.Id_evento = (short)((DBNull.Value == record["EVENTO"]) ? 0 : (Int16)record["EVENTO"]);
-            calif.Puntos = (short)((DBNull.Value == record["PUNTOS"]) ? 0 : (Int16)record["PUNTOS"]);
-            calif.Letras = (DBNull.Value == record["LETRAS"]) ? string.Empty : (string)record["LETRAS"];
-            string strDate = (DBNull.Value == record["FECHA_CALIF"]) ? string.Empty : record["FECHA_CALIF"].ToString();
-            if (strDate != string.Empty) calif.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
-            return calif;
+            var diagp = new Diag_Prenez();
+            diagp.Id_evento = (short)((DBNull.Value == record["EVENTO"]) ? 0 : (Int16)record["EVENTO"]);
+            string strDate = (DBNull.Value == record["FECHA"]) ? string.Empty : record["FECHA"].ToString();
+            if (strDate != string.Empty) diagp.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+            diagp.Comentarios = (DBNull.Value == record["COMENTARIO"]) ? string.Empty : (string)record["COMENTARIO"];
+            diagp.Diagnostico = (DBNull.Value == record["DIAGNOSTIC"]) ? ' ' : Convert.ToChar(record["DIAGNOSTIC"]);
+            return diagp;
         }
 
     }

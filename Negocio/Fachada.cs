@@ -41,37 +41,57 @@ namespace Negocio
         {
             var a = new Animal {Registro = registro};
             a.Eventos = new List<Evento>();
+            List<Evento> listTemp = new List<Evento>();
 
             /* hay q hacer en evento nacimiento? */
-            //listPartos = partoMap.GetNacimientoByRegistro(registro);
-            //if (listPartos.Count > 0) a.Eventos.AddRange(listPartos);
+
+            /* Cargo los concursos del animal */
+            var concMap = new ConcursoMapper(registro);
+            listTemp = concMap.GetConcursosByRegistro(registro);
+            if (listTemp.Count > 0) a.Eventos.AddRange(listTemp);
+
             
             /*if (a.esHembra())
             {*/
                 /* Cargo las calificaciones del animal, los M puede ser calificado? */
                 var calMap = new CalificacionMapper();
-                List<Evento> listEv = calMap.GetCalificacionesByRegistro(registro);
-                if (listEv.Count > 0) a.Eventos.AddRange(listEv);
+                listTemp = calMap.GetCalificacionesByRegistro(registro);
+                if (listTemp.Count > 0) a.Eventos.AddRange(listTemp);
 
                 /* Cargo los controles de produccion del animal */
                 var conMap = new Control_ProduccMapper(registro);
-                List<Evento> lisConProd = conMap.GetControlesProduccByRegistro();
-                if (lisConProd.Count > 0) a.Eventos.AddRange(lisConProd);
+                listTemp = conMap.GetControlesProduccByRegistro();
+                if (listTemp.Count > 0) a.Eventos.AddRange(listTemp);
 
                 /* Cargo los celos sin servicio del animal */
                 var celoMap = new Celo_Sin_ServicioMapper(registro);
-                List<Evento> listCelos = celoMap.GetCelosByRegistro(registro);
-                if (listCelos.Count > 0) a.Eventos.AddRange(listCelos);
+                listTemp = celoMap.GetCelosByRegistro(registro);
+                if (listTemp.Count > 0) a.Eventos.AddRange(listTemp);
 
                 /* Cargo los partos del animal */
                 var partoMap = new PartoMapper(registro);
-                List<Evento> listPartos = partoMap.GetPartosByRegistro(registro);
-                if (listPartos.Count > 0) a.Eventos.AddRange(listPartos);
+                listTemp = partoMap.GetPartosByRegistro(registro);
+                if (listTemp.Count > 0) a.Eventos.AddRange(listTemp);
 
                 /* Cargo los abortos del animal */
                 var abortoMap = new AbortoMapper(registro);
-                List<Evento> listAbortos = abortoMap.GetAbortosByRegistro(registro);
-                if (listAbortos.Count > 0) a.Eventos.AddRange(listAbortos);
+                listTemp = abortoMap.GetAbortosByRegistro(registro);
+                if (listTemp.Count > 0) a.Eventos.AddRange(listTemp);
+
+                /* Cargo los secados del animal */
+                var secMap = new SecadoMapper(registro);
+                listTemp = secMap.GetSecadosByRegistro(registro);
+                if (listTemp.Count > 0) a.Eventos.AddRange(listTemp);
+
+                /* Cargo los servicios del animal */
+                var servMap = new ServicioMapper(registro);
+                listTemp = servMap.GetServiciosByRegistro(registro);
+                if (listTemp.Count > 0) a.Eventos.AddRange(listTemp);
+
+                /* Cargo los diagnosticos de prenez del animal */
+                var diagMap = new Diag_PrenezMapper(registro);
+                listTemp = diagMap.GetDiag_PrenezByRegistro(registro);
+                if (listTemp.Count > 0) a.Eventos.AddRange(listTemp);
 
             /*}*/
             

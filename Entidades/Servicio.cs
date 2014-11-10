@@ -11,27 +11,27 @@ namespace Entidades
     {
         public Servicio()
         {
+            Nombre = "Servicio";
         }
 
-        public Servicio(bool servMontaNatural, Animal regPadre, Empleado inseminador, Animal animal, Empleado empleado)
+        public Servicio(char servMontaNatural, string regPadre, Empleado inseminador)
         {
             Serv_monta_natural = servMontaNatural;
             Reg_padre = regPadre;
             Inseminador = inseminador;
-            Animal = animal;
-            Empleado = empleado;
         }
 
-        public bool Serv_monta_natural { get; set; }
+        public char Serv_monta_natural { get; set; }
 
-        public Animal Reg_padre { get; set; }
+        public string Reg_padre { get; set; }
 
         public Empleado Inseminador { get; set; }
 
-        public virtual Animal Animal { get; set; }
-
-        public virtual Empleado Empleado { get; set; }
-
+        public override string ToString()
+        {
+            //return "Registro Padre: " + Reg_padre + " Monta natural: " + Serv_monta_natural.ToString() + " Inseminador: " + Inseminador.Iniciales.ToString();
+            return "Registro Padre: " + Reg_padre + " Monta natural: " + Serv_monta_natural.ToString() + ". " + Comentarios;
+        }
     }
 }
 

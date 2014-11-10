@@ -23,6 +23,11 @@ namespace Entidades
 
         public virtual Categorias_concurso Categ_concuros { get; set; }
 
+        public override string ToString()
+        {
+            return "Categoría de concurso: " + Categ_concuros.ToString() + " Premio: " + Nombre_premio; 
+        } 
+
     }
 }
 

@@ -45,7 +45,7 @@ namespace Datos
             return ConfigurationManager.ConnectionStrings["con"].ConnectionString;
         }
 
-        public Control_Producc GetControl_ProduccbyId()
+        public Control_Producc GetControl_ProduccById()
         {
             SqlDataReader dr = Find(OperationType.SELECT_ID);
             dr.Read();

@@ -36,7 +36,7 @@ namespace Datos
             return ConfigurationManager.ConnectionStrings["con"].ConnectionString;
         }
 
-        public Parto GetPartosById()
+        public Parto GetPartoById()
         {
             SqlDataReader dr = Find(OperationType.SELECT_ID);
             dr.Read();

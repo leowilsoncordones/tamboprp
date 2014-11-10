@@ -13,6 +13,7 @@ namespace Entidades
     {
         public Diag_Prenez()
         {
+            Nombre = "Diagnóstico de Preñez";
         }
 
         public Diag_Prenez(char diagnostico)
@@ -21,6 +22,11 @@ namespace Entidades
         }
 
         public Char Diagnostico { get; set; }
+
+        public override string ToString()
+        {
+            return "Diagnóstico: " + Diagnostico + ". " + Comentarios ;
+        }
 
     }
 }

@@ -26,7 +26,7 @@ namespace Entidades
 
         protected virtual string Nombre { get; set; }
 
-        public string ToString()
+        public override string ToString()
         {
             return Id_categ.ToString() + " - " + Nombre;
         }

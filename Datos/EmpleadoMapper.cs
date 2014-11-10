@@ -28,7 +28,7 @@ namespace Datos
             return ConfigurationManager.ConnectionStrings["con"].ConnectionString;
         }
 
-        public Empleado GetEmpleadobyId()
+        public Empleado GetEmpleadoById()
         {
             SqlDataReader dr = Find(OperationType.SELECT_ID);
             dr.Read();
