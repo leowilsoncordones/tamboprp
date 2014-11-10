@@ -42,7 +42,14 @@
   <ItemGroup>
     <Compile Include="AbstractMapper.cs" />
     <Compile Include="AnimalMapper.cs" />
+    <Compile Include="Diag_PrenezMapper.cs" />
+    <Compile Include="ConcursoMapper.cs" />
+    <Compile Include="ServicioMapper .cs" />
+    <Compile Include="SecadoMapper.cs" />
     <Compile Include="CalificacionMapper.cs" />
+    <Compile Include="AbortoMapper.cs" />
+    <Compile Include="PartoMapper.cs" />
+    <Compile Include="Celo_Sin_ServicioMapper.cs" />
     <Compile Include="Control_ProduccMapper.cs" />
     <Compile Include="EmpleadoMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
