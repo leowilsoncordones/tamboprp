@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="VentaMapper.cs" />
+    <Compile Include="MuerteMapper.cs" />
     <Compile Include="AbstractMapper.cs" />
     <Compile Include="AnimalMapper.cs" />
     <Compile Include="Diag_PrenezMapper.cs" />

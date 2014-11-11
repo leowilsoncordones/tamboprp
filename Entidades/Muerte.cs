@@ -11,6 +11,7 @@ namespace Entidades
     {
         public Muerte()
         {
+            Nombre = "Muerte";
         }
 
         public Muerte(Enfermedades enfermedad)
@@ -19,6 +20,11 @@ namespace Entidades
         }
 
         public Enfermedades Enfermedad { get; set; }
+
+        public override string ToString()
+        {
+            return " Causa: " + Enfermedad.ToString() + ". " + Comentarios;
+        }
 
     }
 }

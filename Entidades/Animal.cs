@@ -14,6 +14,7 @@ namespace Entidades
     {
         public Animal()
         {
+            Vivo = true;
         }
 
         public Animal(bool vivo, IEnumerable<Evento> evento, Categoria categoria, List<Evento> eventos, List<string> imagenes, string identificacion, string origen, string regMadre, string regPadre, DateTime fechaNacim, char sexo, string regTrazab, int gen, string registro, string nombre)

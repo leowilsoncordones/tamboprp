@@ -2,6 +2,8 @@
 
 <asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="MainContent">
     <hgroup class="title">
+        <br/>
+        <br/>
         <h1><%: Title %>.</h1>
         <h2>Your contact page.</h2>
     </hgroup>
@@ -47,4 +49,5 @@
             Redmond, WA 98052-6399
         </p>
     </section>
+    <br/>
 </asp:Content>

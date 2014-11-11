@@ -41,8 +41,25 @@ namespace tamboprp
                 this.lblOrigen.Text = a.Origen;
                 this.lblRegPadre.Text = a.Reg_padre;
                 this.lblRegMadre.Text = a.Reg_madre;
-                this.lblVivo.Text = (a.Vivo) ? "VIVO" : "MUERTO";
-                this.lblVivo.CssClass = (a.Vivo) ? "label label-success" : "label label-danger";
+                a.Vivo = !Fachada.Instance.EstaMuertoAnimal(a.Registro);
+                if (!a.Vivo)
+                {
+                    this.lblVivo.Text = "MUERTO";
+                    this.lblVivo.CssClass = "label label-danger";
+                }
+                else
+                {
+                    if (Fachada.Instance.FueVendidoAnimal(a.Registro))
+                    {
+                        this.lblVivo.Text = "VENDIDO";
+                        this.lblVivo.CssClass = "label label-info";
+                    }
+                    else
+                    {
+                        this.lblVivo.Text = "VIVO";
+                        this.lblVivo.CssClass = "label label-success";
+                    }                    
+                }
                 EventosAGrilla(a);
             }
             else this.lblAnimal.Text = "No existe :(";
@@ -64,6 +81,7 @@ namespace tamboprp
                 this.gvHistoria.DataSource = list;
                 this.gvHistoria.DataBind();
             }
+            this.titHistorico.Visible = true;
             this.lblHistorico.Text = a.Eventos.Count.ToString();
         }
 
@@ -76,8 +94,9 @@ namespace tamboprp
             {
                 if (animals.Count > 1)
                 {
-
+                    /* hay mas de un resultado */
                 }
+                /* hay un solo resultado, es el animal que buscamos */
                 var unAnimal = animals[0];
                 var retAnimal = Fachada.Instance.GetEventosAnimal(unAnimal.Registro);
                 unAnimal.Eventos = retAnimal.Eventos;
@@ -104,6 +123,7 @@ namespace tamboprp
             this.lblRegPadre.Text = "";
             this.lblRegMadre.Text = "";
             this.lblVivo.Text = "VIVO/MUERTO";
+            this.titHistorico.Visible = false;
             this.lblHistorico.Text = "";
             this.lblVivo.CssClass = "label label-default";
             this.gvHistoria.DataSource = null;

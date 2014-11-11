@@ -28,6 +28,17 @@ namespace Negocio
             }
         }
 
+        public bool EstaMuertoAnimal(string registro)
+        {
+            var muerteMap = new MuerteMapper(registro);
+            return muerteMap.EstaMuertoAnimal(registro);
+        }
+
+        public bool FueVendidoAnimal(string registro)
+        {
+            var ventaMap = new VentaMapper(registro);
+            return ventaMap.FueVendidoAnimal(registro);
+        }
 
         public List<Animal> GetSearchAnimal(string registro)
         {
@@ -44,13 +55,24 @@ namespace Negocio
             a.Eventos = new List<Evento>();
             List<Evento> listTemp = new List<Evento>();
 
-            /* hay q hacer en evento nacimiento? */
-
             /* Cargo los concursos del animal */
             var concMap = new ConcursoMapper(registro);
             listTemp = concMap.GetConcursosByRegistro(registro);
             if (listTemp.Count > 0) a.Eventos.AddRange(listTemp);
 
+            /* Cargo si el animal esta dado de baja por venta */
+            var ventaMap = new VentaMapper(registro);
+            listTemp = ventaMap.GetVentaByRegistro(registro);
+            if (listTemp.Count > 0) a.Eventos.AddRange(listTemp);
+
+            /* Cargo si el animal esta dado de baja por muerte */
+            var muerteMap = new MuerteMapper(registro);
+            listTemp = muerteMap.GetMuerteByRegistro(registro);
+            if (listTemp.Count > 0)
+            {
+                a.Vivo = false;
+                a.Eventos.AddRange(listTemp);
+            }
             
             /*if (a.esHembra())
             {*/

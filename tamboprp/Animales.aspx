@@ -2,19 +2,26 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    
-    <h1>Ficha de animal</h1>
-        <div class="input-group">
-            <span class="input-group-btn">
-                <asp:Button ID="btnBuscarAnimal" runat="server" onclick="btnBuscarAnimal_Click" Text="Buscar" CssClass="btn btn-default" />
-            </span>
-            <input type="text" class="form-control" runat="server" id="regBuscar" />
+    <br/>
+    <br/>
+    <h2>Ficha de animal</h2>
+        <div class="row">
+        <div class="col-md-4 wrapper">
+        
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <asp:Button ID="btnBuscarAnimal" runat="server" onclick="btnBuscarAnimal_Click" Text="Buscar" CssClass="btn btn-default" />
+                </span>
+                <input type="text" class="form-control" runat="server" id="regBuscar" />
+            </div>
+        </div>
+        <div class="col-md-8"></div>
         </div>
         <br/>
         <div class="jumbotron">
             <h1><asp:Label ID="lblAnimal" runat="server" Text="Registro" cssClass="label label-default"></asp:Label></h1>
             <p>
-                <asp:Label ID="lblVivo" runat="server" Text="Vivo" CssClass="label label-success"></asp:Label><br/>
+                <asp:Label ID="lblVivo" runat="server" Text="" CssClass="label label-success"></asp:Label><br/>
                 <asp:Label ID="titSexo" runat="server" Text="Sexo: " ></asp:Label><asp:Label ID="lblSexo" runat="server" ></asp:Label><br/>
                 <asp:Label ID="titIdentif" runat="server" Text="Identificación: "></asp:Label><asp:Label ID="lblIdentif" runat="server" ></asp:Label><br/>
                 <asp:Label ID="titTraz" runat="server" Text="Trazabilidad: "></asp:Label><asp:Label ID="lblTraz" runat="server" ></asp:Label><br/>
@@ -28,8 +35,8 @@
                 <a class="btn btn-default" href="#" role="button">Ver fotos</a>
             </p>
             <p>
-                <asp:GridView ID="gvHistoria" runat="server" AutoGenerateColumns="False" GridLines="None" 
-            HorizontalAlign="Left" CssClass="table table-hover table-striped table-bordered table-condensed dataTable" Caption="Historia del animal" CaptionAlign="Left" >
+            <asp:GridView ID="gvHistoria" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" 
+                CssClass="table table-hover table-striped table-bordered table-condensed dataTable" >
             <RowStyle HorizontalAlign="Left"  />
             <Columns>
                 <asp:BoundField DataField="Fecha" HeaderText="Fecha" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
@@ -43,7 +50,7 @@
             <EditRowStyle />
             <AlternatingRowStyle />
         </asp:GridView>
-                <asp:Label ID="titHistorico" runat="server" Text="Cantidad de eventos: " ></asp:Label><asp:Label ID="lblHistorico" runat="server" ></asp:Label><br/>
+                <asp:Label ID="titHistorico" runat="server" Text="Cantidad de eventos: " Visible="False"></asp:Label><asp:Label ID="lblHistorico" runat="server" ></asp:Label><br/>
             </p>
         </div>
         

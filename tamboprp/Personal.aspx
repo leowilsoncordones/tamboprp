@@ -2,10 +2,12 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-            <div>
-        <h3>Empleados</h3>
+    <br/>
+    <br/>
+    <h2>Personal</h2>
+    <div>
         <asp:GridView ID="gvEmpleados" runat="server" AutoGenerateColumns="False" GridLines="None" 
-            HorizontalAlign="Left" Width="50%" CssClass="table table-hover table-striped table-bordered table-condensed dataTable" Caption="Lista de empleados" CaptionAlign="Left" >
+            HorizontalAlign="Left" Width="50%" CssClass="table table-hover table-striped table-bordered table-condensed dataTable" >
             <RowStyle HorizontalAlign="Left"  />
             <Columns>
                 <asp:BoundField DataField="Nombre" HeaderText="Nombre" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
@@ -22,5 +24,4 @@
             <AlternatingRowStyle />
         </asp:GridView>    
     </div><br/>
-
 </asp:Content>

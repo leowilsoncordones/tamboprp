@@ -11,7 +11,14 @@ namespace Entidades
     {
         public Venta()
         {
+            Nombre = "Venta";
         }
+
+        public override string ToString()
+        {
+            return Comentarios;
+        }
+
     }
 }
 
