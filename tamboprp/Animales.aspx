@@ -6,11 +6,10 @@
     <br/>
     <h2>Ficha de animal</h2>
         <div class="row">
-        <div class="col-md-4 wrapper">
-        
+        <div class="col-md-4 wrapper">        
             <div class="input-group">
                 <span class="input-group-btn">
-                    <asp:Button ID="btnBuscarAnimal" runat="server" onclick="btnBuscarAnimal_Click" Text="Buscar" CssClass="btn btn-default" />
+                    <asp:Button ID="btnBuscarAnimal" runat="server" onclick="btnBuscarAnimal_Click" Text="Buscar" CssClass="btn btn-primary" />
                 </span>
                 <input type="text" class="form-control" runat="server" id="regBuscar" />
             </div>

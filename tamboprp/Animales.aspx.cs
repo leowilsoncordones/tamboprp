@@ -15,15 +15,6 @@ namespace tamboprp
         protected void Page_Load(object sender, EventArgs e)
         {
             LimpiarRegistro();
-            //if (!Page.IsPostBack)
-            //{
-            //    //Animal a = new Animal();
-            //    ////a.Registro = "3110";
-            //    //a.Registro = "01430";
-            //    //var amap = new AnimalMapper(a);
-            //    //Animal a2 = amap.GetAnimalbyId();
-            //    //this.CargarFicha(a2);
-            //}
         }
 
         public void CargarFichaAnimal(Animal a)
@@ -60,12 +51,12 @@ namespace tamboprp
                         this.lblVivo.CssClass = "label label-success";
                     }                    
                 }
-                EventosAGrilla(a);
+                EventosAnimalAGrilla(a);
             }
             else this.lblAnimal.Text = "No existe :(";
         }
 
-        public void EventosAGrilla(Animal a)
+        public void EventosAnimalAGrilla(Animal a)
         {
             List<EventoString> list = new List<EventoString>();
             if (a.Eventos.Count > 0)
@@ -105,7 +96,7 @@ namespace tamboprp
             else
             {
                 LimpiarRegistro();
-                this.lblAnimal.Text = "No existe :(";
+                this.lblAnimal.Text = "No existe";
             }
         }
 
@@ -122,31 +113,14 @@ namespace tamboprp
             this.lblOrigen.Text = "";
             this.lblRegPadre.Text = "";
             this.lblRegMadre.Text = "";
-            this.lblVivo.Text = "VIVO/MUERTO";
-            this.titHistorico.Visible = false;
-            this.lblHistorico.Text = "";
+            this.lblVivo.Text = "VIVO | MUERTO | VENDIDO";
             this.lblVivo.CssClass = "label label-default";
+            this.titHistorico.Visible = false;
+            this.lblHistorico.Text = "";            
             this.gvHistoria.DataSource = null;
             this.gvHistoria.DataBind();
         }
 
-        public class EventoString
-        {
-            public EventoString() { }
 
-            public EventoString(string fecha, string nombreEvento, string comentario)
-            {
-                Fecha = fecha;
-                NombreEvento = nombreEvento;
-                Comentario = comentario;
-            }
-
-            public string Fecha { get ; set; }
-
-            public string NombreEvento { get ; set; }
-
-            public string Comentario { get ; set; }
-
-          }
     }
 }

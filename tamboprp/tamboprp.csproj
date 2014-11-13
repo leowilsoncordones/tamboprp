@@ -136,6 +136,7 @@
     <Content Include="Account\OpenAuthProviders.ascx" />
     <Content Include="Account\Register.aspx" />
     <Content Include="Account\RegisterExternalLogin.aspx" />
+    <Content Include="Listado_Por_Categoria.aspx" />
     <Content Include="Animales.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -270,6 +271,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Listado_Por_Categoria.aspx.cs">
+      <DependentUpon>Listado_Por_Categoria.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Listado_Por_Categoria.aspx.designer.cs">
+      <DependentUpon>Listado_Por_Categoria.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Animales.aspx.cs">
       <DependentUpon>Animales.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

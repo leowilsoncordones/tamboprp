@@ -7,24 +7,24 @@
 
 namespace Entidades
 {
-    public abstract class Categoria
+    public class Categoria
     {
         public Categoria()
         {
         }
 
-        protected Categoria(string nombre, string observacion, int idCateg)
+        public Categoria(string nombre, string observacion, int idCateg)
         {
             Nombre = nombre;
             Observacion = observacion;
             Id_categ = idCateg;
         }
 
-        protected virtual int Id_categ { get; set; }
+        public int Id_categ { get; set; }
 
-        protected virtual string Observacion { get; set; }
+        public string Observacion { get; set; }
 
-        protected virtual string Nombre { get; set; }
+        public string Nombre { get; set; }
 
         public override string ToString()
         {

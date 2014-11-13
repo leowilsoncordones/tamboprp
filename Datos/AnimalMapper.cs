@@ -17,6 +17,7 @@ namespace Datos
 
         private static string Animal_BusqByID = "Animal_BusqByID";
         private static string Animal_BusqByCategoria = "Animal_BusqByCategoria";
+        private static string Animal_SelectByCategoria = "Animal_SelectByCategoria";        
 
         public AnimalMapper(Animal animal)
         {
@@ -63,11 +64,27 @@ namespace Datos
                     break;
                 case 1:
                     {
-                        cmd.Parameters.Add(new SqlParameter("@CATEGORIA", buscar));
-                        cmd.CommandText = Animal_BusqByCategoria;
+                        //cmd.Parameters.Add(new SqlParameter("@CATEGORIA", buscar));
+                        //cmd.CommandText = Animal_BusqByCategoria;
                     }
                     break;
             }
+
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+                result.Add(load(dr));
+            dr.Close();
+            return result;
+        }
+
+        public List<Animal> GetAnimalesByCategoria(int idCategoria)
+        {
+            List<Animal> result = new List<Animal>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@CATEGORIA", idCategoria));
+            cmd.CommandText = Animal_SelectByCategoria;
 
             SqlDataReader dr = FindByCmd(cmd);
             while (dr.Read())

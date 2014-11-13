@@ -155,5 +155,12 @@ namespace Negocio
             return _controlProdMapper.GetPromGrasaUltControl();
         }
 
+        public List<Animal> GetAnimalesByCategoria(int idCategoria)
+        {
+            AnimalMapper amap = new AnimalMapper();
+            return amap.GetAnimalesByCategoria(idCategoria);
+        }
+
+
     }
 }
