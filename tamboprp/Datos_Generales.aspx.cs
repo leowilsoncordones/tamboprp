@@ -18,6 +18,10 @@ namespace tamboprp
             this.lblPromLecheUltControl.Text = Fachada.Instance.GetPromLecheUltControl().ToString();
             this.lblSumGrasaUltControl.Text = Fachada.Instance.GetSumGrasaUltControl().ToString();
             this.lblPromGrasaUltControl.Text = Fachada.Instance.GetPromGrasaUltControl().ToString();
+            this.lblCAntOrdene.Text = Fachada.Instance.GetCantOrdene().ToString();
+            this.lblCantEntoradas.Text = Fachada.Instance.GetCantEntoradas().ToString();
+            this.lblCantSecas.Text = Fachada.Instance.GetCantSecas().ToString();
+            this.lblFechaUltControl.Text = Fachada.Instance.GetFechaUltimoControl().ToString();
 
         }
 

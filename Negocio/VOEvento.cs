@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Negocio
 {
-    public class EventoString
+    public class VOEvento
     {
-        public EventoString() { }
+        public VOEvento() { }
 
-        public EventoString(string fecha, string nombreEvento, string comentario)
+        public VOEvento(string fecha, string nombreEvento, string comentario)
         {
             Fecha = fecha;
             NombreEvento = nombreEvento;

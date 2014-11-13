@@ -10,7 +10,7 @@
 namespace tamboprp {
     
     
-    public partial class ListadoPorCategoria {
+    public partial class Lactancias {
         
         /// <summary>
         /// btnListar control.
@@ -22,31 +22,31 @@ namespace tamboprp {
         protected global::System.Web.UI.WebControls.Button btnListar;
         
         /// <summary>
-        /// ddlCategorias control.
+        /// ddlTipoListado control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCategorias;
+        protected global::System.Web.UI.WebControls.DropDownList ddlTipoListado;
         
         /// <summary>
-        /// lblCateg control.
+        /// lblTitulo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCateg;
+        protected global::System.Web.UI.WebControls.Label lblTitulo;
         
         /// <summary>
-        /// gvAnimales control.
+        /// gvLactancias control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvAnimales;
+        protected global::System.Web.UI.WebControls.GridView gvLactancias;
         
         /// <summary>
         /// titCantAnimales control.

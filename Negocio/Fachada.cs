@@ -11,6 +11,8 @@ namespace Negocio
     {
         private static Fachada _instance;
         private static Control_ProduccMapper _controlProdMapper = new Control_ProduccMapper();
+        private static AnimalMapper _animalMapper = new AnimalMapper();
+        private static LactanciaMapper _lactMapper = new LactanciaMapper();
 
         private Fachada()
         {
@@ -53,7 +55,7 @@ namespace Negocio
         {
             var a = new Animal {Registro = registro};
             a.Eventos = new List<Evento>();
-            List<Evento> listTemp = new List<Evento>();
+            var listTemp = new List<Evento>();
 
             /* Cargo los concursos del animal */
             var concMap = new ConcursoMapper(registro);
@@ -157,10 +159,88 @@ namespace Negocio
 
         public List<Animal> GetAnimalesByCategoria(int idCategoria)
         {
-            AnimalMapper amap = new AnimalMapper();
+            var amap = new AnimalMapper();
             return amap.GetAnimalesByCategoria(idCategoria);
         }
+        public int GetCantOrdene()
+        {
+            return _animalMapper.GetCantOrdene();
+        }
 
+        public int GetCantEntoradas()
+        {
+            return _animalMapper.GetCantEntoradas();
+        }
+
+        public int GetCantSecas()
+        {
+            return _animalMapper.GetCantSecas();
+        }
+
+        public string GetFechaUltimoControl()
+        {
+            return _controlProdMapper.GetFechaUltimoControl();
+        }
+
+        public List<VOLactancia> GetLactanciasActuales()
+        {
+            var lstResult = new List<VOLactancia>();
+            List<Lactancia> lstLact = _lactMapper.GetLactanciaActualCategoriaVacaOrdene();
+            for (int i = 0; i < lstLact.Count; i++)
+            {
+                var tmp = lstLact[i];
+                var voLact = new VOLactancia(tmp.Registro, tmp.Numero, tmp.Dias, 
+                                             tmp.Leche305, tmp.Grasa305, tmp.Leche365, 
+                                             tmp.Grasa365, tmp.ProdLeche, tmp.ProdGrasa);
+                lstResult.Add(voLact);
+            }
+            return lstResult;
+        }
+
+        public List<VOLactancia> GetLactanciasHistoricas()
+        {
+            var lstResult = new List<VOLactancia>();
+            List<Lactancia> lstLact = _lactMapper.GetLactanciasHistoricas();
+            for (int i = 0; i < lstLact.Count; i++)
+            {
+                var tmp = lstLact[i];
+                var voLact = new VOLactancia(tmp.Registro, tmp.Numero, tmp.Dias, 
+                                             tmp.Leche305, tmp.Grasa305, tmp.Leche365, tmp.Grasa365, 
+                                             tmp.ProdLeche, tmp.ProdGrasa);
+                lstResult.Add(voLact);
+            }
+            return lstResult;
+        }
+
+        public List<VOLactancia> GetMejorProduccion305Dias()
+        {
+            var lstResult = new List<VOLactancia>();
+            List<Lactancia> lstLact = _lactMapper.GetLactanciaMejorProduccion305();
+            for (int i = 0; i < lstLact.Count; i++)
+            {
+                var tmp = lstLact[i];
+                var voLact = new VOLactancia(tmp.Registro, tmp.Numero, tmp.Dias,
+                                             tmp.Leche305, tmp.Grasa305, tmp.Leche365, tmp.Grasa365,
+                                             tmp.ProdLeche, tmp.ProdGrasa);
+                lstResult.Add(voLact);
+            }
+            return lstResult;
+        }
+
+        public List<VOLactancia> GetMejorProduccion365Dias()
+        {
+            var lstResult = new List<VOLactancia>();
+            List<Lactancia> lstLact = _lactMapper.GetLactanciaMejorProduccion365();
+            for (int i = 0; i < lstLact.Count; i++)
+            {
+                var tmp = lstLact[i];
+                var voLact = new VOLactancia(tmp.Registro, tmp.Numero, tmp.Dias,
+                                             tmp.Leche305, tmp.Grasa305, tmp.Leche365, tmp.Grasa365,
+                                             tmp.ProdLeche, tmp.ProdGrasa);
+                lstResult.Add(voLact);
+            }
+            return lstResult;
+        }
 
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -89,6 +90,32 @@ namespace Datos
             return value;
         }
 
+        public int GetScalarInt(string storedProcedure)
+        {
+            return (int)GetScalar(storedProcedure);
+        }
+
+        public float GetScalarFloat(string storedProcedure)
+        {
+            var scalar = GetScalar(storedProcedure).ToString();
+            return float.Parse(scalar);
+        }
+
+        public string GetScalarDate(string storedProcedure)
+        {
+            var fecha =  (DateTime)GetScalar(storedProcedure);
+            var result = fecha.ToShortDateString();
+            return result;
+        }
+
+        private object GetScalar(string storedProcedure)
+        {
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = storedProcedure;
+            return ReturnScalarValue(cmd);
+        }
 
     }
 }

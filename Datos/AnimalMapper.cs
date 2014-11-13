@@ -79,7 +79,7 @@ namespace Datos
 
         public List<Animal> GetAnimalesByCategoria(int idCategoria)
         {
-            List<Animal> result = new List<Animal>();
+            var result = new List<Animal>();
             SqlCommand cmd = null;
             cmd = new SqlCommand();
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -179,6 +179,21 @@ namespace Datos
             anim.Reg_padre = (DBNull.Value == record["REG_PADRE"]) ? string.Empty : (string)record["REG_PADRE"];
             anim.Reg_madre = (DBNull.Value == record["REG_MADRE"]) ? string.Empty : (string)record["REG_MADRE"];
             return anim;
+        }
+
+        public int GetCantOrdene()
+        {
+            return GetScalarInt("Animal_SelectCountOrdene");
+        }
+
+        public int GetCantEntoradas()
+        {
+            return GetScalarInt("Animal_SelectCountEntorada");
+        }
+
+        public int GetCantSecas()
+        {
+            return GetScalarInt("Animal_SelectCountSeca");
         }
 
     }

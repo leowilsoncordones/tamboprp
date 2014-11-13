@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CategoriaMapper.cs" />
+    <Compile Include="LactanciaMapper.cs" />
     <Compile Include="VentaMapper.cs" />
     <Compile Include="MuerteMapper.cs" />
     <Compile Include="AbstractMapper.cs" />
