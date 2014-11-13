@@ -11,7 +11,7 @@ namespace Negocio
     {
         private static Fachada _instance;
         private static Control_ProduccMapper _controlProdMapper = new Control_ProduccMapper();
-
+        private static AnimalMapper _animalMapper = new AnimalMapper();
         private Fachada()
         {
         }
@@ -160,7 +160,24 @@ namespace Negocio
             AnimalMapper amap = new AnimalMapper();
             return amap.GetAnimalesByCategoria(idCategoria);
         }
+        public int GetCantOrdene()
+        {
+            return _animalMapper.GetCantOrdene();
+        }
 
+        public int GetCantEntoradas()
+        {
+            return _animalMapper.GetCantEntoradas();
+        }
 
+        public int GetCantSecas()
+        {
+            return _animalMapper.GetCantSecas();
+        }
+
+        public string GetFechaUltimoControl()
+        {
+            return _controlProdMapper.GetFechaUltimoControl();
+        }
     }
 }

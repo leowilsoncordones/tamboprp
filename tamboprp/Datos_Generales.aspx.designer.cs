@@ -13,6 +13,60 @@ namespace tamboprp {
     public partial class Datos_Generales {
         
         /// <summary>
+        /// titCAntOrdene control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label titCAntOrdene;
+        
+        /// <summary>
+        /// lblCAntOrdene control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCAntOrdene;
+        
+        /// <summary>
+        /// titCantEntoradas control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label titCantEntoradas;
+        
+        /// <summary>
+        /// lblCantEntoradas control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCantEntoradas;
+        
+        /// <summary>
+        /// titCantSecas control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label titCantSecas;
+        
+        /// <summary>
+        /// lblCantSecas control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCantSecas;
+        
+        /// <summary>
         /// titCantAbortos control.
         /// </summary>
         /// <remarks>
@@ -29,6 +83,15 @@ namespace tamboprp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAbortosEsteAno;
+        
+        /// <summary>
+        /// lblFechaUltControl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFechaUltControl;
         
         /// <summary>
         /// titCantAnControl control.

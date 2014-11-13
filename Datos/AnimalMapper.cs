@@ -181,5 +181,19 @@ namespace Datos
             return anim;
         }
 
+        public int GetCantOrdene()
+        {
+            return GetScalarInt("Animal_SelectCountOrdene");
+        }
+
+        public int GetCantEntoradas()
+        {
+            return GetScalarInt("Animal_SelectCountEntorada");
+        }
+
+        public int GetCantSecas()
+        {
+            return GetScalarInt("Animal_SelectCountSeca");
+        }
     }
 }

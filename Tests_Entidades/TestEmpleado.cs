@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
 using Datos;
 using NUnit.Framework;
 using Entidades;
@@ -65,6 +66,25 @@ namespace Tests_Entidades
             emp.Id_empleado = 25;
             var result = new EmpleadoMapper(emp).Delete();
             Assert.IsTrue(result != -1);
+        }
+
+
+        [Test]
+        public void empleado_should_serialize_to_json()
+        {
+            var emp = new Empleado {Activo = true, Apellido = "Wilson", Id_empleado = 1, Iniciales = "LW", Nombre = "Leo"};
+            var json = new JavaScriptSerializer().Serialize(emp);
+            Assert.IsNotEmpty(json);
+        }
+
+        [Test]
+        public void empleado_should_serialize_list_to_json()
+        {
+            var emp = new Empleado { Activo = true, Apellido = "Wilson", Id_empleado = 1, Iniciales = "LW", Nombre = "Leo" };
+            var emp2 = new Empleado { Activo = true, Apellido = "Gil", Id_empleado = 2, Iniciales = "FG", Nombre = "Fede" };
+            var lista = new List<Empleado> {emp, emp2};
+            var json = new JavaScriptSerializer().Serialize(lista);
+            Assert.IsNotEmpty(json);
         }
 
     }
