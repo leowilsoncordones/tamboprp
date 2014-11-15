@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using Datos;
 using Entidades;
@@ -178,6 +179,19 @@ namespace Negocio
         public string GetFechaUltimoControl()
         {
             return _controlProdMapper.GetFechaUltimoControl();
+        }
+
+        public List<string> GetMeses()
+        { var lista = new List<string>(); 
+            for ( int i = 0; i <= 11; i++)
+            {
+                var mes = (System.DateTime.Now.Month + i) % 12;
+                if (mes == 0) mes = 12;
+                string mesNombre = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(mes).ToUpper();
+                lista.Add(mesNombre);
+            }
+
+            return lista;
         }
     }
 }

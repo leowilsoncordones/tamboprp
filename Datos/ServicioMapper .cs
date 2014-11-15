@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace Datos
         private string _registroAnimal;
 
         private static string Servicio_SelecByRegistro = "Servicio_SelecByRegistro";
+        private static string Servicio_SelecProximosPartos = "Servicio_SelecProximosPartos";
 
         public ServicioMapper(Servicio servicio)
         {
@@ -143,6 +145,24 @@ namespace Datos
             //serv.Inseminador = (DBNull.Value == record["INSEMINADOR"]) ? string.Empty : (string)record["INSEMINADOR"];
 
             return serv;
+        }
+
+
+        public List<Evento> GetProximosPartos(string mes, string anio)
+        {
+            List<Evento> result = new List<Evento>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@MES", mes));
+            cmd.Parameters.Add(new SqlParameter("@ANIO", anio));
+            cmd.CommandText = Servicio_SelecProximosPartos;
+
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+                result.Add(load(dr));
+            dr.Close();
+            return result;
         }
 
     }

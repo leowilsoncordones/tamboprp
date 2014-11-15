@@ -136,6 +136,7 @@
     <Content Include="Account\OpenAuthProviders.ascx" />
     <Content Include="Account\Register.aspx" />
     <Content Include="Account\RegisterExternalLogin.aspx" />
+    <Content Include="Calendario_Partos.aspx" />
     <Content Include="Listado_Por_Categoria.aspx" />
     <Content Include="Animales.aspx" />
     <Content Include="Contact.aspx" />
@@ -253,6 +254,7 @@
     <Content Include="Scripts\WebForms\WebForms.js" />
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
+    <Content Include="Servicios_Sin_DiagP_70.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -271,6 +273,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calendario_Partos.aspx.cs">
+      <DependentUpon>Calendario_Partos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Calendario_Partos.aspx.designer.cs">
+      <DependentUpon>Calendario_Partos.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Listado_Por_Categoria.aspx.cs">
       <DependentUpon>Listado_Por_Categoria.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -362,6 +371,13 @@
       <DependentUpon>Personal.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Servicios_Sin_DiagP_70.aspx.cs">
+      <DependentUpon>Servicios_Sin_DiagP_70.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Servicios_Sin_DiagP_70.aspx.designer.cs">
+      <DependentUpon>Servicios_Sin_DiagP_70.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
