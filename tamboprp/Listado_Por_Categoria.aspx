@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Listados de animales" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Listado_Por_Categoria.aspx.cs" Inherits="tamboprp.Listado_Por_Categoria" %>
+﻿<%@ Page Title="Listados de animales" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Listado_Por_Categoria.aspx.cs" Inherits="tamboprp.ListadoPorCategoria" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -12,7 +12,7 @@
                 <span class="input-group-btn">
                     <asp:Button ID="btnListar" runat="server" Text="Listar" onclick="btnListar_Click" CssClass="btn btn-primary" />
                 </span>
-                <asp:DropDownList ID="ddlCategorias" class="form-control" runat="server" ></asp:DropDownList>
+                <asp:DropDownList ID="ddlCategorias" cssClass="form-control" runat="server" ></asp:DropDownList>
             </div>
         </div>
         <div class="col-md-8"></div>

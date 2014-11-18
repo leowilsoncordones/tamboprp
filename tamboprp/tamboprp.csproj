@@ -136,6 +136,7 @@
     <Content Include="Account\OpenAuthProviders.ascx" />
     <Content Include="Account\Register.aspx" />
     <Content Include="Account\RegisterExternalLogin.aspx" />
+    <Content Include="Lactancias.aspx" />
     <Content Include="Calendario_Partos.aspx" />
     <Content Include="Listado_Por_Categoria.aspx" />
     <Content Include="Animales.aspx" />
@@ -273,6 +274,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Lactancias.aspx.cs">
+      <DependentUpon>Lactancias.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Lactancias.aspx.designer.cs">
+      <DependentUpon>Lactancias.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Calendario_Partos.aspx.cs">
       <DependentUpon>Calendario_Partos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -31,12 +31,30 @@ namespace tamboprp {
         protected global::System.Web.UI.WebControls.DropDownList ddlMeses;
         
         /// <summary>
-        /// gvAnimales control.
+        /// gvPartos control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvAnimales;
+        protected global::System.Web.UI.WebControls.GridView gvPartos;
+        
+        /// <summary>
+        /// titCantAnimales control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label titCantAnimales;
+        
+        /// <summary>
+        /// lblCantAnimales control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCantAnimales;
     }
 }

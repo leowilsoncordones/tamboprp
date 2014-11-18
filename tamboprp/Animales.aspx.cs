@@ -58,12 +58,12 @@ namespace tamboprp
 
         public void EventosAnimalAGrilla(Animal a)
         {
-            List<EventoString> list = new List<EventoString>();
+            var list = new List<VOEvento>();
             if (a.Eventos.Count > 0)
             {                
                 for (int i = 0; i < a.Eventos.Count; i++)
                 {
-                    var eventStr = new EventoString();
+                    var eventStr = new VOEvento();
                     eventStr.Fecha = a.Eventos[i].Fecha.ToShortDateString();
                     eventStr.NombreEvento = a.Eventos[i].Nombre;
                     eventStr.Comentario = a.Eventos[i].ToString();

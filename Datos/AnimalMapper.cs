@@ -79,7 +79,7 @@ namespace Datos
 
         public List<Animal> GetAnimalesByCategoria(int idCategoria)
         {
-            List<Animal> result = new List<Animal>();
+            var result = new List<Animal>();
             SqlCommand cmd = null;
             cmd = new SqlCommand();
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -195,5 +195,6 @@ namespace Datos
         {
             return GetScalarInt("Animal_SelectCountSeca");
         }
+
     }
 }

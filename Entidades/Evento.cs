@@ -15,6 +15,8 @@ namespace Entidades
         {
         }
 
+        public virtual string Registro { get; set; }
+
         public virtual string Nombre { get; set; }
 
         public virtual DateTime Fecha { get; set; }

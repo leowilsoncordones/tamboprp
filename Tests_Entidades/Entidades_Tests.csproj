@@ -48,6 +48,7 @@
     <Compile Include="TestAborto.cs" />
     <Compile Include="TestAnimal.cs" />
     <Compile Include="TestEmpleado.cs" />
+    <Compile Include="TestServicio.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

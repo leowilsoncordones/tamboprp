@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace Negocio
 {
-    public class VOServicio
+    public class VOServicio01
     {
         public string Registro { get; set; }
-
-        public string Edad { get; set; }
 
         public DateTime FechaServicio { get; set; }
 
@@ -18,8 +16,6 @@ namespace Negocio
 
         public int CantServicios { get; set; }
 
-        public int DiasServicio { get; set; }
-
-
+        public DateTime FechaParto { get; set; }
     }
 }

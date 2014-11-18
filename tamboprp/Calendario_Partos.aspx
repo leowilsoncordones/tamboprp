@@ -18,15 +18,15 @@
         <div class="col-md-8"></div>
     </div>
 
-    <asp:GridView ID="gvAnimales" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" 
+    <asp:GridView ID="gvPartos" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" 
             CssClass="table table-hover table-striped table-bordered table-condensed dataTable" >
         <RowStyle HorizontalAlign="Left"  />
         <Columns>
             <asp:BoundField DataField="Registro" HeaderText="Registro" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
-            <asp:BoundField DataField="FechaServicio" HeaderText="Fecha de servicio" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
-            <asp:BoundField DataField="RegServicio" HeaderText="Caravana de servicio" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
-            <asp:BoundField DataField="NroServicio" HeaderText="Numero de servicio" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
-            <asp:BoundField DataField="FechaParto" HeaderText="Fecha de Parto" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+            <asp:BoundField DataField="FechaServicio" dataformatstring="{0:dd/MM/yyyy}" HeaderText="Fecha de servicio" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+            <asp:BoundField DataField="RegistroPadre" HeaderText="Caravana de servicio" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+            <asp:BoundField DataField="CantServicios" HeaderText="Numero de servicio" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+            <asp:BoundField DataField="FechaParto" dataformatstring="{0:dd/MM/yyyy}" HeaderText="Fecha de Parto" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
         </Columns>
         <FooterStyle />
         <PagerStyle HorizontalAlign="Left" />
@@ -35,4 +35,5 @@
         <EditRowStyle />
         <AlternatingRowStyle />
         </asp:GridView>
+    <asp:Label ID="titCantAnimales" runat="server" Text="Cantidad de animales en la lista: " Visible="False"></asp:Label><asp:Label ID="lblCantAnimales" runat="server" Visible="False"></asp:Label><br/>
 </asp:Content>

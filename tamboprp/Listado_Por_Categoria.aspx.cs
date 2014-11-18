@@ -10,14 +10,14 @@ using Entidades;
 
 namespace tamboprp
 {
-    public partial class Listado_Por_Categoria : System.Web.UI.Page
+    public partial class ListadoPorCategoria : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
                 this.LimpiarTabla();
-                this.CargarDDLCategorias();
+                this.CargarDdlCategorias();
             }
         }
 
@@ -29,7 +29,7 @@ namespace tamboprp
             this.lblCateg.Text = "";
         }
 
-        private void CargarDDLCategorias()
+        private void CargarDdlCategorias()
         {
             var catMap = new CategoriaMapper();
             List<Categoria> lst = catMap.GetAll();
@@ -42,9 +42,8 @@ namespace tamboprp
 
         private void CargarAnimalesPorCategoria()
         {
-            List<Animal> listTemp = new List<Animal>();
             int idCategoria = int.Parse(this.ddlCategorias.SelectedValue);
-            listTemp = Fachada.Instance.GetAnimalesByCategoria(idCategoria);
+            var listTemp = Fachada.Instance.GetAnimalesByCategoria(idCategoria);
             this.gvAnimales.DataSource = listTemp;
             this.gvAnimales.DataBind();
             // formatear la fecha

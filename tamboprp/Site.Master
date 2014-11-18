@@ -28,6 +28,8 @@
                     <ul class="nav navbar-nav">
                         <li><a runat="server" href="~/">Home</a></li>
                         <li><a runat="server" href="~/Animales.aspx">Animales</a></li>
+                        <li><a runat="server" href="~/Listado_Por_Categoria.aspx">Listados</a></li>
+                        <li><a runat="server" href="~/Lactancias.aspx">Lactancias</a></li>
                         <li><a runat="server" href="~/Personal.aspx">Personal</a></li>
                         <li><a runat="server" href="~/Datos_Generales.aspx">Datos Generales</a></li>
                         <li><a runat="server" href="~/Servicios_Sin_DiagP_70.aspx">Servicios 70</a></li>

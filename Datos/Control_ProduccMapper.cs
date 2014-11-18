@@ -154,7 +154,7 @@ namespace Datos
             {
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.CommandText = "Control_producc_Delete";
+                cmd.CommandText = "Control_producc_Update";
                 cmd.Parameters.Add(new SqlParameter("@REGISTRO", _regAnimal));
                 cmd.Parameters.Add(new SqlParameter("@EVENTO", _Control_Producc.Id_evento));
                 cmd.Parameters.Add(new SqlParameter("@FECHA", _Control_Producc.Fecha));

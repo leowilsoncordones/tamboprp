@@ -55,6 +55,7 @@
     <Compile Include="Lugar_Concurso.cs" />
     <Compile Include="Motivos_Secado.cs" />
     <Compile Include="Muerte.cs" />
+    <Compile Include="Lactancia.cs" />
     <Compile Include="Parto.cs" />
     <Compile Include="Premio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

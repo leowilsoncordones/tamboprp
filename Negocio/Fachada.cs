@@ -13,6 +13,8 @@ namespace Negocio
         private static Fachada _instance;
         private static Control_ProduccMapper _controlProdMapper = new Control_ProduccMapper();
         private static AnimalMapper _animalMapper = new AnimalMapper();
+        private static LactanciaMapper _lactMapper = new LactanciaMapper();
+
         private Fachada()
         {
         }
@@ -54,7 +56,7 @@ namespace Negocio
         {
             var a = new Animal {Registro = registro};
             a.Eventos = new List<Evento>();
-            List<Evento> listTemp = new List<Evento>();
+            var listTemp = new List<Evento>();
 
             /* Cargo los concursos del animal */
             var concMap = new ConcursoMapper(registro);
@@ -158,7 +160,7 @@ namespace Negocio
 
         public List<Animal> GetAnimalesByCategoria(int idCategoria)
         {
-            AnimalMapper amap = new AnimalMapper();
+            var amap = new AnimalMapper();
             return amap.GetAnimalesByCategoria(idCategoria);
         }
         public int GetCantOrdene()
@@ -180,18 +182,108 @@ namespace Negocio
         {
             return _controlProdMapper.GetFechaUltimoControl();
         }
+        
 
-        public List<string> GetMeses()
-        { var lista = new List<string>(); 
-            for ( int i = 0; i <= 11; i++)
+
+        public List<VOLactancia> GetLactanciasActuales()
+        {
+            var lstResult = new List<VOLactancia>();
+            List<Lactancia> lstLact = _lactMapper.GetLactanciaActualCategoriaVacaOrdene();
+            for (int i = 0; i < lstLact.Count; i++)
             {
-                var mes = (System.DateTime.Now.Month + i) % 12;
-                if (mes == 0) mes = 12;
-                string mesNombre = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(mes).ToUpper();
-                lista.Add(mesNombre);
+                var tmp = lstLact[i];
+                var voLact = new VOLactancia(tmp.Registro, tmp.Numero, tmp.Dias, 
+                                             tmp.Leche305, tmp.Grasa305, tmp.Leche365, 
+                                             tmp.Grasa365, tmp.ProdLeche, tmp.ProdGrasa);
+                lstResult.Add(voLact);
+            }
+            return lstResult;
+        }
+
+        public List<VOLactancia> GetLactanciasHistoricas()
+        {
+            var lstResult = new List<VOLactancia>();
+            List<Lactancia> lstLact = _lactMapper.GetLactanciasHistoricas();
+            for (int i = 0; i < lstLact.Count; i++)
+            {
+                var tmp = lstLact[i];
+                var voLact = new VOLactancia(tmp.Registro, tmp.Numero, tmp.Dias, 
+                                             tmp.Leche305, tmp.Grasa305, tmp.Leche365, tmp.Grasa365, 
+                                             tmp.ProdLeche, tmp.ProdGrasa);
+                lstResult.Add(voLact);
+            }
+            return lstResult;
+        }
+
+        public List<VOLactancia> GetMejorProduccion305Dias()
+        {
+            var lstResult = new List<VOLactancia>();
+            List<Lactancia> lstLact = _lactMapper.GetLactanciaMejorProduccion305();
+            for (int i = 0; i < lstLact.Count; i++)
+            {
+                var tmp = lstLact[i];
+                var voLact = new VOLactancia(tmp.Registro, tmp.Numero, tmp.Dias,
+                                             tmp.Leche305, tmp.Grasa305, tmp.Leche365, tmp.Grasa365,
+                                             tmp.ProdLeche, tmp.ProdGrasa);
+                lstResult.Add(voLact);
+            }
+            return lstResult;
+        }
+
+        public List<VOLactancia> GetMejorProduccion365Dias()
+        {
+            var lstResult = new List<VOLactancia>();
+            List<Lactancia> lstLact = _lactMapper.GetLactanciaMejorProduccion365();
+            for (int i = 0; i < lstLact.Count; i++)
+            {
+                var tmp = lstLact[i];
+                var voLact = new VOLactancia(tmp.Registro, tmp.Numero, tmp.Dias,
+                                             tmp.Leche305, tmp.Grasa305, tmp.Leche365, tmp.Grasa365,
+                                             tmp.ProdLeche, tmp.ProdGrasa);
+                lstResult.Add(voLact);
+            }
+            return lstResult;
+        }
+
+
+        public List<DateTime> GetMeses()
+        {
+            var lista = new List<DateTime>();
+            DateTime fecha = DateTime.Now;
+            lista.Add(fecha);
+            for ( int i = 0; i <= 10; i++)
+            {
+                fecha = fecha.AddMonths(1); 
+                lista.Add(fecha);
+            }
+            return lista;
+        }
+
+        public List<VOServicio01> GetProximosPartos(DateTime idFecha)
+        {
+            var mes = idFecha.ToString("MM");
+            var anio = idFecha.ToString("yyyy");
+            var serMap = new ServicioMapper();
+            var listServ = serMap.GetProximosPartos(mes, anio);
+            var listVOServ01 = new List<VOServicio01>();
+            foreach (var serv in listServ)
+            {
+                DateTime fechaParto = serv.Fecha.AddDays(285);
+                int cantServ = 1; //TODO ver consulta 
+                var voServ = new VOServicio01
+                {
+                    Registro = serv.Registro, 
+                    FechaServicio = serv.Fecha, 
+                    RegistroPadre = serv.Reg_padre,
+                    CantServicios = cantServ,
+                    FechaParto = fechaParto
+                };
+
+                listVOServ01.Add(voServ);
             }
 
-            return lista;
+
+            return listVOServ01;
         }
     }
 }

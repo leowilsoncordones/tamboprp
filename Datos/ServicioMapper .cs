@@ -136,6 +136,7 @@ namespace Datos
         protected Servicio load(SqlDataReader record)
         {
             var serv = new Servicio();
+            serv.Registro = (DBNull.Value == record["REGISTRO"]) ? string.Empty : (string)record["REGISTRO"];
             serv.Id_evento = (short)((DBNull.Value == record["EVENTO"]) ? 0 : (Int16)record["EVENTO"]);
             string strDate = (DBNull.Value == record["FECHA"]) ? string.Empty : record["FECHA"].ToString();
             if (strDate != string.Empty) serv.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
@@ -148,9 +149,9 @@ namespace Datos
         }
 
 
-        public List<Evento> GetProximosPartos(string mes, string anio)
+        public List<Servicio> GetProximosPartos(string mes, string anio)
         {
-            List<Evento> result = new List<Evento>();
+            List<Servicio> result = new List<Servicio>();
             SqlCommand cmd = null;
             cmd = new SqlCommand();
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
