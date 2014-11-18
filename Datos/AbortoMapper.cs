@@ -69,7 +69,7 @@ namespace Datos
             cmd = new SqlCommand();
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.Add(new SqlParameter("@REGISTRO", regAnimal));
-            cmd.CommandText = "Aborto_SelecByRegistro";
+            cmd.CommandText = Aborto_SelecByRegistro;
 
             SqlDataReader dr = FindByCmd(cmd);
             while (dr.Read())

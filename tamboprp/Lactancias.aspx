@@ -43,7 +43,7 @@
         <EditRowStyle />
         <AlternatingRowStyle />
         </asp:GridView>
-        <asp:Label ID="titCantAnimales" runat="server" Text="Cantidad de animales en la lista: " Visible="False"></asp:Label><asp:Label ID="lblCantAnimales" runat="server" ></asp:Label><br/>
+        <h4><asp:Label ID="titCantAnimales" runat="server" Text="Cantidad de animales en la lista: " Visible="False"></asp:Label><asp:Label ID="lblCantAnimales" runat="server" ></asp:Label><h4><br/>
         </p>
     </div><br />
 

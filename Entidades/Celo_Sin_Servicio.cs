@@ -14,16 +14,9 @@ namespace Entidades
             Nombre = "Celos sin servicio";
         }
 
-        public Celo_Sin_Servicio(string comentario)
-        {
-            Comentario = comentario;
-        }
-
-        public string Comentario { get; set; }
-
         public override string ToString()
         {
-            return Comentario;
+            return Nombre;
         }
 
     }

@@ -16,10 +16,10 @@ namespace Entidades
             Nombre = "Parto";
         }
 
-        public Parto(int idParto, DateTime fechaServ, string observaciones, char sexoParto, string regHijo)
+        public Parto(int idParto, string observaciones, char sexoParto, string regHijo)
         {
             Id_parto = idParto;
-            Fecha_serv = fechaServ;
+            //Fecha_serv = fechaServ;
             Observaciones = observaciones;
             Sexo_parto = sexoParto;
             Reg_hijo = regHijo;
@@ -27,7 +27,7 @@ namespace Entidades
 
         public int Id_parto { get; set; }
 
-        public DateTime Fecha_serv { get; set; }
+        //public DateTime Fecha_serv { get; set; }
 
         public string Observaciones { get; set; }
 
@@ -37,7 +37,10 @@ namespace Entidades
 
         public override string ToString()
         {
-            return "Registro Hijo: " + Reg_hijo + " (" + Sexo_parto.ToString() + ") Fecha de Servicio: " + Fecha_serv.ToString() + ". Obs: " + Observaciones;
+            string obs = Observaciones;
+            if (Observaciones != "") obs = ". Obs:" + obs;
+            //return "Reg. Hijo: " + Reg_hijo + " (" + Sexo_parto.ToString() + "). Fecha de Servicio: " + Fecha_serv.ToString() + obs;
+            return "Reg. Hijo: " + Reg_hijo + " (" + Sexo_parto.ToString() + ")" + obs;
         }
 
     }

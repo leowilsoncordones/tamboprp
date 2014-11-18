@@ -37,7 +37,7 @@ namespace Datos
 
         public List<Empleado> GetAll()
         {
-            List<Empleado> ls = new List<Empleado>();
+            var ls = new List<Empleado>();
             ls = loadAll(Find(OperationType.SELECT_DEF));
             return ls;
         }
@@ -45,7 +45,7 @@ namespace Datos
 
         protected List<Empleado> loadAll(SqlDataReader rs)
         {
-            List<Empleado> result = new List<Empleado>();
+            var result = new List<Empleado>();
             while (rs.Read())
                 result.Add(load(rs));
             rs.Close();
@@ -61,7 +61,7 @@ namespace Datos
             {
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.CommandText = "Empleado_SelecById";
+                cmd.CommandText = "Empleado_SelectById";
                 cmd.Parameters.Add(new SqlParameter("@ID_EMPLEADO", _empleado.Id_empleado));
             }
 
@@ -83,6 +83,7 @@ namespace Datos
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Empleado_Insert";
+                //cmd.Parameters.Add(new SqlParameter("@ID_EMPLEADO", _empleado.Id_empleado));
                 cmd.Parameters.Add(new SqlParameter("@NOMBRE", _empleado.Nombre));
                 cmd.Parameters.Add(new SqlParameter("@APELLIDO", _empleado.Apellido));
                 cmd.Parameters.Add(new SqlParameter("@INICIALES", _empleado.Iniciales));
@@ -94,7 +95,7 @@ namespace Datos
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Empleado_Update";
-                cmd.Parameters.Add(new SqlParameter("@ID_EMPLEADO", _empleado.Id_empleado));
+                //cmd.Parameters.Add(new SqlParameter("@ID_EMPLEADO", _empleado.Id_empleado));
                 cmd.Parameters.Add(new SqlParameter("@NOMBRE", _empleado.Nombre));
                 cmd.Parameters.Add(new SqlParameter("@APELLIDO", _empleado.Apellido));
                 cmd.Parameters.Add(new SqlParameter("@INICIALES", _empleado.Iniciales));
@@ -106,11 +107,12 @@ namespace Datos
         protected Empleado load(SqlDataReader record)
         {
             var emp = new Empleado();
-            emp.Id_empleado = (short) ((DBNull.Value == record["ID_EMPLEADO"]) ? 0 : (Int16)record["ID_EMPLEADO"]);
+            var idEmp = (short)((DBNull.Value == record["ID_EMPLEADO"]) ? 0 : (Int16) record["ID_EMPLEADO"]);
+            emp.Id_empleado = idEmp;
             emp.Nombre = (DBNull.Value == record["NOMBRE"]) ? string.Empty : (string)record["NOMBRE"];
             emp.Apellido = (DBNull.Value == record["APELLIDO"]) ? string.Empty : (string)record["APELLIDO"];
             emp.Iniciales = (DBNull.Value == record["INICIALES"]) ? string.Empty : (string)record["INICIALES"];
-            emp.Activo = (bool?)record["ACTIVO"];
+            emp.Activo = (bool)record["ACTIVO"];
             return emp;
         }
 

@@ -137,7 +137,20 @@ namespace Datos
             if (strDate != string.Empty) sec.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
             sec.Comentarios = (DBNull.Value == record["COMENTARIO"]) ? string.Empty : (string)record["COMENTARIO"];
             //sec.Motivos_secado = (DBNull.Value == record["MOTIVO_SECADO"]) ? 0 : (Int16)record["MOTIVO_SECADO"];
-            //sec.Enfermedad = (DBNull.Value == record["PUNTOS"]) ? 0 : (Int16)record["PUNTOS"];
+            
+            sec.Motivos_secado = (Motivos_Secado)(short)((DBNull.Value == record["MOTIVO_SECADO"]) ? 0 : (Int16)record["MOTIVO_SECADO"]);
+            if (sec.Motivos_secado.Equals(Motivos_Secado.RAZONES_SANITARIAS))
+            {
+                int idEnf = (short)((DBNull.Value == record["ENFERMEDAD"]) ? 0 : (Int16)record["ENFERMEDAD"]);
+                if (idEnf > 0)
+                {
+                    var e = new Enfermedad();
+                    e.Id = idEnf;
+                    var enfMap = new EnfermedadMapper(e);
+                    sec.Enfermedad = enfMap.GetEnfermedadById();
+                }
+                
+            }
 
             return sec;
         }

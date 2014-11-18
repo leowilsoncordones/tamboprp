@@ -30,7 +30,7 @@
             <asp:BoundField DataField="Reg_trazab" HeaderText="Trazabilidad" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
             <asp:BoundField DataField="Sexo" HeaderText="Sexo" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
             <asp:BoundField DataField="Gen" HeaderText="Gen" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
-            <asp:BoundField DataField="Fecha_Nacim" HeaderText="Fecha Nac." HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />    
+            <asp:BoundField DataField="Fecha_Nacim" HeaderText="Fecha Nac." dataformatstring="{0:dd/MM/yyyy}" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />    
             <asp:BoundField DataField="Origen" HeaderText="Origen" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
             <asp:BoundField DataField="Reg_padre" HeaderText="Reg. Padre" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
             <asp:BoundField DataField="Reg_madre" HeaderText="Reg. Madre" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />

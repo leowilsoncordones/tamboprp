@@ -14,6 +14,7 @@ namespace Negocio
         private static Control_ProduccMapper _controlProdMapper = new Control_ProduccMapper();
         private static AnimalMapper _animalMapper = new AnimalMapper();
         private static LactanciaMapper _lactMapper = new LactanciaMapper();
+        private static ServicioMapper _servMapper = new ServicioMapper();
 
         private Fachada()
         {
@@ -244,6 +245,47 @@ namespace Negocio
             }
             return lstResult;
         }
+
+        public List<VOControlProdUltimo> GetControlesProduccUltimo()
+        {
+            
+            var lstResult = new List<VOControlProdUltimo>();
+            List<Control_Producc> lstLact = _controlProdMapper.GetControlesProduccUltimo();
+            for (int i = 0; i < lstLact.Count; i++)
+            {
+                var tmp = lstLact[i];
+                var lactAux = new LactanciaMapper(tmp.Registro);
+                int numLact = lactAux.GetMaxLactanciaByRegistro();
+                //fechaServicio
+                //numServicio
+                var voLact = new VOControlProdUltimo(tmp.Registro, numLact, tmp.Dias_para_control,
+                                                     tmp.Leche, tmp.Grasa, tmp.Fecha);
+                lstResult.Add(voLact);
+            }
+            return lstResult;
+        }
+
+        public VOAnalitico GetAnaliticoVacasEnOrdene()
+        {
+            var voA = new VOAnalitico();
+            voA.CantVacasEnOrdene = _animalMapper.GetCantOrdene();
+            //voA.PromProdLecheLts = _animalMapper.GetEnOrdenePromProdLecheLts();
+            //voA.CantLactancia1 = _animalMapper.GetEnOrdeneLanctancia1();
+            //voA.CantLactancia2 = _animalMapper.GetEnOrdeneLanctancia2();
+            //voA.CantOtrasLactancias = _animalMapper.GetEnOrdeneLanctanciaMayor2();
+            //voA.ConServicioSinPreñez = _animalMapper.GetEnOrdeneServicioSinPrenez();
+            //voA.PrenezConfirmada = _animalMapper.GetEnOrdenePrenezConfirmada();
+            //voA.PromDiasLactancias = _animalMapper.GetPromDiasLactancias();
+            return voA;
+        }
+
+        public List<Enfermedad> GetEnfermedades()
+        {
+            var enfMap = new EnfermedadMapper();
+            return enfMap.GetAll();
+        }
+
+
 
 
         public List<DateTime> GetMeses()

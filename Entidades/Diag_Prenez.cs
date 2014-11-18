@@ -25,7 +25,29 @@ namespace Entidades
 
         public override string ToString()
         {
-            return "Diagnóstico: " + Diagnostico + ". " + Comentarios ;
+            string nomD = "";
+            switch (Diagnostico)
+            {
+                case 'P':
+                    {
+                        nomD = "PREÑADA";
+                        break;
+                    }
+
+                case 'V':
+                    {
+                        nomD = "VACÍA";
+                        break;
+                    }
+
+                case 'D':
+                    {
+                        nomD = "DUDOSA";
+                        break;
+                    }
+            }
+            //return "Diagnóstico: " + Diagnostico.ToString();
+            return "Diagnóstico: " + nomD;
         }
 
     }

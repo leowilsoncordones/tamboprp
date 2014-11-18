@@ -15,7 +15,7 @@ namespace Entidades
         {
         }
 
-        public Empleado(string nombre, string apellido, string iniciales, bool? activo)
+        public Empleado(string nombre, string apellido, string iniciales, bool activo)
         {
             Nombre = nombre;
             Apellido = apellido;
@@ -23,7 +23,7 @@ namespace Entidades
             Activo = activo;
         }
 
-        public Empleado(Int16 idEmpleado, string nombre, string apellido, string iniciales, bool? activo)
+        public Empleado(Int16 idEmpleado, string nombre, string apellido, string iniciales, bool activo)
         {
             Id_empleado = idEmpleado;
             Nombre = nombre;
@@ -31,7 +31,7 @@ namespace Entidades
             Iniciales = iniciales;
             Activo = activo;
         }
-    
+
 
         public Int16 Id_empleado { get; set; }
 
@@ -41,8 +41,13 @@ namespace Entidades
 
         public string Iniciales { get; set; }
 
-        public bool? Activo { get; set; }
+        public bool Activo { get; set; }
 
+        public override string ToString()
+        {
+            //string act = (Activo)? " Activo" : " No activo";
+            return Nombre + " " + Apellido + " (" + Iniciales + ")";
+        }
     }
 }
 

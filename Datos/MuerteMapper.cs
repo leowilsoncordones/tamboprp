@@ -48,7 +48,7 @@ namespace Datos
 
         public List<Muerte> GetAll()
         {
-            List<Muerte> ls = new List<Muerte>();
+            var ls = new List<Muerte>();
             ls = loadAll(Find(OperationType.SELECT_DEF));
             return ls;
         }
@@ -56,7 +56,7 @@ namespace Datos
 
         protected List<Muerte> loadAll(SqlDataReader rs)
         {
-            List<Muerte> result = new List<Muerte>();
+            var result = new List<Muerte>();
             while (rs.Read())
                 result.Add(load(rs));
             rs.Close();
@@ -65,12 +65,12 @@ namespace Datos
 
         public List<Evento> GetMuerteByRegistro(string regAnimal)
         {
-            List<Evento> result = new List<Evento>();
+            var result = new List<Evento>();
             SqlCommand cmd = null;
             cmd = new SqlCommand();
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.Add(new SqlParameter("@REGISTRO", regAnimal));
-            cmd.CommandText = "Muerte_SelecByRegistro";
+            cmd.CommandText = Muerte_SelecByRegistro;
 
             SqlDataReader dr = FindByCmd(cmd);
             while (dr.Read())
@@ -161,6 +161,11 @@ namespace Datos
             if (strDate != string.Empty) muerte.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
             muerte.Comentarios = (DBNull.Value == record["COMENTARIO"]) ? string.Empty : (string)record["COMENTARIO"];
             //muerte.Enfermedad = (short)((DBNull.Value == record["ENFERMEDAD"]) ? 0 : (Int16)record["ENFERMEDAD"]);
+
+            var e = new Enfermedad();
+            e.Id = (short)((DBNull.Value == record["ENFERMEDAD"]) ? 0 : (Int16)record["ENFERMEDAD"]);
+            var enfMap = new EnfermedadMapper(e);
+            muerte.Enfermedad = enfMap.GetEnfermedadById();
 
             return muerte;
         }

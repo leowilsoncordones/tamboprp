@@ -29,8 +29,9 @@ namespace Entidades
 
         public override string ToString()
         {
-            //return "Registro Padre: " + Reg_padre + " Monta natural: " + Serv_monta_natural.ToString() + " Inseminador: " + Inseminador.Iniciales.ToString();
-            return "Registro Padre: " + Reg_padre + " Monta natural: " + Serv_monta_natural.ToString() + ". " + Comentarios;
+            string ins = "";
+            if (Inseminador != null) ins = ". Inseminador: " + Inseminador.ToString();
+            return "Registro padre: " + Reg_padre + ". Monta natural: " + Serv_monta_natural.ToString() + ins;
         }
     }
 }
