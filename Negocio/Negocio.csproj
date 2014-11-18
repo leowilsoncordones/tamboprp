@@ -38,6 +38,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="VOAnalitico.cs" />
+    <Compile Include="VOControlProdUltimo.cs" />
     <Compile Include="VOLactancia.cs" />
     <Compile Include="VOListItem.cs" />
     <Compile Include="VOEvento.cs" />

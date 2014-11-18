@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
@@ -16,10 +17,12 @@ namespace Datos
         private string _regAnimal;
 
         private static string Lactancia_SelectByRegistro = "Lactancia_SelectByRegistro";
-        private static string Lactancias_SelectMaxVacaEnOrdene = "Lactancias_SelectMaxVacaEnOrdene";
-        private static string Lactancias_SelectHistorica = "Lactancias_SelectHistorica";
-        private static string Lactancias_SelectMejorProduccion305 = "Lactancias_SelectMejorProduccion305";
-        private static string Lactancias_SelectMejorProduccion365 = "Lactancias_SelectMejorProduccion365";
+        private static string Lactancia_SelectMaxVacaEnOrdene = "Lactancia_SelectMaxVacaEnOrdene";
+        private static string Lactancia_SelectHistorica = "Lactancia_SelectHistorica";
+        private static string Lactancia_SelectMejorProduccion305 = "Lactancia_SelectMejorProduccion305";
+        private static string Lactancia_SelectMejorProduccion365 = "Lactancia_SelectMejorProduccion365";
+        private static string Lactancia_SelectMaxByRegistro = "Lactancia_SelectMaxByRegistro";
+        
         
         public LactanciaMapper(Lactancia lact)
         {
@@ -55,14 +58,14 @@ namespace Datos
 
         public List<Lactancia> GetAll()
         {
-            List<Lactancia> ls = new List<Lactancia>();
+            var ls = new List<Lactancia>();
             ls = loadAll(Find(OperationType.SELECT_DEF));
             return ls;
         }
 
         public List<Lactancia> GetLactanciasByRegistro()
         {
-            List<Lactancia> result = new List<Lactancia>();
+            var result = new List<Lactancia>();
             SqlCommand cmd = null;
             cmd = new SqlCommand();
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -83,7 +86,7 @@ namespace Datos
             SqlCommand cmd = null;
             cmd = new SqlCommand();
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.CommandText = Lactancias_SelectMaxVacaEnOrdene;
+            cmd.CommandText = Lactancia_SelectMaxVacaEnOrdene;
 
             SqlDataReader dr = FindByCmd(cmd);
             while (dr.Read())
@@ -98,7 +101,7 @@ namespace Datos
             SqlCommand cmd = null;
             cmd = new SqlCommand();
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.CommandText = Lactancias_SelectHistorica;
+            cmd.CommandText = Lactancia_SelectHistorica;
 
             SqlDataReader dr = FindByCmd(cmd);
             while (dr.Read())
@@ -113,7 +116,7 @@ namespace Datos
             SqlCommand cmd = null;
             cmd = new SqlCommand();
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.CommandText = Lactancias_SelectMejorProduccion305;
+            cmd.CommandText = Lactancia_SelectMejorProduccion305;
 
             SqlDataReader dr = FindByCmd(cmd);
             while (dr.Read())
@@ -128,7 +131,7 @@ namespace Datos
             SqlCommand cmd = null;
             cmd = new SqlCommand();
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.CommandText = Lactancias_SelectMejorProduccion365;
+            cmd.CommandText = Lactancia_SelectMejorProduccion365;
 
             SqlDataReader dr = FindByCmd(cmd);
             while (dr.Read())
@@ -137,10 +140,22 @@ namespace Datos
             return result;
         }
 
+        public int GetMaxLactanciaByRegistro()
+        {
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = Lactancia_SelectMaxByRegistro;
+            cmd.Parameters.Add(new SqlParameter("@REGISTRO", _regAnimal));
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
+
 
         protected List<Lactancia> loadAll(SqlDataReader rs)
         {
-            List<Lactancia> result = new List<Lactancia>();
+            var result = new List<Lactancia>();
             while (rs.Read())
                 result.Add(load(rs));
             rs.Close();

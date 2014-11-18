@@ -5,6 +5,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System;
+
 namespace Entidades
 {
     public class Control_Producc : Evento
@@ -14,11 +16,13 @@ namespace Entidades
             Nombre = "Control de Producción";
         }
 
-        public Control_Producc(int diasParaControl, double leche, double grasa)
+        public Control_Producc(string registro, int diasParaControl, double leche, double grasa, DateTime fecha)
         {
+            Registro = registro;
             Dias_para_control = diasParaControl;
             Leche = leche;
             Grasa = grasa;
+            Fecha = fecha;
         }
 
         public double Grasa { get; set; }
@@ -29,7 +33,7 @@ namespace Entidades
 
         public override string ToString()
         {
-            return "Leche: " + Leche.ToString() + " Grasa: " + Grasa.ToString() + " Días para control: " + Dias_para_control.ToString();
+            return "Leche: " + Leche.ToString() + " Grasa: " + Grasa.ToString() + ". Días para control: " + Dias_para_control.ToString();
         }
 
     }

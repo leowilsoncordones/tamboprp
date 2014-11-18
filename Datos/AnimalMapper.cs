@@ -16,7 +16,7 @@ namespace Datos
         private Animal _animal;
 
         private static string Animal_BusqByID = "Animal_BusqByID";
-        private static string Animal_BusqByCategoria = "Animal_BusqByCategoria";
+        //private static string Animal_BusqByCategoria = "Animal_BusqByCategoria";
         private static string Animal_SelectByCategoria = "Animal_SelectByCategoria";        
 
         public AnimalMapper(Animal animal)
@@ -42,14 +42,14 @@ namespace Datos
 
         public List<Animal> GetAll()
         {
-            List<Animal> ls = new List<Animal>();
+            var ls = new List<Animal>();
             ls = loadAll(Find(OperationType.SELECT_DEF));
             return ls;
         }
 
         public List<Animal> GetBusqAnimal(string buscar, int criterio)
         {
-            List<Animal> result = new List<Animal>();
+            var result = new List<Animal>();
             if (criterio < 0 || criterio > 1) return result;
             SqlCommand cmd = null;
             cmd = new SqlCommand();
@@ -96,14 +96,13 @@ namespace Datos
 
         protected List<Animal> loadAll(SqlDataReader rs)
         {
-            List<Animal> result = new List<Animal>();
+            var result = new List<Animal>();
             while (rs.Read())
                 result.Add(load(rs));
             rs.Close();
             return result;
         }
-
-
+        
 
         protected override SqlCommand GetStatement(OperationType opType)
         {
@@ -162,11 +161,10 @@ namespace Datos
             string strGen = (DBNull.Value == record["GEN"]) ? string.Empty : record["GEN"].ToString();
             anim.Gen = (DBNull.Value == record["GEN"]) ? -1 : int.Parse(record["GEN"].ToString());
 
-            //int idCategoria = (DBNull.Value == record["CATEGORIA"]) ? 0 : (int)record["CATEGORIA"];
-            //Categoria c = new Categoria();
-            //c.IdCategoria = idCategoria;
-            //Categoria cat = CategoriaMapper.GetCategById();
-            //anim.Categoria = cat;
+            var c = new Categoria();
+            c.Id_categ = (short)((DBNull.Value == record["CATEGORIA"]) ? 0 : (Int16)record["CATEGORIA"]);
+            var catMap = new CategoriaMapper(c);
+            anim.Categoria = catMap.GetCategoriaById();
 
             anim.Nombre = (DBNull.Value == record["NOMBRE"]) ? string.Empty : (string)record["NOMBRE"];
             anim.Reg_trazab = (DBNull.Value == record["REG_TRAZAB"]) ? string.Empty : (string)record["REG_TRAZAB"];
@@ -195,6 +193,42 @@ namespace Datos
         {
             return GetScalarInt("Animal_SelectCountSeca");
         }
+
+        public int GetEnOrdeneLanctancia1()
+        {
+            return GetScalarInt("Animal_SelectCountEnOrdeneLactancia1");
+        }
+
+        public int GetEnOrdeneLanctanciaMayor2()
+        {
+            return GetScalarInt("Animal_SelectCountEnOrdeneLactanciaMayor2");
+        }
+
+        public int GetEnOrdeneLanctancia2()
+        {
+            return GetScalarInt("Animal_SelectCountEnOrdeneLactancia2");
+        }
+
+        public int GetEnOrdenePromProdLecheLts()
+        {
+            return GetScalarInt("Animal_SelectCountEnOrdenePromProdLecheLts");
+        }
+
+        public int GetEnOrdeneServicioSinPrenez()
+        {
+            return GetScalarInt("Animal_SelectCountEnOrdeneServicioSinPrenez");
+        }
+
+        public int GetEnOrdenePrenezConfirmada()
+        {
+            return GetScalarInt("Animal_SelectCountEnOrdenePrenezConfirmada");
+        }
+
+        public int GetPromDiasLactancias()
+        {
+            return GetScalarInt("Animal_SelectCountEnOrdenePromDiasLactancias");
+        }
+
 
     }
 }

@@ -58,11 +58,13 @@ namespace tamboprp
             this.gvLactancias.Columns[6].Visible = true;
             this.gvLactancias.Columns[7].Visible = false;
             this.gvLactancias.Columns[8].Visible = false;
+            this.lblCantAnimales.Text = listTemp.Count.ToString();
         }
 
         private void GetLactanciasHistoricas()
         {
             var listTemp = Fachada.Instance.GetLactanciasHistoricas();
+            /* falta resolver */
             this.gvLactancias.DataSource = listTemp;
             this.gvLactancias.DataBind();
             this.gvLactancias.Columns[1].Visible = true;
@@ -73,6 +75,7 @@ namespace tamboprp
             this.gvLactancias.Columns[6].Visible = true;
             this.gvLactancias.Columns[7].Visible = true;
             this.gvLactancias.Columns[8].Visible = true;
+            this.lblCantAnimales.Text = listTemp.Count.ToString();
         }
 
         private void GetMejorProduccion305()
@@ -88,6 +91,7 @@ namespace tamboprp
             this.gvLactancias.Columns[6].Visible = false;
             this.gvLactancias.Columns[7].Visible = true;
             this.gvLactancias.Columns[8].Visible = true;
+            this.lblCantAnimales.Text = listTemp.Count.ToString();
         }
 
         private void GetMejorProduccion365()
@@ -103,6 +107,7 @@ namespace tamboprp
             this.gvLactancias.Columns[6].Visible = true;
             this.gvLactancias.Columns[7].Visible = true;
             this.gvLactancias.Columns[8].Visible = true;
+            this.lblCantAnimales.Text = listTemp.Count.ToString();
         }
 
 
@@ -130,6 +135,7 @@ namespace tamboprp
 
             this.lblTitulo.Visible = true;
             this.lblTitulo.Text = this.ddlTipoListado.SelectedItem.Text;
+            this.titCantAnimales.Visible = true;
         }
     }
 }

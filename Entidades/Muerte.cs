@@ -14,16 +14,16 @@ namespace Entidades
             Nombre = "Muerte";
         }
 
-        public Muerte(Enfermedades enfermedad)
+        public Muerte(Enfermedad enfermedad)
         {
             Enfermedad = enfermedad;
         }
 
-        public Enfermedades Enfermedad { get; set; }
+        public Enfermedad Enfermedad { get; set; }
 
         public override string ToString()
         {
-            return " Causa: " + Enfermedad.ToString() + ". " + Comentarios;
+            return Nombre + ". " + Enfermedad.ToString();
         }
 
     }

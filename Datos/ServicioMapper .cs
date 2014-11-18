@@ -46,7 +46,7 @@ namespace Datos
 
         public List<Servicio> GetAll()
         {
-            List<Servicio> ls = new List<Servicio>();
+            var ls = new List<Servicio>();
             ls = loadAll(Find(OperationType.SELECT_DEF));
             return ls;
         }
@@ -54,7 +54,7 @@ namespace Datos
 
         protected List<Servicio> loadAll(SqlDataReader rs)
         {
-            List<Servicio> result = new List<Servicio>();
+            var result = new List<Servicio>();
             while (rs.Read())
                 result.Add(load(rs));
             rs.Close();
@@ -63,7 +63,7 @@ namespace Datos
 
         public List<Evento> GetServiciosByRegistro(string regAnimal)
         {
-            List<Evento> result = new List<Evento>();
+            var result = new List<Evento>();
             SqlCommand cmd = null;
             cmd = new SqlCommand();
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -140,8 +140,15 @@ namespace Datos
             serv.Comentarios = (DBNull.Value == record["COMENTARIO"]) ? string.Empty : (string)record["COMENTARIO"];
             serv.Serv_monta_natural = (DBNull.Value == record["SERV_MONTA_NATURAL"]) ? ' ' : Convert.ToChar(record["SERV_MONTA_NATURAL"]);
             serv.Reg_padre = (DBNull.Value == record["REG_PADRE"]) ? string.Empty : (string)record["REG_PADRE"];
-            //serv.Inseminador = (DBNull.Value == record["INSEMINADOR"]) ? string.Empty : (string)record["INSEMINADOR"];
 
+            int idIns = (short) ((DBNull.Value == record["INSEMINADOR"]) ? 0 : (Int16) record["INSEMINADOR"]);
+            if (idIns > 0)
+            {
+                var e = new Empleado();
+                e.Id_empleado = (Int16)idIns;
+                var empMap = new EmpleadoMapper(e);
+                serv.Inseminador = empMap.GetEmpleadoById();
+            }
             return serv;
         }
 

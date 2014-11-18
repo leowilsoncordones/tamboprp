@@ -14,7 +14,11 @@
                 <input type="text" class="form-control" runat="server" id="regBuscar" />
             </div>
         </div>
-        <div class="col-md-8"></div>
+        <div class="col-md-4">
+            <asp:DropDownList ID="ddlSimilares" cssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="ddlSimilares_SelectedIndexChanged" runat="server" Visible="false" AppendDataBoundItems="true" />
+        </div>
+        <div class="col-md-4">
+        </div>
         </div>
         <br/>
         <div class="jumbotron">
@@ -25,22 +29,24 @@
                 <asp:Label ID="titIdentif" runat="server" Text="Identificación: "></asp:Label><asp:Label ID="lblIdentif" runat="server" ></asp:Label><br/>
                 <asp:Label ID="titTraz" runat="server" Text="Trazabilidad: "></asp:Label><asp:Label ID="lblTraz" runat="server" ></asp:Label><br/>
                 <asp:Label ID="titNombre" runat="server" Text="Nombre: "></asp:Label><asp:Label ID="lblNombre" runat="server" ></asp:Label><br/>
-                <asp:Label ID="titFechaNac" runat="server" Text="Fecha Nacimiento: "></asp:Label><asp:Label ID="lblFechaNac" runat="server" ></asp:Label><br/>
+                <asp:Label ID="titFechaNac" runat="server" Text="Fecha Nacimiento: "></asp:Label><asp:Label ID="lblFechaNac" runat="server" dataformatstring="{0:dd/MM/yyyy}" ></asp:Label><br/>
                 <asp:Label ID="titCategoria" runat="server" Text="Categoría: "></asp:Label><asp:Label ID="lblCategoria" runat="server" ></asp:Label><br/>
                 <asp:Label ID="titGen" runat="server" Text="Generación: "></asp:Label><asp:Label ID="lblGen" runat="server" ></asp:Label><br/>
                 <asp:Label ID="titRegPadre" runat="server" Text="Reg. Padre: "></asp:Label><asp:Label ID="lblRegPadre" runat="server" ></asp:Label><br/>
                 <asp:Label ID="titRegMadre" runat="server" Text="Reg. Madre: "></asp:Label><asp:Label ID="lblRegMadre" runat="server" ></asp:Label><br/>
                 <asp:Label ID="titOrigen" runat="server" Text="Origen: "></asp:Label><asp:Label ID="lblOrigen" runat="server" ></asp:Label><br/><br/>
                 <a class="btn btn-default" href="#" role="button">Ver fotos</a>
+                <asp:Button ID="btnHistorial" runat="server" onclick="btnVerHistorial_Click" Text="Ver Historial" CssClass="btn btn-primary" />
             </p>
             <p>
             <asp:GridView ID="gvHistoria" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" 
                 CssClass="table table-hover table-striped table-bordered table-condensed dataTable" >
             <RowStyle HorizontalAlign="Left"  />
             <Columns>
-                <asp:BoundField DataField="Fecha" HeaderText="Fecha" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
-                <asp:BoundField DataField="NombreEvento" HeaderText="Evento" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />    
-                <asp:BoundField DataField="Comentario" HeaderText="Comentario" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                <asp:BoundField DataField="Fecha" HeaderText="Fecha" dataformatstring="{0:dd/MM/yyyy}" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                <asp:BoundField DataField="NombreEvento" HeaderText="Evento" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />   
+                <asp:BoundField DataField="Observaciones" HeaderText="Observaciones del evento" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" /> 
+                <asp:BoundField DataField="Comentarios" HeaderText="Comentario" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
             </Columns>
             <FooterStyle />
             <PagerStyle HorizontalAlign="Left" />
@@ -48,19 +54,10 @@
             <HeaderStyle />
             <EditRowStyle />
             <AlternatingRowStyle />
-        </asp:GridView>
-                <asp:Label ID="titHistorico" runat="server" Text="Cantidad de eventos: " Visible="False"></asp:Label><asp:Label ID="lblHistorico" runat="server" ></asp:Label><br/>
+            </asp:GridView>
+                <h4><asp:Label ID="titHistorico" runat="server" Text="Cantidad de eventos: " Visible="False"></asp:Label><asp:Label ID="lblHistorico" runat="server" ></asp:Label></h4><br/>
             </p>
         </div>
-        
-        <!-- Small modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bs-example-modal-sm">Small modal</button>
-        <div class="modal fade" id="bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-              List
-            </div>
-          </div>
-        </div>
+        <br/>
 
 </asp:Content>

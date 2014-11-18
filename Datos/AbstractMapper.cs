@@ -86,6 +86,8 @@ namespace Datos
             cmd.Connection = conn;
             conn.Open();
             value = cmd.ExecuteScalar();
+            conn.Close();
+            conn.Dispose();
 
             return value;
         }
@@ -116,6 +118,8 @@ namespace Datos
             cmd.CommandText = storedProcedure;
             return ReturnScalarValue(cmd);
         }
+
+
 
     }
 }

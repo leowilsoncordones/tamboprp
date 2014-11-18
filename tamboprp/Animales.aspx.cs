@@ -12,35 +12,44 @@ namespace tamboprp
 {
     public partial class Animales : System.Web.UI.Page
     {
+        private Animal _animal;
+        private List<Animal> _similares = new List<Animal>(); 
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            LimpiarRegistro();
+            this.LimpiarRegistro();
         }
 
-        public void CargarFichaAnimal(Animal a)
+        public void CargarFichaAnimal()
         {
-            if (a != null)
+            if (_animal != null)
             {
-                this.lblAnimal.Text = a.Registro;
-                this.lblIdentif.Text = a.Identificacion;
-                this.lblGen.Text = (a.Gen != -1) ? a.Gen.ToString() : " - ";
-                //this.lblCategoria.Text = a.Categoria.ToString();
-                this.lblNombre.Text = (a.Nombre != "") ? a.Nombre : " - ";
-                this.lblTraz.Text = a.Reg_trazab;
-                this.lblSexo.Text = a.Sexo.ToString();
-                this.lblFechaNac.Text = a.Fecha_nacim.ToShortDateString();
-                this.lblOrigen.Text = a.Origen;
-                this.lblRegPadre.Text = a.Reg_padre;
-                this.lblRegMadre.Text = a.Reg_madre;
-                a.Vivo = !Fachada.Instance.EstaMuertoAnimal(a.Registro);
-                if (!a.Vivo)
+                this.lblAnimal.Text = _animal.Registro;
+                this.lblIdentif.Text = _animal.Identificacion;
+                this.lblGen.Text = (_animal.Gen != -1) ? _animal.Gen.ToString() : "-";
+                if (_animal.Categoria != null)
+                {
+                    if (_animal.Categoria.Id_categ == 4) 
+                    this.lblCategoria.CssClass = "label label-success";
+                    this.lblCategoria.Text = _animal.Categoria.ToString();
+                }
+                else this.lblCategoria.Text = "-";
+                this.lblNombre.Text = (_animal.Nombre != "") ? _animal.Nombre : "-";
+                this.lblTraz.Text = _animal.Reg_trazab;
+                this.lblSexo.Text = _animal.Sexo.ToString();
+                this.lblFechaNac.Text = _animal.Fecha_nacim.ToShortDateString();
+                this.lblOrigen.Text = _animal.Origen;
+                this.lblRegPadre.Text = _animal.Reg_padre;
+                this.lblRegMadre.Text = _animal.Reg_madre;
+                _animal.Vivo = !Fachada.Instance.EstaMuertoAnimal(_animal.Registro);
+                if (!_animal.Vivo)
                 {
                     this.lblVivo.Text = "MUERTO";
                     this.lblVivo.CssClass = "label label-danger";
                 }
                 else
                 {
-                    if (Fachada.Instance.FueVendidoAnimal(a.Registro))
+                    if (Fachada.Instance.FueVendidoAnimal(_animal.Registro))
                     {
                         this.lblVivo.Text = "VENDIDO";
                         this.lblVivo.CssClass = "label label-info";
@@ -51,53 +60,41 @@ namespace tamboprp
                         this.lblVivo.CssClass = "label label-success";
                     }                    
                 }
-                EventosAnimalAGrilla(a);
+                //this.btnHistorial.Visible = true;
+                EventosAnimalAGrilla();
             }
             else this.lblAnimal.Text = "No existe :(";
         }
 
-        public void EventosAnimalAGrilla(Animal a)
+        public void EventosAnimalAGrilla()
         {
-            var list = new List<VOEvento>();
-            if (a.Eventos.Count > 0)
-            {                
-                for (int i = 0; i < a.Eventos.Count; i++)
+            if (_animal != null)
+            {
+                var list = new List<VOEvento>();
+                if (_animal.Eventos.Count > 0)
                 {
-                    var eventStr = new VOEvento();
-                    eventStr.Fecha = a.Eventos[i].Fecha.ToShortDateString();
-                    eventStr.NombreEvento = a.Eventos[i].Nombre;
-                    eventStr.Comentario = a.Eventos[i].ToString();
-                    list.Add(eventStr);
+                    //this.gvHistoria.Visible = true;
+                    for (int i = 0; i < _animal.Eventos.Count; i++)
+                    {
+                        var voEv = new VOEvento();
+                        voEv.Fecha = _animal.Eventos[i].Fecha.ToShortDateString();
+                        voEv.NombreEvento = _animal.Eventos[i].Nombre;
+                        voEv.Observaciones = _animal.Eventos[i].ToString();
+                        voEv.Comentarios = _animal.Eventos[i].Comentarios;
+                        list.Add(voEv);
+                    }
+                    this.gvHistoria.DataSource = list;
+                    this.gvHistoria.DataBind();
                 }
-                this.gvHistoria.DataSource = list;
-                this.gvHistoria.DataBind();
+                this.gvHistoria.Visible = true;
+                this.titHistorico.Visible = true;
+                this.lblHistorico.Text = _animal.Eventos.Count.ToString();
             }
-            this.titHistorico.Visible = true;
-            this.lblHistorico.Text = a.Eventos.Count.ToString();
         }
-
 
         protected void btnBuscarAnimal_Click(object sender, EventArgs e)
         {
-            List<Animal> animals =  Fachada.Instance.GetSearchAnimal(regBuscar.Value);
-           
-            if (animals.Count > 0)
-            {
-                if (animals.Count > 1)
-                {
-                    /* hay mas de un resultado */
-                }
-                /* hay un solo resultado, es el animal que buscamos */
-                var unAnimal = animals[0];
-                var retAnimal = Fachada.Instance.GetEventosAnimal(unAnimal.Registro);
-                unAnimal.Eventos = retAnimal.Eventos;
-                this.CargarFichaAnimal(unAnimal);
-            }
-            else
-            {
-                LimpiarRegistro();
-                this.lblAnimal.Text = "No existe";
-            }
+            this.BuscarAnimal(this.regBuscar.Value);
         }
 
         private void LimpiarRegistro()
@@ -106,6 +103,7 @@ namespace tamboprp
             this.lblIdentif.Text = "";
             this.lblGen.Text = "";
             this.lblCategoria.Text = "";
+            this.lblCategoria.CssClass = "";
             this.lblNombre.Text = "";
             this.lblTraz.Text = "";
             this.lblSexo.Text = "";
@@ -113,14 +111,114 @@ namespace tamboprp
             this.lblOrigen.Text = "";
             this.lblRegPadre.Text = "";
             this.lblRegMadre.Text = "";
-            this.lblVivo.Text = "VIVO | MUERTO | VENDIDO";
+            this.lblVivo.Text = "ESTADO";
             this.lblVivo.CssClass = "label label-default";
             this.titHistorico.Visible = false;
             this.lblHistorico.Text = "";            
             this.gvHistoria.DataSource = null;
             this.gvHistoria.DataBind();
+            this.btnHistorial.Visible = false;
+            this.LimpiarDdlResultadosSimilares();
+        }
+
+        private void LimpiarDdlResultadosSimilares()
+        {
+            this.ddlSimilares.Visible = false;
+            this.ddlSimilares.DataSource = null;
+            this.ddlSimilares.DataBind();
+            this.ddlSimilares.Items.Clear();
+            //this.ddlSimilares.Items.Insert(0, new ListItem("Resultados similares", "Resultados similares"));
+            this._similares.Clear();
+        }
+
+        protected void ddlSimilares_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //if (this.ddlSimilares.SelectedIndex > 0 )
+                //this.BuscarAnimal(this.ddlSimilares.SelectedValue);
+                //this.BuscarAnimal(this.ddlSimilares.SelectedItem.Value);
+                //this.BuscarAnimal(this.ddlSimilares.SelectedItem.Text);
         }
 
 
+        protected void btnSimilares_click(object sender, EventArgs e)
+        {
+            if (this.ddlSimilares.SelectedIndex > 0)
+                this.BuscarAnimal(this.ddlSimilares.SelectedValue);
+                
+        }
+
+
+        protected void BuscarAnimal(string registro)
+        {
+            this.LimpiarRegistro();
+            List<Animal> animals = Fachada.Instance.GetSearchAnimal(registro);
+            if (animals.Count > 0)
+            {
+                for (int i = 0; i < animals.Count; i++)
+                {
+                    if (animals[i].Registro.Equals(registro))
+                    {
+                        _animal = animals[i];
+                    }
+                    else
+                    {
+                        _similares.Add(animals[i]);
+                        //var valor = i.ToString();
+                        //var item = new ListItem(animals[i].Registro, valor);
+                        //this.ddlSimilares.Items.Add(item);
+                    }
+                }
+                /* hay resultados similares y se presentan en el ddl como ayuda */
+                if (_similares.Count > 0)
+                {
+                    this.ddlSimilares.Visible = true;
+                    this.ddlSimilares.DataSource = _similares;
+                    this.ddlSimilares.DataTextField = "Registro";
+                    this.ddlSimilares.DataValueField = "Registro";
+                    this.ddlSimilares.Items.Insert(0, new ListItem("Resultados similares", "Resultados similares"));
+                    this.ddlSimilares.DataBind();
+
+                }
+                if (_animal != null)
+                {
+                    var regAnimal = _animal.Registro;
+                    var retAnimal = Fachada.Instance.GetEventosAnimal(regAnimal);
+                    _animal.Eventos = retAnimal.Eventos;
+                    this.CargarFichaAnimal();
+                }
+            }
+            else
+            {
+                this.LimpiarRegistro();
+                this.lblAnimal.Text = "No existe";
+            }
+        }
+
+        
+        //protected void btnVerHistorial_Click(object sender, EventArgs e)
+        //{
+        //    if (_animal != null)
+        //    {
+        //        var retAnimal = Fachada.Instance.GetEventosAnimal(_animal.Registro);
+        //        _animal.Eventos = retAnimal.Eventos;
+        //        this.EventosAnimalAGrilla();
+        //    }
+        //    else
+        //    {
+        //        LimpiarRegistro();
+        //        this.lblAnimal.Text = "No existe";
+        //    }
+        //}
+
+        protected void btnVerHistorial_Click(object sender, EventArgs e)
+        {
+            if (_animal != null)
+            {
+                this.gvHistoria.Visible = true;
+                this.titHistorico.Visible = true;
+                this.lblHistorico.Text = _animal.Eventos.Count.ToString();
+            }
+        }
+        
     }
 }

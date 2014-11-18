@@ -19,7 +19,7 @@ namespace Entidades
             Motivos_secado = motivosSecado;
         }
 
-        public Secado(Motivos_Secado motivosSecado, Enfermedades enfermedad)
+        public Secado(Motivos_Secado motivosSecado, Enfermedad enfermedad)
         {
             Motivos_secado = motivosSecado;
             Enfermedad = enfermedad;
@@ -27,13 +27,13 @@ namespace Entidades
 
         public virtual Motivos_Secado Motivos_secado { get; set; }
 
-        public Enfermedades Enfermedad { get; set; }
+        public Enfermedad Enfermedad { get; set; }
 
         public override string ToString()
         {
             string str = "";
-            if (Motivos_secado == Motivos_Secado.RAZONES_SANITARIAS) 
-                str = " " + Enfermedad;
+            if (Motivos_secado == Motivos_Secado.RAZONES_SANITARIAS && Enfermedad != null) 
+                str = ". " + Enfermedad.ToString();
             return "Motivo del secado: " + Motivos_secado.ToString() + str;
         }
 

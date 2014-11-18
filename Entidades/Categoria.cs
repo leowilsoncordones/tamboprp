@@ -28,7 +28,7 @@ namespace Entidades
 
         public override string ToString()
         {
-            return Id_categ.ToString() + " - " + Nombre;
+            return Nombre;
         }
 
     }

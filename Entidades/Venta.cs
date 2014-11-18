@@ -16,7 +16,7 @@ namespace Entidades
 
         public override string ToString()
         {
-            return Comentarios;
+            return Nombre;
         }
 
     }

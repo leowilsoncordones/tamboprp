@@ -10,18 +10,21 @@ namespace Negocio
     {
         public VOEvento() { }
 
-        public VOEvento(string fecha, string nombreEvento, string comentario)
+        public VOEvento(string fecha, string nombreEvento, string obs, string comentario)
         {
             Fecha = fecha;
             NombreEvento = nombreEvento;
-            Comentario = comentario;
+            Observaciones = obs;
+            Comentarios = comentario;
         }
+
+        public string Observaciones { get; set; }
 
         public string Fecha { get; set; }
 
         public string NombreEvento { get; set; }
 
-        public string Comentario { get; set; }
+        public string Comentarios { get; set; }
 
     }
 }

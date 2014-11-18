@@ -7,26 +7,28 @@
 
 namespace Entidades
 {
-    public class Calificacion : Evento
+    public class Enfermedad
     {
-        public Calificacion()
+        public Enfermedad()
         {
-            Nombre = "Calificación";
+            Nombre = "Enfermedad";
         }
 
-        public Calificacion(int puntos, string letras)
+        public Enfermedad(int id, string nomEnf)
         {
-            Puntos = puntos;
-            Letras = letras;
+            Nombre_enfermedad = nomEnf;
+            Id = id;
         }
 
-        public string Letras { get; set; }
+        public string Nombre_enfermedad { get; set; }
 
-        public int Puntos { get; set; }
+        public int Id { get; set; }
+
+        public string Nombre { get; set; }
 
         public override string ToString()
         {
-            return Nombre + ": " + Letras + " " + Puntos.ToString(); 
+            return Nombre + ": " + Nombre_enfermedad;
         }
 
     }

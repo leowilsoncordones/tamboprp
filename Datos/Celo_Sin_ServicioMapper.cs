@@ -46,7 +46,7 @@ namespace Datos
 
         public List<Celo_Sin_Servicio> GetAll()
         {
-            List<Celo_Sin_Servicio> ls = new List<Celo_Sin_Servicio>();
+            var ls = new List<Celo_Sin_Servicio>();
             ls = loadAll(Find(OperationType.SELECT_DEF));
             return ls;
         }
@@ -54,7 +54,7 @@ namespace Datos
 
         protected List<Celo_Sin_Servicio> loadAll(SqlDataReader rs)
         {
-            List<Celo_Sin_Servicio> result = new List<Celo_Sin_Servicio>();
+            var result = new List<Celo_Sin_Servicio>();
             while (rs.Read())
                 result.Add(load(rs));
             rs.Close();
@@ -63,12 +63,12 @@ namespace Datos
 
         public List<Evento> GetCelosByRegistro(string regAnimal)
         {
-            List<Evento> result = new List<Evento>();
+            var result = new List<Evento>();
             SqlCommand cmd = null;
             cmd = new SqlCommand();
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.Add(new SqlParameter("@REGISTRO", regAnimal));
-            cmd.CommandText = "Celo_Sin_Servicio_SelecByRegistro";
+            cmd.CommandText = Celo_Sin_Servicio_SelecByRegistro;
 
             SqlDataReader dr = FindByCmd(cmd);
             while (dr.Read())
@@ -109,7 +109,7 @@ namespace Datos
                 cmd.Parameters.Add(new SqlParameter("@REGISTRO", _registroAnimal));
                 cmd.Parameters.Add(new SqlParameter("@EVENTO", _celo.Id_evento));
                 cmd.Parameters.Add(new SqlParameter("@FECHA", _celo.Fecha));
-                cmd.Parameters.Add(new SqlParameter("@COMENTARIO", _celo.Comentario));
+                cmd.Parameters.Add(new SqlParameter("@COMENTARIO", _celo.Comentarios));
 
             }
             else if (opType == OperationType.UPDATE)
@@ -120,7 +120,7 @@ namespace Datos
                 cmd.Parameters.Add(new SqlParameter("@REGISTRO", _registroAnimal));
                 cmd.Parameters.Add(new SqlParameter("@EVENTO", _celo.Id_evento));
                 cmd.Parameters.Add(new SqlParameter("@FECHA", _celo.Fecha));
-                cmd.Parameters.Add(new SqlParameter("@COMENTARIO", _celo.Comentario));
+                cmd.Parameters.Add(new SqlParameter("@COMENTARIO", _celo.Comentarios));
             }
             return cmd;
         }
@@ -131,7 +131,7 @@ namespace Datos
             celo.Id_evento = (short)((DBNull.Value == record["EVENTO"]) ? 0 : (Int16)record["EVENTO"]);
             string strDate = (DBNull.Value == record["FECHA"]) ? string.Empty : record["FECHA"].ToString();
             if (strDate != string.Empty) celo.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
-            celo.Comentario = (DBNull.Value == record["COMENTARIO"]) ? string.Empty : (string)record["COMENTARIO"];
+            celo.Comentarios = (DBNull.Value == record["COMENTARIO"]) ? string.Empty : (string)record["COMENTARIO"];
 
             return celo;
         }

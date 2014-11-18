@@ -29,7 +29,9 @@
                         <li><a runat="server" href="~/">Home</a></li>
                         <li><a runat="server" href="~/Animales.aspx">Animales</a></li>
                         <li><a runat="server" href="~/Listado_Por_Categoria.aspx">Listados</a></li>
+                        <li><a runat="server" href="~/ControlProduccionUltimo.aspx">Controles</a></li>
                         <li><a runat="server" href="~/Lactancias.aspx">Lactancias</a></li>
+                        <li><a runat="server" href="~/VacaEnOrdene.aspx">Ordeñe</a></li>
                         <li><a runat="server" href="~/Personal.aspx">Personal</a></li>
                         <li><a runat="server" href="~/Datos_Generales.aspx">Datos Generales</a></li>
                         <li><a runat="server" href="~/About.aspx">About</a></li>

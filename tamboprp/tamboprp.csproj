@@ -136,6 +136,8 @@
     <Content Include="Account\OpenAuthProviders.ascx" />
     <Content Include="Account\Register.aspx" />
     <Content Include="Account\RegisterExternalLogin.aspx" />
+    <Content Include="ControlProduccionUltimo.aspx" />
+    <Content Include="Enfermedades.aspx" />
     <Content Include="Lactancias.aspx" />
     <Content Include="Listado_Por_Categoria.aspx" />
     <Content Include="Animales.aspx" />
@@ -254,6 +256,7 @@
     <Content Include="Scripts\WebForms\WebForms.js" />
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
+    <Content Include="VacaEnOrdene.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -272,6 +275,20 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ControlProduccionUltimo.aspx.cs">
+      <DependentUpon>ControlProduccionUltimo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlProduccionUltimo.aspx.designer.cs">
+      <DependentUpon>ControlProduccionUltimo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Enfermedades.aspx.cs">
+      <DependentUpon>Enfermedades.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Enfermedades.aspx.designer.cs">
+      <DependentUpon>Enfermedades.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Lactancias.aspx.cs">
       <DependentUpon>Lactancias.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -383,6 +400,13 @@
     </Compile>
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
+    </Compile>
+    <Compile Include="VacaEnOrdene.aspx.cs">
+      <DependentUpon>VacaEnOrdene.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="VacaEnOrdene.aspx.designer.cs">
+      <DependentUpon>VacaEnOrdene.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
