@@ -17,11 +17,11 @@ namespace Entidades
             Vivo = true;
         }
 
-        public Animal(bool vivo, IEnumerable<Evento> evento, Categoria categoria, List<Evento> eventos, List<string> imagenes, string identificacion, string origen, string regMadre, string regPadre, DateTime fechaNacim, char sexo, string regTrazab, int gen, string registro, string nombre)
+        public Animal(bool vivo, IEnumerable<Evento> evento, int idCategoria, List<Evento> eventos, List<string> imagenes, string identificacion, string origen, string regMadre, string regPadre, DateTime fechaNacim, char sexo, string regTrazab, int gen, string registro, string nombre, string calific)
         {
             Vivo = vivo;
             Evento = evento;
-            Categoria = categoria;
+            IdCategoria = idCategoria;
             Eventos = eventos;
             Imagenes = imagenes;
             Identificacion = identificacion;
@@ -34,7 +34,10 @@ namespace Entidades
             Gen = gen;
             Registro = registro;
             Nombre = nombre;
+            Calific = calific;
         }
+
+        public string Calific { get; set; }
 
         public bool Vivo { get; set; }
 
@@ -62,11 +65,11 @@ namespace Entidades
 
         public List<Evento> Eventos { get; set; }
 
-        public virtual Categoria Categoria { get; set; }
+        public int IdCategoria { get; set; }
 
         public bool esHembra()
         {
-            return Sexo == 'H';
+            return Sexo != 'M';
         }
         public bool esMacho()
         {
@@ -75,6 +78,10 @@ namespace Entidades
 
         public virtual IEnumerable<Evento> Evento { get; set; }
 
+        public override string ToString()
+        {
+            return Registro;
+        }
 
     }
 }

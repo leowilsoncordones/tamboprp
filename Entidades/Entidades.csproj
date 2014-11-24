@@ -42,6 +42,8 @@
     <Compile Include="Aborto.cs" />
     <Compile Include="Animal.cs" />
     <Compile Include="Calificacion.cs" />
+    <Compile Include="CategoriaConcurso.cs" />
+    <Compile Include="LugarConcurso.cs" />
     <Compile Include="Enfermedad.cs" />
     <Compile Include="Categoria.cs" />
     <Compile Include="Categorias_concurso.cs" />

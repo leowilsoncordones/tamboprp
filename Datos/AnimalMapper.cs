@@ -160,16 +160,11 @@ namespace Datos
             anim.Identificacion = (DBNull.Value == record["IDENTIFICACION"]) ? string.Empty : (string)record["IDENTIFICACION"];
             string strGen = (DBNull.Value == record["GEN"]) ? string.Empty : record["GEN"].ToString();
             anim.Gen = (DBNull.Value == record["GEN"]) ? -1 : int.Parse(record["GEN"].ToString());
-
-            var c = new Categoria();
-            c.Id_categ = (short)((DBNull.Value == record["CATEGORIA"]) ? 0 : (Int16)record["CATEGORIA"]);
-            var catMap = new CategoriaMapper(c);
-            anim.Categoria = catMap.GetCategoriaById();
-
+            anim.IdCategoria = (short)((DBNull.Value == record["CATEGORIA"]) ? 0 : (Int16)record["CATEGORIA"]);
             anim.Nombre = (DBNull.Value == record["NOMBRE"]) ? string.Empty : (string)record["NOMBRE"];
             anim.Reg_trazab = (DBNull.Value == record["REG_TRAZAB"]) ? string.Empty : (string)record["REG_TRAZAB"];
-            anim.Sexo = (DBNull.Value == record["SEXO"]) ? ' ' : Convert.ToChar(record["SEXO"]);
-            
+            anim.Sexo = (DBNull.Value == record["SEXO"]) ? 'X' : Convert.ToChar(record["SEXO"]);
+
             string strDate = (DBNull.Value == record["FECHA_NACIM"]) ? string.Empty : record["FECHA_NACIM"].ToString();
             if (strDate != string.Empty) anim.Fecha_nacim = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
             

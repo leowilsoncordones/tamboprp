@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 using Datos;
 using Entidades;
@@ -15,6 +16,9 @@ namespace Negocio
         private static AnimalMapper _animalMapper = new AnimalMapper();
         private static LactanciaMapper _lactMapper = new LactanciaMapper();
         private static ServicioMapper _servMapper = new ServicioMapper();
+        private static CategoriaMapper _catMapper = new CategoriaMapper();
+        private static CategConcursoMapper _catConcMapper = new CategConcursoMapper();
+        private static EmpleadoMapper _empMapper = new EmpleadoMapper();
 
         private Fachada()
         {
@@ -48,21 +52,34 @@ namespace Negocio
         {
             var a = new Animal();
             a.Registro = registro;
-            var amap = new AnimalMapper(a);
-            List<Animal> animals = amap.GetBusqAnimal(registro, 0);
+            List<Animal> animals = _animalMapper.GetBusqAnimal(registro, 0);
             return animals;
         }
 
-        public Animal GetEventosAnimal(string registro)
+        public List<Evento> GetEventosAnimal(Animal a)
         {
-            var a = new Animal {Registro = registro};
+            //var a = new Animal {Registro = registro};
+            var registro = a.Registro;
             a.Eventos = new List<Evento>();
             var listTemp = new List<Evento>();
 
             /* Cargo los concursos del animal */
             var concMap = new ConcursoMapper(registro);
             listTemp = concMap.GetConcursosByRegistro(registro);
-            if (listTemp.Count > 0) a.Eventos.AddRange(listTemp);
+            //if (listTemp.Count > 0) a.Eventos.AddRange(listTemp);
+            if (listTemp.Count > 0)
+            {
+                var lstCategConcurso = _catConcMapper.GetAll();
+                foreach (Concurso conc in listTemp)
+                {
+                    if (conc.ElPremio != null && conc.ElPremio.CategConcurso != null && conc.ElPremio.CategConcurso.Id_categ != 0)
+                    {
+                        CategoriaConcurso laCat = lstCategConcurso.FirstOrDefault(c => c.Id_categ == conc.ElPremio.CategConcurso.Id_categ);
+                        if (laCat != null) conc.ElPremio.CategConcurso.Nombre = laCat.Nombre;
+                    }
+                }
+                a.Eventos.AddRange(listTemp);
+            }
 
             /* Cargo si el animal esta dado de baja por venta */
             var ventaMap = new VentaMapper(registro);
@@ -78,8 +95,8 @@ namespace Negocio
                 a.Eventos.AddRange(listTemp);
             }
             
-            /*if (a.esHembra())
-            {*/
+            if (a.esHembra())
+            {
                 /* Cargo las calificaciones del animal, los M puede ser calificado? */
                 var calMap = new CalificacionMapper();
                 listTemp = calMap.GetCalificacionesByRegistro(registro);
@@ -113,19 +130,31 @@ namespace Negocio
                 /* Cargo los servicios del animal */
                 var servMap = new ServicioMapper(registro);
                 listTemp = servMap.GetServiciosByRegistro(registro);
-                if (listTemp.Count > 0) a.Eventos.AddRange(listTemp);
+                if (listTemp.Count > 0)
+                {
+                    var lstInseminadores = _empMapper.GetAll();
+                    foreach (Servicio serv in listTemp)
+                    {
+                        if (serv.Inseminador != null && serv.Inseminador.Id_empleado != 0)
+                        {
+                            Empleado insCompleto = lstInseminadores.FirstOrDefault(e => e.Id_empleado == serv.Inseminador.Id_empleado);
+                            serv.Inseminador = insCompleto;
+                        }
+                    }
+                    a.Eventos.AddRange(listTemp);
+                }
 
                 /* Cargo los diagnosticos de prenez del animal */
                 var diagMap = new Diag_PrenezMapper(registro);
                 listTemp = diagMap.GetDiag_PrenezByRegistro(registro);
                 if (listTemp.Count > 0) a.Eventos.AddRange(listTemp);
 
-            /*}*/
+            }
             
             /* Ordeno la coleccion de eventos del animal de forma descendente para mostrarlos en la ficha */
             a.Eventos.Sort();
             a.Eventos.Reverse();
-            return a;
+            return a.Eventos;
         }
 
         public int GetCantAbortosEsteAnio()
@@ -184,7 +213,6 @@ namespace Negocio
             return _controlProdMapper.GetFechaUltimoControl();
         }
         
-
 
         public List<VOLactancia> GetLactanciasActuales()
         {
@@ -270,9 +298,9 @@ namespace Negocio
             var voA = new VOAnalitico();
             voA.CantVacasEnOrdene = _animalMapper.GetCantOrdene();
             //voA.PromProdLecheLts = _animalMapper.GetEnOrdenePromProdLecheLts();
-            //voA.CantLactancia1 = _animalMapper.GetEnOrdeneLanctancia1();
-            //voA.CantLactancia2 = _animalMapper.GetEnOrdeneLanctancia2();
-            //voA.CantOtrasLactancias = _animalMapper.GetEnOrdeneLanctanciaMayor2();
+            voA.CantLactancia1 = _animalMapper.GetEnOrdeneLanctancia1();
+            voA.CantLactancia2 = _animalMapper.GetEnOrdeneLanctancia2();
+            //voA.CantLactanciaMayor2 = _animalMapper.GetEnOrdeneLanctanciaMayor2();
             //voA.ConServicioSinPreñez = _animalMapper.GetEnOrdeneServicioSinPrenez();
             //voA.PrenezConfirmada = _animalMapper.GetEnOrdenePrenezConfirmada();
             //voA.PromDiasLactancias = _animalMapper.GetPromDiasLactancias();
@@ -326,6 +354,14 @@ namespace Negocio
 
 
             return listVOServ01;
+        }
+
+        public Categoria GetCategoriaById(int idCateg)
+        {   
+            Categoria cat = new Categoria();
+            cat.Id_categ = idCateg;
+            _catMapper = new CategoriaMapper(cat);
+            return _catMapper.GetCategoriaById();
         }
     }
 }

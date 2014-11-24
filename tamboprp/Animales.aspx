@@ -7,7 +7,7 @@
     <h2>Ficha de animal</h2>
         <div class="row">
         <div class="col-md-4 wrapper">        
-            <div class="input-group">
+            <div class="input-group input-group-lg">
                 <span class="input-group-btn">
                     <asp:Button ID="btnBuscarAnimal" runat="server" onclick="btnBuscarAnimal_Click" Text="Buscar" CssClass="btn btn-primary" />
                 </span>
@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="col-md-4">
-            <asp:DropDownList ID="ddlSimilares" cssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="ddlSimilares_SelectedIndexChanged" runat="server" Visible="false" AppendDataBoundItems="true" />
+            <asp:DropDownList ID="ddlSimilares" cssClass="form-control dropdown" AutoPostBack="True" OnSelectedIndexChanged="ddlSimilares_SelectedIndexChanged" runat="server" Visible="false" AppendDataBoundItems="true" />
         </div>
         <div class="col-md-4">
         </div>

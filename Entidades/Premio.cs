@@ -5,6 +5,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System;
+
 namespace Entidades
 {
     public class Premio
@@ -13,19 +15,19 @@ namespace Entidades
         {
         }
 
-        public Premio(Categorias_concurso categConcuros, string nombrePremio)
+        public Premio(CategoriaConcurso categConcurso, string nombrePremio)
         {
-            Categ_concuros = categConcuros;
+            CategConcurso = categConcurso;
             Nombre_premio = nombrePremio;
         }
 
         public string Nombre_premio { get; set; }
 
-        public virtual Categorias_concurso Categ_concuros { get; set; }
+        public virtual CategoriaConcurso CategConcurso { get; set; }
 
         public override string ToString()
         {
-            return "Categoría de concurso: " + Categ_concuros.ToString() + " Premio: " + Nombre_premio; 
+            return Nombre_premio + " " + CategConcurso.ToString(); 
         } 
 
     }

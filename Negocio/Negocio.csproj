@@ -38,6 +38,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="StyleMethods.cs" />
     <Compile Include="VOAnalitico.cs" />
     <Compile Include="VOControlProdUltimo.cs" />
     <Compile Include="VOLactancia.cs" />

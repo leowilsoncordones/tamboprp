@@ -5,8 +5,8 @@
     
     <br/>
     <br/>
+    <h2>Tabla analítica de vacas en ordeñe</h2>
     <div class="jumbotron">
-        <h2>Tabla analítica de vacas en ordeñe</h2>
         <p>
             <asp:Label ID="titCant" runat="server" Text="Cantidad en la categoría: " ></asp:Label><asp:Label ID="lblCant" runat="server" Text="" CssClass="label label-success"></asp:Label><br/>
             <asp:Label ID="titPromProdLecheLts" runat="server" Text="Promedio de producción de leche (litros): " ></asp:Label><asp:Label ID="lblPromProdLecheLts" runat="server" ></asp:Label><br/>

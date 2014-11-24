@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Lista de Enfermedades" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Enfermedades.aspx.cs" Inherits="tamboprp.Enfermedades" %>
+﻿<%@ Page Title="tamboprp | enfermedades" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Enfermedades.aspx.cs" Inherits="tamboprp.Enfermedades" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <link href="Content/dataTables.bootstrap.css" rel="stylesheet" />
     <script src="Scripts/dataTables.bootstrap.js"></script>

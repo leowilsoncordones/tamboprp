@@ -16,25 +16,22 @@ namespace Entidades
             Nombre = "Concurso";
         }
 
-        public Concurso(List<Premio> premios, int anio, Lugar_Concurso lugar)
+        public Concurso(LugarConcurso lugar, Premio elPremio)
         {
-            Premios = premios;
-            Anio = anio;
+            ElPremio = elPremio;
             Lugar = lugar;
         }
 
-        public int Anio { get; set; }
+        public Premio ElPremio { get; set; }
 
-        public List<Premio> Premios { get; set; }
-
-        public Lugar_Concurso Lugar { get; set; }
+        public LugarConcurso Lugar { get; set; }
         
         public override string ToString()
         {
-            return "Exposición: " + Lugar.ToString() + " Año: " + Anio.ToString();
+            string prem = "";
+            if (ElPremio != null) prem = ElPremio.ToString() + ". ";
+            return prem + Lugar.ToString();
         }
-
-        //public virtual IEnumerable<Premio> Premio { get; set; }
         
     }
 }

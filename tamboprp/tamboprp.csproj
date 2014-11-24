@@ -136,12 +136,244 @@
     <Content Include="Account\OpenAuthProviders.ascx" />
     <Content Include="Account\Register.aspx" />
     <Content Include="Account\RegisterExternalLogin.aspx" />
+    <Content Include="Analisis.aspx" />
+    <Content Include="Animales.aspx" />
+    <Content Include="Animales2.aspx" />
+    <Content Include="avatars\avatar.png" />
+    <Content Include="avatars\avatar1.png" />
+    <Content Include="avatars\avatar2.png" />
+    <Content Include="avatars\avatar3.png" />
+    <Content Include="avatars\avatar4.png" />
+    <Content Include="avatars\avatar5.png" />
+    <Content Include="avatars\profile-pic.jpg" />
+    <Content Include="avatars\user.jpg" />
+    <Content Include="Cabana.aspx" />
     <Content Include="ControlProduccionUltimo.aspx" />
+    <Content Include="css\ace-fonts.css" />
+    <Content Include="css\ace-ie.css" />
+    <Content Include="css\ace-part2.css" />
+    <Content Include="css\ace-rtl.css" />
+    <Content Include="css\ace-skins.css" />
+    <Content Include="css\ace.css" />
+    <Content Include="css\ace.onpage-help.css" />
+    <Content Include="css\bootstrap-datetimepicker.css" />
+    <Content Include="css\bootstrap-duallistbox.css" />
+    <Content Include="css\bootstrap-editable.css" />
+    <Content Include="css\bootstrap-multiselect.css" />
+    <Content Include="css\bootstrap-timepicker.css" />
+    <Content Include="css\bootstrap.css" />
+    <Content Include="css\chosen-sprite%402x.png" />
+    <Content Include="css\chosen-sprite.png" />
+    <Content Include="css\chosen.css" />
+    <Content Include="css\colorbox.css" />
+    <Content Include="css\colorpicker.css" />
+    <Content Include="css\datepicker.css" />
+    <Content Include="css\daterangepicker.css" />
+    <Content Include="css\dropzone.css" />
+    <Content Include="css\font-awesome.css" />
+    <Content Include="css\fullcalendar.css" />
+    <Content Include="css\fullcalendar.print.css" />
+    <Content Include="css\images\border.png" />
+    <Content Include="css\images\border1.png" />
+    <Content Include="css\images\border2.png" />
+    <Content Include="css\images\controls.png" />
+    <Content Include="css\images\ie6\borderBottomCenter.png" />
+    <Content Include="css\images\ie6\borderBottomLeft.png" />
+    <Content Include="css\images\ie6\borderBottomRight.png" />
+    <Content Include="css\images\ie6\borderMiddleLeft.png" />
+    <Content Include="css\images\ie6\borderMiddleRight.png" />
+    <Content Include="css\images\ie6\borderTopCenter.png" />
+    <Content Include="css\images\ie6\borderTopLeft.png" />
+    <Content Include="css\images\ie6\borderTopRight.png" />
+    <Content Include="css\images\loading.gif" />
+    <Content Include="css\images\loading_background.png" />
+    <Content Include="css\images\meteorshower.jpg" />
+    <Content Include="css\images\meteorshower2.jpg" />
+    <Content Include="css\images\overlay.png" />
+    <Content Include="css\images\pattern.jpg" />
+    <Content Include="css\images\pattern.png" />
+    <Content Include="css\images\spritemap%402x.png" />
+    <Content Include="css\images\spritemap.png" />
+    <Content Include="css\img\alpha.png" />
+    <Content Include="css\img\hue.png" />
+    <Content Include="css\img\saturation.png" />
+    <Content Include="css\jquery-ui.css" />
+    <Content Include="css\jquery-ui.custom.css" />
+    <Content Include="css\jquery.gritter.css" />
+    <Content Include="css\prettify.css" />
+    <Content Include="css\select2-spinner.gif" />
+    <Content Include="css\select2.css" />
+    <Content Include="css\select2.png" />
+    <Content Include="css\select2x2.png" />
+    <Content Include="css\ui.jqgrid.css" />
     <Content Include="Enfermedades.aspx" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="Images\back_disabled.png" />
+    <Content Include="Images\back_enabled.png" />
+    <Content Include="Images\back_enabled_hover.png" />
+    <Content Include="Images\corporativo\logo_azul.png" />
+    <Content Include="Images\email1.png" />
+    <Content Include="Images\email2.png" />
+    <Content Include="Images\email3.png" />
+    <Content Include="Images\email4.png" />
+    <Content Include="Images\forward_disabled.png" />
+    <Content Include="Images\forward_enabled.png" />
+    <Content Include="Images\forward_enabled_hover.png" />
+    <Content Include="Images\gallery\image-1.jpg" />
+    <Content Include="Images\gallery\image-2.jpg" />
+    <Content Include="Images\gallery\image-3.jpg" />
+    <Content Include="Images\gallery\image-4.jpg" />
+    <Content Include="Images\gallery\image-5.jpg" />
+    <Content Include="Images\gallery\image-6.jpg" />
+    <Content Include="Images\gallery\thumb-1.jpg" />
+    <Content Include="Images\gallery\thumb-2.jpg" />
+    <Content Include="Images\gallery\thumb-3.jpg" />
+    <Content Include="Images\gallery\thumb-4.jpg" />
+    <Content Include="Images\gallery\thumb-5.jpg" />
+    <Content Include="Images\gallery\thumb-6.jpg" />
+    <Content Include="Images\sort_asc.png" />
+    <Content Include="Images\sort_asc_disabled.png" />
+    <Content Include="Images\sort_both.png" />
+    <Content Include="Images\sort_desc.png" />
+    <Content Include="Images\sort_desc_disabled.png" />
+    <Content Include="Images\spritemap%402x.png" />
+    <Content Include="Images\spritemap.png" />
+    <Content Include="img\clear.png" />
+    <Content Include="img\glyphicons-halflings-white.png" />
+    <Content Include="img\glyphicons-halflings.png" />
+    <Content Include="img\loading.gif" />
+    <Content Include="js\ace-elements.js" />
+    <Content Include="js\ace-extra.js" />
+    <Content Include="js\ace.js" />
+    <Content Include="js\ace\ace.ajax-content.js" />
+    <Content Include="js\ace\ace.auto-container.js" />
+    <Content Include="js\ace\ace.auto-padding.js" />
+    <Content Include="js\ace\ace.js" />
+    <Content Include="js\ace\ace.onpage-help.js" />
+    <Content Include="js\ace\ace.searchbox-autocomplete.js" />
+    <Content Include="js\ace\ace.settings-rtl.js" />
+    <Content Include="js\ace\ace.settings-skin.js" />
+    <Content Include="js\ace\ace.settings.js" />
+    <Content Include="js\ace\ace.sidebar-scroll-1.js" />
+    <Content Include="js\ace\ace.sidebar-scroll-2.js" />
+    <Content Include="js\ace\ace.sidebar.js" />
+    <Content Include="js\ace\ace.submenu-hover.js" />
+    <Content Include="js\ace\ace.touch-drag.js" />
+    <Content Include="js\ace\ace.widget-box.js" />
+    <Content Include="js\ace\ace.widget-on-reload.js" />
+    <Content Include="js\ace\elements.aside.js" />
+    <Content Include="js\ace\elements.colorpicker.js" />
+    <Content Include="js\ace\elements.fileinput.js" />
+    <Content Include="js\ace\elements.onpage-help.js" />
+    <Content Include="js\ace\elements.scroller.js" />
+    <Content Include="js\ace\elements.spinner.js" />
+    <Content Include="js\ace\elements.treeview.js" />
+    <Content Include="js\ace\elements.typeahead.js" />
+    <Content Include="js\ace\elements.wizard.js" />
+    <Content Include="js\ace\elements.wysiwyg.js" />
+    <Content Include="js\additional-methods.js" />
+    <Content Include="js\bootbox.js" />
+    <Content Include="js\bootstrap-colorpicker.js" />
+    <Content Include="js\bootstrap-multiselect.js" />
+    <Content Include="js\bootstrap-tag.js" />
+    <Content Include="js\bootstrap-wysiwyg.js" />
+    <Content Include="js\bootstrap.js" />
+    <Content Include="js\chosen.jquery.js" />
+    <Content Include="js\date-time\bootstrap-datepicker.js" />
+    <Content Include="js\date-time\bootstrap-datetimepicker.js" />
+    <Content Include="js\date-time\bootstrap-timepicker.js" />
+    <Content Include="js\date-time\daterangepicker.js" />
+    <Content Include="js\date-time\moment.js" />
+    <Content Include="js\dropzone.js" />
+    <Content Include="js\excanvas.js" />
+    <Content Include="js\flot\jquery.flot.js" />
+    <Content Include="js\flot\jquery.flot.pie.js" />
+    <Content Include="js\flot\jquery.flot.resize.js" />
+    <Content Include="js\fuelux\fuelux.spinner.js" />
+    <Content Include="js\fuelux\fuelux.tree.js" />
+    <Content Include="js\fuelux\fuelux.wizard.js" />
+    <Content Include="js\fullcalendar.js" />
+    <Content Include="js\html5shiv.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-ar.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-bg.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-bg1251.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-cat.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-cn.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-cs.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-da.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-de.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-dk.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-el.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-en.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-es.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-fa.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-fi.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-fr.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-gl.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-he.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-hr.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-hr1250.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-hu.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-id.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-is.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-it.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-ja.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-kr.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-lt.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-mne.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-nl.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-no.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-pl.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-pt-br.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-pt.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-ro.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-ru.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-sk.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-sr-latin.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-sr.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-sv.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-th.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-tr.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-tw.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-ua.js" />
+    <Content Include="js\jqGrid\i18n\grid.locale-vi.js" />
+    <Content Include="js\jqGrid\jquery.jqGrid.src.js" />
+    <Content Include="js\jquery-ui.custom.js" />
+    <Content Include="js\jquery-ui.js" />
+    <Content Include="js\jquery.autosize.js" />
+    <Content Include="js\jquery.bootstrap-duallistbox.js" />
+    <Content Include="js\jquery.colorbox.js" />
+    <Content Include="js\jquery.dataTables.bootstrap.js" />
+    <Content Include="js\jquery.dataTables.js" />
+    <Content Include="js\jquery.easypiechart.js" />
+    <Content Include="js\jquery.gritter.js" />
+    <Content Include="js\jquery.hotkeys.js" />
+    <Content Include="js\jquery.inputlimiter.1.3.1.js" />
+    <Content Include="js\jquery.js" />
+    <Content Include="js\jquery.knob.js" />
+    <Content Include="js\jquery.maskedinput.js" />
+    <Content Include="js\jquery.mobile.custom.js" />
+    <Content Include="js\jquery.mousewheel.js" />
+    <Content Include="js\jquery.nestable.js" />
+    <Content Include="js\jquery.raty.js" />
+    <Content Include="js\jquery.slimscroll.js" />
+    <Content Include="js\jquery.sparkline.js" />
+    <Content Include="js\jquery.ui.touch-punch.js" />
+    <Content Include="js\jquery.validate.js" />
+    <Content Include="js\jquery1x.js" />
+    <Content Include="js\markdown\bootstrap-markdown.js" />
+    <Content Include="js\markdown\markdown.js" />
+    <Content Include="js\markdown\to-markdown.js" />
+    <Content Include="js\prettify.js" />
+    <Content Include="js\respond.js" />
+    <Content Include="js\select2.js" />
+    <Content Include="js\spin.js" />
+    <Content Include="js\typeahead.jquery.js" />
+    <Content Include="js\x-editable\ace-editable.js" />
+    <Content Include="js\x-editable\bootstrap-editable.js" />
     <Content Include="Lactancias.aspx" />
     <Content Include="Calendario_Partos.aspx" />
     <Content Include="Listado_Por_Categoria.aspx" />
-    <Content Include="Animales.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -220,14 +452,190 @@
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Login.aspx" />
     <Content Include="packages.config" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="css\less\ace-features.less" />
+    <Content Include="css\less\ace-nav.less" />
+    <Content Include="css\less\ace-responsive.less" />
+    <Content Include="css\less\ace-rtl.less" />
+    <Content Include="css\less\ace.less" />
+    <Content Include="css\less\basic.less" />
+    <Content Include="css\less\bootstrap\alerts.less" />
+    <Content Include="css\less\bootstrap\badges.less" />
+    <Content Include="css\less\bootstrap\bootstrap.less" />
+    <Content Include="css\less\bootstrap\breadcrumbs.less" />
+    <Content Include="css\less\bootstrap\button-groups.less" />
+    <Content Include="css\less\bootstrap\buttons.less" />
+    <Content Include="css\less\bootstrap\carousel.less" />
+    <Content Include="css\less\bootstrap\close.less" />
+    <Content Include="css\less\bootstrap\code.less" />
+    <Content Include="css\less\bootstrap\component-animations.less" />
+    <Content Include="css\less\bootstrap\dropdowns.less" />
+    <Content Include="css\less\bootstrap\forms.less" />
+    <Content Include="css\less\bootstrap\glyphicons.less" />
+    <Content Include="css\less\bootstrap\grid.less" />
+    <Content Include="css\less\bootstrap\input-groups.less" />
+    <Content Include="css\less\bootstrap\jumbotron.less" />
+    <Content Include="css\less\bootstrap\labels.less" />
+    <Content Include="css\less\bootstrap\list-group.less" />
+    <Content Include="css\less\bootstrap\media.less" />
+    <Content Include="css\less\bootstrap\mixins.less" />
+    <Content Include="css\less\bootstrap\mixins\alerts.less" />
+    <Content Include="css\less\bootstrap\mixins\background-variant.less" />
+    <Content Include="css\less\bootstrap\mixins\border-radius.less" />
+    <Content Include="css\less\bootstrap\mixins\buttons.less" />
+    <Content Include="css\less\bootstrap\mixins\center-block.less" />
+    <Content Include="css\less\bootstrap\mixins\clearfix.less" />
+    <Content Include="css\less\bootstrap\mixins\forms.less" />
+    <Content Include="css\less\bootstrap\mixins\gradients.less" />
+    <Content Include="css\less\bootstrap\mixins\grid-framework.less" />
+    <Content Include="css\less\bootstrap\mixins\grid.less" />
+    <Content Include="css\less\bootstrap\mixins\hide-text.less" />
+    <Content Include="css\less\bootstrap\mixins\image.less" />
+    <Content Include="css\less\bootstrap\mixins\labels.less" />
+    <Content Include="css\less\bootstrap\mixins\list-group.less" />
+    <Content Include="css\less\bootstrap\mixins\nav-divider.less" />
+    <Content Include="css\less\bootstrap\mixins\nav-vertical-align.less" />
+    <Content Include="css\less\bootstrap\mixins\opacity.less" />
+    <Content Include="css\less\bootstrap\mixins\pagination.less" />
+    <Content Include="css\less\bootstrap\mixins\panels.less" />
+    <Content Include="css\less\bootstrap\mixins\progress-bar.less" />
+    <Content Include="css\less\bootstrap\mixins\reset-filter.less" />
+    <Content Include="css\less\bootstrap\mixins\resize.less" />
+    <Content Include="css\less\bootstrap\mixins\responsive-visibility.less" />
+    <Content Include="css\less\bootstrap\mixins\size.less" />
+    <Content Include="css\less\bootstrap\mixins\tab-focus.less" />
+    <Content Include="css\less\bootstrap\mixins\table-row.less" />
+    <Content Include="css\less\bootstrap\mixins\text-emphasis.less" />
+    <Content Include="css\less\bootstrap\mixins\text-overflow.less" />
+    <Content Include="css\less\bootstrap\mixins\vendor-prefixes.less" />
+    <Content Include="css\less\bootstrap\modals.less" />
+    <Content Include="css\less\bootstrap\navbar.less" />
+    <Content Include="css\less\bootstrap\navs.less" />
+    <Content Include="css\less\bootstrap\normalize.less" />
+    <Content Include="css\less\bootstrap\pager.less" />
+    <Content Include="css\less\bootstrap\pagination.less" />
+    <Content Include="css\less\bootstrap\panels.less" />
+    <Content Include="css\less\bootstrap\popovers.less" />
+    <Content Include="css\less\bootstrap\print.less" />
+    <Content Include="css\less\bootstrap\progress-bars.less" />
+    <Content Include="css\less\bootstrap\responsive-embed.less" />
+    <Content Include="css\less\bootstrap\responsive-utilities.less" />
+    <Content Include="css\less\bootstrap\scaffolding.less" />
+    <Content Include="css\less\bootstrap\tables.less" />
+    <Content Include="css\less\bootstrap\theme.less" />
+    <Content Include="css\less\bootstrap\thumbnails.less" />
+    <Content Include="css\less\bootstrap\tooltip.less" />
+    <Content Include="css\less\bootstrap\type.less" />
+    <Content Include="css\less\bootstrap\utilities.less" />
+    <Content Include="css\less\bootstrap\variables.less" />
+    <Content Include="css\less\bootstrap\wells.less" />
+    <Content Include="css\less\breadcrumbs.less" />
+    <Content Include="css\less\bs3-reset.less" />
+    <Content Include="css\less\buttons.less" />
+    <Content Include="css\less\dropdown.less" />
+    <Content Include="css\less\dropdown\colorpicker.less" />
+    <Content Include="css\less\dropdown\navbar-dropdown.less" />
+    <Content Include="css\less\dropdown\navbar-tabbed-dropdown.less" />
+    <Content Include="css\less\ext\bootstrap-tag.less" />
+    <Content Include="css\less\fonts.less" />
+    <Content Include="css\less\footer.less" />
+    <Content Include="css\less\form.less" />
+    <Content Include="css\less\form\checkbox.less" />
+    <Content Include="css\less\form\file.less" />
+    <Content Include="css\less\gallery.less" />
+    <Content Include="css\less\general.less" />
+    <Content Include="css\less\icon-animated.less" />
+    <Content Include="css\less\infobox.less" />
+    <Content Include="css\less\items.less" />
+    <Content Include="css\less\label-badge.less" />
+    <Content Include="css\less\mixins.less" />
+    <Content Include="css\less\modal.less" />
+    <Content Include="css\less\navbar\collapsible.less" />
+    <Content Include="css\less\navbar\navbar-menu-form.less" />
+    <Content Include="css\less\navbar\toggle-button.less" />
+    <Content Include="css\less\navbar\user-buttons-move-down.less" />
+    <Content Include="css\less\navbar\user-buttons.less" />
+    <Content Include="css\less\navbar\user-dropdown-position.less" />
+    <Content Include="css\less\navbar\user-menu.less" />
+    <Content Include="css\less\onpage-help.less" />
+    <Content Include="css\less\other.less" />
+    <Content Include="css\less\page.error.less" />
+    <Content Include="css\less\page.inbox.less" />
+    <Content Include="css\less\page.invoice.less" />
+    <Content Include="css\less\page.login.less" />
+    <Content Include="css\less\page.pricing.less" />
+    <Content Include="css\less\page.profile.less" />
+    <Content Include="css\less\page.timeline.less" />
+    <Content Include="css\less\print.less" />
+    <Content Include="css\less\progressbar.less" />
+    <Content Include="css\less\scroll.less" />
+    <Content Include="css\less\searchbox.less" />
+    <Content Include="css\less\sidebar.less" />
+    <Content Include="css\less\sidebar\active.less" />
+    <Content Include="css\less\sidebar\compact.less" />
+    <Content Include="css\less\sidebar\ff_fix.less" />
+    <Content Include="css\less\sidebar\highlight.less" />
+    <Content Include="css\less\sidebar\horizontal.less" />
+    <Content Include="css\less\sidebar\hover.less" />
+    <Content Include="css\less\sidebar\min.less" />
+    <Content Include="css\less\sidebar\multiple.less" />
+    <Content Include="css\less\sidebar\old-toggle-button.less" />
+    <Content Include="css\less\sidebar\responsive-1.less" />
+    <Content Include="css\less\sidebar\responsive-2.less" />
+    <Content Include="css\less\sidebar\responsive-3.less" />
+    <Content Include="css\less\sidebar\shortcuts-toggle.less" />
+    <Content Include="css\less\sidebar\sidebar-fixed.less" />
+    <Content Include="css\less\sidebar\sub-arrow.less" />
+    <Content Include="css\less\skins\empty.less" />
+    <Content Include="css\less\skins\no-skin.less" />
+    <Content Include="css\less\skins\skin-1.less" />
+    <Content Include="css\less\skins\skin-2.less" />
+    <Content Include="css\less\skins\skin-3.less" />
+    <Content Include="css\less\skins\skins.less" />
+    <Content Include="css\less\tab-accordion.less" />
+    <Content Include="css\less\tables.less" />
+    <Content Include="css\less\thirdparty-calendar.less" />
+    <Content Include="css\less\thirdparty-chosen.less" />
+    <Content Include="css\less\thirdparty-colorbox.less" />
+    <Content Include="css\less\thirdparty-dataTables.less" />
+    <Content Include="css\less\thirdparty-date.less" />
+    <Content Include="css\less\thirdparty-dropzone.less" />
+    <Content Include="css\less\thirdparty-duallist-multiselect.less" />
+    <Content Include="css\less\thirdparty-editable.less" />
+    <Content Include="css\less\thirdparty-fuelux.less" />
+    <Content Include="css\less\thirdparty-gritter.less" />
+    <Content Include="css\less\thirdparty-jqgrid.less" />
+    <Content Include="css\less\thirdparty-jquery-ui.less" />
+    <Content Include="css\less\thirdparty-nestable.less" />
+    <Content Include="css\less\thirdparty-raty.less" />
+    <Content Include="css\less\thirdparty-select2.less" />
+    <Content Include="css\less\thirdparty-slider.less" />
+    <Content Include="css\less\thirdparty-typeahead.less" />
+    <Content Include="css\less\thirdparty-wysiwyg.less" />
+    <Content Include="css\less\tooltip-popover.less" />
+    <Content Include="css\less\utility.less" />
+    <Content Include="css\less\variables.less" />
+    <Content Include="css\less\widget.less" />
+    <Content Include="js\ace\readme" />
+    <Content Include="js\ace\scripts.json" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="font\cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff" />
+    <Content Include="font\DXI1ORHCpsQm3Vp6mXoaTXhCUOGz7vYGh680lGh-uXM.woff" />
+    <Content Include="font\readme" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Personal.aspx" />
+    <Content Include="Produccion.aspx" />
+    <Content Include="Reportes.aspx" />
+    <Content Include="Reproduccion.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.9.0.intellisense.js" />
@@ -257,6 +665,9 @@
     <Content Include="Scripts\WebForms\WebForms.js" />
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
+    <Content Include="Sistema.aspx" />
+    <Content Include="Tablero.aspx" />
+    <Content Include="Tambo.aspx" />
     <Content Include="VacaEnOrdene.aspx" />
     <Content Include="Servicios_Sin_DiagP_70.aspx" />
     <Content Include="ViewSwitcher.ascx" />
@@ -277,6 +688,34 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Analisis.aspx.cs">
+      <DependentUpon>Analisis.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Analisis.aspx.designer.cs">
+      <DependentUpon>Analisis.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Animales.aspx.cs">
+      <DependentUpon>Animales.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Animales.aspx.designer.cs">
+      <DependentUpon>Animales.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Animales2.aspx.cs">
+      <DependentUpon>Animales2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Animales2.aspx.designer.cs">
+      <DependentUpon>Animales2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cabana.aspx.cs">
+      <DependentUpon>Cabana.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cabana.aspx.designer.cs">
+      <DependentUpon>Cabana.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ControlProduccionUltimo.aspx.cs">
       <DependentUpon>ControlProduccionUltimo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -311,13 +750,6 @@
     </Compile>
     <Compile Include="Listado_Por_Categoria.aspx.designer.cs">
       <DependentUpon>Listado_Por_Categoria.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Animales.aspx.cs">
-      <DependentUpon>Animales.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Animales.aspx.designer.cs">
-      <DependentUpon>Animales.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
@@ -388,6 +820,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Personal.aspx.cs">
       <DependentUpon>Personal.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -395,13 +834,41 @@
     <Compile Include="Personal.aspx.designer.cs">
       <DependentUpon>Personal.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Produccion.aspx.cs">
+      <DependentUpon>Produccion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Produccion.aspx.designer.cs">
+      <DependentUpon>Produccion.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reportes.aspx.cs">
+      <DependentUpon>Reportes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes.aspx.designer.cs">
+      <DependentUpon>Reportes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reproduccion.aspx.cs">
+      <DependentUpon>Reproduccion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reproduccion.aspx.designer.cs">
+      <DependentUpon>Reproduccion.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Servicios_Sin_DiagP_70.aspx.cs">
       <DependentUpon>Servicios_Sin_DiagP_70.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Servicios_Sin_DiagP_70.aspx.designer.cs">
       <DependentUpon>Servicios_Sin_DiagP_70.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sistema.aspx.cs">
+      <DependentUpon>Sistema.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sistema.aspx.designer.cs">
+      <DependentUpon>Sistema.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
@@ -416,6 +883,20 @@
     </Compile>
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Tablero.aspx.cs">
+      <DependentUpon>Tablero.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tablero.aspx.designer.cs">
+      <DependentUpon>Tablero.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Tambo.aspx.cs">
+      <DependentUpon>Tambo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Tambo.aspx.designer.cs">
+      <DependentUpon>Tambo.aspx</DependentUpon>
     </Compile>
     <Compile Include="VacaEnOrdene.aspx.cs">
       <DependentUpon>VacaEnOrdene.aspx</DependentUpon>
