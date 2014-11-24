@@ -46,7 +46,7 @@ namespace Datos
 
         public List<Concurso> GetAll()
         {
-            List<Concurso> ls = new List<Concurso>();
+            var ls = new List<Concurso>();
             ls = loadAll(Find(OperationType.SELECT_DEF));
             return ls;
         }
@@ -54,7 +54,7 @@ namespace Datos
 
         protected List<Concurso> loadAll(SqlDataReader rs)
         {
-            List<Concurso> result = new List<Concurso>();
+            var result = new List<Concurso>();
             while (rs.Read())
                 result.Add(load(rs));
             rs.Close();
@@ -63,7 +63,7 @@ namespace Datos
 
         public List<Evento> GetConcursosByRegistro(string regAnimal)
         {
-            List<Evento> result = new List<Evento>();
+            var result = new List<Evento>();
             SqlCommand cmd = null;
             cmd = new SqlCommand();
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -110,7 +110,7 @@ namespace Datos
                 cmd.Parameters.Add(new SqlParameter("@EVENTO", _concurso.Id_evento));
                 //cmd.Parameters.Add(new SqlParameter("@NOM_CONCURSO", _concurso.));
                 //cmd.Parameters.Add(new SqlParameter("@LUGAR", _concurso.));
-                cmd.Parameters.Add(new SqlParameter("@ANIO", _concurso.Anio));
+                cmd.Parameters.Add(new SqlParameter("@FECHA", _concurso.Fecha));
                 //cmd.Parameters.Add(new SqlParameter("@CATEG_CONCURSO", _concurso.));
                 //cmd.Parameters.Add(new SqlParameter("@PREMIO", _concurso.));
 
@@ -124,7 +124,7 @@ namespace Datos
                 cmd.Parameters.Add(new SqlParameter("@EVENTO", _concurso.Id_evento));
                 //cmd.Parameters.Add(new SqlParameter("@NOM_CONCURSO", _concurso.));
                 //cmd.Parameters.Add(new SqlParameter("@LUGAR", _concurso.));
-                cmd.Parameters.Add(new SqlParameter("@ANIO", _concurso.Anio));
+                cmd.Parameters.Add(new SqlParameter("@FECHA", _concurso.Fecha));
                 //cmd.Parameters.Add(new SqlParameter("@CATEG_CONCURSO", _concurso.));
                 //cmd.Parameters.Add(new SqlParameter("@PREMIO", _concurso.));
             }
@@ -134,9 +134,21 @@ namespace Datos
         protected Concurso load(SqlDataReader record)
         {
             var conc = new Concurso();
+            conc.Registro = (DBNull.Value == record["REGISTRO"]) ? string.Empty : (string)record["REGISTRO"];
             conc.Id_evento = (short)((DBNull.Value == record["EVENTO"]) ? 0 : (Int16)record["EVENTO"]);
-            conc.Anio = (short)((DBNull.Value == record["ANIO"]) ? 0 : (Int16)record["ANIO"]);
+            string nombre = (DBNull.Value == record["NOM_CONCURSO"]) ? string.Empty : (string)record["NOM_CONCURSO"];
+            string lugar = (DBNull.Value == record["LUGAR"]) ? string.Empty : (string)record["LUGAR"];
+            conc.Lugar = new LugarConcurso(lugar, nombre);
+            string strDate = (DBNull.Value == record["FECHA"]) ? string.Empty : record["FECHA"].ToString();
+            if (strDate != string.Empty) conc.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
 
+            var prem = new Premio();
+            var cat = new CategoriaConcurso();
+            cat.Id_categ = (short)((DBNull.Value == record["CATEG_CONCURSO"]) ? 0 : (Int16)record["CATEG_CONCURSO"]);
+            prem.CategConcurso = cat;
+            prem.Nombre_premio = (DBNull.Value == record["PREMIO"]) ? string.Empty : (string)record["PREMIO"];
+            conc.ElPremio = prem;
+            
             return conc;
         }
 

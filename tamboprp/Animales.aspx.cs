@@ -27,11 +27,12 @@ namespace tamboprp
                 this.lblAnimal.Text = _animal.Registro;
                 this.lblIdentif.Text = _animal.Identificacion;
                 this.lblGen.Text = (_animal.Gen != -1) ? _animal.Gen.ToString() : "-";
-                if (_animal.Categoria != null)
+                Categoria catAnimal = Fachada.Instance.GetCategoriaById(_animal.IdCategoria);
+                if (catAnimal != null)
                 {
-                    if (_animal.Categoria.Id_categ == 4) 
-                    this.lblCategoria.CssClass = "label label-success";
-                    this.lblCategoria.Text = _animal.Categoria.ToString();
+                    if (catAnimal.Id_categ == 4) 
+                        this.lblCategoria.CssClass = "label label-success";
+                    this.lblCategoria.Text = catAnimal.ToString();
                 }
                 else this.lblCategoria.Text = "-";
                 this.lblNombre.Text = (_animal.Nombre != "") ? _animal.Nombre : "-";
@@ -181,9 +182,11 @@ namespace tamboprp
                 }
                 if (_animal != null)
                 {
-                    var regAnimal = _animal.Registro;
-                    var retAnimal = Fachada.Instance.GetEventosAnimal(regAnimal);
-                    _animal.Eventos = retAnimal.Eventos;
+
+                    var animalTemp = new Animal();
+                    animalTemp.Registro = _animal.Registro;
+                    animalTemp.Sexo = _animal.Sexo;
+                    _animal.Eventos = Fachada.Instance.GetEventosAnimal(animalTemp);
                     this.CargarFichaAnimal();
                 }
             }
@@ -201,7 +204,7 @@ namespace tamboprp
         //    {
         //        var retAnimal = Fachada.Instance.GetEventosAnimal(_animal.Registro);
         //        _animal.Eventos = retAnimal.Eventos;
-        //        this.EventosAnimalAGrilla();
+        //        this.ProcesarEventosAnimal();
         //    }
         //    else
         //    {

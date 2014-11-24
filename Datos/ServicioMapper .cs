@@ -211,15 +211,13 @@ namespace Datos
             serv.Serv_monta_natural = (DBNull.Value == record["SERV_MONTA_NATURAL"]) ? ' ' : Convert.ToChar(record["SERV_MONTA_NATURAL"]);
             serv.Reg_padre = (DBNull.Value == record["REG_PADRE"]) ? string.Empty : (string)record["REG_PADRE"];
 
-            int idIns = (short) ((DBNull.Value == record["INSEMINADOR"]) ? 0 : (Int16) record["INSEMINADOR"]);
-         /*   if (idIns > 0)
+            int idInseminador = (short)((DBNull.Value == record["INSEMINADOR"]) ? 0 : (Int16)record["INSEMINADOR"]);
+            if (idInseminador > 0)
             {
-                var e = new Empleado();
-                e.Id_empleado = (Int16)idIns;
-                var empMap = new EmpleadoMapper(e);
-                serv.Inseminador = empMap.GetEmpleadoById();
+                var insTemp = new Empleado();
+                insTemp.Id_empleado = (Int16)idInseminador;
+                serv.Inseminador = insTemp;
             }
-          * */
             return serv;
         }
 

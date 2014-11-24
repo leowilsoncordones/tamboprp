@@ -100,6 +100,7 @@ namespace Datos
         {
             var enf = new Enfermedad();
             enf.Id = (short)((DBNull.Value == record["ID_ENFERMEDAD"]) ? 0 : (Int16)record["ID_ENFERMEDAD"]);
+            //cuidado cuando enfermedad es null
             enf.Nombre_enfermedad = (DBNull.Value == record["NOMBRE"]) ? string.Empty : (string)record["NOMBRE"];
 
             return enf;

@@ -32,13 +32,13 @@ namespace tamboprp
         {
             var voAnalitico = Fachada.Instance.GetAnaliticoVacasEnOrdene();
             this.lblCant.Text = voAnalitico.CantVacasEnOrdene.ToString();
-            /*this.lblPromProdLecheLts.Text = voAnalitico.PromProdLecheLts.ToString();
+            //this.lblPromProdLecheLts.Text = voAnalitico.PromProdLecheLts.ToString();
             this.lblCantL1.Text = voAnalitico.CantLactancia1.ToString();
-            this.lblCantL2.CssClass = voAnalitico.CantLactancia2.ToString();
-            this.lblCantOtrasL.Text = voAnalitico.CantOtrasLactancias.ToString();
-            this.lblConSSP.Text = voAnalitico.ConServicioSinPreñez.ToString();
-            this.lblPrenezConf.Text = voAnalitico.PrenezConfirmada.ToString();
-            this.lblPromL.Text = voAnalitico.PromDiasLactancias.ToString();*/
+            this.lblCantL2.Text = voAnalitico.CantLactancia2.ToString();
+            //this.lblCantOtrasL.Text = voAnalitico.CantLactanciaMayor2.ToString();
+            //this.lblConSSP.Text = voAnalitico.ConServicioSinPreñez.ToString();
+            //this.lblPrenezConf.Text = voAnalitico.PrenezConfirmada.ToString();
+            //this.lblPromL.Text = voAnalitico.PromDiasLactancias.ToString();
         }
 
 

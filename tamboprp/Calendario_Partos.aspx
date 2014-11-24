@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Calendario de partos" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Calendario_Partos.aspx.cs" Inherits="tamboprp.Calendario_Partos" %>
+﻿<%@ Page Title="tamboprp | partos" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Calendario_Partos.aspx.cs" Inherits="tamboprp.Calendario_Partos" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -17,7 +17,7 @@
         </div>
         <div class="col-md-8"></div>
     </div>
-
+    <br/>
     <asp:GridView ID="gvPartos" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" 
             CssClass="table table-hover table-striped table-bordered table-condensed dataTable" >
         <RowStyle HorizontalAlign="Left"  />
