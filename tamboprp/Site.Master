@@ -35,9 +35,7 @@
                         <li><a runat="server" href="~/Personal.aspx">Personal</a></li>
                         <li><a runat="server" href="~/Datos_Generales.aspx">Datos Generales</a></li>
                         <li><a runat="server" href="~/Servicios_Sin_DiagP_70.aspx">Servicios 70</a></li>
-                        <li><a runat="server" href="Calendario_Partos.aspx">Calendario de Partos</a></li>
-                        <li><a runat="server" href="~/About">About</a></li>
-                        <li><a runat="server" href="~/Contact">Contact</a></li>
+                        <li><a runat="server" href="Calendario_Partos.aspx">Calendario Partos</a></li>
                     </ul>
                     <asp:LoginView runat="server" ViewStateMode="Disabled">
                         <AnonymousTemplate>

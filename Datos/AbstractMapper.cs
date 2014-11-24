@@ -27,7 +27,6 @@ namespace Datos
             cmd.Connection = conn;
             conn.Open();
             drResults = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-
             return drResults;
         }
 

@@ -18,7 +18,7 @@ namespace Negocio
 
         public int CantServicios { get; set; }
 
-        public int DiasServicio { get; set; }
+        public string DiasServicio { get; set; }
 
 
     }

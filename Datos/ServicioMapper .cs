@@ -18,6 +18,10 @@ namespace Datos
 
         private static string Servicio_SelecByRegistro = "Servicio_SelecByRegistro";
         private static string Servicio_SelecProximosPartos = "Servicio_SelecProximosPartos";
+        private static string Servicio_RegistroCantServAntesPrenez = "Servicio_RegistroCantServAntesPrenez";
+        private static string Servicio_DiasSinDiagPrenez = "Servicio_DiasSinDiagPrenez";
+        private static string Servicio_RegistroCantServDespuesPrenez = "Servicio_RegistroCantServDespuesPrenez"; 
+
 
         public ServicioMapper(Servicio servicio)
         {
@@ -51,6 +55,69 @@ namespace Datos
             var ls = new List<Servicio>();
             ls = loadAll(Find(OperationType.SELECT_DEF));
             return ls;
+        }
+
+        public List<Servicio> GetServicios70SinDiagPrenezVaqEnt()
+        {
+            return GetServiciosSinDiagPrenez(Servicio_DiasSinDiagPrenez,3,70);
+        }
+
+        public List<Servicio> GetServicios70SinDiagPrenezVacOrdene()
+        {
+            return GetServiciosSinDiagPrenez(Servicio_DiasSinDiagPrenez,4,70);
+        }
+
+        public List<Servicio> GetServicios70SinDiagPrenezVacSecas()
+        {
+            return GetServiciosSinDiagPrenez(Servicio_DiasSinDiagPrenez,5,70);
+        }
+
+        public List<Servicio> GetServicios35SinDiagPrenezVaqEnt()
+        {
+            return GetServiciosSinDiagPrenez(Servicio_DiasSinDiagPrenez, 3, 35);
+        }
+
+        public List<Servicio> GetServicios35SinDiagPrenezVacOrdene()
+        {
+            return GetServiciosSinDiagPrenez(Servicio_DiasSinDiagPrenez, 4, 35);
+        }
+
+        public List<Servicio> GetServicios35SinDiagPrenezVacSecas()
+        {
+            return GetServiciosSinDiagPrenez(Servicio_DiasSinDiagPrenez, 5, 35);
+        }
+
+
+        private List<Servicio> GetServiciosSinDiagPrenez(string storedProcedure, short categoria, int dias)
+        {
+            var result = new List<Servicio>();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@CATEGORIA", categoria));
+            cmd.Parameters.Add(new SqlParameter("@DIAS", dias));
+            cmd.CommandText = storedProcedure;
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+            {
+                var serv = new Servicio();
+                serv.Registro = (DBNull.Value == dr["REGISTRO"]) ? string.Empty : (string)dr["REGISTRO"];
+                string strDate = (DBNull.Value == dr["FECHA"]) ? string.Empty : dr["FECHA"].ToString();
+                if (strDate != string.Empty) serv.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+                serv.Reg_padre = (DBNull.Value == dr["REG_PADRE"]) ? string.Empty : (string)dr["REG_PADRE"];
+                int idIns = (short)((DBNull.Value == dr["INSEMINADOR"]) ? 0 : (Int16)dr["INSEMINADOR"]);
+               /* if (idIns > 0)
+                {
+                    var e = new Empleado();
+                    e.Id_empleado = (Int16)idIns;
+                    var empMap = new EmpleadoMapper(e);
+                    serv.Inseminador = empMap.GetEmpleadoById();
+                }
+                 */
+                result.Add(serv);
+            }
+            
+            dr.Close();
+            return result;
         }
 
 
@@ -145,13 +212,14 @@ namespace Datos
             serv.Reg_padre = (DBNull.Value == record["REG_PADRE"]) ? string.Empty : (string)record["REG_PADRE"];
 
             int idIns = (short) ((DBNull.Value == record["INSEMINADOR"]) ? 0 : (Int16) record["INSEMINADOR"]);
-            if (idIns > 0)
+         /*   if (idIns > 0)
             {
                 var e = new Empleado();
                 e.Id_empleado = (Int16)idIns;
                 var empMap = new EmpleadoMapper(e);
                 serv.Inseminador = empMap.GetEmpleadoById();
             }
+          * */
             return serv;
         }
 
@@ -171,6 +239,37 @@ namespace Datos
                 result.Add(load(dr));
             dr.Close();
             return result;
+        }
+
+
+        private Dictionary<string, int> GetRegCantServ(string storedProcedure)
+        {
+            var dictionary = new Dictionary<string, int>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = storedProcedure;
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+            {
+                dictionary.Add(
+                    (DBNull.Value == dr["REGISTRO"]) ? string.Empty : (string) dr["REGISTRO"],
+                    (int) ((DBNull.Value == dr["CANTFECHA"]) ? 0 : (Int32) dr["CANTFECHA"])
+                    );
+            }
+            dr.Close();
+            return dictionary;
+        }
+
+
+        public Dictionary<string, int> GetRegCantServAntesPrenez()
+        {
+            return GetRegCantServ(Servicio_RegistroCantServAntesPrenez);
+        }
+
+        public Dictionary<string, int> GetRegCantServDespuesPrenez()
+        {
+            return GetRegCantServ(Servicio_RegistroCantServDespuesPrenez);
         }
 
     }
