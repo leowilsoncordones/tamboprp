@@ -24,6 +24,13 @@
     <script src="js/jquery1x.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/excanvas.js"></script>
+
+    <!-- test por cosas que no andan -->
+    <script src="js/ace/ace.submenu-hover.js"></script>
+    <script src="js/ace/ace.sidebar.js"></script>
+    <script src="js/ace/ace.sidebar-scroll-1.js"></script>
+    <script src="js/ace/ace.sidebar-scroll-2.js"></script>
+
     <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
 </head>
 <body class="no-skin">
@@ -72,10 +79,10 @@
                  <!-- shortcuts -->
                  <div class="sidebar-shortcuts" id="sidebar-shortcuts">
 					<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-						<button class="btn btn-success"><i class="ace-icon fa fa-signal"></i></button>
-                        <button class="btn btn-info"><i class="ace-icon fa fa-pencil"></i></button>
-						<button class="btn btn-warning"><i class="ace-icon fa fa-users"></i></button>
-                        <button class="btn btn-danger"><i class="ace-icon fa fa-cogs"></i></button>
+						<button class="btn btn-success"><i class="ace-icon fa fa-bar-chart-o"></i></button>
+                        <button class="btn btn-info"><i class="ace-icon fa fa-folder-open"></i></button>
+						<button class="btn btn-warning"><i class="ace-icon fa fa-user"></i></button>
+                        <button class="btn btn-danger"><i class="ace-icon fa fa-bell-o"></i></button>
 					</div>
 
 					<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
