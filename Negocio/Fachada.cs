@@ -336,10 +336,11 @@ namespace Negocio
             var serMap = new ServicioMapper();
             var listServ = serMap.GetProximosPartos(mes, anio);
             var listVOServ01 = new List<VOServicio01>();
+            var dictCantServ = serMap.GetRegCantServAntesPrenez();
             foreach (var serv in listServ)
             {
                 DateTime fechaParto = serv.Fecha.AddDays(285);
-                int cantServ = 1; //TODO ver consulta 
+                int cantServ = dictCantServ.ContainsKey(serv.Registro)? dictCantServ[serv.Registro] : -1 ; 
                 var voServ = new VOServicio01
                 {
                     Registro = serv.Registro, 
@@ -362,6 +363,96 @@ namespace Negocio
             cat.Id_categ = idCateg;
             _catMapper = new CategoriaMapper(cat);
             return _catMapper.GetCategoriaById();
+        }
+        public List<VOServicio> GetServicios70SinDiagPrenezVaqEnt()
+        {           
+            var listServVaqEnt = _servMapper.GetServicios70SinDiagPrenezVaqEnt();
+            var listAnimVaqEnt = _animalMapper.GetAnimalesByCategoria(3);
+            var dictCantServ = _servMapper.GetRegCantServDespuesPrenez();
+            var listaVOServ = CargarVOServicios(listServVaqEnt, listAnimVaqEnt, dictCantServ);
+            return listaVOServ;
+        }
+
+        public List<VOServicio> GetServicios70SinDiagPrenezVacOrdene()
+        {
+            var listServVaqEnt = _servMapper.GetServicios70SinDiagPrenezVacOrdene();
+            var listAnimVaqEnt = _animalMapper.GetAnimalesByCategoria(4);
+            var dictCantServ = _servMapper.GetRegCantServDespuesPrenez();
+            var listaVOServ = CargarVOServicios(listServVaqEnt, listAnimVaqEnt, dictCantServ);
+            return listaVOServ;
+        }
+
+        public List<VOServicio> GetServicios70SinDiagPrenezVacSecas()
+        {
+            var listServVaqEnt = _servMapper.GetServicios70SinDiagPrenezVacSecas();
+            var listAnimVaqEnt = _animalMapper.GetAnimalesByCategoria(5);
+            var dictCantServ = _servMapper.GetRegCantServDespuesPrenez();
+            var listaVOServ = CargarVOServicios(listServVaqEnt, listAnimVaqEnt, dictCantServ);
+            return listaVOServ;
+        }
+
+
+        public List<VOServicio> GetServicios35SinDiagPrenezVaqEnt()
+        {
+            var listServVaqEnt = _servMapper.GetServicios35SinDiagPrenezVaqEnt();
+            var listAnimVaqEnt = _animalMapper.GetAnimalesByCategoria(3);
+            var dictCantServ = _servMapper.GetRegCantServDespuesPrenez();
+            var listaVOServ = CargarVOServicios(listServVaqEnt, listAnimVaqEnt, dictCantServ);
+            return listaVOServ;
+        }
+
+        public List<VOServicio> GetServicios35SinDiagPrenezVacOrdene()
+        {
+            var listServVaqEnt = _servMapper.GetServicios35SinDiagPrenezVacOrdene();
+            var listAnimVaqEnt = _animalMapper.GetAnimalesByCategoria(4);
+            var dictCantServ = _servMapper.GetRegCantServDespuesPrenez();
+            var listaVOServ = CargarVOServicios(listServVaqEnt, listAnimVaqEnt, dictCantServ);
+            return listaVOServ;
+        }
+
+        public List<VOServicio> GetServicios35SinDiagPrenezVacSecas()
+        {
+            var listServVaqEnt = _servMapper.GetServicios35SinDiagPrenezVacSecas();
+            var listAnimVaqEnt = _animalMapper.GetAnimalesByCategoria(5);
+            var dictCantServ = _servMapper.GetRegCantServDespuesPrenez();
+            var listaVOServ = CargarVOServicios(listServVaqEnt, listAnimVaqEnt, dictCantServ);
+            return listaVOServ;
+        }
+
+
+        private List<VOServicio> CargarVOServicios(List<Servicio> listServVaqEnt, List<Animal> listAnimVaqEnt, Dictionary<string, int> dictCantServ)
+        {
+            var listaVOServ = new List<VOServicio>();
+
+            foreach (var vaca in listServVaqEnt)
+            {
+                var anim = listAnimVaqEnt.FirstOrDefault(p => p.Registro == vaca.Registro);
+                int cantServ = dictCantServ.ContainsKey(vaca.Registro) ? dictCantServ[vaca.Registro] : -1;
+                var voServ = new VOServicio();
+                voServ.Registro = vaca.Registro;
+                voServ.RegistroPadre = vaca.Reg_padre;
+                voServ.FechaServicio = vaca.Fecha;
+                voServ.Edad = CalcularEdad(anim.Fecha_nacim);
+                voServ.CantServicios = cantServ;
+                voServ.DiasServicio = CalcularDiasServicio(vaca.Fecha);
+                listaVOServ.Add(voServ);
+            }
+            return listaVOServ;
+        }
+
+
+        public string CalcularEdad(DateTime fechaNacimiento)
+        {
+            TimeSpan intervalo = DateTime.Now - fechaNacimiento;
+            var intervaloAnos = (int)((double)intervalo.Days / 365.2425);
+            var intervaloMeses = (int)((double)(intervalo.Days%365.2425) / 30.436875);
+            return intervaloAnos.ToString() + " años, "+ intervaloMeses.ToString()+ " meses";
+        }
+
+        public string CalcularDiasServicio(DateTime fechaServicio)
+        {
+            TimeSpan intervalo = DateTime.Now - fechaServicio;
+            return intervalo.Days.ToString();
         }
     }
 }

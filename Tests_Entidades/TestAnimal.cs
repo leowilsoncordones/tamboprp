@@ -24,7 +24,8 @@ namespace Tests_Entidades
         public void getEventosAnimal_should_collect() 
         {
             var anim = new Animal();
-            anim = Fachada.Instance.GetEventosAnimal("3110");
+            var listEv = new List<Evento>();
+            listEv = Fachada.Instance.GetEventosAnimal(anim);
             Assert.IsNotNull(anim);
         }
 

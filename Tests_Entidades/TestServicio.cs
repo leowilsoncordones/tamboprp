@@ -27,5 +27,13 @@ namespace Tests_Entidades
 
         }
 
+        [Test]
+        public void CalculcarEdad_shoul_ok()
+        {
+            var fecha = new DateTime(1982, 6, 10, 9, 0, 0, 0);
+            var edad = Fachada.Instance.CalcularEdad(fecha);
+            Assert.AreEqual(edad,"32 años, 5 meses");
+        }
+
     }
 }
