@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Datos;
 using Negocio;
 using NUnit.Framework;
 
@@ -33,6 +34,13 @@ namespace Tests_Entidades
             var fecha = new DateTime(1982, 6, 10, 9, 0, 0, 0);
             var edad = Fachada.Instance.CalcularEdad(fecha);
             Assert.AreEqual(edad,"32 años, 5 meses");
+        }
+
+        [Test]
+        public void CotrolTotal_should_get_all()
+        {
+            var lista = Fachada.Instance.ControlTotalGetAll();
+            Assert.IsNotEmpty(lista);
         }
 
     }

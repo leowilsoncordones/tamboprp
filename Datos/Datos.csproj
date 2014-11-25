@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CategConcursoMapper.cs" />
+    <Compile Include="Controles_totalesMapper.cs" />
     <Compile Include="EnfermedadMapper.cs" />
     <Compile Include="CategoriaMapper.cs" />
     <Compile Include="LactanciaMapper.cs" />

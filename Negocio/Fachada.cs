@@ -454,5 +454,11 @@ namespace Negocio
             TimeSpan intervalo = DateTime.Now - fechaServicio;
             return intervalo.Days.ToString();
         }
+
+        public List<Controles_totalesMapper.VOControlTotal> ControlTotalGetAll()
+        {
+            var controlTotal = new Controles_totalesMapper();
+            return controlTotal.GetAll();
+        }
     }
 }
