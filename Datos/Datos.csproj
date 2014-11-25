@@ -50,7 +50,7 @@
     <Compile Include="AnimalMapper.cs" />
     <Compile Include="Diag_PrenezMapper.cs" />
     <Compile Include="ConcursoMapper.cs" />
-    <Compile Include="ServicioMapper .cs" />
+    <Compile Include="ServicioMapper.cs" />
     <Compile Include="SecadoMapper.cs" />
     <Compile Include="CalificacionMapper.cs" />
     <Compile Include="AbortoMapper.cs" />
