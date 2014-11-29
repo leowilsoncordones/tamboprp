@@ -24,7 +24,7 @@
     <div class="tabbable">
 		<ul class="nav nav-tabs" id="myTab">
 			<li class="active"><a data-toggle="tab" href="#datosGenerales"><i class="blue ace-icon fa fa-list bigger-120"></i> Datos generales </a></li>
-            <li><a data-toggle="tab" href="#tablaAnalitica"><i class="blue ace-icon fa fa-plug bigger-120"></i> Tabla analítica en ordeñe <asp:Label ID="badgeCantOrdene" runat="server" cssClass="badge badge-success"></asp:Label></a></li>
+            <li><a data-toggle="tab" href="#tablaAnalitica"><i class="blue ace-icon fa fa-plug bigger-120"></i> Análisis de ordeñe <asp:Label ID="badgeCantOrdene" runat="server" cssClass="badge badge-success"></asp:Label></a></li>
             <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#">Dropdown &nbsp;<i class="ace-icon fa fa-caret-down bigger-110 width-auto"></i></a>
 				<ul class="dropdown-menu dropdown-info">
 					<li><a data-toggle="tab" href="#dropdown1">@fat</a></li>
@@ -37,7 +37,7 @@
 		    
 		    <!-- PESTANA 1: Datos generales -->
 			<div id="datosGenerales" class="tab-pane fade in active">
-			    <h2 class="page-header">Datos generales de producción</h2>
+			    <h2 class="page-header"><i class="menu-icon fa fa-eye"></i> Datos generales de producción</h2>
                 <div class="row">
                 <div class="col-sm-6">
                     <div class="well">
@@ -62,7 +62,7 @@
                 <div class="row">
                 <div class="col-sm-6">
                     <div class="well">
-                        <h4 class="blue smaller">Último control lechero <asp:Label ID="lblFechaUltControl" runat="server" ></asp:Label></h4>
+                        <h4 class="blue smaller">Último control lechero: <asp:Label ID="lblFechaUltControl" runat="server" ></asp:Label></h4>
 						<ul class="list-unstyled spaced2">
                         <li><i class="ace-icon fa fa-caret-right blue"></i>
                             <asp:Label ID="titCantAnControl" runat="server" Text="Cantidad de animales en último control lechero: " ></asp:Label>
@@ -87,27 +87,37 @@
 
             <!-- PESTANA 2: Tabla analitica de vacas en ordeñe -->
 			<div id="tablaAnalitica" class="tab-pane fade">
-			    <h2 class="page-header">Tablas analíticas</h2>
+			    <h2 class="page-header"><i class="menu-icon fa fa-eye"></i> Análisis de ordeñe</h2>
 			    <div class="row">
                 <div class="col-sm-6">
-                    <div class="widget-box">
-                       <div class="widget-header">
-                           <h4 class="widget-title smaller">Tabla de vacas en ordeñe</h4>
-                       </div>
-                       <div class="widget-body">
-                           <div class="widget-main">
-                               <ul class="list-unstyled spaced2">
-                               <li><i class="ace-icon fa fa-caret-right blue fa-lg"></i><asp:Label ID="titCant" runat="server" Text="Cantidad en la categoría: " ></asp:Label><asp:Label ID="lblCant" runat="server" Text="" ></asp:Label></li>
-                               <li><i class="ace-icon fa fa-caret-right blue fa-lg"></i><asp:Label ID="titPromProdLecheLts" runat="server" Text="Promedio de producción de leche (litros): " ></asp:Label><asp:Label ID="lblPromProdLecheLts" runat="server" ></asp:Label></li>
-                               <li><i class="ace-icon fa fa-caret-right blue fa-lg"></i><asp:Label ID="titCantL1" runat="server" Text="Cantidad en lactancia 1: "></asp:Label><asp:Label ID="lblCantL1" runat="server" ></asp:Label></li>
-                               <li><i class="ace-icon fa fa-caret-right blue fa-lg"></i><asp:Label ID="titCantL2" runat="server" Text="Cantidad en lactancia 2: "></asp:Label><asp:Label ID="lblCantL2" runat="server" ></asp:Label></li>
-                               <li><i class="ace-icon fa fa-caret-right blue fa-lg"></i><asp:Label ID="titCantOtrasL" runat="server" Text="Cantidad en otras lactancias: "></asp:Label><asp:Label ID="lblCantOtrasL" runat="server" ></asp:Label></li>
-                               <li><i class="ace-icon fa fa-caret-right blue fa-lg"></i><asp:Label ID="titConSSP" runat="server" Text="Con servicios y sin preñez: "></asp:Label><asp:Label ID="lblConSSP" runat="server" ></asp:Label></li>
-                               <li><i class="ace-icon fa fa-caret-right blue fa-lg"></i><asp:Label ID="titPrenezConf" runat="server" Text="Preñez confirmada: "></asp:Label><asp:Label ID="lblPrenezConf" runat="server" ></asp:Label></li>
-                               <li><i class="ace-icon fa fa-caret-right blue fa-lg"></i><asp:Label ID="titPromL" runat="server" Text="Promedio de lactancias (días): "></asp:Label><asp:Label ID="lblPromL" runat="server" ></asp:Label></li>
-                               </ul>
-                           </div>
-                       </div>
+                    <div class="well">
+                        <h4 class="blue smaller">Tablas analítica de vacas en ordeñe</h4>
+						<ul class="list-unstyled spaced2">
+                            <li><i class="ace-icon fa fa-caret-right blue fa-lg"></i>
+                                <asp:Label ID="titCant" runat="server" Text="Cantidad en la categoría: " ></asp:Label>
+                                <strong><asp:Label ID="lblCant" runat="server" Text="" ></asp:Label></strong></li>
+                            <li><i class="ace-icon fa fa-caret-right blue fa-lg"></i>
+                                <asp:Label ID="titPromProdLecheLts" runat="server" Text="Promedio de producción de leche (litros): " ></asp:Label>
+                                <strong><asp:Label ID="lblPromProdLecheLts" runat="server" ></asp:Label></strong></li>
+                            <li><i class="ace-icon fa fa-caret-right blue fa-lg"></i>
+                                <asp:Label ID="titCantL1" runat="server" Text="Cantidad en lactancia 1: "></asp:Label>
+                                <strong><asp:Label ID="lblCantL1" runat="server" ></asp:Label></strong></li>
+                            <li><i class="ace-icon fa fa-caret-right blue fa-lg"></i>
+                                <asp:Label ID="titCantL2" runat="server" Text="Cantidad en lactancia 2: "></asp:Label>
+                                <strong><asp:Label ID="lblCantL2" runat="server" ></asp:Label></strong></li>
+                            <li><i class="ace-icon fa fa-caret-right blue fa-lg"></i>
+                                <asp:Label ID="titCantOtrasL" runat="server" Text="Cantidad en otras lactancias: "></asp:Label>
+                                <strong><asp:Label ID="lblCantOtrasL" runat="server" ></asp:Label></strong></li>
+                            <li><i class="ace-icon fa fa-caret-right blue fa-lg"></i>
+                                <asp:Label ID="titConSSP" runat="server" Text="Con servicios y sin preñez: "></asp:Label>
+                                <strong><asp:Label ID="lblConSSP" runat="server" ></asp:Label></strong></li>
+                            <li><i class="ace-icon fa fa-caret-right blue fa-lg"></i>
+                                <asp:Label ID="titPrenezConf" runat="server" Text="Preñez confirmada: "></asp:Label>
+                                <strong><asp:Label ID="lblPrenezConf" runat="server" ></asp:Label></strong></li>
+                            <li><i class="ace-icon fa fa-caret-right blue fa-lg"></i>
+                                <asp:Label ID="titPromL" runat="server" Text="Promedio de lactancias (días): "></asp:Label>
+                                <strong><asp:Label ID="lblPromL" runat="server" ></asp:Label></strong></li>
+                        </ul>
                     </div>
                 </div>
                 <div class="col-sm-6">

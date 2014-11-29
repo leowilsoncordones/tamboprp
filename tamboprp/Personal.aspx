@@ -19,7 +19,7 @@
     <script src="js/excanvas.js"></script>
 </asp:Content>
 <asp:Content ID="ContentPersonal" ContentPlaceHolderID="MainContent" runat="server">
-    <h1 class="page-header">Personal</h1>
+    <h1 class="page-header"><i class="menu-icon fa fa-users"></i> Personal</h1>
     <asp:PlaceHolder ID="phPersonal" runat="server">
         <asp:GridView ID="gvEmpleados" runat="server" AutoGenerateColumns="False" GridLines="None" 
             HorizontalAlign="Left" Width="50%" CssClass="table table-hover table-striped table-bordered table-condensed dataTable" >

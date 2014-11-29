@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Entidades;
+using Microsoft.Win32;
 
 namespace Datos
 {
@@ -17,7 +18,8 @@ namespace Datos
 
         private static string Animal_BusqByID = "Animal_BusqByID";
         //private static string Animal_BusqByCategoria = "Animal_BusqByCategoria";
-        private static string Animal_SelectByCategoria = "Animal_SelectByCategoria";        
+        private static string Animal_SelectByCategoria = "Animal_SelectByCategoria";
+        private static string Animal_SelectFotosByRegistro = "Animal_SelectFotosByRegistro";
 
         public AnimalMapper(Animal animal)
         {
@@ -93,6 +95,22 @@ namespace Datos
             return result;
         }
 
+        public List<VOFoto> GetFotosByRegistro(string reg)
+        {
+            var result = new List<VOFoto>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@REGISTRO", reg));
+            cmd.CommandText = Animal_SelectFotosByRegistro;
+
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+                result.Add(loadFoto(dr));
+            dr.Close();
+            return result;
+        }
+        
 
         protected List<Animal> loadAll(SqlDataReader rs)
         {
@@ -111,7 +129,7 @@ namespace Datos
             {
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.CommandText = "Animal_SelecById";
+                cmd.CommandText = "Animal_SelectByRegistro";
                 cmd.Parameters.Add(new SqlParameter("@REGISTRO", _animal.Registro));
             }
 
@@ -174,6 +192,7 @@ namespace Datos
             return anim;
         }
 
+
         public int GetCantOrdene()
         {
             return GetScalarInt("Animal_SelectCountOrdene");
@@ -223,7 +242,39 @@ namespace Datos
         {
             return GetScalarInt("Animal_SelectCountEnOrdenePromDiasLactancias");
         }
+        protected VOFoto loadFoto(SqlDataReader record)
+        {
+            var voFoto = new VOFoto();
+            voFoto.Registro = (DBNull.Value == record["REGISTRO"]) ? string.Empty : (string)record["REGISTRO"];
+            voFoto.Ruta = (DBNull.Value == record["FOTO"]) ? string.Empty : (string)record["FOTO"];
+            voFoto.PieDeFoto = (DBNull.Value == record["PIE_DE_FOTO"]) ? string.Empty : (string)record["PIE_DE_FOTO"];
+            voFoto.Comentario = (DBNull.Value == record["COMENTARIO"]) ? string.Empty : (string)record["COMENTARIO"];
+            return voFoto;
+        }
 
+        public class VOFoto
+        {
+            public VOFoto()
+            {
+                
+            }
+
+            public VOFoto(string reg, string pie, string ruta, string comentario)
+            {
+                Registro = reg;
+                PieDeFoto = pie;
+                Ruta = ruta;
+                Comentario = comentario;
+            }
+
+            public string Comentario { get; set; }
+
+            public string Ruta { get; set; }
+
+            public string PieDeFoto { get; set; }
+
+            public string Registro { get; set; }
+        }
 
     }
 }
