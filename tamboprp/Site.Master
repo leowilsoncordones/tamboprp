@@ -24,6 +24,8 @@
     <script src="js/jquery1x.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/excanvas.js"></script>
+    <script src="js/flot/jquery.flot.js"></script>
+    <script src="/js/flot/jquery.flot.time.js"></script>
     <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
 </head>
 <body class="no-skin">
