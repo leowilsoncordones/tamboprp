@@ -162,6 +162,7 @@ namespace Datos
             muerte.Comentarios = (DBNull.Value == record["COMENTARIO"]) ? string.Empty : (string)record["COMENTARIO"];
             //muerte.Enfermedad = (short)((DBNull.Value == record["ENFERMEDAD"]) ? 0 : (Int16)record["ENFERMEDAD"]);
 
+            // cambiar! no mappers anidados
             var e = new Enfermedad();
             e.Id = (short)((DBNull.Value == record["ENFERMEDAD"]) ? 0 : (Int16)record["ENFERMEDAD"]);
             var enfMap = new EnfermedadMapper(e);

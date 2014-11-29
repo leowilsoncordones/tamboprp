@@ -26,10 +26,42 @@
     <script src="js/excanvas.js"></script>
     <script src="js/flot/jquery.flot.js"></script>
     <script src="/js/flot/jquery.flot.time.js"></script>
+
+    <!-- test por cosas que no andan -->
+    <script src="js/ace/ace.submenu-hover.js"></script>
+    <script src="js/ace/ace.sidebar.js"></script>
+    <script src="js/ace/ace.sidebar-scroll-1.js"></script>
+    <script src="js/ace/ace.sidebar-scroll-2.js"></script>
+
     <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
 </head>
 <body class="no-skin">
     
+    <script type='text/javascript'>
+        $('.sidebar').ace_sidebar();
+        $('.sidebar').ace_sidebar('toggleMenu');
+        $('.sidebar').ace_sidebar('toggleMenu', toggleButton);
+        $('.sidebar').ace_sidebar('toggleMenu', false);
+        $('.sidebar').ace_sidebar('toggleMenu', [toggleButton, false/true ]);
+        $('#sidebar').ace_sidebar('collapse');
+        $('#sidebar').ace_sidebar('collapse', toggleButton);
+        $('#sidebar').ace_sidebar('toggle', [sub, 300]);
+
+        var new_active = $(this).parent();
+
+        $('.nav-list li.active').removeClass('active');
+        new_active.addClass('active').parents('.nav-list li').addClass('active');
+        var breadcrumb_items = [];
+        $(this).parents('.nav-list li').each(function() {
+            var link = $(this).find('> a');
+            var text = link.text();
+            var href = link.attr('href');
+            breadcrumb_items.push({ 'text': text, 'href': href });
+        });
+
+    </script>
+    
+
     <form runat="server">
         <!-- navbar top -->
         <div class="navbar navbar-default navbar-inverse navbar-fixed-top">
@@ -74,10 +106,10 @@
                  <!-- shortcuts -->
                  <div class="sidebar-shortcuts" id="sidebar-shortcuts">
 					<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-						<button class="btn btn-success"><i class="ace-icon fa fa-signal"></i></button>
-                        <button class="btn btn-info"><i class="ace-icon fa fa-pencil"></i></button>
-						<button class="btn btn-warning"><i class="ace-icon fa fa-users"></i></button>
-                        <button class="btn btn-danger"><i class="ace-icon fa fa-cogs"></i></button>
+						<button class="btn btn-success"><i class="ace-icon fa fa-bar-chart-o"></i></button>
+                        <button class="btn btn-info"><i class="ace-icon fa fa-folder-open"></i></button>
+						<button class="btn btn-warning"><i class="ace-icon fa fa-user"></i></button>
+                        <button class="btn btn-danger"><i class="ace-icon fa fa-bell-o"></i></button>
 					</div>
 
 					<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
@@ -96,14 +128,14 @@
 				    </a>
                     </li>
                     <li>
-                    <a href="Animales2.aspx" class="dropdown-toggle">
+                    <a href="Animales.aspx" class="dropdown-toggle">
 					    <i class="menu-icon fa fa-folder-open"></i>
 					    <span class="menu-text"> Animales </span>
 				    </a>
                       <ul class="submenu">
-                       <li><a href="Animales2.aspx">Fichas</a></li>
+                       <li><a href="Animales.aspx">Fichas</a></li>
                        <li><a href="Lactancias.aspx">Lactancias</a></li>
-                       <li><a href="Default.aspx">Genealogía</a></li>
+                       <li><a href="Genealogia.aspx">Genealogía</a></li>
                        <li><a href="Default.aspx">Enfermedades</a></li>
                        <li><a href="Default.aspx">Categorías</a></li>
                       </ul>
@@ -130,7 +162,7 @@
 				    </a>
                     </li>
                     <li>
-                    <a href="Reproduccion.aspx">
+                    <a href="Calendario_Partos.aspx">
 					    <i class="menu-icon fa fa-sitemap"></i>
 					    <span class="menu-text"> Reproducción </span>
 				    </a>
@@ -166,11 +198,6 @@
                       </ul>
                     </li>
                 </ul>
-                <!-- iconos para colapsar/expandir la barra -->
-                 <div class="sidebar-toggle sidebar-collapse">
-                   <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
-                   <i class="ace-icon fa fa-angle-double-right" data-icon1="ace-icon fa fa-angle-double-right" data-icon2="ace-icon fa fa-angle-double-left"></i>
-                 </div>
              </div><!-- /.sidebar -->
   
              <div class="main-content">

@@ -19,4 +19,5 @@
     <script src="js/excanvas.js"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <h1 class="page-header"><i class="menu-icon fa fa-sitemap"></i> Reproducción</h1>
 </asp:Content>

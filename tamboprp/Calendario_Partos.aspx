@@ -10,7 +10,7 @@
         <div class="col-md-4 wrapper">
             <div class="input-group">
                 <span class="input-group-btn">
-                    <asp:Button ID="btnListar" runat="server" Text="Listar" onclick="btnListar_Click" CssClass="btn btn-primary" />
+                    <asp:Button ID="btnListar" runat="server" Text="Listar" onclick="btnListar_Click" CssClass="btn btn-white btn-default" />
                 </span>
                 <asp:DropDownList ID="ddlMeses" class="form-control" runat="server" ></asp:DropDownList>
             </div>

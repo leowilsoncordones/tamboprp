@@ -138,7 +138,6 @@
     <Content Include="Account\RegisterExternalLogin.aspx" />
     <Content Include="Analisis.aspx" />
     <Content Include="Animales.aspx" />
-    <Content Include="Animales2.aspx" />
     <Content Include="avatars\avatar.png" />
     <Content Include="avatars\avatar1.png" />
     <Content Include="avatars\avatar2.png" />
@@ -208,6 +207,7 @@
     <Content Include="css\ui.jqgrid.css" />
     <Content Include="Enfermedades.aspx" />
     <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="Genealogia.aspx" />
     <Content Include="Images\back_disabled.png" />
     <Content Include="Images\back_enabled.png" />
     <Content Include="Images\back_enabled_hover.png" />
@@ -242,6 +242,10 @@
     <Content Include="img\glyphicons-halflings-white.png" />
     <Content Include="img\glyphicons-halflings.png" />
     <Content Include="img\loading.gif" />
+    <Content Include="img_tamboprp\animales\reg_3110.jpg" />
+    <Content Include="img_tamboprp\animales\reg_3110_expoprado2013.jpg" />
+    <Content Include="img_tamboprp\animales\reg_digger.png" />
+    <Content Include="img_tamboprp\animales\reg_manoman.jpg" />
     <Content Include="js\ace-elements.js" />
     <Content Include="js\ace-extra.js" />
     <Content Include="js\ace.js" />
@@ -454,6 +458,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
+    <Content Include="Notificaciones.aspx" />
     <Content Include="packages.config" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -703,13 +708,6 @@
     <Compile Include="Animales.aspx.designer.cs">
       <DependentUpon>Animales.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Animales2.aspx.cs">
-      <DependentUpon>Animales2.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Animales2.aspx.designer.cs">
-      <DependentUpon>Animales2.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Cabana.aspx.cs">
       <DependentUpon>Cabana.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -730,6 +728,13 @@
     </Compile>
     <Compile Include="Enfermedades.aspx.designer.cs">
       <DependentUpon>Enfermedades.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Genealogia.aspx.cs">
+      <DependentUpon>Genealogia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Genealogia.aspx.designer.cs">
+      <DependentUpon>Genealogia.aspx</DependentUpon>
     </Compile>
     <Compile Include="Lactancias.aspx.cs">
       <DependentUpon>Lactancias.aspx</DependentUpon>
@@ -828,6 +833,13 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Notificaciones.aspx.cs">
+      <DependentUpon>Notificaciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Notificaciones.aspx.designer.cs">
+      <DependentUpon>Notificaciones.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Personal.aspx.cs">
       <DependentUpon>Personal.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -916,6 +928,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="img_tamboprp\corporativo\" />
+    <Folder Include="img_tamboprp\usuarios\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Web.config" />

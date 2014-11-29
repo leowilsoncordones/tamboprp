@@ -56,6 +56,14 @@ namespace Negocio
             return animals;
         }
 
+        public Animal GetAnimalByRegistro(string registro)
+        {
+            var a = new Animal();
+            a.Registro = registro;
+            _animalMapper = new AnimalMapper(a);
+            return _animalMapper.GetAnimalById();
+        }
+
         public List<Evento> GetEventosAnimal(Animal a)
         {
             //var a = new Animal {Registro = registro};
@@ -459,6 +467,65 @@ namespace Negocio
         {
             var controlTotal = new Controles_totalesMapper();
             return controlTotal.GetAll();
+        }
+
+        //public List<VOAnimal> GetArbolGenealogico(string reg)
+        //{
+        //    var list = new List<VOAnimal>();
+        //    var voAnimal = new VOAnimal();
+            
+        //    var a = new Animal(reg);
+            
+        //    _animalMapper = new AnimalMapper(a);
+        //    var anim = _animalMapper.GetAnimalById();
+        //    voAnimal = this.CopiarVOAnimal(anim);
+
+        //    for (int i = 1; i < 3; i++)
+        //    {
+        //        if (anim.Reg_madre != "M-DESCONOC")
+        //        {
+
+        //            var madre = new Animal(anim.Reg_madre);
+        //            _animalMapper = new AnimalMapper(madre);
+        //            voAnimal.Madre = CopiarVOAnimal()
+        //        }
+        //        if (anim.Reg_madre != "M-DESCONOC")
+        //        {
+
+        //        }
+                
+        //    }
+        //    //voPadre = this.CopiarVOAnimal(padre);
+        //    //voMadre = this.CopiarVOAnimal(madre);
+        //    //voAbuelaPat = this.CopiarVOAnimal(nonapat);
+        //    //voAbueloPat = this.CopiarVOAnimal(nonopat);
+        //}
+
+        //private VOAnimal GetPadresAnimal(VOAnimal vo)
+        //{
+        //    if (vo!=null)
+        //    if (vo.Registro!="M-DESCONOC") vo.Madre=GetPadresAnimal()
+            
+        //}
+
+        public VOAnimal CopiarVOAnimal(Animal anim)
+        {
+            var voAnim = new VOAnimal();
+            voAnim.Calific = anim.Calific;
+            voAnim.Fecha_nacim = anim.Fecha_nacim;
+            voAnim.Gen = anim.Gen;
+            voAnim.IdCategoria = anim.IdCategoria;
+            voAnim.Identificacion = anim.Identificacion;
+            voAnim.Fotos = _animalMapper.GetFotosByRegistro(anim.Registro);
+            voAnim.Nombre = anim.Nombre;
+            voAnim.Origen = anim.Origen;
+            voAnim.Reg_madre = anim.Reg_madre;
+            voAnim.Reg_padre = anim.Reg_padre;
+            voAnim.Reg_trazab = anim.Origen;
+            voAnim.Registro = anim.Registro;
+            voAnim.Sexo = anim.Sexo;
+            voAnim.Vivo = anim.Vivo;
+            return voAnim;
         }
     }
 }

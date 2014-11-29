@@ -1,4 +1,4 @@
-﻿<%@ Page Title="tamboprp | cabaña" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Cabana.aspx.cs" Inherits="tamboprp.Cabana" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Notificaciones.aspx.cs" Inherits="tamboprp.Notificaciones" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <link href="css/bootstrap.css" rel="stylesheet" />
     <link href="css/font-awesome.css" rel="stylesheet" />
@@ -19,5 +19,5 @@
     <script src="js/excanvas.js"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h1 class="page-header"><i class="menu-icon fa fa-trophy"></i> Cabaña</h1>
+    <h1 class="page-header"><i class="menu-icon fa fa-bell-o"></i> Notificaciones y alertas</h1>
 </asp:Content>

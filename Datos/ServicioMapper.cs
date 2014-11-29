@@ -224,7 +224,7 @@ namespace Datos
 
         public List<Servicio> GetProximosPartos(string mes, string anio)
         {
-            List<Servicio> result = new List<Servicio>();
+            var result = new List<Servicio>();
             SqlCommand cmd = null;
             cmd = new SqlCommand();
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
