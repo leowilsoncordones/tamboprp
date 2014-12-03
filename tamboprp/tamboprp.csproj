@@ -293,6 +293,7 @@
     <Content Include="js\flot\jquery.flot.js" />
     <Content Include="js\flot\jquery.flot.pie.js" />
     <Content Include="js\flot\jquery.flot.resize.js" />
+    <Content Include="js\flot\jquery.flot.time.js" />
     <Content Include="js\fuelux\fuelux.spinner.js" />
     <Content Include="js\fuelux\fuelux.tree.js" />
     <Content Include="js\fuelux\fuelux.wizard.js" />
