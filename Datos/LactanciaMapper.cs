@@ -20,6 +20,8 @@ namespace Datos
         private static string Lactancia_SelectMaxVacaEnOrdene = "Lactancia_SelectMaxVacaEnOrdene";
         private static string Lactancia_SelectHistorica = "Lactancia_SelectHistorica";
         private static string Lactancia_SelectMejorProduccion305 = "Lactancia_SelectMejorProduccion305";
+        private static string Lactancia_SelectMejorProduccion365Top = "Lactancia_SelectMejorProduccion365Top";
+        private static string Lactancia_SelectMejorProduccion305Top = "Lactancia_SelectMejorProduccion305Top";
         private static string Lactancia_SelectMejorProduccion365 = "Lactancia_SelectMejorProduccion365";
         private static string Lactancia_SelectMaxByRegistro = "Lactancia_SelectMaxByRegistro";
         
@@ -110,13 +112,21 @@ namespace Datos
             return result;
         }
 
-        public List<Lactancia> GetLactanciaMejorProduccion305()
+        public List<Lactancia> GetLactanciaMejorProduccion305(int tope)
         {
             var result = new List<Lactancia>();
             SqlCommand cmd = null;
             cmd = new SqlCommand();
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.CommandText = Lactancia_SelectMejorProduccion305;
+            if (tope != -1) // ver todos sin tope
+            {
+                cmd.Parameters.Add(new SqlParameter("@TOP", tope));
+                cmd.CommandText = Lactancia_SelectMejorProduccion305Top;
+            }
+            else
+            {
+                cmd.CommandText = Lactancia_SelectMejorProduccion305;
+            }
 
             SqlDataReader dr = FindByCmd(cmd);
             while (dr.Read())
@@ -125,13 +135,21 @@ namespace Datos
             return result;
         }
 
-        public List<Lactancia> GetLactanciaMejorProduccion365()
+        public List<Lactancia> GetLactanciaMejorProduccion365(int tope)
         {
             var result = new List<Lactancia>();
             SqlCommand cmd = null;
             cmd = new SqlCommand();
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.CommandText = Lactancia_SelectMejorProduccion365;
+            if (tope != -1) // ver todos sin tope
+            {
+                cmd.Parameters.Add(new SqlParameter("@TOP", tope));
+                cmd.CommandText = Lactancia_SelectMejorProduccion365Top;
+            }
+            else
+            {
+                cmd.CommandText = Lactancia_SelectMejorProduccion365;
+            }
 
             SqlDataReader dr = FindByCmd(cmd);
             while (dr.Read())

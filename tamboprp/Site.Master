@@ -104,7 +104,7 @@
         </div>
         <!-- sidebar -->
         <div class="main-container" id="main-container">
-             <div class="sidebar responsive" id="sidebar">
+             <div class="sidebar responsive collapse navbar-collapse" id="sidebar">
                  <!-- shortcuts -->
                  <div class="sidebar-shortcuts" id="sidebar-shortcuts">
 					<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
@@ -200,6 +200,14 @@
                       </ul>
                     </li>
                 </ul>
+                <!-- minimize button -->
+                 <div data-target="#sidebar" id="sidebar-collapse" class="sidebar-toggle sidebar-collapse">
+                    <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+                </div>
+                <!-- collapse -->
+                <div class="sidebar-toggle sidebar-collapse">
+                    
+                </div>
              </div><!-- /.sidebar -->
   
              <div class="main-content">

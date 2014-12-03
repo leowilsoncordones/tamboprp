@@ -1,11 +1,8 @@
-﻿<%@ Page Title="Listados de animales" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Listado_Por_Categoria.aspx.cs" Inherits="tamboprp.ListadoPorCategoria" %>
+﻿<%@ Page Title="Listados de animales" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ListadoPorCategoria.aspx.cs" Inherits="tamboprp.ListadoPorCategoria" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <br/>
-    <br/>
-    <h2>Listados de animales</h2>
-
+    <h1 class="page-header"><i class="menu-icon fa fa-list"></i> Listados de animales</h1>
     <div class="row">
         <div class="col-md-4 wrapper">
             <div class="input-group">
@@ -45,4 +42,5 @@
         <asp:Label ID="titCantAnimales" runat="server" Text="Cantidad de animales en la categoría: " Visible="False"></asp:Label><asp:Label ID="lblCantAnimales" runat="server" ></asp:Label><br/>
         </p>
     </div><br />
+    <br />
 </asp:Content>

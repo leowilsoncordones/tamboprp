@@ -20,22 +20,28 @@
 </asp:Content>
 <asp:Content ID="ContentPersonal" ContentPlaceHolderID="MainContent" runat="server">
     <h1 class="page-header"><i class="menu-icon fa fa-users"></i> Personal</h1>
-    <asp:PlaceHolder ID="phPersonal" runat="server">
-        <asp:GridView ID="gvEmpleados" runat="server" AutoGenerateColumns="False" GridLines="None" 
-            HorizontalAlign="Left" Width="50%" CssClass="table table-hover table-striped table-bordered table-condensed dataTable" >
-            <RowStyle HorizontalAlign="Left"  />
-            <Columns>
-                <asp:BoundField DataField="Nombre" HeaderText="Nombre" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
-                <asp:BoundField DataField="Apellido" HeaderText="Apellido" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />    
-                <asp:BoundField DataField="Iniciales" HeaderText="Iniciales" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />               
-                <asp:BoundField DataField="Activo" HeaderText="Activo" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" />
-            </Columns>
-            <FooterStyle />
-            <PagerStyle HorizontalAlign="Left" />
-            <SelectedRowStyle />
-            <HeaderStyle />
-            <EditRowStyle />
-            <AlternatingRowStyle />
-        </asp:GridView>    
-    </asp:PlaceHolder><!-- Fin de tabla personal -->
+    <div class="row">
+        <div class="col-md-4">
+        <asp:PlaceHolder ID="phPersonal" runat="server">
+            <asp:GridView ID="gvEmpleados" runat="server" AutoGenerateColumns="False" GridLines="None" 
+                HorizontalAlign="Left" CssClass="table table-hover table-striped table-bordered table-condensed dataTable" >
+                <RowStyle HorizontalAlign="Left"  />
+                <Columns>
+                    <asp:BoundField DataField="Nombre" HeaderText="Nombre" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                    <asp:BoundField DataField="Apellido" HeaderText="Apellido" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />    
+                    <asp:BoundField DataField="Iniciales" HeaderText="Iniciales" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />               
+                    <asp:BoundField DataField="Activo" HeaderText="Activo" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" />
+                </Columns>
+                <FooterStyle />
+                <PagerStyle HorizontalAlign="Left" />
+                <SelectedRowStyle />
+                <HeaderStyle />
+                <EditRowStyle />
+                <AlternatingRowStyle />
+            </asp:GridView>    
+        </asp:PlaceHolder><!-- Fin de tabla personal -->
+            </div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4"></div>
+        </div>
 </asp:Content>
