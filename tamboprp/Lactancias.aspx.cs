@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -16,6 +17,7 @@ namespace tamboprp
             {
                 this.LimpiarTabla();
                 this.CargarDdlTipoListado();
+                this.CargarDdlCantidad();
             }
         }
 
@@ -43,6 +45,22 @@ namespace tamboprp
             this.ddlTipoListado.DataTextField = "Nombre";
             this.ddlTipoListado.DataValueField = "Id";
             this.ddlTipoListado.DataBind();
+        }
+
+        private void CargarDdlCantidad()
+        {
+            var lst = new List<VoListItem>();
+            var item1 = new VoListItem { Id = 10, Nombre = "10" }; lst.Add(item1);
+            var item2 = new VoListItem { Id = 25, Nombre = "25" }; lst.Add(item2);
+            var item3 = new VoListItem { Id = 50, Nombre = "50" }; lst.Add(item3);
+            var item4 = new VoListItem { Id = 100, Nombre = "100" }; lst.Add(item4);
+            var item5 = new VoListItem { Id = -1, Nombre = "Todas" }; lst.Add(item5);
+
+            this.ddlCantidad.DataSource = lst;
+            this.ddlCantidad.DataTextField = "Nombre";
+            this.ddlCantidad.DataValueField = "Id";
+            this.ddlCantidad.SelectedValue="25";
+            this.ddlCantidad.DataBind();
         }
 
         private void GetLactanciasActuales()
@@ -80,7 +98,9 @@ namespace tamboprp
 
         private void GetMejorProduccion305()
         {
-            var listTemp = Fachada.Instance.GetMejorProduccion305Dias();
+            int tope = -1;
+            if (ddlCantidad.SelectedValue != null) int.TryParse(ddlCantidad.SelectedValue, out tope);
+            var listTemp = Fachada.Instance.GetMejorProduccion305Dias(tope);
             this.gvLactancias.DataSource = listTemp;
             this.gvLactancias.DataBind();
             this.gvLactancias.Columns[1].Visible = true;
@@ -92,11 +112,14 @@ namespace tamboprp
             this.gvLactancias.Columns[7].Visible = true;
             this.gvLactancias.Columns[8].Visible = true;
             this.lblCantAnimales.Text = listTemp.Count.ToString();
+            
         }
 
         private void GetMejorProduccion365()
         {
-            var listTemp = Fachada.Instance.GetMejorProduccion365Dias();
+            int tope = -1;
+            if (ddlCantidad.SelectedValue != null) int.TryParse(ddlCantidad.SelectedValue, out tope);
+            var listTemp = Fachada.Instance.GetMejorProduccion365Dias(tope);
             this.gvLactancias.DataSource = listTemp;
             this.gvLactancias.DataBind();
             this.gvLactancias.Columns[1].Visible = true;
@@ -137,5 +160,33 @@ namespace tamboprp
             this.lblTitulo.Text = this.ddlTipoListado.SelectedItem.Text;
             this.titCantAnimales.Visible = true;
         }
+
+        protected void ddl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (this.ddlTipoListado.SelectedValue)
+            {
+                case "1":
+                    this.ddlCantidad.Visible = false;
+                    this.titDdlCant.Visible = false;
+                    break;
+                case "2":
+                    this.ddlCantidad.Visible = false;
+                    this.titDdlCant.Visible = false;
+                    break;
+                case "3":
+                    this.ddlCantidad.Visible = true;
+                    this.titDdlCant.Visible = true;
+                    break;
+                case "4":
+                    this.ddlCantidad.Visible = true;
+                    this.titDdlCant.Visible = true;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        
+
     }
 }

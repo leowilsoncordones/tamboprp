@@ -252,10 +252,10 @@ namespace Negocio
             return lstResult;
         }
 
-        public List<VOLactancia> GetMejorProduccion305Dias()
+        public List<VOLactancia> GetMejorProduccion305Dias(int top)
         {
             var lstResult = new List<VOLactancia>();
-            List<Lactancia> lstLact = _lactMapper.GetLactanciaMejorProduccion305();
+            List<Lactancia> lstLact = _lactMapper.GetLactanciaMejorProduccion305(top);
             for (int i = 0; i < lstLact.Count; i++)
             {
                 var tmp = lstLact[i];
@@ -267,10 +267,10 @@ namespace Negocio
             return lstResult;
         }
 
-        public List<VOLactancia> GetMejorProduccion365Dias()
+        public List<VOLactancia> GetMejorProduccion365Dias(int top)
         {
             var lstResult = new List<VOLactancia>();
-            List<Lactancia> lstLact = _lactMapper.GetLactanciaMejorProduccion365();
+            List<Lactancia> lstLact = _lactMapper.GetLactanciaMejorProduccion365(top);
             for (int i = 0; i < lstLact.Count; i++)
             {
                 var tmp = lstLact[i];

@@ -4,11 +4,8 @@
     <script src="Scripts/dataTables.bootstrap.js"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <br/>
-    <br/>
-    
     <div class="row">
-        <div class="col-md-4 wrapper">
+        <div class="col-md-4">
             
             <div>
                 <h3><asp:Label ID="lblTitulo" runat="server" Text="Lista de enfermedades"></asp:Label></h3>
@@ -29,14 +26,12 @@
                 <EditRowStyle />
                 <AlternatingRowStyle />
                 </asp:GridView>
-                <h4><asp:Label ID="titCantEnf" runat="server" Text="Cantidad de enfermedades: " Visible="False"></asp:Label><asp:Label ID="lblCantEnf" runat="server" ></asp:Label><h4><br/>
                 </p>
+                <h4><asp:Label ID="titCantEnf" runat="server" Text="Cantidad de enfermedades: " Visible="False"></asp:Label><asp:Label ID="lblCantEnf" runat="server" ></asp:Label><h4><br/>
             </div>
 
         </div>
         <div class="col-md-8"></div>
     </div>
-
-    <br />
 
 </asp:Content>

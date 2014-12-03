@@ -377,7 +377,7 @@
     <Content Include="js\x-editable\bootstrap-editable.js" />
     <Content Include="Lactancias.aspx" />
     <Content Include="Calendario_Partos.aspx" />
-    <Content Include="Listado_Por_Categoria.aspx" />
+    <Content Include="ListadoPorCategoria.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -636,6 +636,7 @@
     <Content Include="font\cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff" />
     <Content Include="font\DXI1ORHCpsQm3Vp6mXoaTXhCUOGz7vYGh680lGh-uXM.woff" />
     <Content Include="font\readme" />
+    <None Include="Properties\PublishProfiles\publicar_IIS.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Personal.aspx" />
     <Content Include="Produccion.aspx" />
@@ -749,12 +750,12 @@
     <Compile Include="Calendario_Partos.aspx.designer.cs">
       <DependentUpon>Calendario_Partos.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Listado_Por_Categoria.aspx.cs">
-      <DependentUpon>Listado_Por_Categoria.aspx</DependentUpon>
+    <Compile Include="ListadoPorCategoria.aspx.cs">
+      <DependentUpon>ListadoPorCategoria.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Listado_Por_Categoria.aspx.designer.cs">
-      <DependentUpon>Listado_Por_Categoria.aspx</DependentUpon>
+    <Compile Include="ListadoPorCategoria.aspx.designer.cs">
+      <DependentUpon>ListadoPorCategoria.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />

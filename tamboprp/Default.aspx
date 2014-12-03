@@ -29,13 +29,13 @@
                 <div class="form-group">
                     <div class="input-group">
 						<span class="input-group-addon"><i class="ace-icon fa fa-user fa-lg"></i></span>
-                        <input class="form-control input-lg" type="text" placeholder=" Usuario" id="form-field-mask-2">
+                        <input class="form-control input-lg" type="text" placeholder="Usuario" id="form-field-mask-2">
 					</div>
                 </div>
                 <div class="form-group">
                     <div class="input-group">
 						<span class="input-group-addon"><i class="ace-icon fa fa-lock fa-lg"></i></span>
-                        <input type="password" class="form-control input-lg" placeholder=" Contraseña" required>
+                        <input type="password" class="form-control input-lg" placeholder="Contraseña" required>
 					</div>
                 </div>
                 <div class="form-group">
