@@ -26,6 +26,8 @@
     <script src="js/excanvas.js"></script>
     <script src="js/flot/jquery.flot.js"></script>
     <script src="/js/flot/jquery.flot.time.js"></script>
+    <script src="/js/flot/jquery.flot.symbol.js"></script>
+    <script src="/js/flot/jquery.flot.axislabels.js"></script>
 
     <!-- test por cosas que no andan -->
     <script src="js/ace/ace.submenu-hover.js"></script>

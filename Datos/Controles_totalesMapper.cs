@@ -103,9 +103,11 @@ namespace Datos
 
         protected VOControlTotal load(SqlDataReader record)
         {
-            var cp = new VOControlTotal();           
+            var cp = new VOControlTotal();
+            var date = new DateTime();
             string strDate = (DBNull.Value == record["FECHA"]) ? string.Empty : record["FECHA"].ToString();
-            if (strDate != string.Empty) cp.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+            if (strDate != string.Empty) date = DateTime.Parse(strDate);
+            cp.Fecha = date.ToString("yyyy/MM/dd");
             cp.Leche = (DBNull.Value == record["LECHE"]) ? 0 : double.Parse(record["LECHE"].ToString());
             cp.Grasa = (DBNull.Value == record["GRASA"]) ? 0 : double.Parse(record["GRASA"].ToString());
             return cp;
@@ -119,14 +121,14 @@ namespace Datos
             {
             }
 
-            public VOControlTotal(DateTime fecha, double leche, double grasa)
+            public VOControlTotal(string fecha, double leche, double grasa)
             {
                 Fecha = fecha;
                 Leche = leche;
                 Grasa = grasa;
             }
 
-            public DateTime Fecha { get; set; }
+            public string Fecha { get; set; }
             public double Leche { get; set; }
             public double Grasa { get; set; }
         }

@@ -527,5 +527,23 @@ namespace Negocio
             voAnim.Vivo = anim.Vivo;
             return voAnim;
         }
+
+
+        public double[] ControlTotalLecheGetAll()
+        {
+            var controlTotal = new Controles_totalesMapper();
+            var lista =  controlTotal.GetAll();
+            var listaleche = new Dictionary<string, double>();
+
+            foreach (var a in lista)
+            {
+                listaleche.Add(a.Fecha.ToString(),a.Leche);
+            }
+
+            var resultArray = listaleche.Values.ToArray();
+
+            return resultArray;
+        }
+        
     }
 }

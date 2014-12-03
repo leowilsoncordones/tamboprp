@@ -290,9 +290,12 @@
     <Content Include="js\date-time\moment.js" />
     <Content Include="js\dropzone.js" />
     <Content Include="js\excanvas.js" />
+    <Content Include="js\flot\jquery.flot.axislabels.js" />
     <Content Include="js\flot\jquery.flot.js" />
+    <Content Include="js\flot\jquery.flot.min.js" />
     <Content Include="js\flot\jquery.flot.pie.js" />
     <Content Include="js\flot\jquery.flot.resize.js" />
+    <Content Include="js\flot\jquery.flot.symbol.js" />
     <Content Include="js\flot\jquery.flot.time.js" />
     <Content Include="js\fuelux\fuelux.spinner.js" />
     <Content Include="js\fuelux\fuelux.tree.js" />
@@ -637,6 +640,7 @@
     <Content Include="font\cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff" />
     <Content Include="font\DXI1ORHCpsQm3Vp6mXoaTXhCUOGz7vYGh680lGh-uXM.woff" />
     <Content Include="font\readme" />
+    <None Include="Properties\PublishProfiles\publish_IIS.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Personal.aspx" />
     <Content Include="Produccion.aspx" />
