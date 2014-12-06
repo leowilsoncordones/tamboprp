@@ -381,6 +381,7 @@
     <Content Include="js\x-editable\bootstrap-editable.js" />
     <Content Include="Lactancias.aspx" />
     <Content Include="Calendario_Partos.aspx" />
+    <Content Include="LactanciasSinServ80.aspx" />
     <Content Include="ListadoPorCategoria.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -675,6 +676,7 @@
     <Content Include="Scripts\WebForms\WebForms.js" />
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
+    <Content Include="Servicios_Sin_DiagP_35.aspx" />
     <Content Include="Sistema.aspx" />
     <Content Include="Tablero.aspx" />
     <Content Include="Tambo.aspx" />
@@ -753,6 +755,13 @@
     </Compile>
     <Compile Include="Calendario_Partos.aspx.designer.cs">
       <DependentUpon>Calendario_Partos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="LactanciasSinServ80.aspx.cs">
+      <DependentUpon>LactanciasSinServ80.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LactanciasSinServ80.aspx.designer.cs">
+      <DependentUpon>LactanciasSinServ80.aspx</DependentUpon>
     </Compile>
     <Compile Include="ListadoPorCategoria.aspx.cs">
       <DependentUpon>ListadoPorCategoria.aspx</DependentUpon>
@@ -872,6 +881,13 @@
     </Compile>
     <Compile Include="Reproduccion.aspx.designer.cs">
       <DependentUpon>Reproduccion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Servicios_Sin_DiagP_35.aspx.cs">
+      <DependentUpon>Servicios_Sin_DiagP_35.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Servicios_Sin_DiagP_35.aspx.designer.cs">
+      <DependentUpon>Servicios_Sin_DiagP_35.aspx</DependentUpon>
     </Compile>
     <Compile Include="Servicios_Sin_DiagP_70.aspx.cs">
       <DependentUpon>Servicios_Sin_DiagP_70.aspx</DependentUpon>

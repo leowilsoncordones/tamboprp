@@ -1,15 +1,14 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Servicios_Sin_DiagP_70.aspx.cs" Inherits="tamboprp.Servicios_Sin_DiagP_70" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Servicios_Sin_DiagP_35.aspx.cs" Inherits="tamboprp.Servicios_Sin_DiagP_35" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <br/>
     <br/>
     <div>
-        <h3>Vacas con mas de 70 dias de servicio y sin diagnosticar preñez</h3>
-        <asp:Button ID="btnPrint" runat="server" Text="Print" OnClick="Print" />
+        <h3>Vacas con mas de 35 dias de servicio y sin diagnosticar preñez</h3>
                
         <asp:GridView ID="gvServicios" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" 
-                CssClass="table table-hover table-striped table-bordered table-condensed dataTable" OnRowCreated="gvServicios_created">
+                CssClass="table table-hover table-striped table-bordered table-condensed dataTable" OnRowCreated="gvServicios_created" >
             <RowStyle HorizontalAlign="Left"  />
             <Columns>
                 <asp:BoundField DataField="Registro" HeaderText="Registro" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
@@ -27,6 +26,6 @@
             <EditRowStyle />
             <AlternatingRowStyle />
         </asp:GridView>
-        <asp:Label ID="titCantAnimales" runat="server" Text="Cantidad total de animales: " Visible="True"></asp:Label><asp:Label ID="lblCantAnimales" runat="server" Visible="False"></asp:Label><br/>
+        <asp:Label ID="titCantAnimales" runat="server" Text="Cantidad de animales en la lista: " Visible="True"></asp:Label><asp:Label ID="lblCantAnimales" runat="server" Visible="False"></asp:Label><br/>
     </div>
 </asp:Content>

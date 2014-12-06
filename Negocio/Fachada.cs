@@ -427,10 +427,31 @@ namespace Negocio
             return listaVOServ;
         }
 
+        public List<VOServicio> GetLactanciasSinServicio80()
+        {
+            var listemp = _empMapper.GetAll();
+            var listaVoServ = new List<VOServicio>();
+            var list80 = _servMapper.GetServicio80DiasLactanciaSinServicio();
+            foreach (var serv in list80)
+            {
+                var voServ = new VOServicio
+                {
+                    Registro = serv.Registro,
+                    FechaServicio = serv.Fecha,
+                    RegistroPadre = serv.Reg_padre,
+                };
+                var emp = listemp.FirstOrDefault(e => e.Id_empleado == serv.Inseminador.Id_empleado);
+                voServ.Inseminador = emp != null ? emp.Nombre + " " + emp.Apellido : "sin registro";
+                listaVoServ.Add(voServ);
+            }
+            return listaVoServ;
+        }
+
 
         private List<VOServicio> CargarVOServicios(List<Servicio> listServVaqEnt, List<Animal> listAnimVaqEnt, Dictionary<string, int> dictCantServ)
         {
             var listaVOServ = new List<VOServicio>();
+            var listemp = _empMapper.GetAll();
 
             foreach (var vaca in listServVaqEnt)
             {
@@ -443,6 +464,8 @@ namespace Negocio
                 voServ.Edad = CalcularEdad(anim.Fecha_nacim);
                 voServ.CantServicios = cantServ;
                 voServ.DiasServicio = CalcularDiasServicio(vaca.Fecha);
+                var emp = listemp.FirstOrDefault(e => e.Id_empleado == vaca.Inseminador.Id_empleado);
+                voServ.Inseminador = emp != null ? emp.Nombre + " " + emp.Apellido : "sin registro";
                 listaVOServ.Add(voServ);
             }
             return listaVOServ;

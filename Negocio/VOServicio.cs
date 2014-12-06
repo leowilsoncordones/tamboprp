@@ -20,6 +20,7 @@ namespace Negocio
 
         public string DiasServicio { get; set; }
 
+        public string Inseminador { get; set; }
 
     }
 }

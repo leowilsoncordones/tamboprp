@@ -71,7 +71,7 @@
                 tickLength: 0,
                 mode: "time",
                 timeformat: "%Y/%m",
-                tickSize: [1, "month"]
+                tickSize: [2, "month"]
             },
             yaxis: {
                 ticks: 10,
