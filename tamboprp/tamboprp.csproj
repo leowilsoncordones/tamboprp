@@ -382,6 +382,7 @@
     <Content Include="js\x-editable\bootstrap-editable.js" />
     <Content Include="Lactancias.aspx" />
     <Content Include="Calendario_Partos.aspx" />
+    <Content Include="LactanciasSinServ80.aspx" />
     <Content Include="ListadoPorCategoria.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -463,6 +464,7 @@
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="Notificaciones.aspx" />
+    <Content Include="NuevoEvento.aspx" />
     <Content Include="packages.config" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -677,6 +679,7 @@
     <Content Include="Scripts\WebForms\WebForms.js" />
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
+    <Content Include="Servicios_Sin_DiagP_35.aspx" />
     <Content Include="Sistema.aspx" />
     <Content Include="GraficaLeche.aspx" />
     <Content Include="Tablero.aspx" />
@@ -757,6 +760,13 @@
     </Compile>
     <Compile Include="Calendario_Partos.aspx.designer.cs">
       <DependentUpon>Calendario_Partos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="LactanciasSinServ80.aspx.cs">
+      <DependentUpon>LactanciasSinServ80.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LactanciasSinServ80.aspx.designer.cs">
+      <DependentUpon>LactanciasSinServ80.aspx</DependentUpon>
     </Compile>
     <Compile Include="ListadoPorCategoria.aspx.cs">
       <DependentUpon>ListadoPorCategoria.aspx</DependentUpon>
@@ -848,6 +858,13 @@
     <Compile Include="Notificaciones.aspx.designer.cs">
       <DependentUpon>Notificaciones.aspx</DependentUpon>
     </Compile>
+    <Compile Include="NuevoEvento.aspx.cs">
+      <DependentUpon>NuevoEvento.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NuevoEvento.aspx.designer.cs">
+      <DependentUpon>NuevoEvento.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Personal.aspx.cs">
       <DependentUpon>Personal.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -883,6 +900,13 @@
     </Compile>
     <Compile Include="Reproduccion.aspx.designer.cs">
       <DependentUpon>Reproduccion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Servicios_Sin_DiagP_35.aspx.cs">
+      <DependentUpon>Servicios_Sin_DiagP_35.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Servicios_Sin_DiagP_35.aspx.designer.cs">
+      <DependentUpon>Servicios_Sin_DiagP_35.aspx</DependentUpon>
     </Compile>
     <Compile Include="Servicios_Sin_DiagP_70.aspx.cs">
       <DependentUpon>Servicios_Sin_DiagP_70.aspx</DependentUpon>

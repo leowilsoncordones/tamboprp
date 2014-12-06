@@ -20,8 +20,8 @@ namespace Datos
         private static string Servicio_SelecProximosPartos = "Servicio_SelecProximosPartos";
         private static string Servicio_RegistroCantServAntesPrenez = "Servicio_RegistroCantServAntesPrenez";
         private static string Servicio_DiasSinDiagPrenez = "Servicio_DiasSinDiagPrenez";
-        private static string Servicio_RegistroCantServDespuesPrenez = "Servicio_RegistroCantServDespuesPrenez"; 
-
+        private static string Servicio_RegistroCantServDespuesPrenez = "Servicio_RegistroCantServDespuesPrenez";
+        private static string Servicio_80DiasLactanciaSinServicio = "Servicio_80DiasLactanciaSinServicio"; 
 
         public ServicioMapper(Servicio servicio)
         {
@@ -88,13 +88,18 @@ namespace Datos
         }
 
 
-        private List<Servicio> GetServiciosSinDiagPrenez(string storedProcedure, short categoria, int dias)
+        public List<Servicio> GetServicio80DiasLactanciaSinServicio()
+        {
+            return GetServiciosSinDiagPrenez(Servicio_80DiasLactanciaSinServicio, null, null);
+        }
+
+        private List<Servicio> GetServiciosSinDiagPrenez(string storedProcedure, short? categoria, int? dias)
         {
             var result = new List<Servicio>();
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.Parameters.Add(new SqlParameter("@CATEGORIA", categoria));
-            cmd.Parameters.Add(new SqlParameter("@DIAS", dias));
+            if(categoria!=null)cmd.Parameters.Add(new SqlParameter("@CATEGORIA", categoria));
+            if(dias!=null)cmd.Parameters.Add(new SqlParameter("@DIAS", dias));
             cmd.CommandText = storedProcedure;
             SqlDataReader dr = FindByCmd(cmd);
             while (dr.Read())
@@ -104,15 +109,9 @@ namespace Datos
                 string strDate = (DBNull.Value == dr["FECHA"]) ? string.Empty : dr["FECHA"].ToString();
                 if (strDate != string.Empty) serv.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
                 serv.Reg_padre = (DBNull.Value == dr["REG_PADRE"]) ? string.Empty : (string)dr["REG_PADRE"];
-                int idIns = (short)((DBNull.Value == dr["INSEMINADOR"]) ? 0 : (Int16)dr["INSEMINADOR"]);
-               /* if (idIns > 0)
-                {
-                    var e = new Empleado();
-                    e.Id_empleado = (Int16)idIns;
-                    var empMap = new EmpleadoMapper(e);
-                    serv.Inseminador = empMap.GetEmpleadoById();
-                }
-                 */
+                short idIns = (short)((DBNull.Value == dr["INSEMINADOR"]) ? 0 : (Int16)dr["INSEMINADOR"]);
+                var emp = new Empleado {Id_empleado = idIns};
+                serv.Inseminador = emp;
                 result.Add(serv);
             }
             

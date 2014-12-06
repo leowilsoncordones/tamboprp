@@ -28,43 +28,9 @@
     <script src="/js/flot/jquery.flot.time.js"></script>
     <script src="/js/flot/jquery.flot.symbol.js"></script>
     <script src="/js/flot/jquery.flot.axislabels.js"></script>
-
-    <!-- test por cosas que no andan -->
-    <script src="js/ace/ace.submenu-hover.js"></script>
-    <script src="js/ace/ace.sidebar.js"></script>
-    <script src="js/ace/ace.sidebar-scroll-1.js"></script>
-    <script src="js/ace/ace.sidebar-scroll-2.js"></script>
-    
-    
-
     <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
 </head>
 <body class="no-skin">
-    
-    <script type='text/javascript'>
-        $('.sidebar').ace_sidebar();
-        $('.sidebar').ace_sidebar('toggleMenu');
-        $('.sidebar').ace_sidebar('toggleMenu', toggleButton);
-        $('.sidebar').ace_sidebar('toggleMenu', false);
-        $('.sidebar').ace_sidebar('toggleMenu', [toggleButton, true ]);
-        $('#sidebar').ace_sidebar('collapse');
-        $('#sidebar').ace_sidebar('collapse', toggleButton);
-        $('#sidebar').ace_sidebar('toggle', [sub, 300]);
-
-        var new_active = $(this).parent();
-
-        $('.nav-list li.active').removeClass('active');
-        new_active.addClass('active').parents('.nav-list li').addClass('active');
-        var breadcrumb_items = [];
-        $(this).parents('.nav-list li').each(function() {
-            var link = $(this).find('> a');
-            var text = link.text();
-            var href = link.attr('href');
-            breadcrumb_items.push({ 'text': text, 'href': href });
-        });
-
-    </script>
-
     <form runat="server">
         <!-- navbar top -->
         <div class="navbar navbar-default navbar-inverse navbar-fixed-top">

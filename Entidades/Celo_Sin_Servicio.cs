@@ -12,6 +12,7 @@ namespace Entidades
         public Celo_Sin_Servicio()
         {
             Nombre = "Celos sin servicio";
+            Id_evento = 2;
         }
 
         public override string ToString()
