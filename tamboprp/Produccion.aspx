@@ -19,4 +19,7 @@
     <script src="js/excanvas.js"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <div class="page-header">
+        <h1><i class="menu-icon fa fa-cogs"></i> Producción</h1>
+    </div>
 </asp:Content>

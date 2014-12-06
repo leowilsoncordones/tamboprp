@@ -5,6 +5,9 @@
     
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server" >
+    <div class="page-header">
+        <h1><i class="menu-icon fa fa-tachometer"></i> Tablero <small><i class="ace-icon fa fa-angle-double-right"></i> información general, notificaciones e indicadores</small></h1>
+    </div>
   <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true" />  
 
     
@@ -71,7 +74,7 @@
                 tickLength: 0,
                 mode: "time",
                 timeformat: "%Y/%m",
-                tickSize: [1, "month"]
+                tickSize: [2, "month"]
             },
             yaxis: {
                 ticks: 10,

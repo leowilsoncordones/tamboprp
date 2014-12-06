@@ -48,18 +48,30 @@ Please refer to documentation for more info.
 			//we set "href" after insertion, for IE to work
 			
 			applyChanges();
+			if(window.Pace && Pace.running)	Pace.stop();
 		})		
 	}
 	else {
 		applyChanges();
 	}
+	
+	//in ajax when new content is loaded, we dynamically apply RTL changes again
+	//please note that this is only for Ace demo
+	//for info about RTL see Ace's docs
+	$('.page-content-area[data-ajax-content=true]').on('ajaxscriptsloaded.rtl', function() {
+		if( $('body').hasClass('rtl') ) {
+			applyChanges(this);
+		}
+	});
 
 	/////////////////////////
-	function applyChanges() {
-
+	function applyChanges(el) {
 		var $body = $(document.body);
-		$body
-		.toggleClass('rtl')
+		if(!el) $body.toggleClass('rtl');//el is 'body'
+
+		el = el || document.body;		
+		var $container = $(el);
+		$container
 		//toggle pull-right class on dropdown-menu
 		.find('.dropdown-menu:not(.datepicker-dropdown,.colorpicker)').toggleClass('dropdown-menu-right')
 		.end()
@@ -75,7 +87,7 @@ Please refer to documentation for more info.
 		
 
 		function swap_classes(class1, class2) {
-			$body
+			$container
 			 .find('.'+class1).removeClass(class1).addClass('tmp-rtl-'+class1)
 			 .end()
 			 .find('.'+class2).removeClass(class2).addClass(class1)
@@ -94,7 +106,7 @@ Please refer to documentation for more info.
 		
 		
 		//mirror all icons and attributes that have a "fa-*-right|left" attrobute
-		$('.fa').each(function() {
+		$container.find('.fa').each(function() {
 			if(this.className.match(/ui-icon/) || $(this).closest('.fc-button').length > 0) return;
 			//skip mirroring icons of plugins that have built in RTL support
 
@@ -112,30 +124,30 @@ Please refer to documentation for more info.
 		//so let's make our scrollbars LTR and wrap the content inside RTL
 		var rtl = $body.hasClass('rtl');
 		if(rtl)	{
-			$('.scroll-hz').addClass('make-ltr')
+			$container.find('.scroll-hz').addClass('make-ltr')
 			.find('.scroll-content')
 			.wrapInner('<div class="make-rtl" />');
 			$('.sidebar[data-sidebar-hover=true]').ace_sidebar_hover('changeDir', 'right');
 		}
 		else {
 			//remove the wrap
-			$('.scroll-hz').removeClass('make-ltr')
+			$container.find('.scroll-hz').removeClass('make-ltr')
 			.find('.make-rtl').children().unwrap();
 			$('.sidebar[data-sidebar-hover=true]').ace_sidebar_hover('changeDir', 'left');
 		}
-		if($.fn.ace_scroll) $('.scroll-hz').ace_scroll('reset') //to reset scrollLeft
+		if($.fn.ace_scroll) $container.find('.scroll-hz').ace_scroll('reset') //to reset scrollLeft
 
 		//redraw the traffic pie chart on homepage with a different parameter
 		try {
 			var placeholder = $('#piechart-placeholder');
 			if(placeholder.length > 0) {
-				var pos = $(document.body).hasClass('rtl') ? 'nw' : 'ne';//draw on north-west or north-east?
+				var pos = $body.hasClass('rtl') ? 'nw' : 'ne';//draw on north-west or north-east?
 				placeholder.data('draw').call(placeholder.get(0) , placeholder, placeholder.data('chart'), pos);
 			}
 		}catch(e) {}
 		
 		
-		ace.helper.redraw(document.body, true);
+		ace.helper.redraw(el, true);
 	}
  }
 })(jQuery);

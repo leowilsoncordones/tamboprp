@@ -16,7 +16,7 @@
  background-color: @modal-footer-bg;
 }
 .modal-header .close {
- font-size: 32px;
+ font-size: @font-size-moda-close;
 }
 
 
@@ -52,6 +52,11 @@
 
 .modal.aside.in {
  z-index: @zindex-modal;
+ position: fixed;
+}
+
+
+.aside.aside-contained {
  position: fixed;
 }
 
@@ -99,11 +104,17 @@
    max-width: none;
    width: 200px;
  }
+ .aside-contained.aside-vc .modal-dialog {
+	width: 180px;
+ }
 }
 @media only screen and (max-width: @screen-mini) {//240px
  .modal.aside-vc .modal-dialog {
    max-width: none;
    width: 160px;
+ }
+ .aside-contained.aside-vc .modal-dialog {
+   width: 140px;
  }
 }
 
@@ -117,8 +128,8 @@
 
 
 .modal.in.aside-vc .modal-dialog {
-  transform: translate3d(0px, 0px, 0px);
-  -webkit-transform: translate3d(0px, 0px, 0px);
+  transform: none;
+  -webkit-transform: none;
   height: auto;
 }
 
@@ -140,6 +151,9 @@
 
 .modal.in.aside-vc .aside-trigger {
   z-index: -1;
+}
+.aside.modal.in .modal-backdrop.in + .modal-dialog .aside-trigger {
+  z-index: auto;
 }
 
 @media only screen and (max-height: @screen-mini) {//240px
@@ -179,8 +193,8 @@
   right: 100%;
 }
 .modal.aside-right .modal-dialog {
-  transform: translate3d(100%, 0px, 0px);
-  -webkit-transform: translate3d(100%, 0px, 0px);
+  transform: translateX(100%);
+  -webkit-transform: translateX(100%);
 }
 
 
@@ -202,8 +216,8 @@
   border-radius: 0 6px 6px 0;
 }
 .modal.aside-left .modal-dialog {
-  transform: translate3d(-100%, 0px, 0px);
-  -webkit-transform: translate3d(-100%, 0px, 0px);
+  transform: translateX(-100%);
+  -webkit-transform: translateX(-100%);
 }
 
 
@@ -270,8 +284,8 @@
 
 
 .modal.in.aside-hz .modal-dialog {
-  transform: translate3d(0px, 0px, 0px);
-  -webkit-transform: translate3d(0px, 0px, 0px);
+  transform: none;
+  -webkit-transform: none;
   height: auto;
 }
 
@@ -306,8 +320,8 @@
 }
 
 .modal.aside-top  .modal-dialog {
-  transform: translate3d(0px, -100%, 0px);
-  -webkit-transform: translate3d(0px, -100%, 0px);
+  transform: translateY(-100%);
+  -webkit-transform: translateY(-100%);
 }
 
 .modal.aside-top .modal-content {
@@ -322,8 +336,8 @@
 }
 
 .modal.aside-bottom  .modal-dialog {
-  transform: translate3d(0px, 100%, 0px);
-  -webkit-transform: translate3d(0px, 100%, 0px);
+  transform: translateY(100%);
+  -webkit-transform: translateY(100%);
 }
 
 .modal.aside-bottom .modal-content {
@@ -373,10 +387,19 @@
 
 
 
-.modal.in.no-backdrop {
-  height: auto;
-  width: auto;
+.aside-vc.in.no-backdrop {
+  width: auto;//otherwise modal will be as big as window, and will have the same effect as backdrop
 }
+.aside-hz.in.no-backdrop {
+  height: auto;
+}
+
+.modal.aside .modal-backdrop {
+ position: fixed;
+ bottom: 0;
+ height: auto !important;//to override inline value set by BS
+}
+
 
 
 .modal.aside-hz .aside-trigger.align-left {

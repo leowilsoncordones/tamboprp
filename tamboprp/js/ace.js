@@ -1,5 +1,5 @@
 /*!
- * Ace v1.3.2
+ * Ace v1.3.3
  */
 
 if (typeof jQuery === 'undefined') { throw new Error('Ace\'s JavaScript requires jQuery') }
@@ -8,17 +8,16 @@ if (typeof jQuery === 'undefined') { throw new Error('Ace\'s JavaScript requires
  Required. Ace's Basic File to Initiliaze Different Parts and Some Variables.
 */
 
-(function($ , undefined) {
+
+//some basic variables
+(function(undefined) {
 	if( !('ace' in window) ) window['ace'] = {}
 	if( !('helper' in window['ace']) ) window['ace'].helper = {}
 	if( !('vars' in window['ace']) ) window['ace'].vars = {}
 	window['ace'].vars['icon'] = ' ace-icon ';
 	window['ace'].vars['.icon'] = '.ace-icon';
 
-	ace.vars['touch']	= ('ontouchstart' in document.documentElement);//(('ontouchstart' in document.documentElement) || (window.DocumentTouch && document instanceof DocumentTouch));
-	//sometimes we try to use 'tap' event instead of 'click' if jquery mobile plugin is available
-	ace['click_event'] = ace.vars['touch'] && $.fn.tap ? 'tap' : 'click';
-	
+	ace.vars['touch']	= ('ontouchstart' in window);//(('ontouchstart' in document.documentElement) || (window.DocumentTouch && document instanceof DocumentTouch));
 	
 	//sometimes the only good way to work around browser's pecularities is to detect them using user-agents
 	//though it's not accurate
@@ -34,14 +33,24 @@ if (typeof jQuery === 'undefined') { throw new Error('Ace\'s JavaScript requires
 	ace.vars['firefox'] = 'MozAppearance' in document.documentElement.style;
 	
 	ace.vars['non_auto_fixed'] = ace.vars['android'] || ace.vars['ios_safari'];
+})();
+
+
+
+(function($ , undefined) {
+	//sometimes we try to use 'tap' event instead of 'click' if jquery mobile plugin is available
+	ace['click_event'] = ace.vars['touch'] && $.fn.tap ? 'tap' : 'click';
 })(jQuery);
 
 
+
+
+//document ready function
 jQuery(function($) {
 	basics();
 	enableSidebar();
 	
-	enableAjax();
+	enableDemoAjax();
 	handleScrollbars();
 	
 	dropdownAutoPos();
@@ -72,12 +81,8 @@ jQuery(function($) {
 		var $sidebar = $('.sidebar');
 		if($.fn.ace_sidebar) $sidebar.ace_sidebar();
 		if($.fn.ace_sidebar_scroll) $sidebar.ace_sidebar_scroll({
-			//'scroll_style': 'scroll-dark scroll-thin',
-			'scroll_to_active': true, //scroll to selected item? (one time only on page load)
-			'include_shortcuts': true, //true = include shortcut buttons in the scrollbars
-			'include_toggle': false || ace.vars['safari'] || ace.vars['ios_safari'], //true = include toggle button in the scrollbars
-			'smooth_scroll': 150, //> 0 means smooth_scroll, time in ms, used in first approach only, better to be almost half the amount of submenu transition time
-			'outside': false//true && ace.vars['touch'] //used in first approach only, true means the scrollbars should be outside of the sidebar
+			//for other options please see documentation
+			'include_toggle': false || ace.vars['safari'] || ace.vars['ios_safari'] //true = include toggle button in the scrollbars
 		});
 		if($.fn.ace_sidebar_hover)	$sidebar.ace_sidebar_hover({
 			'sub_hover_delay': 750,
@@ -86,12 +91,23 @@ jQuery(function($) {
 	}
 
 	
-	function enableAjax() {
-		//Load content via ajax
-		if($.fn.ace_ajax) {
-		   $('[data-ajax-content=true]').ace_ajax({
+	//Load content via ajax
+	function enableDemoAjax() {		
+		if(!$.fn.ace_ajax) return;
+ 
+		if(window.Pace) {
+			window.paceOptions = {
+				ajax: true,
+				document: true,
+				eventLag: false // disabled
+				//elements: {selectors: ['.page-content-area']}
+			}
+		}
+
+		var demo_ajax_options = {
 			 'close_active': true,
 			 
+			 'default_url': 'page/index',//default hash
 			 'content_url': function(hash) {
 				//***NOTE***
 				//this is for Ace demo only, you should change it to return a valid URL
@@ -100,17 +116,34 @@ jQuery(function($) {
 				if( !hash.match(/^page\//) ) return false;
 				var path = document.location.pathname;
 
-				//for example in Ace HTML demo version we convert /ajax/ajax.html#page/gallery to > /ajax/gallery.html and load it
-				if(path.match(/(\/ajax\/)(ajax\.html)?/))
-					return path.replace(/(\/ajax\/)(ajax\.html)?/, '/ajax/'+hash.replace(/^page\//, '')+'.html') ;
+				//for example in Ace HTML demo version we convert /ajax/index.html#page/gallery to > /ajax/content/gallery.html and load it
+				if(path.match(/(\/ajax\/)(index\.html)?/))
+					return path.replace(/(\/ajax\/)(index\.html)?/, '/ajax/content/'+hash.replace(/^page\//, '')+'.html') ;
 
 				//for example in Ace PHP demo version we convert "ajax.php#page/dashboard" to "ajax.php?page=dashboard" and load it
 				return path + "?" + hash.replace(/\//, "=");
-			  },
-			  
-			  'default_url': 'page/index'//default hash
-		   })
+			  }			  
 		}
+		   
+		//for IE9 and below we exclude PACE loader (using conditional IE comments)
+		//for other browsers we use the following extra ajax loader options
+		if(window.Pace) {
+			demo_ajax_options['loading_overlay'] = 'body';//the opaque overlay is applied to 'body'
+		}
+
+		//initiate ajax loading on this element( which is .page-content-area[data-ajax-content=true] in Ace's demo)
+		$('[data-ajax-content=true]').ace_ajax(demo_ajax_options)
+
+		//if general error happens and ajax is working, let's stop loading icon & PACE
+		$(window).on('error.ace_ajax', function() {
+			$('[data-ajax-content=true]').each(function() {
+				var $this = $(this);
+				if( $this.ace_ajax('working') ) {
+					if(window.Pace && Pace.running) Pace.stop();
+					$this.ace_ajax('stopLoading', true);
+				}
+			})
+		})
 	}
 
 	/////////////////////////////
@@ -439,13 +472,59 @@ jQuery(function($) {
 	  }
 	}
 
-})
+});//jQuery document ready
 
 
 
 
-//some functions
-ace.helper.redraw = function(elem, force) {
+
+//some ace helper functions
+(function($$ , undefined) {//$$ is ace.helper
+ $$.unCamelCase = function(str) {
+	return str.replace(/([a-z])([A-Z])/g, function(match, c1, c2){ return c1+'-'+c2.toLowerCase() })
+ }
+ $$.strToVal = function(str) {
+	var res = str.match(/^(?:(true)|(false)|(null)|(\-?[\d]+(?:\.[\d]+)?)|(\[.*\]|\{.*\}))$/i);
+
+	var val = str;
+	if(res) {
+		if(res[1]) val = true;
+		else if(res[2]) val = false;
+		else if(res[3]) val = null;	
+		else if(res[4]) val = parseFloat(str);
+		else if(res[5]) {
+			try { val = JSON.parse(str) }
+			catch (err) {}
+		}
+	}
+
+	return val;
+ }
+ $$.getAttrSettings = function(el, attr_list, prefix) {
+	var list_type = attr_list instanceof Array ? 1 : 2;
+	//attr_list can be Array or Object(key/value)
+	var prefix = prefix ? prefix.replace(/([^\-])$/ , '$1-') : '';
+	prefix = 'data-' + prefix;
+
+	var settings = {}
+	for(var li in attr_list) if(attr_list.hasOwnProperty(li)) {
+		var name = list_type == 1 ? attr_list[li] : li;
+		var attr_val, attr_name = $$.unCamelCase(name.replace(/[^A-Za-z0-9]{1,}/g , '-')).toLowerCase()
+
+		if( ! ((attr_val = el.getAttribute(prefix + attr_name))  ) ) continue;
+		settings[name] = $$.strToVal(attr_val);
+	}
+
+	return settings;
+ }
+
+ $$.scrollTop = function() {
+	return document.scrollTop || document.documentElement.scrollTop || document.body.scrollTop
+ }
+ $$.winHeight = function() {
+	return window.innerHeight || document.documentElement.clientHeight;
+ }
+ $$.redraw = function(elem, force) {
 	var saved_val = elem.style['display'];
 	elem.style.display = 'none';
 	elem.offsetHeight;
@@ -458,74 +537,43 @@ ace.helper.redraw = function(elem, force) {
 			elem.style.display = saved_val;
 		}, 10);
 	}
-}
-
-ace.helper.boolAttr = function(elem, attr) {
-	return elem.getAttribute(attr) === "true";
-}
-ace.helper.intAttr = function(elem, attr) {
-	return parseInt(elem.getAttribute(attr)) || 0;
-}
-
-ace.helper.scrollTop = function() {
-	return document.scrollTop || document.documentElement.scrollTop || document.body.scrollTop
-	//return $(window).scrollTop();
-}
-ace.helper.winHeight = function() {
-	return window.innerHeight || document.documentElement.clientHeight;
-	//return $(window).innerHeight();
-}
-ace.helper.camelCase = function(str) {
-	return str.replace(/-([\da-z])/gi, function(match, chr) {
-	  return chr ? chr.toUpperCase() : '';
-	});
-}
-ace.helper.removeStyle = 
-  'removeProperty' in document.documentElement.style
-  ?
-  function(elem, prop) { elem.style.removeProperty(prop) }
-  :
-  function(elem, prop) { elem.style[ace.helper.camelCase(prop)] = '' }
-
-
-ace.helper.hasClass = 
-  'classList' in document.documentElement
-  ?
-  function(elem, className) { return elem.classList.contains(className); }
-  :
-  function(elem, className) { return elem.className.indexOf(className) > -1; }
-	  
-;/**
+ }
+})(ace.helper);;/**
  <b>Load content via Ajax </b>. For more information please refer to documentation #basics/ajax
 */
 
 (function($ , undefined) {
 	var ajax_loaded_scripts = {}
 
-	function AceAjax(contentArea, options) {
+	function AceAjax(contentArea, settings) {
 		var $contentArea = $(contentArea);
 		var self = this;
+		$contentArea.attr('data-ajax-content', 'true');
 		
-		 var content_url = options.content_url || false
-		 var default_url = options.default_url || false;
-		var loading_icon = options.loading_icon || 'fa-spinner fa-2x orange';
-		var loading_text = options.loading_text || '';
-		var update_breadcrumbs = options.update_breadcrumbs || options.update_breadcrumbs === undefined;
-		var update_title = options.update_title || options.update_breadcrumbs === undefined;
-		var update_active = options.update_active || options.update_breadcrumbs === undefined;
-		var close_active = options.close_active || false;
-		var max_load_wait = options.max_load_wait || false;
-		
-		var working = false;
-		
+		//get a list of 'data-*' attributes that override 'defaults' and 'settings'
+		var attrib_values = ace.helper.getAttrSettings(contentArea, $.fn.ace_ajax.defaults);
+		this.settings = $.extend({}, $.fn.ace_ajax.defaults, settings, attrib_values);
 
-		this.loadUrl = function(hash) {
+
+		var working = false;
+		var $overlay = $();//empty set
+
+		this.force_reload = false;//set jQuery ajax's cache option to 'false' to reload content
+		this.loadUrl = function(hash, cache) {
 			var url = false;
 			hash = hash.replace(/^(\#\!)?\#/, '');
 			
-			if(typeof content_url === 'function') url = content_url(hash);
+			this.force_reload = (cache === false)
+			
+			if(typeof this.settings.content_url === 'function') url = this.settings.content_url(hash);
 			if(typeof url === 'string') this.getUrl(url, hash, false);
 		}
+		
+		this.loadAddr = function(url, hash, cache) {
+			this.force_reload = (cache === false);
+			this.getUrl(url, hash, false);
+		}
+		
 		this.getUrl = function(url, hash, manual_trigger) {
 			if(working) {
 				return;
@@ -538,7 +586,8 @@ ace.helper.hasClass =
 			self.startLoading();
 
 			$.ajax({
-				'url': url
+				'url': url,
+				'cache': !this.force_reload
 			})
 			.error(function() {
 				$contentArea.trigger('ajaxloaderror', {url: url, hash: hash});
@@ -549,20 +598,20 @@ ace.helper.hasClass =
 				$contentArea.trigger('ajaxloaddone', {url: url, hash: hash});
 				
 				var link_element = null, link_text = '';;
-				if(typeof update_active === 'function') {
-					link_element = update_active.call(null, hash, url);
+				if(typeof self.settings.update_active === 'function') {
+					link_element = self.settings.update_active.call(null, hash, url);
 				}
-				else if(update_active === true) {
+				else if(self.settings.update_active === true && hash) {
 					link_element = $('a[data-url="'+hash+'"]');
 					if(link_element.length > 0) {
 						var nav = link_element.closest('.nav');
 						if(nav.length > 0) {
 							nav.find('.active').each(function(){
 								var $class = 'active';
-								if( $(this).hasClass('hover') || close_active ) $class += ' open';
+								if( $(this).hasClass('hover') || self.settings.close_active ) $class += ' open';
 								
 								$(this).removeClass($class);							
-								if(close_active) {
+								if(self.settings.close_active) {
 									$(this).find(' > .submenu').css('display', '');
 								}
 							})
@@ -578,10 +627,10 @@ ace.helper.hasClass =
 				}
 
 				/////////
-				if(typeof update_breadcrumbs === 'function') {
-					link_text = update_breadcrumbs.call(null, hash, url, link_element);
+				if(typeof self.settings.update_breadcrumbs === 'function') {
+					link_text = self.settings.update_breadcrumbs.call(null, hash, url, link_element);
 				}
-				else if(update_breadcrumbs === true && link_element != null && link_element.length > 0) {
+				else if(self.settings.update_breadcrumbs === true && link_element != null && link_element.length > 0) {
 					link_text = updateBreadcrumbs(link_element);
 				}
 				/////////
@@ -591,9 +640,12 @@ ace.helper.hasClass =
 					.replace(/<(title|link)([\s\>])/gi,'<div class="hidden ajax-append-$1"$2')
 					.replace(/<\/(title|link)\>/gi,'</div>')
 			
+				
+				$overlay.addClass('content-loaded').detach();
 				$contentArea.empty().html(result);
-				$contentArea.css('opacity', 0.6);
-
+				
+				$(self.settings.loading_overlay || $contentArea).append($overlay);
+	
 				//remove previous stylesheets inserted via ajax
 				setTimeout(function() {
 					$('head').find('link.ace-ajax-stylesheet').remove();
@@ -619,10 +671,10 @@ ace.helper.hasClass =
 
 				//////////////////////
 
-				if(typeof update_title === 'function') {
-					update_title.call(null, hash, url, link_text);
+				if(typeof self.settings.update_title === 'function') {
+					self.settings.update_title.call(null, hash, url, link_text);
 				}
-				else if(update_title === true) {
+				else if(self.settings.update_title === true) {
 					updateTitle(link_text);
 				}
 				
@@ -641,17 +693,26 @@ ace.helper.hasClass =
 		
 		
 		///////////////////////
+		var fixPos = false;
 		var loadTimer = null;
 		this.startLoading = function() {
 			if(working) return;
 			working = true;
 			
-			$contentArea
-			.css('opacity', 0.25)
-			.prevAll('.ajax-loading-overlay').remove();
-			$('<div class="ajax-loading-overlay"><i class="ajax-loading-icon fa fa-spin '+loading_icon+'"></i> '+loading_text+'</div>').insertBefore(contentArea);
+			if(!this.settings.loading_overlay && $contentArea.css('position') == 'static') {
+				$contentArea.css('position', 'relative');//for correct icon positioning
+				fixPos = true;
+			}
+				
+			$overlay.remove();
+			$overlay = $('<div class="ajax-loading-overlay"><i class="ajax-loading-icon '+(this.settings.loading_icon || '')+'"></i> '+this.settings.loading_text+'</div>')
+
+			if(this.settings.loading_overlay == 'body') $('body').append($overlay.addClass('ajax-overlay-body'));
+			else if(this.settings.loading_overlay) $(this.settings.loading_overlay).append($overlay);
+			else $contentArea.append($overlay);
+
 			
-			if(max_load_wait !== false) 
+			if(this.settings.max_load_wait !== false) 
 			 loadTimer = setTimeout(function() {
 				loadTimer = null;
 				if(!working) return;
@@ -661,15 +722,18 @@ ace.helper.hasClass =
 				if (event.isDefaultPrevented()) return;
 				
 				self.stopLoading(true);
-			 }, max_load_wait * 1000);
+			 }, this.settings.max_load_wait * 1000);
 		}
 		
 		this.stopLoading = function(stopNow) {
 			if(stopNow === true) {
 				working = false;
-				$contentArea
-				.css('opacity', 1)
-				.prevAll('.ajax-loading-overlay').remove();
+				
+				$overlay.remove();
+				if(fixPos) {
+					$contentArea.css('position', '');//restore previous 'position' value
+					fixPos = false;
+				}
 				
 				if(loadTimer != null) {
 					clearTimeout(loadTimer);
@@ -677,11 +741,23 @@ ace.helper.hasClass =
 				}
 			}
 			else {
-				$contentArea.css('opacity', 0.75)
-				$contentArea.one('ajaxscriptsloaded', function() {
+				$overlay.addClass('almost-loaded');
+				
+				$contentArea.one('ajaxscriptsloaded.inner_call', function() {
 					self.stopLoading(true);
+					/**
+					if(window.Pace && Pace.running == true) {
+						Pace.off('done');
+						Pace.once('done', function() { self.stopLoading(true) })
+					}
+					else self.stopLoading(true);
+					*/
 				})
 			}
+		}
+		
+		this.working = function() {
+			return working;
 		}
 		///////////////////////
 		
@@ -821,13 +897,13 @@ ace.helper.hasClass =
 		}).trigger('hashchange.ace_ajax', [true]);
 		
 		var hash = $.trim(window.location.hash);
-		if(!hash && default_url) window.location.hash = default_url;
+		if(!hash && this.settings.default_url) window.location.hash = this.settings.default_url;
 
 	}//AceAjax
 
 
 
-	$.fn.aceAjax = $.fn.ace_ajax = function (option, value, value2) {
+	$.fn.aceAjax = $.fn.ace_ajax = function (option, value, value2, value3) {
 		var method_call;
 
 		var $set = this.each(function () {
@@ -837,13 +913,29 @@ ace.helper.hasClass =
 
 			if (!data) $this.data('ace_ajax', (data = new AceAjax(this, options)));
 			if (typeof option === 'string' && typeof data[option] === 'function') {
-				if(value2 != undefined) method_call = data[option](value, value2);
+				if(value3 != undefined) method_call = data[option](value, value2, value3);
+				else if(value2 != undefined) method_call = data[option](value, value2);
 				else method_call = data[option](value);
 			}
 		});
 
 		return (method_call === undefined) ? $set : method_call;
 	}
+	
+	
+	
+	$.fn.aceAjax.defaults = $.fn.ace_ajax.defaults = {
+		content_url: false,
+		default_url: false,
+		loading_icon: 'fa fa-spin fa-spinner fa-2x orange',
+		loading_text: '',
+		loading_overlay: null,
+		update_breadcrumbs: true,
+		update_title: true,
+		update_active: true,
+		close_active: false,
+		max_load_wait: false
+     }
 
 })(window.jQuery);
 
@@ -971,14 +1063,16 @@ ace.helper.hasClass =
 (function($ , undefined) {
 	var sidebar_count = 0;
 
-	function Sidebar(sidebar, options) {
+	function Sidebar(sidebar, settings) {
 		var self = this;
 		this.$sidebar = $(sidebar);
 		this.$sidebar.attr('data-sidebar', 'true');
 		if( !this.$sidebar.attr('id') ) this.$sidebar.attr( 'id' , 'id-sidebar-'+(++sidebar_count) )
 
 		
-		var duration = options.duration || ace.helper.intAttr(sidebar, 'data-submenu-duration') ||300;//transition duration
+		//get a list of 'data-*' attributes that override 'defaults' and 'settings'
+		var attrib_values = ace.helper.getAttrSettings(sidebar, $.fn.ace_sidebar.defaults, 'sidebar-');
+		this.settings = $.extend({}, $.fn.ace_sidebar.defaults, settings, attrib_values);
 
 
 		//some vars
@@ -1198,18 +1292,18 @@ ace.helper.hasClass =
 				//close all other open submenus except for the active one
 				if(this != sub && !$(this.parentNode).hasClass('active')) {
 					height_change -= this.scrollHeight;
-					self.hide(this, duration, false);
+					self.hide(this, self.settings.duration, false);
 				}
 			  })
 			}
 
 			if( sub_hidden ) {//being shown now
-				self.show(sub, duration);
+				self.show(sub, self.settings.duration);
 				//if a submenu is being shown and another one previously started to hide, then we may need to update/hide scrollbars
 				//but if no previous submenu is being hidden, then no need to check if we need to hide the scrollbars in advance
 				if(height_change != 0) height_change += sub.scrollHeight;//we need new updated 'scrollHeight' here
 			} else {
-				self.hide(sub, duration);
+				self.hide(sub, self.settings.duration);
 				height_change -= sub.scrollHeight;
 				//== -1 means submenu is being hidden
 			}
@@ -1226,19 +1320,23 @@ ace.helper.hasClass =
 		})
 
 		var submenu_working = false;
-		this.show = function(sub, $duration, wait) {
-			if(wait !== false) {
-				if(submenu_working) return false;
-				submenu_working = true;
-			}
-		
-			$duration = $duration || duration;
-			
+		this.show = function(sub, $duration, shouldWait) {
+			//'shouldWait' indicates whether to wait for previous transition (submenu toggle) to be complete or not?
+			shouldWait = (shouldWait !== false);
+			if(shouldWait && submenu_working) return false;
+					
 			var $sub = $(sub);
 			var event;
 			$sub.trigger(event = $.Event('show.ace.submenu'))
-			if (event.isDefaultPrevented()) return false;
+			if (event.isDefaultPrevented()) {
+				return false;
+			}
+			
+			if(shouldWait) submenu_working = true;
 
+
+			$duration = $duration || this.settings.duration;
+			
 			$sub.css({
 				height: 0,
 				overflow: 'hidden',
@@ -1263,7 +1361,7 @@ ace.helper.hasClass =
 
 				if(trigger !== false) $sub.trigger($.Event('shown.ace.submenu'))
 				
-				if(wait !== false) submenu_working = false;
+				if(shouldWait) submenu_working = false;
 			}
 			
 			if( $duration > 0 && !!$.support.transition.end ) {
@@ -1283,19 +1381,24 @@ ace.helper.hasClass =
 		 }
 		 
 		 
-		 this.hide = function(sub, $duration, wait) {
-			if(wait !== false) {
-				if(submenu_working) return false;
-				submenu_working = true;
-			}
+		 this.hide = function(sub, $duration, shouldWait) {
+			//'shouldWait' indicates whether to wait for previous transition (submenu toggle) to be complete or not?
+			shouldWait = (shouldWait !== false);
+			if(shouldWait && submenu_working) return false;
 		 
-			$duration = $duration || duration;
-		 
+			
 			var $sub = $(sub);
 			var event;
 			$sub.trigger(event = $.Event('hide.ace.submenu'))
-			if (event.isDefaultPrevented()) return false;
+			if (event.isDefaultPrevented()) {
+				return false;
+			}
+			
+			if(shouldWait) submenu_working = true;
+			
 
+			$duration = $duration || this.settings.duration;
+			
 			$sub.css({
 				height: sub.scrollHeight,
 				overflow: 'hidden',
@@ -1321,7 +1424,7 @@ ace.helper.hasClass =
 
 				if(trigger !== false) $sub.trigger($.Event('hidden.ace.submenu'))
 				
-				if(wait !== false) submenu_working = false;
+				if(shouldWait) submenu_working = false;
 			}
 
 			if( $duration > 0 && !!$.support.transition.end ) {
@@ -1342,7 +1445,7 @@ ace.helper.hasClass =
 		 }
 
 		 this.toggle = function(sub, $duration) {
-			$duration = $duration || duration;
+			$duration = $duration || self.settings.duration;
 		 
 			if( sub.scrollHeight == 0 ) {//if an element is hidden scrollHeight becomes 0
 				if( this.show(sub, $duration) ) return 1;
@@ -1467,25 +1570,7 @@ ace.helper.hasClass =
 			}
 		}
 	})
-	/**
-	.on('shown.bs.collapse.sidebar hidden.bs.collapse.sidebar', '.sidebar[data-auto-hide=true]', function(e){
-		var click_event = ace.click_event+'.ace.autohide';
 
-		var sidebar = this;
-		if(e.type == 'shown') {
-			$(document).on(click_event, function(ev) {
-				if( sidebar == ev.target || $.contains(sidebar, ev.target) ) {
-					ev.stopPropagation();
-					return;
-				}
-
-				$(sidebar).collapse('hide');
-				$(document).off(click_event);
-			})
-		}
-		else $(document).off(click_event);
-	});
-	*/
 	
 	$.fn.ace_sidebar = function (option, value) {
 		var method_call;
@@ -1504,6 +1589,11 @@ ace.helper.hasClass =
 
 		return (method_call === undefined) ? $set : method_call;
 	};
+	
+	
+	$.fn.ace_sidebar.defaults = {
+		'duration': 300
+    }
 
 
 })(window.jQuery);
@@ -1539,13 +1629,18 @@ ace.helper.hasClass =
 			$toggle = $sidebar.find('.sidebar-toggle').eq(0),
 			$shortcuts = $sidebar.find('.sidebar-shortcuts').eq(0);
 			
-			
-		var ace_sidebar = $sidebar.ace_sidebar('ref');
-		$sidebar.attr('data-sidebar-scroll', 'true');
-			
 		var nav = $nav.get(0);
 		if(!nav) return;
 		
+		
+		var attrib_values = ace.helper.getAttrSettings(sidebar, $.fn.ace_sidebar_scroll.defaults);
+		this.settings = $.extend({}, $.fn.ace_sidebar_scroll.defaults, settings, attrib_values);
+		var scroll_to_active = self.settings.scroll_to_active;
+	
+	
+		var ace_sidebar = $sidebar.ace_sidebar('ref');
+		$sidebar.attr('data-sidebar-scroll', 'true');
+			
 		
 		var scroll_div = null,
 			scroll_content = null,
@@ -1554,15 +1649,7 @@ ace.helper.hasClass =
 			track = null,
 			ace_scroll = null;
 
-		var scroll_to_active = settings.scroll_to_active || ace.helper.boolAttr(sidebar, 'data-scroll-to-active') || false,
-			include_shortcuts = settings.include_shortcuts || ace.helper.boolAttr(sidebar, 'data-scroll-include-shortcuts') || false,
-			include_toggle = settings.include_toggle || ace.helper.boolAttr(sidebar, 'data-scroll-include-toggle') || false,
-			smooth_scroll = settings.smooth_scroll || ace.helper.intAttr(sidebar, 'data-scroll-smooth') || false,
-			scrollbars_outside = settings.outside || ace.helper.boolAttr(sidebar, 'data-scroll-outside') || false,
-			scroll_style = settings.scroll_style || $sidebar.attr('data-scroll-style') || '',
-			only_if_fixed = true;
-		var lockAnyway = settings.mousewheel_lock || ace.helper.boolAttr(sidebar, 'data-mousewheel-lock') || false;
-			
+
 		this.is_scrolling = false;
 		var _initiated = false;
 		this.sidebar_fixed = is_element_pos(sidebar, 'fixed');
@@ -1575,7 +1662,7 @@ ace.helper.hasClass =
 			var offset = $nav.parent().offset();//because `$nav.offset()` considers the "scrolled top" amount as well
 			if(self.sidebar_fixed) offset.top -= ace.helper.scrollTop();
 
-			return $window.innerHeight() - offset.top - ( include_toggle ? 0 : $toggle.outerHeight() );
+			return $window.innerHeight() - offset.top - ( self.settings.include_toggle ? 0 : $toggle.outerHeight() );
 		}
 		var content_height = function() {
 			return nav.clientHeight;//we don't use nav.scrollHeight here, because hover submenus are considered in calculating scrollHeight despite position=absolute!
@@ -1593,8 +1680,8 @@ ace.helper.hasClass =
 			$nav.after('<div><div></div></div>');
 
 			$nav.wrap('<div class="nav-wrap" />');
-			if(!include_toggle) $toggle.css({'z-index': 1});
-			if(!include_shortcuts) $shortcuts.css({'z-index': 99});
+			if(!self.settings.include_toggle) $toggle.css({'z-index': 1});
+			if(!self.settings.include_shortcuts) $shortcuts.css({'z-index': 99});
 
 			scroll_div = $nav.parent().next()
 			.ace_scroll({
@@ -1603,7 +1690,7 @@ ace.helper.hasClass =
 				mouseWheelLock: true,
 				hoverReset: false,
 				dragEvent: true,
-				styleClass: scroll_style,
+				styleClass: self.settings.scroll_style,
 				touchDrag: false//disable touch drag event on scrollbars, we'll add a custom one later
 			})
 			.closest('.ace-scroll').addClass('nav-scroll');
@@ -1616,17 +1703,17 @@ ace.helper.hasClass =
 			track = $(ace_scroll.get_track());
 			bar = track.find('.scroll-bar').eq(0);
 
-			if(include_shortcuts && $shortcuts.length != 0) {
+			if(self.settings.include_shortcuts && $shortcuts.length != 0) {
 				$nav.parent().prepend($shortcuts).wrapInner('<div />');
 				$nav = $nav.parent();
 			}
-			if(include_toggle && $toggle.length != 0) {
+			if(self.settings.include_toggle && $toggle.length != 0) {
 				$nav.append($toggle);
 				$nav.closest('.nav-wrap').addClass('nav-wrap-t');//it just helps to remove toggle button's top border and restore li:last-child's bottom border
 			}
 
 			$nav.css({position: 'relative'});
-			if( scrollbars_outside === true ) scroll_div.addClass('scrollout');
+			if( self.settings.scroll_outside == true ) scroll_div.addClass('scrollout');
 			
 			nav = $nav.get(0);
 			nav.style.top = 0;
@@ -1637,7 +1724,7 @@ ace.helper.hasClass =
 			//mousewheel library available?
 			$nav.on(!!$.event.special.mousewheel ? 'mousewheel.ace_scroll' : 'mousewheel.ace_scroll DOMMouseScroll.ace_scroll', function(event){
 				if( !self.is_scrolling || !ace_scroll.is_active() ) {
-					return !lockAnyway;
+					return !self.settings.lock_anyway;
 				}
 				//transfer $nav's mousewheel event to scrollbars
 				return scroll_div.trigger(event);
@@ -1691,7 +1778,7 @@ ace.helper.hasClass =
 			
 
 			//for drag only
-			if(smooth_scroll) {
+			if(self.settings.smooth_scroll) {
 				$nav
 				.on('touchstart.nav MSPointerDown.nav pointerdown.nav', function(event) {
 					$nav.css('transition-property', 'none');
@@ -1705,7 +1792,7 @@ ace.helper.hasClass =
 			
 			
 
-			if(old_safari && !include_toggle) {
+			if(old_safari && !self.settings.include_toggle) {
 				var toggle = $toggle.get(0);
 				if(toggle) scroll_content.on('scroll.safari', function() {
 					ace.helper.redraw(toggle);
@@ -1727,9 +1814,9 @@ ace.helper.hasClass =
 			
 			
 			
-			if( typeof smooth_scroll === 'number' && smooth_scroll > 0) {
-				$nav.css({'transition-property': 'top', 'transition-duration': (smooth_scroll / 1000).toFixed(2)+'s'})
-				bar.css({'transition-property': 'top', 'transition-duration': (smooth_scroll / 1500).toFixed(2)+'s'})
+			if( typeof self.settings.smooth_scroll === 'number' && self.settings.smooth_scroll > 0) {
+				$nav.css({'transition-property': 'top', 'transition-duration': (self.settings.smooth_scroll / 1000).toFixed(2)+'s'})
+				bar.css({'transition-property': 'top', 'transition-duration': (self.settings.smooth_scroll / 1500).toFixed(2)+'s'})
 				
 				scroll_div
 				.on('drag.start', function(e) {
@@ -1862,7 +1949,7 @@ ace.helper.hasClass =
 				ace_scroll.disable();
 			}
 
-			if(parseInt(nav.style.top) < 0 && smooth_scroll && $.support.transition.end) {
+			if(parseInt(nav.style.top) < 0 && self.settings.smooth_scroll && $.support.transition.end) {
 				$nav.one($.support.transition.end, function() {
 					$sidebar.removeClass('sidebar-scroll');
 					$nav.off('.trans');
@@ -1984,7 +2071,7 @@ ace.helper.hasClass =
 	
 	
 	 /////////////////////////////////////////////
-	 if(!$.fn.ace_sidebar_scroll)
+	 if(!$.fn.ace_sidebar_scroll) {
 	  $.fn.ace_sidebar_scroll = function (option, value) {
 		var method_call;
 
@@ -2000,7 +2087,20 @@ ace.helper.hasClass =
 		});
 
 		return (method_call === undefined) ? $set : method_call;
-	 };
+	 }
+	 
+	 
+	 $.fn.ace_sidebar_scroll.defaults = {
+		'scroll_to_active': true,
+		'include_shortcuts': true,
+		'include_toggle': false,
+		'smooth_scroll': 150,
+		'scroll_outside': false,
+		'scroll_style': '',
+		'lock_anyway': false
+     }
+	 
+	}
 
 })(window.jQuery);;/**
  <b>Submenu hover adjustment</b>. Automatically move up a submenu to fit into screen when some part of it goes beneath window.
@@ -2037,7 +2137,12 @@ ace.helper.hasClass =
  var sidebars = [];
 
  function Sidebar_Hover(sidebar , settings) {
-	var self = this;
+	var self = this, that = this;
+	
+	var attrib_values = ace.helper.getAttrSettings(sidebar, $.fn.ace_sidebar_hover.defaults);
+	this.settings = $.extend({}, $.fn.ace_sidebar_hover.defaults, settings, attrib_values);
+	
+
 	var $sidebar = $(sidebar), nav_list = $sidebar.find('.nav-list').get(0);
 	$sidebar.attr('data-sidebar-hover', 'true');
 	
@@ -2045,13 +2150,13 @@ ace.helper.hasClass =
 
 	var sidebar_vars = {};
 	var old_ie = ace.vars['old_ie'];
+
 	
-	var hover_delay = settings.sub_hover_delay || ace.helper.intAttr(sidebar, 'data-sub-hover-delay') || 750;
-	var scroll_style =  settings.sub_scroll_style || $sidebar.attr('data-sub-scroll-style') || 'no-track scroll-thin';
+	
 	var scroll_right = false;
 	//scroll style class
 	
-	if(hasTouch) hover_delay = parseInt(Math.max(hover_delay, 2500));//for touch device, delay is at least 2.5sec
+	if(hasTouch) self.settings.sub_hover_delay = parseInt(Math.max(self.settings.sub_hover_delay, 2500));//for touch device, delay is at least 2.5sec
 
 	var $window = $(window);
 	//navbar used for adding extra offset from top when adjusting submenu
@@ -2089,7 +2194,7 @@ ace.helper.hasClass =
 	}
 	
 	this.updateStyle = function(newStyle) {
-		scroll_style = newStyle;
+		sub_scroll_style = newStyle;
 		$sidebar.find('.submenu.ace-scroll').ace_scroll('update', {styleClass: newStyle});
 	}
 	this.changeDir = function(dir) {
@@ -2263,7 +2368,7 @@ ace.helper.hasClass =
 				if(sub) getSubScroll(sub, 'hide');
 				
 				if(typeof callback === 'function') callback.call(this);
-			}, hover_delay);
+			}, that.settings.sub_hover_delay);
 		}
 		
 		this.is_visible = function() {
@@ -2419,7 +2524,7 @@ ace.helper.hasClass =
 						updatePos: false,
 						reset: true,
 						mouseWheelLock: true,
-						styleClass: scroll_style
+						styleClass: self.settings.sub_scroll_style
 					});
 					ace_scroll = getSubScroll(sub);
 					
@@ -2499,7 +2604,12 @@ ace.helper.hasClass =
 	});
 
 	return (method_call === undefined) ? $set : method_call;
- };
+ }
+ 
+  $.fn.ace_sidebar_hover.defaults = {
+	'sub_sub_hover_delay': 750,
+	'sub_scroll_style': 'no-track scroll-thin'
+ }
  
 
 })(window.jQuery);
@@ -2541,7 +2651,7 @@ ace.helper.hasClass =
 		
 		this.toggle = function(type, button) {
 			var $box = this.$box;
-			var $body = $box.find('.widget-body');
+			var $body = $box.find('.widget-body').eq(0);
 			var $icon = null;
 			
 			var event_name = typeof type !== 'undefined' ? type : ($box.hasClass('collapsed') ? 'show' : 'hide');
@@ -2696,7 +2806,7 @@ ace.helper.hasClass =
 	
 		
 	function applyScrollbars($widget, enable) {
-		var $main = $widget.find('.widget-main');
+		var $main = $widget.find('.widget-main').eq(0);
 		$(window).off('resize.widget.scroll');
 		
 		//IE8 has an unresolvable issue!!! re-scrollbaring with unknown values?!
@@ -2898,18 +3008,30 @@ Please refer to documentation for more info.
 			//we set "href" after insertion, for IE to work
 			
 			applyChanges();
+			if(window.Pace && Pace.running)	Pace.stop();
 		})		
 	}
 	else {
 		applyChanges();
 	}
+	
+	//in ajax when new content is loaded, we dynamically apply RTL changes again
+	//please note that this is only for Ace demo
+	//for info about RTL see Ace's docs
+	$('.page-content-area[data-ajax-content=true]').on('ajaxscriptsloaded.rtl', function() {
+		if( $('body').hasClass('rtl') ) {
+			applyChanges(this);
+		}
+	});
 
 	/////////////////////////
-	function applyChanges() {
-
+	function applyChanges(el) {
 		var $body = $(document.body);
-		$body
-		.toggleClass('rtl')
+		if(!el) $body.toggleClass('rtl');//el is 'body'
+
+		el = el || document.body;		
+		var $container = $(el);
+		$container
 		//toggle pull-right class on dropdown-menu
 		.find('.dropdown-menu:not(.datepicker-dropdown,.colorpicker)').toggleClass('dropdown-menu-right')
 		.end()
@@ -2925,7 +3047,7 @@ Please refer to documentation for more info.
 		
 
 		function swap_classes(class1, class2) {
-			$body
+			$container
 			 .find('.'+class1).removeClass(class1).addClass('tmp-rtl-'+class1)
 			 .end()
 			 .find('.'+class2).removeClass(class2).addClass(class1)
@@ -2944,7 +3066,7 @@ Please refer to documentation for more info.
 		
 		
 		//mirror all icons and attributes that have a "fa-*-right|left" attrobute
-		$('.fa').each(function() {
+		$container.find('.fa').each(function() {
 			if(this.className.match(/ui-icon/) || $(this).closest('.fc-button').length > 0) return;
 			//skip mirroring icons of plugins that have built in RTL support
 
@@ -2962,30 +3084,30 @@ Please refer to documentation for more info.
 		//so let's make our scrollbars LTR and wrap the content inside RTL
 		var rtl = $body.hasClass('rtl');
 		if(rtl)	{
-			$('.scroll-hz').addClass('make-ltr')
+			$container.find('.scroll-hz').addClass('make-ltr')
 			.find('.scroll-content')
 			.wrapInner('<div class="make-rtl" />');
 			$('.sidebar[data-sidebar-hover=true]').ace_sidebar_hover('changeDir', 'right');
 		}
 		else {
 			//remove the wrap
-			$('.scroll-hz').removeClass('make-ltr')
+			$container.find('.scroll-hz').removeClass('make-ltr')
 			.find('.make-rtl').children().unwrap();
 			$('.sidebar[data-sidebar-hover=true]').ace_sidebar_hover('changeDir', 'left');
 		}
-		if($.fn.ace_scroll) $('.scroll-hz').ace_scroll('reset') //to reset scrollLeft
+		if($.fn.ace_scroll) $container.find('.scroll-hz').ace_scroll('reset') //to reset scrollLeft
 
 		//redraw the traffic pie chart on homepage with a different parameter
 		try {
 			var placeholder = $('#piechart-placeholder');
 			if(placeholder.length > 0) {
-				var pos = $(document.body).hasClass('rtl') ? 'nw' : 'ne';//draw on north-west or north-east?
+				var pos = $body.hasClass('rtl') ? 'nw' : 'ne';//draw on north-west or north-east?
 				placeholder.data('draw').call(placeholder.get(0) , placeholder, placeholder.data('chart'), pos);
 			}
 		}catch(e) {}
 		
 		
-		ace.helper.redraw(document.body, true);
+		ace.helper.redraw(el, true);
 	}
  }
 })(jQuery);
@@ -3029,6 +3151,7 @@ Please refer to documentation for more info.
 			//we set "href" after insertion, for IE to work
 			
 			applyChanges(skin_class);
+			if(window.Pace && Pace.running)	Pace.stop();
 		})
 	}
 	else {

@@ -67,10 +67,6 @@
       <Project>{8405255b-0570-4173-95be-cd7f9e084dbc}</Project>
       <Name>Negocio</Name>
     </ProjectReference>
-    <ProjectReference Include="..\tamboprp_mp1Lib\tamboprp_mp1Lib.csproj">
-      <Project>{09c13c61-b450-4bca-84b9-4f1ea157a3a9}</Project>
-      <Name>tamboprp_mp1Lib</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

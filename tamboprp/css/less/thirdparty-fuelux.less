@@ -12,40 +12,48 @@
 .ace-spinner {
   display: inline-block;
 
-  .spinbox-buttons {
+  .spinbox-buttons.btn-group-vertical {
 	 min-width: 18px;
 	
 	> .btn {
-		.border-radius(0) !important;
-		font-size: 10px;
+		//.border-radius(0) !important;
+		font-size: @font-size-spinner-button;
 		padding: 0;
-		width: 18px;
-		height: 14px;
+		width: 22px;
+		
+		height: 16px;
 		line-height: 8px;
 		margin-left: 0;
 		
 		&:first-child {
-			margin-top:0;
+			margin-top: 0;
 		}
 		
 		> .@{icon} {
-			//font-size: 10px;
 			margin: 0;
 			padding: 0;
 		}
+		
+		+ .btn {
+			margin-top: 2px;
+		}
 	}
-	> button.btn.spinbox-up {
-		&:active { top: -1px; }
+	> .btn-xs {
+		height: 14px;
+		line-height: 7px;
 	}
-  }
-  
-  .spinbox-input {
-	text-align: center;
-	height: 29px;
-	line-height: 1.2;
-	color: #777;
+	> .btn-lg {
+		height: 22px;
+		line-height: 10px;
+		width: 22px;
+	}
   }
 
+  .spinbox-buttons {
+	> button.btn.spinbox-up:active {
+		top: -1px;
+	}
+  }
 }
 
 .ace-spinner:not(.touch-spinner) .spinbox-buttons > .btn > .@{icon} {
@@ -57,18 +65,27 @@
 .ace-spinner.touch-spinner .spinbox-buttons {
    margin: 0;
    font-size: 0;
+   
+   .btn-sm {
+	   width: 32px;
+   }
+   .btn-xs {
+      width: 24px;
+   }
+   .btn-lg {
+      width: 40px;
+   }
 }
 .ace-spinner.touch-spinner .spinbox-buttons > .btn {
-  height: 29px;
-  line-height: 16px;
-  width: 24px;
-  font-size: @font-size-spinner-button-large;
-  display: inline-block;
-  vertical-align: sub;
   margin: 0 1px !important;//to override .RTL's
 }
+.ace-spinner.touch-spinner .spinbox-buttons > .btn-xs {
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
 .ace-spinner.touch-spinner .spinbox-buttons > .btn > .@{icon}{
-  vertical-align :middle;
+  vertical-align: middle;
   display: inline-block;
 }
 
@@ -167,7 +184,7 @@
 					z-index: 3;
 					 
 					font-family: FontAwesome;
-					font-size: 17px;
+					font-size: @font-size-wizard-complete;
 					color:@wizard-step-complete-color;
 				}
 				
@@ -239,7 +256,7 @@
  }
  .steps li.complete .step:before{
 	line-height: 24px;
-	font-size: 13px;
+	font-size: @base-font-size;
  }
  .steps li:before {
 	top:16px;
@@ -437,7 +454,7 @@
 		width: 13px;
 		height: 13px;
 		line-height: 13px;
-		font-size: 11px;
+		font-size: @font-size-tree-icon;
 		text-align: center;
 
 		border-radius: 3px;
@@ -505,7 +522,7 @@
 		height: 13px;
 		line-height: 13px;
 		
-		font-size: 10px;
+		font-size: @font-size-tree-icon - 1;
 		text-align: center;
 		border-radius: 0;
 

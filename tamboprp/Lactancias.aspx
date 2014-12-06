@@ -2,7 +2,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h1 class="page-header"><i class="menu-icon fa fa-list"></i> Lactancias</h1>
+    <div class="page-header">
+        <h1><i class="menu-icon fa fa-list"></i> Lactancias</h1>
+    </div>
     <div class="row">
         <div class="col-md-4">
             <div class="input-group">

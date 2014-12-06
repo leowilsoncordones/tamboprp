@@ -2,17 +2,16 @@
  Required. Ace's Basic File to Initiliaze Different Parts and Some Variables.
 */
 
-(function($ , undefined) {
+
+//some basic variables
+(function(undefined) {
 	if( !('ace' in window) ) window['ace'] = {}
 	if( !('helper' in window['ace']) ) window['ace'].helper = {}
 	if( !('vars' in window['ace']) ) window['ace'].vars = {}
 	window['ace'].vars['icon'] = ' ace-icon ';
 	window['ace'].vars['.icon'] = '.ace-icon';
 
-	ace.vars['touch']	= ('ontouchstart' in document.documentElement);//(('ontouchstart' in document.documentElement) || (window.DocumentTouch && document instanceof DocumentTouch));
-	//sometimes we try to use 'tap' event instead of 'click' if jquery mobile plugin is available
-	ace['click_event'] = ace.vars['touch'] && $.fn.tap ? 'tap' : 'click';
-	
+	ace.vars['touch']	= ('ontouchstart' in window);//(('ontouchstart' in document.documentElement) || (window.DocumentTouch && document instanceof DocumentTouch));
 	
 	//sometimes the only good way to work around browser's pecularities is to detect them using user-agents
 	//though it's not accurate
@@ -28,14 +27,24 @@
 	ace.vars['firefox'] = 'MozAppearance' in document.documentElement.style;
 	
 	ace.vars['non_auto_fixed'] = ace.vars['android'] || ace.vars['ios_safari'];
+})();
+
+
+
+(function($ , undefined) {
+	//sometimes we try to use 'tap' event instead of 'click' if jquery mobile plugin is available
+	ace['click_event'] = ace.vars['touch'] && $.fn.tap ? 'tap' : 'click';
 })(jQuery);
 
 
+
+
+//document ready function
 jQuery(function($) {
 	basics();
 	enableSidebar();
 	
-	enableAjax();
+	enableDemoAjax();
 	handleScrollbars();
 	
 	dropdownAutoPos();
@@ -66,12 +75,8 @@ jQuery(function($) {
 		var $sidebar = $('.sidebar');
 		if($.fn.ace_sidebar) $sidebar.ace_sidebar();
 		if($.fn.ace_sidebar_scroll) $sidebar.ace_sidebar_scroll({
-			//'scroll_style': 'scroll-dark scroll-thin',
-			'scroll_to_active': true, //scroll to selected item? (one time only on page load)
-			'include_shortcuts': true, //true = include shortcut buttons in the scrollbars
-			'include_toggle': false || ace.vars['safari'] || ace.vars['ios_safari'], //true = include toggle button in the scrollbars
-			'smooth_scroll': 150, //> 0 means smooth_scroll, time in ms, used in first approach only, better to be almost half the amount of submenu transition time
-			'outside': false//true && ace.vars['touch'] //used in first approach only, true means the scrollbars should be outside of the sidebar
+			//for other options please see documentation
+			'include_toggle': false || ace.vars['safari'] || ace.vars['ios_safari'] //true = include toggle button in the scrollbars
 		});
 		if($.fn.ace_sidebar_hover)	$sidebar.ace_sidebar_hover({
 			'sub_hover_delay': 750,
@@ -80,12 +85,23 @@ jQuery(function($) {
 	}
 
 	
-	function enableAjax() {
-		//Load content via ajax
-		if($.fn.ace_ajax) {
-		   $('[data-ajax-content=true]').ace_ajax({
+	//Load content via ajax
+	function enableDemoAjax() {		
+		if(!$.fn.ace_ajax) return;
+ 
+		if(window.Pace) {
+			window.paceOptions = {
+				ajax: true,
+				document: true,
+				eventLag: false // disabled
+				//elements: {selectors: ['.page-content-area']}
+			}
+		}
+
+		var demo_ajax_options = {
 			 'close_active': true,
 			 
+			 'default_url': 'page/index',//default hash
 			 'content_url': function(hash) {
 				//***NOTE***
 				//this is for Ace demo only, you should change it to return a valid URL
@@ -94,17 +110,34 @@ jQuery(function($) {
 				if( !hash.match(/^page\//) ) return false;
 				var path = document.location.pathname;
 
-				//for example in Ace HTML demo version we convert /ajax/ajax.html#page/gallery to > /ajax/gallery.html and load it
-				if(path.match(/(\/ajax\/)(ajax\.html)?/))
-					return path.replace(/(\/ajax\/)(ajax\.html)?/, '/ajax/'+hash.replace(/^page\//, '')+'.html') ;
+				//for example in Ace HTML demo version we convert /ajax/index.html#page/gallery to > /ajax/content/gallery.html and load it
+				if(path.match(/(\/ajax\/)(index\.html)?/))
+					return path.replace(/(\/ajax\/)(index\.html)?/, '/ajax/content/'+hash.replace(/^page\//, '')+'.html') ;
 
 				//for example in Ace PHP demo version we convert "ajax.php#page/dashboard" to "ajax.php?page=dashboard" and load it
 				return path + "?" + hash.replace(/\//, "=");
-			  },
-			  
-			  'default_url': 'page/index'//default hash
-		   })
+			  }			  
 		}
+		   
+		//for IE9 and below we exclude PACE loader (using conditional IE comments)
+		//for other browsers we use the following extra ajax loader options
+		if(window.Pace) {
+			demo_ajax_options['loading_overlay'] = 'body';//the opaque overlay is applied to 'body'
+		}
+
+		//initiate ajax loading on this element( which is .page-content-area[data-ajax-content=true] in Ace's demo)
+		$('[data-ajax-content=true]').ace_ajax(demo_ajax_options)
+
+		//if general error happens and ajax is working, let's stop loading icon & PACE
+		$(window).on('error.ace_ajax', function() {
+			$('[data-ajax-content=true]').each(function() {
+				var $this = $(this);
+				if( $this.ace_ajax('working') ) {
+					if(window.Pace && Pace.running) Pace.stop();
+					$this.ace_ajax('stopLoading', true);
+				}
+			})
+		})
 	}
 
 	/////////////////////////////
@@ -433,13 +466,59 @@ jQuery(function($) {
 	  }
 	}
 
-})
+});//jQuery document ready
 
 
 
 
-//some functions
-ace.helper.redraw = function(elem, force) {
+
+//some ace helper functions
+(function($$ , undefined) {//$$ is ace.helper
+ $$.unCamelCase = function(str) {
+	return str.replace(/([a-z])([A-Z])/g, function(match, c1, c2){ return c1+'-'+c2.toLowerCase() })
+ }
+ $$.strToVal = function(str) {
+	var res = str.match(/^(?:(true)|(false)|(null)|(\-?[\d]+(?:\.[\d]+)?)|(\[.*\]|\{.*\}))$/i);
+
+	var val = str;
+	if(res) {
+		if(res[1]) val = true;
+		else if(res[2]) val = false;
+		else if(res[3]) val = null;	
+		else if(res[4]) val = parseFloat(str);
+		else if(res[5]) {
+			try { val = JSON.parse(str) }
+			catch (err) {}
+		}
+	}
+
+	return val;
+ }
+ $$.getAttrSettings = function(el, attr_list, prefix) {
+	var list_type = attr_list instanceof Array ? 1 : 2;
+	//attr_list can be Array or Object(key/value)
+	var prefix = prefix ? prefix.replace(/([^\-])$/ , '$1-') : '';
+	prefix = 'data-' + prefix;
+
+	var settings = {}
+	for(var li in attr_list) if(attr_list.hasOwnProperty(li)) {
+		var name = list_type == 1 ? attr_list[li] : li;
+		var attr_val, attr_name = $$.unCamelCase(name.replace(/[^A-Za-z0-9]{1,}/g , '-')).toLowerCase()
+
+		if( ! ((attr_val = el.getAttribute(prefix + attr_name))  ) ) continue;
+		settings[name] = $$.strToVal(attr_val);
+	}
+
+	return settings;
+ }
+
+ $$.scrollTop = function() {
+	return document.scrollTop || document.documentElement.scrollTop || document.body.scrollTop
+ }
+ $$.winHeight = function() {
+	return window.innerHeight || document.documentElement.clientHeight;
+ }
+ $$.redraw = function(elem, force) {
 	var saved_val = elem.style['display'];
 	elem.style.display = 'none';
 	elem.offsetHeight;
@@ -452,40 +531,5 @@ ace.helper.redraw = function(elem, force) {
 			elem.style.display = saved_val;
 		}, 10);
 	}
-}
-
-ace.helper.boolAttr = function(elem, attr) {
-	return elem.getAttribute(attr) === "true";
-}
-ace.helper.intAttr = function(elem, attr) {
-	return parseInt(elem.getAttribute(attr)) || 0;
-}
-
-ace.helper.scrollTop = function() {
-	return document.scrollTop || document.documentElement.scrollTop || document.body.scrollTop
-	//return $(window).scrollTop();
-}
-ace.helper.winHeight = function() {
-	return window.innerHeight || document.documentElement.clientHeight;
-	//return $(window).innerHeight();
-}
-ace.helper.camelCase = function(str) {
-	return str.replace(/-([\da-z])/gi, function(match, chr) {
-	  return chr ? chr.toUpperCase() : '';
-	});
-}
-ace.helper.removeStyle = 
-  'removeProperty' in document.documentElement.style
-  ?
-  function(elem, prop) { elem.style.removeProperty(prop) }
-  :
-  function(elem, prop) { elem.style[ace.helper.camelCase(prop)] = '' }
-
-
-ace.helper.hasClass = 
-  'classList' in document.documentElement
-  ?
-  function(elem, className) { return elem.classList.contains(className); }
-  :
-  function(elem, className) { return elem.className.indexOf(className) > -1; }
-	  
+ }
+})(ace.helper);

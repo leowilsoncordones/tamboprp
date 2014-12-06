@@ -15,23 +15,13 @@
     <script src="js/respond.js"></script>
     <script src="js/jquery.js"></script>
     <script src="js/jquery1x.js"></script>
-    <script src="js/bootstrap.js"></script>
     <script src="js/excanvas.js"></script>
-    
-    <!-- script para dropdown resultados similares (aun no funciona) -->
-    <script type='text/javascript'>
-        $('.dropdown-hover').on('mouseenter', function () {
-            var offset = $(this).offset();
-            var $w = $(window);
-            if (offset.top > $w.scrollTop() + $w.innerHeight() - 100)
-                $(this).addClass('dropup');
-            else $(this).removeClass('dropup');
-        });
-    </script>
 
 </asp:Content>
 <asp:Content ID="ContentAnimal" ContentPlaceHolderID="MainContent" runat="server">
-    <h1 class="page-header"><i class="menu-icon fa fa-folder-open"></i> Ficha de animal</h1>
+    <div class="page-header">
+        <h1><i class="menu-icon fa fa-folder-open"></i> Ficha de animal <small><i class="ace-icon fa fa-angle-double-right"></i> y sus eventos históricos</small></h1>
+    </div>
         <div class="row">
             <div class="col-md-4">        
                 <div class="input-group input-group-lg">
@@ -155,13 +145,7 @@
                             <div class="row">
                                   <div class="col-md-4"></div>
                                   <div class="col-md-8 text-right text-info">
-                                    <label class="checkbox-inline"><input type="checkbox" checked id="checkboxControles" value="opcControles"> Controles</label>
-                                    <label class="checkbox-inline"><input type="checkbox" checked id="checkboxPartos" value="opcPartos"> Partos</label>
-                                    <label class="checkbox-inline"><input type="checkbox" checked id="checkboxDiag" value="opcDiag"> Diagnósticos</label>
-                                    <label class="checkbox-inline"><input type="checkbox" checked id="checkboxSecados" value="opcSecados"> Secados</label>
-                                    <label class="checkbox-inline"><input type="checkbox" checked id="checkboxConcurso" value="opcConcurso"> Concursos</label>
-                                    <label class="checkbox-inline"><input type="checkbox" checked id="checkboxBajas" value="opcBajas"> Bajas</label>
-                                    <asp:CheckBox ID="checkboxAll" CssClass="checkbox-inline" runat="server" Text="All" />
+                                      <asp:CheckBox ID="cboxControles" Text="Mostrar Controles" Checked="False" OnCheckedChanged="cBoxControles_CheckedChanged" runat="server" />
                                   </div>
                             </div>
                             <asp:GridView ID="gvHistoria" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" 
@@ -191,7 +175,7 @@
           </div><!-- Fin panel boby -->
             <!-- Panel footer -->
           <div class="panel-footer">
-            Aca va el footer del panel
+            Aca va el footer del panel ficha del animal
           </div><!-- Fin panel footer -->
         </asp:Panel>
 

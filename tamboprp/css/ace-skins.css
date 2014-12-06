@@ -130,11 +130,11 @@
   -moz-border-left-colors: #506b7f;
   border-style: solid;
   border-color: transparent;
-  border-width: 21px 0 21px 11px;
+  border-width: 20px 0 20px 10px;
   content: "";
   position: absolute;
   right: -11px;
-  top: -1px;
+  top: 0;
   z-index: 1;
 }
 .skin-1 .sidebar-shortcuts,

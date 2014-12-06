@@ -47,6 +47,9 @@
 .profile-user-info { width: 98%; }
 .wysiwyg-toolbar .dropdown-menu { min-width: 260px; }
 
+.modal.modal-contained {
+  position: absolute !important;
+}
 
 
 /* IE9 and below have an issue with left & right borders and RTL */
@@ -371,7 +374,6 @@ input[type=checkbox].ace.ace-switch ~ .lbl {
 .aside.aside-hidden.aside-hz .modal-dialog  {
   height: 0;
 }
-
 
  .btn-group > .btn-app:first-child {
 	margin-right: 24px;

@@ -2,11 +2,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <br/>
-    <br/>
-    <div>
-        <h3>Vacas con mas de 70 dias de servicio y sin diagnosticar preñez</h3>
-               
+        <div class="page-header">
+            <h1><i class="menu-icon fa fa-suitcase"></i> Vacas con mas de 70 días de servicio<small><i class="ace-icon fa fa-angle-double-right"></i> y aún sin diagnosticar preñez</small></h1>
+        </div>
         <asp:GridView ID="gvServicios" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" 
                 CssClass="table table-hover table-striped table-bordered table-condensed dataTable" >
             <RowStyle HorizontalAlign="Left"  />
@@ -25,6 +23,7 @@
             <EditRowStyle />
             <AlternatingRowStyle />
         </asp:GridView>
-        <asp:Label ID="titCantAnimales" runat="server" Text="Cantidad de animales en la lista: " Visible="False"></asp:Label><asp:Label ID="lblCantAnimales" runat="server" Visible="False"></asp:Label><br/>
-    </div>
+        <div>
+            <asp:Label ID="titCantAnimales" runat="server" Text="Cantidad de animales en la lista: " Visible="False"></asp:Label><asp:Label ID="lblCantAnimales" runat="server" Visible="False"></asp:Label><br/>
+        </div>
 </asp:Content>

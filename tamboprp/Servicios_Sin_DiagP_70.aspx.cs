@@ -25,6 +25,7 @@ namespace tamboprp
         {
             var list = Fachada.Instance.GetServicios70SinDiagPrenezVaqEnt();
             this.lblCantAnimales.Text = list.Count.ToString();
+            this.titCantAnimales.Visible = true;
             this.lblCantAnimales.Visible = true;
             this.gvServicios.DataSource = list;
             this.gvServicios.DataBind();

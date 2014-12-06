@@ -33,7 +33,12 @@
  var sidebars = [];
 
  function Sidebar_Hover(sidebar , settings) {
-	var self = this;
+	var self = this, that = this;
+	
+	var attrib_values = ace.helper.getAttrSettings(sidebar, $.fn.ace_sidebar_hover.defaults);
+	this.settings = $.extend({}, $.fn.ace_sidebar_hover.defaults, settings, attrib_values);
+	
+
 	var $sidebar = $(sidebar), nav_list = $sidebar.find('.nav-list').get(0);
 	$sidebar.attr('data-sidebar-hover', 'true');
 	
@@ -41,13 +46,13 @@
 
 	var sidebar_vars = {};
 	var old_ie = ace.vars['old_ie'];
+
 	
-	var hover_delay = settings.sub_hover_delay || ace.helper.intAttr(sidebar, 'data-sub-hover-delay') || 750;
-	var scroll_style =  settings.sub_scroll_style || $sidebar.attr('data-sub-scroll-style') || 'no-track scroll-thin';
+	
 	var scroll_right = false;
 	//scroll style class
 	
-	if(hasTouch) hover_delay = parseInt(Math.max(hover_delay, 2500));//for touch device, delay is at least 2.5sec
+	if(hasTouch) self.settings.sub_hover_delay = parseInt(Math.max(self.settings.sub_hover_delay, 2500));//for touch device, delay is at least 2.5sec
 
 	var $window = $(window);
 	//navbar used for adding extra offset from top when adjusting submenu
@@ -85,7 +90,7 @@
 	}
 	
 	this.updateStyle = function(newStyle) {
-		scroll_style = newStyle;
+		sub_scroll_style = newStyle;
 		$sidebar.find('.submenu.ace-scroll').ace_scroll('update', {styleClass: newStyle});
 	}
 	this.changeDir = function(dir) {
@@ -259,7 +264,7 @@
 				if(sub) getSubScroll(sub, 'hide');
 				
 				if(typeof callback === 'function') callback.call(this);
-			}, hover_delay);
+			}, that.settings.sub_hover_delay);
 		}
 		
 		this.is_visible = function() {
@@ -415,7 +420,7 @@
 						updatePos: false,
 						reset: true,
 						mouseWheelLock: true,
-						styleClass: scroll_style
+						styleClass: self.settings.sub_scroll_style
 					});
 					ace_scroll = getSubScroll(sub);
 					
@@ -495,7 +500,12 @@
 	});
 
 	return (method_call === undefined) ? $set : method_call;
- };
+ }
+ 
+  $.fn.ace_sidebar_hover.defaults = {
+	'sub_sub_hover_delay': 750,
+	'sub_scroll_style': 'no-track scroll-thin'
+ }
  
 
 })(window.jQuery);

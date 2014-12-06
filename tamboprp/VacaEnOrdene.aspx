@@ -1,11 +1,10 @@
-﻿<%@ Page Title="Vacas en Ordeñe" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="VacaEnOrdene.aspx.cs" Inherits="tamboprp.VacaEnOrdene" %>
+﻿<%@ Page Title="Vacas en Ordeñe" Language="C#" MasterPageFile="~/Site2.Master" AutoEventWireup="true" CodeBehind="VacaEnOrdene.aspx.cs" Inherits="tamboprp.VacaEnOrdene" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    
-    <br/>
-    <br/>
-    <h2>Tabla analítica de vacas en ordeñe</h2>
+    <div class="page-header">
+        <h1><i class="menu-icon fa fa-tachometer"></i> Tabla analítica de vacas en ordeñe</h1>
+    </div>
     <div class="jumbotron">
         <p>
             <asp:Label ID="titCant" runat="server" Text="Cantidad en la categoría: " ></asp:Label><asp:Label ID="lblCant" runat="server" Text="" CssClass="label label-success"></asp:Label><br/>
