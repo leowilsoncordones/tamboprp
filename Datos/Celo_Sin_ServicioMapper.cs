@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
@@ -99,14 +100,14 @@ namespace Datos
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Celo_Sin_Servicio_Delete";
-                cmd.Parameters.Add(new SqlParameter("@REGISTRO", _registroAnimal));
+                cmd.Parameters.Add(new SqlParameter("@REGISTRO", _celo.Registro));
             }
             else if (opType == OperationType.INSERT)
             {
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Celo_Sin_Servicio_Insert";
-                cmd.Parameters.Add(new SqlParameter("@REGISTRO", _registroAnimal));
+                cmd.Parameters.Add(new SqlParameter("@REGISTRO", _celo.Registro));
                 cmd.Parameters.Add(new SqlParameter("@EVENTO", _celo.Id_evento));
                 cmd.Parameters.Add(new SqlParameter("@FECHA", _celo.Fecha));
                 cmd.Parameters.Add(new SqlParameter("@COMENTARIO", _celo.Comentarios));
@@ -117,7 +118,7 @@ namespace Datos
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Celo_Sin_Servicio_Update";
-                cmd.Parameters.Add(new SqlParameter("@REGISTRO", _registroAnimal));
+                cmd.Parameters.Add(new SqlParameter("@REGISTRO", _celo.Registro));
                 cmd.Parameters.Add(new SqlParameter("@EVENTO", _celo.Id_evento));
                 cmd.Parameters.Add(new SqlParameter("@FECHA", _celo.Fecha));
                 cmd.Parameters.Add(new SqlParameter("@COMENTARIO", _celo.Comentarios));

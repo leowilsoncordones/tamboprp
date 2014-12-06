@@ -567,6 +567,13 @@ namespace Negocio
 
             return resultArray;
         }
-        
+
+
+        public bool CeloSinServicioInsert(Celo_Sin_Servicio celo)
+        {
+            var celoMapper = new Celo_Sin_ServicioMapper(celo);
+            return celoMapper.Insert() > 0;
+        }
+
     }
 }
