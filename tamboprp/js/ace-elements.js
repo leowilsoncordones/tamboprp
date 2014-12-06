@@ -1,5 +1,5 @@
 /*!
- * Ace v1.3.2
+ * Ace v1.3.3
  */
 
 if (typeof jQuery === 'undefined') { throw new Error('Ace\'s JavaScript requires jQuery') }
@@ -10,7 +10,10 @@ if (typeof jQuery === 'undefined') { throw new Error('Ace\'s JavaScript requires
 (function($ , undefined) {
 	var Ace_Scroll = function(element , _settings) {
 		var self = this;
-		var settings = $.extend({}, $.fn.ace_scroll.defaults, _settings);
+		
+		var attrib_values = ace.helper.getAttrSettings(element, $.fn.ace_scroll.defaults);
+		var settings = $.extend({}, $.fn.ace_scroll.defaults, _settings, attrib_values);
+	
 		this.size = 0;
 		this.lock = false;
 		this.lock_anyway = false;
@@ -681,8 +684,11 @@ if (typeof jQuery === 'undefined') { throw new Error('Ace\'s JavaScript requires
  <b>Custom color picker element</b>. Converts html select elements to a dropdown color picker.
 */
 (function($ , undefined) {
-	var Ace_Colorpicker = function(element, option) {
-		var options = $.extend({}, $.fn.ace_colorpicker.defaults, option);
+	var Ace_Colorpicker = function(element, _options) {
+
+		var attrib_values = ace.helper.getAttrSettings(element, $.fn.ace_colorpicker.defaults);
+		var options = $.extend({}, $.fn.ace_colorpicker.defaults, _options, attrib_values);
+
 
 		var $element = $(element);
 		var color_list = '';
@@ -796,7 +802,9 @@ if (typeof jQuery === 'undefined') { throw new Error('Ace\'s JavaScript requires
 
 	var Ace_File_Input = function(element , settings) {
 		var self = this;
-		this.settings = $.extend({}, $.fn.ace_file_input.defaults, settings);
+		
+		var attrib_values = ace.helper.getAttrSettings(element, $.fn.ace_file_input.defaults);
+		this.settings = $.extend({}, $.fn.ace_file_input.defaults, settings, attrib_values);
 
 		this.$element = $(element);
 		this.element = element;
@@ -1353,7 +1361,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Ace\'s JavaScript requires
 	};
 
 
-	$.fn.aceFileInput.defaults = $.fn.ace_file_input.defaults = {
+	$.fn.ace_file_input.defaults = {
 		style: false,
 		no_file: 'No File ...',
 		no_icon: 'fa fa-upload',
@@ -2044,13 +2052,31 @@ if (typeof jQuery === 'undefined') { throw new Error('Ace\'s JavaScript requires
 */
 (function($ , undefined) {
 	//a wrapper for fuelux spinner
-	function Ace_Spinner(element , options) {
+	function Ace_Spinner(element , _options) {
+		var attrib_values = ace.helper.getAttrSettings(element, $.fn.ace_spinner.defaults);
+		var options = $.extend({}, $.fn.ace_spinner.defaults, _options, attrib_values);
+	
 		var max = options.max
 		max = (''+max).length
 		var width = parseInt(Math.max((max * 20 + 40) , 90))
 
 		var $element = $(element);
-		$element.addClass('spinbox-input form-control').wrap('<div class="ace-spinner middle">')
+		
+		var btn_class = 'btn-sm';//default
+		var sizing = 2;
+		if($element.hasClass('input-sm')) {
+			btn_class = 'btn-xs';
+			sizing = 1;
+		}
+		else if($element.hasClass('input-lg')) {
+			btn_class = 'btn-lg';
+			sizing = 3;
+		}
+		
+		if(sizing == 2) width += 25;
+		else if(sizing == 3) width += 50;
+		
+		$element.addClass('spinbox-input form-control text-center').wrap('<div class="ace-spinner middle">')
 
 		var $parent_div = $element.closest('.ace-spinner').spinbox(options).wrapInner("<div class='input-group'></div>")
 		var $spinner = $parent_div.data('fu.spinbox');
@@ -2059,13 +2085,13 @@ if (typeof jQuery === 'undefined') { throw new Error('Ace\'s JavaScript requires
 		{
 			$element
 			.before('<div class="spinbox-buttons input-group-btn">\
-					<button type="button" class="btn spinbox-down btn-xs '+options.btn_down_class+'">\
-						<i class="'+ ace.vars['icon'] + options.icon_down+'"></i>\
+					<button type="button" class="btn spinbox-down '+btn_class+' '+options.btn_down_class+'">\
+						<i class="icon-only '+ ace.vars['icon'] + options.icon_down+'"></i>\
 					</button>\
 				</div>')
 			.after('<div class="spinbox-buttons input-group-btn">\
-					<button type="button" class="btn spinbox-up btn-xs '+options.btn_up_class+'">\
-						<i class="'+ ace.vars['icon'] + options.icon_up+'"></i>\
+					<button type="button" class="btn spinbox-up '+btn_class+' '+options.btn_up_class+'">\
+						<i class="icon-only '+ ace.vars['icon'] + options.icon_up+'"></i>\
 					</button>\
 				</div>');
 
@@ -2075,11 +2101,11 @@ if (typeof jQuery === 'undefined') { throw new Error('Ace\'s JavaScript requires
 		else {
 			 $element
 			 .after('<div class="spinbox-buttons input-group-btn">\
-					<button type="button" class="btn spinbox-up btn-xs '+options.btn_up_class+'">\
-						<i class="'+ ace.vars['icon'] + options.icon_up+'"></i>\
+					<button type="button" class="btn spinbox-up '+btn_class+' '+options.btn_up_class+'">\
+						<i class="icon-only '+ ace.vars['icon'] + options.icon_up+'"></i>\
 					</button>\
-					<button type="button" class="btn spinbox-down btn-xs '+options.btn_down_class+'">\
-						<i class="'+ ace.vars['icon'] + options.icon_down+'"></i>\
+					<button type="button" class="btn spinbox-down '+btn_class+' '+options.btn_down_class+'">\
+						<i class="icon-only '+ ace.vars['icon'] + options.icon_down+'"></i>\
 					</button>\
 				</div>')
 
@@ -2142,7 +2168,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Ace\'s JavaScript requires
 (function($ , undefined) {
 
 	$.fn.aceTree = $.fn.ace_tree = function(options) {
-		var $options = {
+		var $defaults = {
 			'open-icon' : ace.vars['icon'] + 'fa fa-folder-open',
 			'close-icon' : ace.vars['icon'] + 'fa fa-folder',
 			'selectable' : true,
@@ -2150,9 +2176,12 @@ if (typeof jQuery === 'undefined') { throw new Error('Ace\'s JavaScript requires
 			'unselected-icon' : ace.vars['icon'] + 'fa fa-times',
 			'loadingHTML': 'Loading...'
 		}
-	
-		$options = $.extend({}, $options, options)
+
 		this.each(function() {
+		
+			var attrib_values = ace.helper.getAttrSettings(this, $defaults);
+			var $options = $.extend({}, $defaults, options, attrib_values);
+
 			var $this = $(this);
 			$this.addClass('tree').attr('role', 'tree');
 			$this.html(
@@ -2224,33 +2253,46 @@ if (typeof jQuery === 'undefined') { throw new Error('Ace\'s JavaScript requires
 */
 (function($ , undefined) {
 	var $window = $(window);
-	
+
 	function Aside(modal, settings) {
+		var self = this;
+	
 		var $modal = $(modal);
 		var placement = 'right', vertical = false;
-		var backdrop = '', invisible_backdrop = false;
+		var hasFade = $modal.hasClass('fade');//Bootstrap enables transition only when modal is ".fade"
+
+		var attrib_values = ace.helper.getAttrSettings(modal, $.fn.ace_aside.defaults);
+		this.settings = $.extend({}, $.fn.ace_aside.defaults, settings, attrib_values);
 		
-		var options = {}
-		options.fixed = settings.fixed || $modal.attr('data-fixed') == 'true';
-		options.dark = settings.background || $modal.attr('data-background') == 'true';
-		options.offset = settings.offset || $modal.attr('data-offset') == 'true';
-		options.no_scroll = !settings.body_scroll || $modal.attr('data-body-scroll') == 'false';
-		options.transition = settings.transition !== false && $modal.attr('data-transition') !== 'false';
-		options.scroll_style = settings.scroll_style || ((options.dark ? 'scroll-white' : 'scroll-dark') + ' no-track');
+		//if no scroll style specified and modal has dark background, let's make scrollbars 'white'
+		if(this.settings.background && !settings.scroll_style && !attrib_values.scroll_style) { 
+			this.settings.scroll_style = 'scroll-white no-track';
+		}
+
+		
+		this.container = this.settings.container;
+		if(this.container) {
+			try {
+				if( $(this.container).get(0) == document.body ) this.container = null;
+			} catch(e) {}
+		}
+		if(this.container) {
+			this.settings.backdrop = false;//no backdrop when inside another element?
+			$modal.addClass('aside-contained');
+		}
+
 		
 		var dialog = $modal.find('.modal-dialog');
 		var content = $modal.find('.modal-content');
+		var delay = 300;
 		
 		this.initiate = function() {
 			modal.className = modal.className.replace(/(\s|^)aside\-(right|top|left|bottom)(\s|$)/ig , '$1$3');
 
-			placement = settings.placement || $modal.attr('data-placement');
+			placement = this.settings.placement;
 			if(placement) placement = $.trim(placement.toLowerCase());
-			else placement = 'right';
-			
-			backdrop = settings.backdrop || $modal.attr('data-backdrop');
-		
-			if( !(/right|top|left|bottom/.test(placement)) ) placement = 'right';
+			if(!placement || !(/right|top|left|bottom/.test(placement))) placement = 'right';
+
 			$modal.attr('data-placement', placement);
 			$modal.addClass('aside-' + placement);
 			
@@ -2260,11 +2302,11 @@ if (typeof jQuery === 'undefined') { throw new Error('Ace\'s JavaScript requires
 			}
 			else $modal.addClass('aside-hz');//horizontal
 			
-			if( options.fixed ) $modal.addClass('aside-fixed');
-			if( options.dark ) $modal.addClass('aside-dark');
-			if( options.offset ) $modal.addClass('navbar-offset');
+			if( this.settings.fixed ) $modal.addClass('aside-fixed');
+			if( this.settings.background ) $modal.addClass('aside-dark');
+			if( this.settings.offset ) $modal.addClass('navbar-offset');
 			
-			if( !options.transition ) $modal.addClass('transition-off');
+			if( !this.settings.transition ) $modal.addClass('transition-off');
 			
 			$modal.addClass('aside-hidden');
 
@@ -2275,7 +2317,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Ace\'s JavaScript requires
 			dialog = $modal.find('.modal-dialog');
 			content = $modal.find('.modal-content');
 			
-			if(options.no_scroll) {
+			if(!this.settings.body_scroll) {
 				//don't allow body scroll when modal is open
 				$modal.on('mousewheel.aside DOMMouseScroll.aside touchmove.aside pointermove.aside', function(e) {
 					if( !$.contains(content[0], e.target) ) {
@@ -2285,38 +2327,55 @@ if (typeof jQuery === 'undefined') { throw new Error('Ace\'s JavaScript requires
 				})
 			}
 			
-			if( backdrop === false || backdrop === 'false' ) {
+			if( this.settings.backdrop == false ) {
 				$modal.addClass('no-backdrop');
 			}
-			else if(backdrop === 'invisible') invisible_backdrop = true;
 		}
 		
 		
 		this.show = function() {
-			$modal
-			.css('position', 'fixed')
-			.removeClass('aside-hidden');
+			if(this.settings.backdrop == false) {
+			  try {
+				$modal.data('bs.modal').$backdrop.remove();
+			  } catch(e){}
+			}
+	
+			if(this.container) $(this.container).addClass('overflow-hidden');
+			else $modal.css('position', 'fixed')
+			
+			$modal.removeClass('aside-hidden');
 		}
 		
 		this.hide = function() {
+			if(this.container) {
+				this.container.addClass('overflow-hidden');
+				
+				if(ace.vars['firefox']) {
+					//firefox needs a bit of forcing re-calculation
+					modal.offsetHeight;
+				}
+			}
+		
 			toggleButton();
 			
-			if(ace.vars['transition'] && !$modal.hasClass('fade')) {
+			if(ace.vars['transition'] && !hasFade) {
 				$modal.one('bsTransitionEnd', function() {
 					$modal.addClass('aside-hidden');
 					$modal.css('position', '');
-				}).emulateTransitionEnd(350);
+					
+					if(self.container) self.container.removeClass('overflow-hidden');
+				}).emulateTransitionEnd(delay);
 			}
 		}
 		
 		this.shown = function() {
 			toggleButton();
 			$('body').removeClass('modal-open').css('padding-right', '');
-
-			if( invisible_backdrop ) {
-				try {
-					$modal.data('bs.modal').$backdrop.css('opacity', 0);
-				} catch(e){}
+			
+			if( this.settings.backdrop == 'invisible' ) {
+			  try {
+				$modal.data('bs.modal').$backdrop.css('opacity', 0);
+			  } catch(e){}
 			}
 
 			var size = !vertical ? dialog.height() : content.height();
@@ -2326,8 +2385,8 @@ if (typeof jQuery === 'undefined') { throw new Error('Ace\'s JavaScript requires
 							size: size,
 							reset: true,
 							mouseWheelLock: true,
-							lockAnyway: options.no_scroll,
-							styleClass: options.scroll_style,
+							lockAnyway: !this.settings.body_scroll,
+							styleClass: this.settings.scroll_style,
 							'observeContent': true,
 							'hideOnIdle': !ace.vars['old_ie'],
 							'hideDelay': 1500
@@ -2351,14 +2410,22 @@ if (typeof jQuery === 'undefined') { throw new Error('Ace\'s JavaScript requires
 				}
 				else content.css('max-height', (!vertical ? dialog.height() : content.height())+'px');
 			}).triggerHandler('resize.modal.aside');
+			
+			
+			///////////////////////////////////////////////////////////////////////////
+			if(self.container && ace.vars['transition'] && !hasFade) {
+				$modal.one('bsTransitionEnd', function() {
+					self.container.removeClass('overflow-hidden')
+				}).emulateTransitionEnd(delay);
+			}
 		}
 		
 		
 		this.hidden = function() {
 			$window.off('.aside')
 			//$modal.off('.aside')
-			//
-			if( !ace.vars['transition'] || $modal.hasClass('fade') ) {
+			//			
+			if( !ace.vars['transition'] || hasFade ) {
 				$modal.addClass('aside-hidden');
 				$modal.css('position', '');
 			}
@@ -2403,7 +2470,9 @@ if (typeof jQuery === 'undefined') { throw new Error('Ace\'s JavaScript requires
 		
 
 		this.initiate();
-		$modal.appendTo('body'); 
+		
+		if(this.container) this.container = $(this.container);
+		$modal.appendTo(this.container || 'body'); 
 	}
 
 
@@ -2448,7 +2517,18 @@ if (typeof jQuery === 'undefined') { throw new Error('Ace\'s JavaScript requires
 		});
 
 		return (method_call === undefined) ? $set : method_call;
-	};
+	}
 	
-	$('.modal.aside').ace_aside();
+	$.fn.ace_aside.defaults = {
+		fixed: false,
+		background: false,
+		offset: false,
+		body_scroll: false,
+		transition: true,
+		scroll_style: 'scroll-dark no-track',
+		container: null,
+		backdrop: false,
+		placement: 'right'
+     }
+
 })(window.jQuery);

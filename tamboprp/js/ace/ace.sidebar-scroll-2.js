@@ -37,6 +37,15 @@
 			nav = $nav.get(0);
 
 		if(!nav) return;
+
+		
+		var attrib_values = ace.helper.getAttrSettings(sidebar, $.fn.ace_sidebar_scroll.defaults);
+		this.settings = $.extend({}, $.fn.ace_sidebar_scroll.defaults, settings, attrib_values);
+				
+		var scroll_to_active = self.settings.scroll_to_active;
+		this.only_if_fixed = self.settings.only_if_fixed;
+		
+
 			
 		var ace_sidebar = $sidebar.ace_sidebar('ref');
 		$sidebar.attr('data-sidebar-scroll', 'true');
@@ -57,20 +66,13 @@
 		this.sidebar_fixed = is_element_pos(sidebar, 'fixed');
 
 		var $avail_height, $content_height;
-			
-		var scroll_to_active = settings.scroll_to_active || ace.helper.boolAttr(sidebar, 'data-scroll-to-active') || false,
-			include_shortcuts = settings.include_shortcuts || ace.helper.boolAttr(sidebar, 'data-scroll-include-shortcuts') || false,
-			include_toggle = settings.include_toggle || ace.helper.boolAttr(sidebar, 'data-scroll-include-toggle') || false,
-			scroll_style = settings.scroll_style || $sidebar.attr('data-scroll-style') || '';
-		this.only_if_fixed = (settings.only_if_fixed || ace.helper.boolAttr(sidebar, 'data-scroll-only-fixed')) && true;
-		var lockAnyway = settings.mousewheel_lock || ace.helper.boolAttr(sidebar, 'data-mousewheel-lock') || false;
 
 		var available_height = function() {
 			//available window space
 			var offset = $nav.parent().offset();//because `$nav.offset()` considers the "scrolled top" amount as well
 			if(self.sidebar_fixed) offset.top -= ace.helper.scrollTop();
 
-			return $window.innerHeight() - offset.top - ( include_toggle ? 0 : $toggle.outerHeight() );
+			return $window.innerHeight() - offset.top - ( self.settings.include_toggle ? 0 : $toggle.outerHeight() );
 		}
 		var content_height = function() {
 			return nav.scrollHeight;
@@ -83,16 +85,16 @@
 
 			//initiate once
 			$nav.wrap('<div class="nav-wrap-up" />');
-			if(include_shortcuts && $shortcuts.length != 0) $nav.parent().prepend($shortcuts);
-			if(include_toggle && $toggle.length != 0) $nav.parent().append($toggle);
+			if(self.settings.include_shortcuts && $shortcuts.length != 0) $nav.parent().prepend($shortcuts);
+			if(self.settings.include_toggle && $toggle.length != 0) $nav.parent().append($toggle);
 
 			scroll_div = $nav.parent()
 			.ace_scroll({
 				size: available_height(),
 				reset: true,
 				mouseWheelLock: true,
-				lockAnyway: lockAnyway,
-				styleClass: scroll_style,
+				lockAnyway: self.settings.lock_anyway,
+				styleClass: self.settins.scroll_style,
 				hoverReset: false
 			})
 			.closest('.ace-scroll').addClass('nav-scroll');
@@ -101,7 +103,7 @@
 
 			scroll_content = scroll_div.find('.scroll-content').eq(0);
 
-			if(old_safari && !include_toggle) {
+			if(old_safari && !self.settings.include_toggle) {
 				var toggle = $toggle.get(0);
 				if(toggle) scroll_content.on('scroll.safari', function() {
 					ace.helper.redraw(toggle);
@@ -307,7 +309,7 @@
 	
 	
 	/////////////////////////////////////////////
-	if(!$.fn.ace_sidebar_scroll)
+	if(!$.fn.ace_sidebar_scroll) {
 	 $.fn.ace_sidebar_scroll = function (option, value) {
 		var method_call;
 
@@ -323,6 +325,17 @@
 		});
 
 		return (method_call === undefined) ? $set : method_call;
-	 };
+	 }
+	 
+	  $.fn.ace_sidebar_scroll.defaults = {
+		'scroll_to_active': true,
+		'include_shortcuts': true,
+		'include_toggle': false,
+		'scroll_style': '',
+		'lock_anyway': false,
+		'only_if_fixed': true
+     }
+	 
+	}
 
 })(window.jQuery);

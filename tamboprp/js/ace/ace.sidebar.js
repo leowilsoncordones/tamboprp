@@ -5,14 +5,16 @@
 (function($ , undefined) {
 	var sidebar_count = 0;
 
-	function Sidebar(sidebar, options) {
+	function Sidebar(sidebar, settings) {
 		var self = this;
 		this.$sidebar = $(sidebar);
 		this.$sidebar.attr('data-sidebar', 'true');
 		if( !this.$sidebar.attr('id') ) this.$sidebar.attr( 'id' , 'id-sidebar-'+(++sidebar_count) )
 
 		
-		var duration = options.duration || ace.helper.intAttr(sidebar, 'data-submenu-duration') ||300;//transition duration
+		//get a list of 'data-*' attributes that override 'defaults' and 'settings'
+		var attrib_values = ace.helper.getAttrSettings(sidebar, $.fn.ace_sidebar.defaults, 'sidebar-');
+		this.settings = $.extend({}, $.fn.ace_sidebar.defaults, settings, attrib_values);
 
 
 		//some vars
@@ -232,18 +234,18 @@
 				//close all other open submenus except for the active one
 				if(this != sub && !$(this.parentNode).hasClass('active')) {
 					height_change -= this.scrollHeight;
-					self.hide(this, duration, false);
+					self.hide(this, self.settings.duration, false);
 				}
 			  })
 			}
 
 			if( sub_hidden ) {//being shown now
-				self.show(sub, duration);
+				self.show(sub, self.settings.duration);
 				//if a submenu is being shown and another one previously started to hide, then we may need to update/hide scrollbars
 				//but if no previous submenu is being hidden, then no need to check if we need to hide the scrollbars in advance
 				if(height_change != 0) height_change += sub.scrollHeight;//we need new updated 'scrollHeight' here
 			} else {
-				self.hide(sub, duration);
+				self.hide(sub, self.settings.duration);
 				height_change -= sub.scrollHeight;
 				//== -1 means submenu is being hidden
 			}
@@ -260,19 +262,23 @@
 		})
 
 		var submenu_working = false;
-		this.show = function(sub, $duration, wait) {
-			if(wait !== false) {
-				if(submenu_working) return false;
-				submenu_working = true;
-			}
-		
-			$duration = $duration || duration;
-			
+		this.show = function(sub, $duration, shouldWait) {
+			//'shouldWait' indicates whether to wait for previous transition (submenu toggle) to be complete or not?
+			shouldWait = (shouldWait !== false);
+			if(shouldWait && submenu_working) return false;
+					
 			var $sub = $(sub);
 			var event;
 			$sub.trigger(event = $.Event('show.ace.submenu'))
-			if (event.isDefaultPrevented()) return false;
+			if (event.isDefaultPrevented()) {
+				return false;
+			}
+			
+			if(shouldWait) submenu_working = true;
 
+
+			$duration = $duration || this.settings.duration;
+			
 			$sub.css({
 				height: 0,
 				overflow: 'hidden',
@@ -297,7 +303,7 @@
 
 				if(trigger !== false) $sub.trigger($.Event('shown.ace.submenu'))
 				
-				if(wait !== false) submenu_working = false;
+				if(shouldWait) submenu_working = false;
 			}
 			
 			if( $duration > 0 && !!$.support.transition.end ) {
@@ -317,19 +323,24 @@
 		 }
 		 
 		 
-		 this.hide = function(sub, $duration, wait) {
-			if(wait !== false) {
-				if(submenu_working) return false;
-				submenu_working = true;
-			}
+		 this.hide = function(sub, $duration, shouldWait) {
+			//'shouldWait' indicates whether to wait for previous transition (submenu toggle) to be complete or not?
+			shouldWait = (shouldWait !== false);
+			if(shouldWait && submenu_working) return false;
 		 
-			$duration = $duration || duration;
-		 
+			
 			var $sub = $(sub);
 			var event;
 			$sub.trigger(event = $.Event('hide.ace.submenu'))
-			if (event.isDefaultPrevented()) return false;
+			if (event.isDefaultPrevented()) {
+				return false;
+			}
+			
+			if(shouldWait) submenu_working = true;
+			
 
+			$duration = $duration || this.settings.duration;
+			
 			$sub.css({
 				height: sub.scrollHeight,
 				overflow: 'hidden',
@@ -355,7 +366,7 @@
 
 				if(trigger !== false) $sub.trigger($.Event('hidden.ace.submenu'))
 				
-				if(wait !== false) submenu_working = false;
+				if(shouldWait) submenu_working = false;
 			}
 
 			if( $duration > 0 && !!$.support.transition.end ) {
@@ -376,7 +387,7 @@
 		 }
 
 		 this.toggle = function(sub, $duration) {
-			$duration = $duration || duration;
+			$duration = $duration || self.settings.duration;
 		 
 			if( sub.scrollHeight == 0 ) {//if an element is hidden scrollHeight becomes 0
 				if( this.show(sub, $duration) ) return 1;
@@ -501,25 +512,7 @@
 			}
 		}
 	})
-	/**
-	.on('shown.bs.collapse.sidebar hidden.bs.collapse.sidebar', '.sidebar[data-auto-hide=true]', function(e){
-		var click_event = ace.click_event+'.ace.autohide';
 
-		var sidebar = this;
-		if(e.type == 'shown') {
-			$(document).on(click_event, function(ev) {
-				if( sidebar == ev.target || $.contains(sidebar, ev.target) ) {
-					ev.stopPropagation();
-					return;
-				}
-
-				$(sidebar).collapse('hide');
-				$(document).off(click_event);
-			})
-		}
-		else $(document).off(click_event);
-	});
-	*/
 	
 	$.fn.ace_sidebar = function (option, value) {
 		var method_call;
@@ -538,6 +531,11 @@
 
 		return (method_call === undefined) ? $set : method_call;
 	};
+	
+	
+	$.fn.ace_sidebar.defaults = {
+		'duration': 300
+    }
 
 
 })(window.jQuery);

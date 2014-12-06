@@ -607,13 +607,13 @@ namespace tamboprp {
         protected global::System.Web.UI.WebControls.PlaceHolder phHistorial;
         
         /// <summary>
-        /// checkboxAll control.
+        /// cboxControles control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox checkboxAll;
+        protected global::System.Web.UI.WebControls.CheckBox cboxControles;
         
         /// <summary>
         /// gvHistoria control.

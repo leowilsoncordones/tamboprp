@@ -2,7 +2,7 @@
 
 //calendar
 .fc-toolbar  h2 {
-	font-size: 22px;
+	font-size: @font-size-calendar-header;
 	color: #65A0CE;
 }
 
@@ -15,7 +15,19 @@
 }
 .fc-event {
 	border-width: 0;    //default BORDER color
-	background-color:#ABBAC3;
+	
+	&:not([class*="label-"]) {
+	 background-color: @label-default;
+    }
+	
+	color: @label-text;
+	&.label-yellow {
+		color: @label-yellow-text;
+	}
+	&.label-light {
+		color: @label-light-text;
+	}
+	
 	padding: 1px 1px 2px 2px;
 	border-radius: 0;
 	
@@ -71,8 +83,8 @@
 .fc-state-default {
 	& , & .fc-button-inner {
 		border:none;
-		background-color:#ABBAC3;
-		color:#FFF;
+		background-color: @btn-default;
+		color: #FFF;
 		background-image:none;
 		box-shadow:none;
 		text-shadow:none;
@@ -116,15 +128,17 @@
 
 
 .external-event {
-  margin:6px 0;
-  padding:0;
+  margin: 6px 0;
+  padding: 0;
  
-  cursor:default;
-  display:block;
- 
-  color:#FFF;
-  background-color:#ABBAC3;
-  font-size: @baseFontSize;
+  cursor: default;
+  display: block;
+
+  &:not([class*="label-"]) {
+	background-color: @label-default;
+  }
+  
+  font-size: @base-font-size;
   line-height: 28px;
   
   &:hover {
@@ -133,6 +147,16 @@
   &.ui-draggable-dragging {
 	cursor:move;
   }
+  
+	color: @label-text;
+	&.label-yellow {
+		color: @label-yellow-text;
+	}
+	&.label-light {
+		color: @label-light-text;
+	}
+
+
 
 
   > .@{icon}:first-child {// the move & drag icon
@@ -141,7 +165,7 @@
 	line-height: 30px;
 	margin-right: 5px;
  
-	font-size: floor(@baseFontSize * 1.2);
+	font-size: floor(@base-font-size * 1.2);
  
 	border-right:1px solid #FFF;
  }  
@@ -169,7 +193,7 @@
 	}
 	
 	.fc-header-title > h2 {
-		font-size: floor(@baseFontSize * 1.4);
+		font-size: floor(@base-font-size * 1.4);
 		line-height: 36px;
 	}
 	

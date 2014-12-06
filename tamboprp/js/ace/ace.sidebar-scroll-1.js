@@ -30,13 +30,18 @@
 			$toggle = $sidebar.find('.sidebar-toggle').eq(0),
 			$shortcuts = $sidebar.find('.sidebar-shortcuts').eq(0);
 			
-			
-		var ace_sidebar = $sidebar.ace_sidebar('ref');
-		$sidebar.attr('data-sidebar-scroll', 'true');
-			
 		var nav = $nav.get(0);
 		if(!nav) return;
 		
+		
+		var attrib_values = ace.helper.getAttrSettings(sidebar, $.fn.ace_sidebar_scroll.defaults);
+		this.settings = $.extend({}, $.fn.ace_sidebar_scroll.defaults, settings, attrib_values);
+		var scroll_to_active = self.settings.scroll_to_active;
+	
+	
+		var ace_sidebar = $sidebar.ace_sidebar('ref');
+		$sidebar.attr('data-sidebar-scroll', 'true');
+			
 		
 		var scroll_div = null,
 			scroll_content = null,
@@ -45,15 +50,7 @@
 			track = null,
 			ace_scroll = null;
 
-		var scroll_to_active = settings.scroll_to_active || ace.helper.boolAttr(sidebar, 'data-scroll-to-active') || false,
-			include_shortcuts = settings.include_shortcuts || ace.helper.boolAttr(sidebar, 'data-scroll-include-shortcuts') || false,
-			include_toggle = settings.include_toggle || ace.helper.boolAttr(sidebar, 'data-scroll-include-toggle') || false,
-			smooth_scroll = settings.smooth_scroll || ace.helper.intAttr(sidebar, 'data-scroll-smooth') || false,
-			scrollbars_outside = settings.outside || ace.helper.boolAttr(sidebar, 'data-scroll-outside') || false,
-			scroll_style = settings.scroll_style || $sidebar.attr('data-scroll-style') || '',
-			only_if_fixed = true;
-		var lockAnyway = settings.mousewheel_lock || ace.helper.boolAttr(sidebar, 'data-mousewheel-lock') || false;
-			
+
 		this.is_scrolling = false;
 		var _initiated = false;
 		this.sidebar_fixed = is_element_pos(sidebar, 'fixed');
@@ -66,7 +63,7 @@
 			var offset = $nav.parent().offset();//because `$nav.offset()` considers the "scrolled top" amount as well
 			if(self.sidebar_fixed) offset.top -= ace.helper.scrollTop();
 
-			return $window.innerHeight() - offset.top - ( include_toggle ? 0 : $toggle.outerHeight() );
+			return $window.innerHeight() - offset.top - ( self.settings.include_toggle ? 0 : $toggle.outerHeight() );
 		}
 		var content_height = function() {
 			return nav.clientHeight;//we don't use nav.scrollHeight here, because hover submenus are considered in calculating scrollHeight despite position=absolute!
@@ -84,8 +81,8 @@
 			$nav.after('<div><div></div></div>');
 
 			$nav.wrap('<div class="nav-wrap" />');
-			if(!include_toggle) $toggle.css({'z-index': 1});
-			if(!include_shortcuts) $shortcuts.css({'z-index': 99});
+			if(!self.settings.include_toggle) $toggle.css({'z-index': 1});
+			if(!self.settings.include_shortcuts) $shortcuts.css({'z-index': 99});
 
 			scroll_div = $nav.parent().next()
 			.ace_scroll({
@@ -94,7 +91,7 @@
 				mouseWheelLock: true,
 				hoverReset: false,
 				dragEvent: true,
-				styleClass: scroll_style,
+				styleClass: self.settings.scroll_style,
 				touchDrag: false//disable touch drag event on scrollbars, we'll add a custom one later
 			})
 			.closest('.ace-scroll').addClass('nav-scroll');
@@ -107,17 +104,17 @@
 			track = $(ace_scroll.get_track());
 			bar = track.find('.scroll-bar').eq(0);
 
-			if(include_shortcuts && $shortcuts.length != 0) {
+			if(self.settings.include_shortcuts && $shortcuts.length != 0) {
 				$nav.parent().prepend($shortcuts).wrapInner('<div />');
 				$nav = $nav.parent();
 			}
-			if(include_toggle && $toggle.length != 0) {
+			if(self.settings.include_toggle && $toggle.length != 0) {
 				$nav.append($toggle);
 				$nav.closest('.nav-wrap').addClass('nav-wrap-t');//it just helps to remove toggle button's top border and restore li:last-child's bottom border
 			}
 
 			$nav.css({position: 'relative'});
-			if( scrollbars_outside === true ) scroll_div.addClass('scrollout');
+			if( self.settings.scroll_outside == true ) scroll_div.addClass('scrollout');
 			
 			nav = $nav.get(0);
 			nav.style.top = 0;
@@ -128,7 +125,7 @@
 			//mousewheel library available?
 			$nav.on(!!$.event.special.mousewheel ? 'mousewheel.ace_scroll' : 'mousewheel.ace_scroll DOMMouseScroll.ace_scroll', function(event){
 				if( !self.is_scrolling || !ace_scroll.is_active() ) {
-					return !lockAnyway;
+					return !self.settings.lock_anyway;
 				}
 				//transfer $nav's mousewheel event to scrollbars
 				return scroll_div.trigger(event);
@@ -182,7 +179,7 @@
 			
 
 			//for drag only
-			if(smooth_scroll) {
+			if(self.settings.smooth_scroll) {
 				$nav
 				.on('touchstart.nav MSPointerDown.nav pointerdown.nav', function(event) {
 					$nav.css('transition-property', 'none');
@@ -196,7 +193,7 @@
 			
 			
 
-			if(old_safari && !include_toggle) {
+			if(old_safari && !self.settings.include_toggle) {
 				var toggle = $toggle.get(0);
 				if(toggle) scroll_content.on('scroll.safari', function() {
 					ace.helper.redraw(toggle);
@@ -218,9 +215,9 @@
 			
 			
 			
-			if( typeof smooth_scroll === 'number' && smooth_scroll > 0) {
-				$nav.css({'transition-property': 'top', 'transition-duration': (smooth_scroll / 1000).toFixed(2)+'s'})
-				bar.css({'transition-property': 'top', 'transition-duration': (smooth_scroll / 1500).toFixed(2)+'s'})
+			if( typeof self.settings.smooth_scroll === 'number' && self.settings.smooth_scroll > 0) {
+				$nav.css({'transition-property': 'top', 'transition-duration': (self.settings.smooth_scroll / 1000).toFixed(2)+'s'})
+				bar.css({'transition-property': 'top', 'transition-duration': (self.settings.smooth_scroll / 1500).toFixed(2)+'s'})
 				
 				scroll_div
 				.on('drag.start', function(e) {
@@ -353,7 +350,7 @@
 				ace_scroll.disable();
 			}
 
-			if(parseInt(nav.style.top) < 0 && smooth_scroll && $.support.transition.end) {
+			if(parseInt(nav.style.top) < 0 && self.settings.smooth_scroll && $.support.transition.end) {
 				$nav.one($.support.transition.end, function() {
 					$sidebar.removeClass('sidebar-scroll');
 					$nav.off('.trans');
@@ -475,7 +472,7 @@
 	
 	
 	 /////////////////////////////////////////////
-	 if(!$.fn.ace_sidebar_scroll)
+	 if(!$.fn.ace_sidebar_scroll) {
 	  $.fn.ace_sidebar_scroll = function (option, value) {
 		var method_call;
 
@@ -491,6 +488,19 @@
 		});
 
 		return (method_call === undefined) ? $set : method_call;
-	 };
+	 }
+	 
+	 
+	 $.fn.ace_sidebar_scroll.defaults = {
+		'scroll_to_active': true,
+		'include_shortcuts': true,
+		'include_toggle': false,
+		'smooth_scroll': 150,
+		'scroll_outside': false,
+		'scroll_style': '',
+		'lock_anyway': false
+     }
+	 
+	}
 
 })(window.jQuery);

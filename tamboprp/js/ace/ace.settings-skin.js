@@ -36,6 +36,7 @@
 			//we set "href" after insertion, for IE to work
 			
 			applyChanges(skin_class);
+			if(window.Pace && Pace.running)	Pace.stop();
 		})
 	}
 	else {

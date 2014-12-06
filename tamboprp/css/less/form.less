@@ -145,7 +145,7 @@ input[type="color"] {
  
  padding: 5px 4px 6px;
  //line-height: 1.3;
- font-size: @font-size-base;
+ font-size: @font-size-text-input;
  font-family: inherit;
 
  .box-shadow(none) !important;
@@ -166,18 +166,18 @@ input[type="color"] {
  }
 }
 
-input::-webkit-input-placeholder {
+input::-webkit-input-placeholder, .form-control::-webkit-input-placeholder {
 	color: @input-placeholder-color;
 }
-input:-moz-placeholder { //FF 4 - 18
-	color: @input-placeholder-color;
-	opacity: 1;
-}
-input::-moz-placeholder { //FF 19+
+input:-moz-placeholder, .form-control:-moz-placeholder { //FF 4 - 18
 	color: @input-placeholder-color;
 	opacity: 1;
 }
-input:-ms-input-placeholder { //IE 10+
+input::-moz-placeholder, .form-control::-moz-placeholder { //FF 19+
+	color: @input-placeholder-color;
+	opacity: 1;
+}
+input:-ms-input-placeholder, .form-control:-ms-input-placeholder { //IE 10+
 	color: @input-placeholder-color;
 }
 
@@ -236,7 +236,7 @@ textarea.autosize-transition {
   border-top: none;
   background-color: #333;
   padding: 3px 6px;
-  font-size: @font-size-base - 1;
+  font-size: @base-font-size;
   color:#FFF;
   margin-top:6px;
   &:after {

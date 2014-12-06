@@ -37,6 +37,7 @@ namespace tamboprp
             list.AddRange(_listOrd);
             list.AddRange(_listSec);
             this.lblCantAnimales.Text = list.Count.ToString();
+            this.titCantAnimales.Visible = true;
             this.lblCantAnimales.Visible = true;
             this.gvServicios.DataSource = list;
             this.gvServicios.DataBind();

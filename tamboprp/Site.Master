@@ -34,6 +34,8 @@
     <script src="js/ace/ace.sidebar.js"></script>
     <script src="js/ace/ace.sidebar-scroll-1.js"></script>
     <script src="js/ace/ace.sidebar-scroll-2.js"></script>
+    
+    
 
     <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
 </head>
@@ -44,7 +46,7 @@
         $('.sidebar').ace_sidebar('toggleMenu');
         $('.sidebar').ace_sidebar('toggleMenu', toggleButton);
         $('.sidebar').ace_sidebar('toggleMenu', false);
-        $('.sidebar').ace_sidebar('toggleMenu', [toggleButton, false/true ]);
+        $('.sidebar').ace_sidebar('toggleMenu', [toggleButton, true ]);
         $('#sidebar').ace_sidebar('collapse');
         $('#sidebar').ace_sidebar('collapse', toggleButton);
         $('#sidebar').ace_sidebar('toggle', [sub, 300]);
@@ -62,7 +64,6 @@
         });
 
     </script>
-    
 
     <form runat="server">
         <!-- navbar top -->
@@ -89,8 +90,7 @@
                     <asp:LoginView runat="server" ViewStateMode="Disabled">
                         <AnonymousTemplate>
                             <ul class="nav navbar-nav navbar-right">
-                                <li><a runat="server" href="~/Account/Register">Register</a></li>
-                                <li><a runat="server" href="~/Account/Login">Log in</a></li>
+                                <li><a runat="server" href="Login.aspx">Log in</a></li>
                             </ul>
                         </AnonymousTemplate>
                         <LoggedInTemplate>
@@ -137,18 +137,16 @@
                       <ul class="submenu">
                        <li><a href="Animales.aspx">Fichas</a></li>
                        <li><a href="Lactancias.aspx">Lactancias</a></li>
-                       <li><a href="Genealogia.aspx">Genealogía</a></li>
-                       <li><a href="Default.aspx">Enfermedades</a></li>
-                       <li><a href="Default.aspx">Categorías</a></li>
                       </ul>
                     </li>
                     <li>
-                    <a href="VacaEnOrdene.aspx">
+                    <a href="Produccion.aspx">
 					    <i class="menu-icon fa fa-cogs"></i>
 					    <span class="menu-text"> Producción </span>
 				    </a>
                        <ul class="submenu">
                        <li><a href="Remitos.aspx">Remitos a planta</a></li>
+                       <li><a href="ControlProduccionUltimo.aspx">Ultimo Control de Producción</a></li>
                       </ul>
                     </li>
                     <li>
@@ -162,6 +160,9 @@
 					    <i class="menu-icon fa fa-bar-chart-o"></i>
 					    <span class="menu-text"> Reportes </span>
 				    </a>
+                       <ul class="submenu">
+                       <li><a href="GraficaLeche.aspx">Producción Leche</a></li>
+                       </ul>
                     </li>
                     <li>
                     <a href="Calendario_Partos.aspx">
@@ -170,6 +171,9 @@
 				    </a>
                       <ul class="submenu">
                        <li><a href="Calendario_Partos.aspx">Calendario de Partos</a></li>
+                       <li><a href="Servicios_Sin_DiagP_70.aspx">35 días servicios sin diagnostico de preñez</a></li>
+                       <li><a href="Servicios_Sin_DiagP_70.aspx">70 días servicios sin diagnostico de preñez</a></li>
+                       <li><a href="Servicios_Sin_DiagP_70.aspx">80 días en lactancia y sin servicio</a></li>
                       </ul>
                     </li>
                     <li>
@@ -177,6 +181,10 @@
 					    <i class="menu-icon fa fa-trophy"></i>
 					    <span class="menu-text"> Cabaña </span>
 				    </a>
+                       <ul class="submenu">
+                        <li><a href="Genealogia.aspx">Genealogía</a></li>
+                        <li><a href="Default.aspx">Concursos</a></li>
+                      </ul>
                     </li>
                     <li>
                     <a href="Personal.aspx">
@@ -185,7 +193,7 @@
 				    </a>
                     </li>
                     <li>
-                    <a href="Personal.aspx">
+                    <a href="Notificaciones.aspx">
 					    <i class="menu-icon fa fa-bell-o"></i>
 					    <span class="menu-text"> Notificaciones </span>
 				    </a>
@@ -196,6 +204,8 @@
 					    <span class="menu-text"> Sistema </span>
 				    </a>
                       <ul class="submenu">
+                       <li><a href="Default.aspx">Enfermedades</a></li>
+                       <li><a href="Default.aspx">Categorías</a></li>
                        <li><a href="Default.aspx">Usuarios</a></li>
                       </ul>
                     </li>
@@ -211,7 +221,7 @@
              </div><!-- /.sidebar -->
   
              <div class="main-content">
-              <div class="breadcrumbs">
+              <div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
                <!-- breadcrumbs goes here -->
               </div>
    
@@ -228,8 +238,6 @@
                         <footer>
                             <p>&copy; <%: DateTime.Now.Year %> | <small><span class="ace-icon fa fa-check-square-o" aria-hidden="true"></span></small><strong> tambo<span class="text-primary">prp</span></strong> | todos los derechos reservados</p>
                         </footer>
-                      
-                      
 
                   </div><!-- /.col -->
                 </div><!-- /.row -->

@@ -2,12 +2,11 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <br/>
-    <br/>
-    <h3>Calendario de Partos</h3>
-
+    <div class="page-header">
+        <h1><i class="menu-icon fa fa-calendar"></i> Calendario de partos</h1>
+    </div>
     <div class="row">
-        <div class="col-md-4 wrapper">
+        <div class="col-md-4">
             <div class="input-group">
                 <span class="input-group-btn">
                     <asp:Button ID="btnListar" runat="server" Text="Listar" onclick="btnListar_Click" CssClass="btn btn-white btn-default" />

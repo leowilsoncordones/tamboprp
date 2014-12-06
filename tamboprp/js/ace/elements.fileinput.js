@@ -9,7 +9,9 @@
 
 	var Ace_File_Input = function(element , settings) {
 		var self = this;
-		this.settings = $.extend({}, $.fn.ace_file_input.defaults, settings);
+		
+		var attrib_values = ace.helper.getAttrSettings(element, $.fn.ace_file_input.defaults);
+		this.settings = $.extend({}, $.fn.ace_file_input.defaults, settings, attrib_values);
 
 		this.$element = $(element);
 		this.element = element;
@@ -566,7 +568,7 @@
 	};
 
 
-	$.fn.aceFileInput.defaults = $.fn.ace_file_input.defaults = {
+	$.fn.ace_file_input.defaults = {
 		style: false,
 		no_file: 'No File ...',
 		no_icon: 'fa fa-upload',

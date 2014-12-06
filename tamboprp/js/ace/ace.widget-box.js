@@ -35,7 +35,7 @@
 		
 		this.toggle = function(type, button) {
 			var $box = this.$box;
-			var $body = $box.find('.widget-body');
+			var $body = $box.find('.widget-body').eq(0);
 			var $icon = null;
 			
 			var event_name = typeof type !== 'undefined' ? type : ($box.hasClass('collapsed') ? 'show' : 'hide');
@@ -190,7 +190,7 @@
 	
 		
 	function applyScrollbars($widget, enable) {
-		var $main = $widget.find('.widget-main');
+		var $main = $widget.find('.widget-main').eq(0);
 		$(window).off('resize.widget.scroll');
 		
 		//IE8 has an unresolvable issue!!! re-scrollbaring with unknown values?!

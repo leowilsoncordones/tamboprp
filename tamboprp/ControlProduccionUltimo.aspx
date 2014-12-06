@@ -1,11 +1,28 @@
 ﻿<%@ Page Title="Control Producción Ultimo" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ControlProduccionUltimo.aspx.cs" Inherits="tamboprp.ControlProduccionUltimo" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <link href="css/font-awesome.css" rel="stylesheet" />
+    <link href="css/ace-fonts.css" rel="stylesheet" />
+    <link href="css/chosen.css" rel="stylesheet" />
+    <link href="css/ui.jqgrid.css" rel="stylesheet" />
+    <link href="css/ace.css" rel="stylesheet" />
+    <link href="css/ace-part2.css" rel="stylesheet" />
+    <link href="css/ace-skins.css" rel="stylesheet" />
+    <link href="css/ace-rtl.css" rel="stylesheet" />
+    <link href="css/ace-ie.css" rel="stylesheet" />
+    <script src="js/ace-extra.js"></script>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery1x.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/excanvas.js"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <br/>
-    <br/>
-    <div>
-        <h3>Último control de producción: <asp:Label ID="lblFecha" runat="server" Visible="False"></asp:Label></h3>
+    
+        <div class="page-header">
+            <h1><i class="menu-icon fa fa-cogs"></i> Último control de producción: <asp:Label ID="lblFecha" runat="server" Visible="False"></asp:Label></h1>
+        </div>
         <p>        
         <asp:GridView ID="gvControlProdUltimo" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" 
             CssClass="table table-hover table-striped table-bordered table-condensed dataTable"
@@ -30,8 +47,9 @@
         <EditRowStyle />
         <AlternatingRowStyle />
         </asp:GridView>
-        <h4><asp:Label ID="titCantAnimales" runat="server" Text="Cantidad de vacas en ordeñe: " Visible="False"></asp:Label><asp:Label ID="lblCantAnimales" runat="server" ></asp:Label><br/></h4>
         </p>
-    </div><br />
+        <div>
+            <h4><asp:Label ID="titCantAnimales" runat="server" Text="Cantidad de vacas en ordeñe: " Visible="False"></asp:Label><asp:Label ID="lblCantAnimales" runat="server" ></asp:Label><br/></h4>
+        </div><br />
 
 </asp:Content>

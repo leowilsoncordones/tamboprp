@@ -5,7 +5,9 @@
     <script src="Scripts/jquery-1.9.0.js" type="text/javascript"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    
+    <div class="page-header">
+        <h1><i class="menu-icon fa fa-plug"></i> Tambo</h1>
+    </div>
     
 
 </asp:Content>

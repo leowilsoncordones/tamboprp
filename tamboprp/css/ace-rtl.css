@@ -963,6 +963,13 @@
 .rtl .badge {
 	text-align: center;
 }
+.rtl .list-group-item > .badge {
+	float: left;
+}
+.rtl .list-group-item > .badge + .badge {
+	margin-right: auto;
+	margin-left: 5px;
+}
 .rtl .nav-pills > li > a > .badge {
 	margin-left: auto;
 	margin-right: 3px;
@@ -986,13 +993,6 @@
 .rtl .list-group {
 	padding-left: 0;
 	padding-right: 0;
-}
-.rtl .list-group-item > .badge {
-	float: left;
-}
-.rtl .list-group-item > .badge + .badge {
-	margin-right: auto;
-	margin-left: 5px;
 }
 .rtl .panel {
 	-webkit-box-shadow: -0 1px 1px rgba(0, 0, 0, 0.05);
@@ -1130,9 +1130,13 @@
 	margin-left: auto;
 	margin-right: 190px;
 }
-.rtl .ajax-loading-overlay {
+.rtl .ajax-loading-overlay > .ajax-loading-icon {
 	left: auto;
-	right: 12px;
+	right: 8px;
+}
+.rtl .ajax-loading-overlay.ajax-overlay-body > .ajax-loading-icon {
+	left: auto;
+	right: 8px;
 }
 .rtl .ace-icon {
 	text-align: center;
@@ -1170,6 +1174,10 @@
 }
 .rtl .pagination > li > a,.rtl .pager > li > a {
 	margin: 0 0 0 -1px;
+}
+.rtl .list-group {
+	margin-left: auto;
+	margin-right: auto;
 }
 .rtl .center,.rtl .align-center {
 	text-align: center !important;
@@ -2250,7 +2258,7 @@
 .rtl .btn > .icon-only.ace-icon {
 	text-align: center;
 }
-.rtl .btn-large > .ace-icon {
+.rtl .btn-lg > .ace-icon {
 	margin-right: auto;
 	margin-left: 6px;
 }
@@ -2258,7 +2266,7 @@
 	margin-right: auto;
 	margin-left: 3px;
 }
-.rtl .btn-xs > .ace-icon,.rtl .btn-minier > .ace-icon {
+.rtl .btn-xs > .ace-icon,.rtl .btn-mini > .ace-icon,.rtl .btn-minier > .ace-icon {
 	margin-right: auto;
 	margin-left: 2px;
 }
@@ -2307,13 +2315,13 @@
 	border-bottom-left-radius: 6px;
 	border-top-left-radius: 6px;
 }
-.rtl .btn-group.btn-corner > .btn.btn-xs:first-child {
+.rtl .btn-group.btn-corner > .btn.btn-xs:first-child,.rtl .btn-group.btn-corner > .btn.btn-mini:first-child {
 	border-bottom-left-radius: 0;
 	border-top-left-radius: 0;
 	border-bottom-right-radius: 4px;
 	border-top-right-radius: 4px;
 }
-.rtl .btn-group.btn-corner > .btn.btn-xs:last-child {
+.rtl .btn-group.btn-corner > .btn.btn-xs:last-child,.rtl .btn-group.btn-corner > .btn.btn-mini:last-child {
 	border-bottom-right-radius: 0;
 	border-top-right-radius: 0;
 	border-bottom-left-radius: 4px;
@@ -2344,6 +2352,10 @@
 .rtl .btn.btn-app.btn-light,.rtl .btn.btn-app.btn-yellow {
 	-webkit-box-shadow: -0 0 0 1px rgba(0, 0, 0, 0.08) inset !important;
 	box-shadow: -0 0 0 1px rgba(0, 0, 0, 0.08) inset !important;
+}
+.rtl .label.label-white {
+	border-right-width: 2px;
+	border-left-width: 1px;
 }
 .rtl .dropdown-submenu > a:after {
 	margin-right: auto;
@@ -2537,6 +2549,10 @@
 }
 .rtl .widget-toolbox.center {
 	text-align: center;
+}
+.rtl .widget-toolbox.toolbox-vertical {
+	border-right: none;
+	border-left: 1px solid #D9D9D9;
 }
 .rtl .widget-box-overlay {
 	text-align: center;
@@ -3073,6 +3089,13 @@
 .rtl .dataTable > thead > tr > th[class*=sort]:after {
 	float: left;
 }
+.rtl ul.ColVis_collection > li.ColVis_Special > a {
+	text-align: center;
+}
+.rtl div.ColVis_collectionBackground {
+	left: auto;
+	right: 0;
+}
 .rtl .fc-event {
 	padding: 1px 2px 2px 1px;
 }
@@ -3135,12 +3158,9 @@
 .rtl #cboxLoadingGraphic > .ace-icon {
 	text-align: center;
 }
-.rtl .ace-spinner .spinbox-buttons > .btn {
+.rtl .ace-spinner .spinbox-buttons.btn-group-vertical > .btn {
 	margin-left: auto;
 	margin-right: 0;
-}
-.rtl .ace-spinner .spinbox-input {
-	text-align: center;
 }
 .rtl .steps li {
 	text-align: center;
@@ -3904,7 +3924,7 @@
 .rtl.skin-1 .sidebar .nav-list > li.active.highlight > a:before {
 	border-left-color: transparent;
 	-moz-border-left-colors: none;
-	border-width: 21px 11px 21px 0;
+	border-width: 20px 10px 20px 0;
 	right: auto;
 	border-right-color: #506b7f;
 	-moz-border-right-colors: #506b7f;

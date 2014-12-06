@@ -19,5 +19,7 @@
     <script src="js/excanvas.js"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h1 class="page-header"><i class="menu-icon fa fa-desktop"></i> Sistema</h1>
+    <div class="page-header">
+        <h1><i class="menu-icon fa fa-desktop"></i> Sistema</h1>
+    </div>
 </asp:Content>

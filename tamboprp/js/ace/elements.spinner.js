@@ -4,13 +4,31 @@
 */
 (function($ , undefined) {
 	//a wrapper for fuelux spinner
-	function Ace_Spinner(element , options) {
+	function Ace_Spinner(element , _options) {
+		var attrib_values = ace.helper.getAttrSettings(element, $.fn.ace_spinner.defaults);
+		var options = $.extend({}, $.fn.ace_spinner.defaults, _options, attrib_values);
+	
 		var max = options.max
 		max = (''+max).length
 		var width = parseInt(Math.max((max * 20 + 40) , 90))
 
 		var $element = $(element);
-		$element.addClass('spinbox-input form-control').wrap('<div class="ace-spinner middle">')
+		
+		var btn_class = 'btn-sm';//default
+		var sizing = 2;
+		if($element.hasClass('input-sm')) {
+			btn_class = 'btn-xs';
+			sizing = 1;
+		}
+		else if($element.hasClass('input-lg')) {
+			btn_class = 'btn-lg';
+			sizing = 3;
+		}
+		
+		if(sizing == 2) width += 25;
+		else if(sizing == 3) width += 50;
+		
+		$element.addClass('spinbox-input form-control text-center').wrap('<div class="ace-spinner middle">')
 
 		var $parent_div = $element.closest('.ace-spinner').spinbox(options).wrapInner("<div class='input-group'></div>")
 		var $spinner = $parent_div.data('fu.spinbox');
@@ -19,13 +37,13 @@
 		{
 			$element
 			.before('<div class="spinbox-buttons input-group-btn">\
-					<button type="button" class="btn spinbox-down btn-xs '+options.btn_down_class+'">\
-						<i class="'+ ace.vars['icon'] + options.icon_down+'"></i>\
+					<button type="button" class="btn spinbox-down '+btn_class+' '+options.btn_down_class+'">\
+						<i class="icon-only '+ ace.vars['icon'] + options.icon_down+'"></i>\
 					</button>\
 				</div>')
 			.after('<div class="spinbox-buttons input-group-btn">\
-					<button type="button" class="btn spinbox-up btn-xs '+options.btn_up_class+'">\
-						<i class="'+ ace.vars['icon'] + options.icon_up+'"></i>\
+					<button type="button" class="btn spinbox-up '+btn_class+' '+options.btn_up_class+'">\
+						<i class="icon-only '+ ace.vars['icon'] + options.icon_up+'"></i>\
 					</button>\
 				</div>');
 
@@ -35,11 +53,11 @@
 		else {
 			 $element
 			 .after('<div class="spinbox-buttons input-group-btn">\
-					<button type="button" class="btn spinbox-up btn-xs '+options.btn_up_class+'">\
-						<i class="'+ ace.vars['icon'] + options.icon_up+'"></i>\
+					<button type="button" class="btn spinbox-up '+btn_class+' '+options.btn_up_class+'">\
+						<i class="icon-only '+ ace.vars['icon'] + options.icon_up+'"></i>\
 					</button>\
-					<button type="button" class="btn spinbox-down btn-xs '+options.btn_down_class+'">\
-						<i class="'+ ace.vars['icon'] + options.icon_down+'"></i>\
+					<button type="button" class="btn spinbox-down '+btn_class+' '+options.btn_down_class+'">\
+						<i class="icon-only '+ ace.vars['icon'] + options.icon_down+'"></i>\
 					</button>\
 				</div>')
 

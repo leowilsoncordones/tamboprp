@@ -3,33 +3,46 @@
 */
 (function($ , undefined) {
 	var $window = $(window);
-	
+
 	function Aside(modal, settings) {
+		var self = this;
+	
 		var $modal = $(modal);
 		var placement = 'right', vertical = false;
-		var backdrop = '', invisible_backdrop = false;
+		var hasFade = $modal.hasClass('fade');//Bootstrap enables transition only when modal is ".fade"
+
+		var attrib_values = ace.helper.getAttrSettings(modal, $.fn.ace_aside.defaults);
+		this.settings = $.extend({}, $.fn.ace_aside.defaults, settings, attrib_values);
 		
-		var options = {}
-		options.fixed = settings.fixed || $modal.attr('data-fixed') == 'true';
-		options.dark = settings.background || $modal.attr('data-background') == 'true';
-		options.offset = settings.offset || $modal.attr('data-offset') == 'true';
-		options.no_scroll = !settings.body_scroll || $modal.attr('data-body-scroll') == 'false';
-		options.transition = settings.transition !== false && $modal.attr('data-transition') !== 'false';
-		options.scroll_style = settings.scroll_style || ((options.dark ? 'scroll-white' : 'scroll-dark') + ' no-track');
+		//if no scroll style specified and modal has dark background, let's make scrollbars 'white'
+		if(this.settings.background && !settings.scroll_style && !attrib_values.scroll_style) { 
+			this.settings.scroll_style = 'scroll-white no-track';
+		}
+
+		
+		this.container = this.settings.container;
+		if(this.container) {
+			try {
+				if( $(this.container).get(0) == document.body ) this.container = null;
+			} catch(e) {}
+		}
+		if(this.container) {
+			this.settings.backdrop = false;//no backdrop when inside another element?
+			$modal.addClass('aside-contained');
+		}
+
 		
 		var dialog = $modal.find('.modal-dialog');
 		var content = $modal.find('.modal-content');
+		var delay = 300;
 		
 		this.initiate = function() {
 			modal.className = modal.className.replace(/(\s|^)aside\-(right|top|left|bottom)(\s|$)/ig , '$1$3');
 
-			placement = settings.placement || $modal.attr('data-placement');
+			placement = this.settings.placement;
 			if(placement) placement = $.trim(placement.toLowerCase());
-			else placement = 'right';
-			
-			backdrop = settings.backdrop || $modal.attr('data-backdrop');
-		
-			if( !(/right|top|left|bottom/.test(placement)) ) placement = 'right';
+			if(!placement || !(/right|top|left|bottom/.test(placement))) placement = 'right';
+
 			$modal.attr('data-placement', placement);
 			$modal.addClass('aside-' + placement);
 			
@@ -39,11 +52,11 @@
 			}
 			else $modal.addClass('aside-hz');//horizontal
 			
-			if( options.fixed ) $modal.addClass('aside-fixed');
-			if( options.dark ) $modal.addClass('aside-dark');
-			if( options.offset ) $modal.addClass('navbar-offset');
+			if( this.settings.fixed ) $modal.addClass('aside-fixed');
+			if( this.settings.background ) $modal.addClass('aside-dark');
+			if( this.settings.offset ) $modal.addClass('navbar-offset');
 			
-			if( !options.transition ) $modal.addClass('transition-off');
+			if( !this.settings.transition ) $modal.addClass('transition-off');
 			
 			$modal.addClass('aside-hidden');
 
@@ -54,7 +67,7 @@
 			dialog = $modal.find('.modal-dialog');
 			content = $modal.find('.modal-content');
 			
-			if(options.no_scroll) {
+			if(!this.settings.body_scroll) {
 				//don't allow body scroll when modal is open
 				$modal.on('mousewheel.aside DOMMouseScroll.aside touchmove.aside pointermove.aside', function(e) {
 					if( !$.contains(content[0], e.target) ) {
@@ -64,38 +77,55 @@
 				})
 			}
 			
-			if( backdrop === false || backdrop === 'false' ) {
+			if( this.settings.backdrop == false ) {
 				$modal.addClass('no-backdrop');
 			}
-			else if(backdrop === 'invisible') invisible_backdrop = true;
 		}
 		
 		
 		this.show = function() {
-			$modal
-			.css('position', 'fixed')
-			.removeClass('aside-hidden');
+			if(this.settings.backdrop == false) {
+			  try {
+				$modal.data('bs.modal').$backdrop.remove();
+			  } catch(e){}
+			}
+	
+			if(this.container) $(this.container).addClass('overflow-hidden');
+			else $modal.css('position', 'fixed')
+			
+			$modal.removeClass('aside-hidden');
 		}
 		
 		this.hide = function() {
+			if(this.container) {
+				this.container.addClass('overflow-hidden');
+				
+				if(ace.vars['firefox']) {
+					//firefox needs a bit of forcing re-calculation
+					modal.offsetHeight;
+				}
+			}
+		
 			toggleButton();
 			
-			if(ace.vars['transition'] && !$modal.hasClass('fade')) {
+			if(ace.vars['transition'] && !hasFade) {
 				$modal.one('bsTransitionEnd', function() {
 					$modal.addClass('aside-hidden');
 					$modal.css('position', '');
-				}).emulateTransitionEnd(350);
+					
+					if(self.container) self.container.removeClass('overflow-hidden');
+				}).emulateTransitionEnd(delay);
 			}
 		}
 		
 		this.shown = function() {
 			toggleButton();
 			$('body').removeClass('modal-open').css('padding-right', '');
-
-			if( invisible_backdrop ) {
-				try {
-					$modal.data('bs.modal').$backdrop.css('opacity', 0);
-				} catch(e){}
+			
+			if( this.settings.backdrop == 'invisible' ) {
+			  try {
+				$modal.data('bs.modal').$backdrop.css('opacity', 0);
+			  } catch(e){}
 			}
 
 			var size = !vertical ? dialog.height() : content.height();
@@ -105,8 +135,8 @@
 							size: size,
 							reset: true,
 							mouseWheelLock: true,
-							lockAnyway: options.no_scroll,
-							styleClass: options.scroll_style,
+							lockAnyway: !this.settings.body_scroll,
+							styleClass: this.settings.scroll_style,
 							'observeContent': true,
 							'hideOnIdle': !ace.vars['old_ie'],
 							'hideDelay': 1500
@@ -130,14 +160,22 @@
 				}
 				else content.css('max-height', (!vertical ? dialog.height() : content.height())+'px');
 			}).triggerHandler('resize.modal.aside');
+			
+			
+			///////////////////////////////////////////////////////////////////////////
+			if(self.container && ace.vars['transition'] && !hasFade) {
+				$modal.one('bsTransitionEnd', function() {
+					self.container.removeClass('overflow-hidden')
+				}).emulateTransitionEnd(delay);
+			}
 		}
 		
 		
 		this.hidden = function() {
 			$window.off('.aside')
 			//$modal.off('.aside')
-			//
-			if( !ace.vars['transition'] || $modal.hasClass('fade') ) {
+			//			
+			if( !ace.vars['transition'] || hasFade ) {
 				$modal.addClass('aside-hidden');
 				$modal.css('position', '');
 			}
@@ -182,7 +220,9 @@
 		
 
 		this.initiate();
-		$modal.appendTo('body'); 
+		
+		if(this.container) this.container = $(this.container);
+		$modal.appendTo(this.container || 'body'); 
 	}
 
 
@@ -227,7 +267,18 @@
 		});
 
 		return (method_call === undefined) ? $set : method_call;
-	};
+	}
 	
-	$('.modal.aside').ace_aside();
+	$.fn.ace_aside.defaults = {
+		fixed: false,
+		background: false,
+		offset: false,
+		body_scroll: false,
+		transition: true,
+		scroll_style: 'scroll-dark no-track',
+		container: null,
+		backdrop: false,
+		placement: 'right'
+     }
+
 })(window.jQuery);

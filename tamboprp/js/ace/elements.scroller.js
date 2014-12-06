@@ -4,7 +4,10 @@
 (function($ , undefined) {
 	var Ace_Scroll = function(element , _settings) {
 		var self = this;
-		var settings = $.extend({}, $.fn.ace_scroll.defaults, _settings);
+		
+		var attrib_values = ace.helper.getAttrSettings(element, $.fn.ace_scroll.defaults);
+		var settings = $.extend({}, $.fn.ace_scroll.defaults, _settings, attrib_values);
+	
 		this.size = 0;
 		this.lock = false;
 		this.lock_anyway = false;

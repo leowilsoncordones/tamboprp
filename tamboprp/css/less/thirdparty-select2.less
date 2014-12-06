@@ -20,8 +20,8 @@
 .select2-container .select2-choice abbr , .select2-search-choice-close {
     background: none;
 	&:before {
-		font-family:FontAwesome;
-		font-size: 12px;
+		font-family: FontAwesome;
+		font-size: @base-font-size - 1;
 		display: inline;
 		content: "\f00d";
 		color: #888;
@@ -74,7 +74,7 @@
     background: none;
 	&:before {
 		font-family: FontAwesome;
-		font-size: 12px;
+		font-size: @base-font-size - 1;
 		display: inline;
 		content: "\f0d7";
 		color: #888;
@@ -93,7 +93,7 @@
 	}
 	&:after {
 		font-family: FontAwesome;
-		font-size: 14px;
+		font-size: @base-font-size + 1;
 		display: inline;
 		content: "\f002";
 		color: #777;
@@ -113,7 +113,7 @@
 	border: none !important;
 	.box-shadow(none) !important;
 	background: none !important;
-	font-size: @font-size-base;
+	font-size: @font-size-text-input;
 }
 .select2-container-multi .select2-choices .select2-search-choice {
 	line-height: 16px;
@@ -201,7 +201,7 @@
 		background-color:@tag-bg;
 		color: #FFFFFF;
 		display: inline-block;
-		font-size: @baseFontSize;
+		font-size: @base-font-size;
 		font-weight: normal;
 		margin-bottom: 3px;
 		margin-right: 0;
@@ -230,7 +230,7 @@
 			&:before {
 				color: #FFF;
 				position: static;
-				font-size: 11px;
+				font-size: @base-font-size - 2;
 			}
 			
 			&:hover {

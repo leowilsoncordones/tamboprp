@@ -51,7 +51,7 @@ namespace tamboprp
         {
             var lst = new List<VoListItem>();
             var item1 = new VoListItem { Id = 10, Nombre = "10" }; lst.Add(item1);
-            var item2 = new VoListItem { Id = 25, Nombre = "25" }; lst.Add(item2);
+            var item2 = new VoListItem { Id = 20, Nombre = "20" }; lst.Add(item2);
             var item3 = new VoListItem { Id = 50, Nombre = "50" }; lst.Add(item3);
             var item4 = new VoListItem { Id = 100, Nombre = "100" }; lst.Add(item4);
             var item5 = new VoListItem { Id = -1, Nombre = "Todas" }; lst.Add(item5);
@@ -59,7 +59,7 @@ namespace tamboprp
             this.ddlCantidad.DataSource = lst;
             this.ddlCantidad.DataTextField = "Nombre";
             this.ddlCantidad.DataValueField = "Id";
-            this.ddlCantidad.SelectedValue="25";
+            this.ddlCantidad.SelectedValue="20";
             this.ddlCantidad.DataBind();
         }
 

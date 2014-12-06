@@ -5,6 +5,7 @@ using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Windows.Forms;
 using Datos;
 using Negocio;
 using Entidades;
@@ -478,7 +479,7 @@ namespace tamboprp
             // cargo list items recorriendo la lista
             for (int i = 0 ; i < list.Count; i++)
             {
-                sb.Append("<li><a id='item_" + i + "' href='#' onserverclick='ddlSimilares_SelectedIndexChanged();'>");
+                sb.Append("<li class='btn-lg'><a id='item_" + i + "' href='#' onserverclick='ddlSimilares_SelectedIndexChanged();'>");
                 sb.Append(list[i].Registro.ToString());
                 sb.Append("</a></li>");
             }
@@ -489,6 +490,34 @@ namespace tamboprp
             this.divContenedorDdl.InnerHtml += sb.ToString();
         }
 
+        //protected void btn_update_Click(object sender, EventArgs e)
+        //{
+        //    foreach (GridViewRow gvr in GridView1.Rows)
+        //    {
+        //        if (((CheckBox)gvr.findcontrol("Checkbox")).Checked == true)
+        //        {
+        //            //Do stuff with checked row
+        //            gvr.Visible = false;
+        //        }
+
+        //    }
+        //}
+
+        public void cBoxControles_CheckedChanged(Object sender, EventArgs e)
+        {
+            //MessageBox.Show("checked");
+            foreach (GridViewRow gvr in gvHistoria.Rows)
+            {
+                if (gvr.DataItem == "Control de Producción")
+                {
+                    if (cboxControles.Checked)
+                    {
+                        gvr.Visible = true;
+                    }
+                    else gvr.Visible = false;
+                }
+            }
+        }
        
     }
 }

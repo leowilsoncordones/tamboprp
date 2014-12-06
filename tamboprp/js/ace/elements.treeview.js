@@ -5,7 +5,7 @@
 (function($ , undefined) {
 
 	$.fn.aceTree = $.fn.ace_tree = function(options) {
-		var $options = {
+		var $defaults = {
 			'open-icon' : ace.vars['icon'] + 'fa fa-folder-open',
 			'close-icon' : ace.vars['icon'] + 'fa fa-folder',
 			'selectable' : true,
@@ -13,9 +13,12 @@
 			'unselected-icon' : ace.vars['icon'] + 'fa fa-times',
 			'loadingHTML': 'Loading...'
 		}
-	
-		$options = $.extend({}, $options, options)
+
 		this.each(function() {
+		
+			var attrib_values = ace.helper.getAttrSettings(this, $defaults);
+			var $options = $.extend({}, $defaults, options, attrib_values);
+
 			var $this = $(this);
 			$this.addClass('tree').attr('role', 'tree');
 			$this.html(
