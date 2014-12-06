@@ -508,10 +508,11 @@ namespace tamboprp
             //MessageBox.Show("checked");
             foreach (GridViewRow gvr in gvHistoria.Rows)
             {
-                if (gvr.DataItem == "Control de Producción")
+                if (gvr.Cells[1].Text == "Control de Producción")
                 {
                     if (cboxControles.Checked)
                     {
+
                         gvr.Visible = true;
                     }
                     else gvr.Visible = false;
