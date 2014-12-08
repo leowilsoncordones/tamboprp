@@ -6,7 +6,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server" >
     <div class="page-header">
-        <h1><i class="menu-icon fa fa-tachometer"></i> Tablero <small><i class="ace-icon fa fa-angle-double-right"></i> información general, notificaciones e indicadores</small></h1>
+        <h1><i class="menu-icon fa fa-tachometer"></i> Tablero <small><i class="ace-icon fa fa-angle-double-right"></i> resumen y estadísticas</small></h1>
     </div>
   <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true" />  
 
@@ -16,6 +16,19 @@
     <div class="col-md-2"></div>
    </div>
     <br/>
+    
+    <form onsubmit="testFunction()" name="testForm">
+        <input type="text" name="tb_test" id="idTest" value="0"/>
+        <input type="text" name="tb_test" id="idTest1" value="1"/>
+        <input type="submit" class="btn" value="test button" />
+        <br/>
+    </form>
+    <br/>
+    <input type="button" class="btn" value="otro button" onclick="testFunction()"/>
+            <div name="divTest">
+                <label id="testLabelId">Inicio</label>
+            </div>
+    
     <script src="js/ace-extra.js" ></script>
     
     
@@ -92,6 +105,34 @@
 
         }
 
+        function testFunction() {
+            var x = $('#idTest').val();
+            var y = $('#idTest1').val();
+            alert("HOLAAA " + x + " " + y);
+
+            $.ajax({
+                type: "post",
+                url: "Tablero.aspx/TestAjax",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify({ dato1: x, dato2: y }),
+                success: function (result) {
+                    OnSuccess1(result.d);
+                },
+                error: function (xhr, status, error) {
+                    OnFailure1(error);
+                }
+            });
+        }
+
+        function OnSuccess1(data) {
+            if (data) {
+                $('#testLabelId').text(data);
+            }
+        }
+        function OnFailure1(error) {
+            alert(error);
+        }
 
     </script>
     <script src="js/html5shiv.js"></script>

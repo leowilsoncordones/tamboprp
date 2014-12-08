@@ -6,6 +6,7 @@ using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Datos;
+using Microsoft.Ajax.Utilities;
 using Negocio;
 
 namespace tamboprp
@@ -14,7 +15,7 @@ namespace tamboprp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         [WebMethod]
@@ -22,5 +23,12 @@ namespace tamboprp
         {
             return Fachada.Instance.ControlTotalGetAll();
         }
+
+        [WebMethod]
+        public static string TestAjax(string dato1, string dato2)
+        {
+            return dato1 + " leonardo " + dato2;
+        }
+
     }
 }

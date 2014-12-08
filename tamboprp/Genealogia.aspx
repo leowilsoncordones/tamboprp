@@ -20,7 +20,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="page-header">
-        <h1><i class="menu-icon fa fa-sitemap"></i> Genealogía</h1>
+        <h1><i class="menu-icon fa fa-puzzle-piece"></i> Genealogía</h1>
     </div>
         <!-- Busqueda -->
         <div class="row">

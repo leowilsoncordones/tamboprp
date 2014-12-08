@@ -22,6 +22,15 @@ namespace tamboprp
             this.LimpiarRegistro();
         }
 
+        protected void PageBreadcrums()
+        {
+            //var sb = new StringBuilder();
+            ////<div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
+            //sb.Append("<ul class='breadcrumb'><li><i class='ace-icon fa fa-home home-icon'></i><a href='#'>Home</a></li>");
+            //sb.Append("<li class='active'>Dashboard</li></ul>");
+            //Master.FindControl(breadcrumbs).InnerHtml += sb.ToString()));
+        }
+
         public void CargarFichaAnimal()
         {
             if (_animal != null)
@@ -416,16 +425,14 @@ namespace tamboprp
             //    this.BuscarAnimal(btn.Text);
             //}
         }
-
-
+        
         protected void btnSimilares_click(object sender, EventArgs e)
         {
             /*if (this.ddlSimilares.SelectedIndex > 0)
                 this.BuscarAnimal(this.ddlSimilares.SelectedValue);*/
                 
         }
-
-
+        
         protected void BuscarAnimal(string registro)
         {
             this.LimpiarRegistro();
@@ -464,7 +471,6 @@ namespace tamboprp
                 this.lblAnimal.Text = "No existe";
             }
         }
-
 
         private void BootstrapDropDownListLargeList(List<Animal> list)
         {
@@ -505,19 +511,22 @@ namespace tamboprp
 
         public void cBoxControles_CheckedChanged(Object sender, EventArgs e)
         {
-            //MessageBox.Show("checked");
-            foreach (GridViewRow gvr in gvHistoria.Rows)
+            foreach (GridViewRow rw in gvHistoria.Rows)
             {
-                if (gvr.Cells[1].Text == "Control de Producción")
-                {
-                    if (cboxControles.Checked)
-                    {
-
-                        gvr.Visible = true;
-                    }
-                    else gvr.Visible = false;
-                }
+                if (rw.Cells[1].Text == "Control de Producción")
+                    rw.Visible = false;
             }
+        }
+
+        public void gvHistoria_RowDataBound(Object sender, GridViewRowEventArgs e)
+        {
+            //OnRowDataBound="gvHistoria_RowDataBound" en aspx
+
+            //foreach (GridViewRow rw in gvHistoria.Rows)
+            //{
+            //    if (rw.Cells[1].Text == "Control de Producción")
+            //        e.Row.Visible = false;
+            //}
         }
        
     }

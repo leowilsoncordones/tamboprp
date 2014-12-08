@@ -79,7 +79,6 @@
 						<button class="btn btn-warning"><i class="ace-icon fa fa-user"></i></button>
                         <button class="btn btn-danger"><i class="ace-icon fa fa-bell-o"></i></button>
 					</div>
-
 					<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
 						<span class="btn btn-success"></span>
 						<span class="btn btn-info"></span>
@@ -132,14 +131,14 @@
                     </li>
                     <li>
                     <a href="Calendario_Partos.aspx">
-					    <i class="menu-icon fa fa-sitemap"></i>
+					    <i class="menu-icon fa fa-flask"></i>
 					    <span class="menu-text"> Reproducción </span>
 				    </a>
                       <ul class="submenu">
-                       <li><a href="Calendario_Partos.aspx">Calendario de Partos</a></li>
-                       <li><a href="Servicios_Sin_DiagP_70.aspx">35 días servicios sin diagnostico de preñez</a></li>
-                       <li><a href="Servicios_Sin_DiagP_70.aspx">70 días servicios sin diagnostico de preñez</a></li>
-                       <li><a href="Servicios_Sin_DiagP_70.aspx">80 días en lactancia y sin servicio</a></li>
+                       <li><a href="Calendario_Partos.aspx"> Calendario de Partos </a></li>
+                       <li><a href="Servicios_Sin_DiagP_70.aspx">Vacas con 35 días servicios y sin diagnóstico de preñez</a></li>
+                       <li><a href="Servicios_Sin_DiagP_70.aspx">Vacas con 70 días servicios y sin diagnóstico de preñez</a></li>
+                       <li><a href="Servicios_Sin_DiagP_70.aspx">Vacas con 80 días en lactancia y sin servicio</a></li>
                       </ul>
                     </li>
                     <li>
@@ -148,8 +147,8 @@
 					    <span class="menu-text"> Cabaña </span>
 				    </a>
                        <ul class="submenu">
-                        <li><a href="Genealogia.aspx">Genealogía</a></li>
-                        <li><a href="Default.aspx">Concursos</a></li>
+                        <li><a href="Genealogia.aspx"> Genealogía </a></li>
+                        <li><a href="Default.aspx"> Concursos </a></li>
                       </ul>
                     </li>
                     <li>
@@ -165,7 +164,7 @@
 				    </a>
                     </li>
                     <li>
-                    <a href="Sistema.aspx">
+                    <a href="Sitio.aspx">
 					    <i class="menu-icon fa fa-desktop"></i>
 					    <span class="menu-text"> Sistema </span>
 				    </a>
@@ -173,6 +172,8 @@
                        <li><a href="Default.aspx">Enfermedades</a></li>
                        <li><a href="Default.aspx">Categorías</a></li>
                        <li><a href="Default.aspx">Usuarios</a></li>
+                       <li><a href="Sitio.aspx">Sitio</a></li>
+                       <li><a href="Default.aspx">Ayuda</a></li>
                       </ul>
                     </li>
                 </ul>
@@ -187,7 +188,7 @@
              </div><!-- /.sidebar -->
   
              <div class="main-content">
-              <div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
+              <div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs" runat="server">
                <!-- breadcrumbs goes here -->
               </div>
    

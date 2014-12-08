@@ -247,6 +247,7 @@
     <Content Include="img_tamboprp\animales\reg_3110_expoprado2013.jpg" />
     <Content Include="img_tamboprp\animales\reg_digger.png" />
     <Content Include="img_tamboprp\animales\reg_manoman.jpg" />
+    <Content Include="Indicadores.aspx" />
     <Content Include="js\ace-elements.js" />
     <Content Include="js\ace-extra.js" />
     <Content Include="js\ace.js" />
@@ -380,6 +381,7 @@
     <Content Include="js\typeahead.jquery.js" />
     <Content Include="js\x-editable\ace-editable.js" />
     <Content Include="js\x-editable\bootstrap-editable.js" />
+    <Content Include="Sitio.aspx" />
     <Content Include="Lactancias.aspx" />
     <Content Include="Calendario_Partos.aspx" />
     <Content Include="LactanciasSinServ80.aspx" />
@@ -746,6 +748,20 @@
     </Compile>
     <Compile Include="Genealogia.aspx.designer.cs">
       <DependentUpon>Genealogia.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Indicadores.aspx.cs">
+      <DependentUpon>Indicadores.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Indicadores.aspx.designer.cs">
+      <DependentUpon>Indicadores.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sitio.aspx.cs">
+      <DependentUpon>Sitio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sitio.aspx.designer.cs">
+      <DependentUpon>Sitio.aspx</DependentUpon>
     </Compile>
     <Compile Include="Lactancias.aspx.cs">
       <DependentUpon>Lactancias.aspx</DependentUpon>

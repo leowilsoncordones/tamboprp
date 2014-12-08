@@ -26,12 +26,22 @@
                     <span class="ace-icon fa fa-check-square-o" aria-hidden="true"></span>
                     <span> tambo</span><strong class="text-primary">prp</strong>
                 </h1>
-                    <form class="form-group-lg">
-                    <div class="form-group"><input type="text" class="form-control input-lg" placeholder="Usuario" required autofocus></div>
-                    <div class="form-group"><input type="password" class="form-control input-lg" placeholder="Contraseña" required></div>
-                    <div class="form-group"><button class="btn btn-lg btn-primary btn-block btn-round" type="submit">Ingresar</button></div>
-                    <a href="#" class="pull-right">Me olvide la contraseña! </a><span class="clearfix"></span>
-                    </form>
+                <div class="form-group">
+                    <div class="input-group">
+						<span class="input-group-addon"><i class="ace-icon fa fa-user fa-lg"></i></span>
+                        <input class="form-control input-lg" type="text" placeholder="Usuario" id="form-field-mask-2">
+					</div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+						<span class="input-group-addon"><i class="ace-icon fa fa-lock fa-lg"></i></span>
+                        <input type="password" class="form-control input-lg" placeholder="Contraseña" required>
+					</div>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block btn-round" type="submit">Ingresar</button>
+                </div>
+                <a href="#" class="pull-right">Me olvide la contraseña! </a><span class="clearfix"></span>
             </div>
         </div>
     </div>

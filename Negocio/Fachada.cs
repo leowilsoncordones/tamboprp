@@ -19,6 +19,7 @@ namespace Negocio
         private static CategoriaMapper _catMapper = new CategoriaMapper();
         private static CategConcursoMapper _catConcMapper = new CategConcursoMapper();
         private static EmpleadoMapper _empMapper = new EmpleadoMapper();
+        private static TipoEventoMapper _tevMapper = new TipoEventoMapper();
 
         private Fachada()
         {
@@ -321,9 +322,6 @@ namespace Negocio
             return enfMap.GetAll();
         }
 
-
-
-
         public List<DateTime> GetMeses()
         {
             var lista = new List<DateTime>();
@@ -568,9 +566,26 @@ namespace Negocio
             return resultArray;
         }
 
-        public void GuardarEvento(string formReg, string formDate, string formCom)
+
+        public bool CeloSinServicioInsert(Celo_Sin_Servicio celo)
         {
-            throw new NotImplementedException();
+            var celoMapper = new Celo_Sin_ServicioMapper(celo);
+            return celoMapper.Insert() > 0;
+        }
+
+        public List<TipoEvento> GetTipoEventosAnimal()
+        {
+            return _tevMapper.GetAll();
+        }
+
+        public List<CategoriaConcurso> GetCategoriasConcurso()
+        {
+            return _catConcMapper.GetAll();
+        }
+
+        public List<Empleado> GetInseminadores()
+        {
+            return _empMapper.GetAll();
         }
     }
 }

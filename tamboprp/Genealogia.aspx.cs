@@ -315,7 +315,7 @@ namespace tamboprp
                 // hay resultados similares y se presentan en el ddl como ayuda
                 if (_similares.Count > 0)
                 {
-                    //this.BootstrapDropDownListLargeList(_similares);
+                    //this.CargarDdlListSimilares(_similares); VER ANIMALES
                 }
                 if (_animal != null)
                 {
@@ -332,6 +332,15 @@ namespace tamboprp
                 this.LimpiarRegistro();
             }
         }
+
+        //private void CargarDdlListSimilares(List<Animal> list)
+        //{
+        //    // Large button group dinámico para resultados similares
+        //    this.ddlSimilares.DataSource = list;
+        //    this.ddlSimilares.DataTextField = "Nombre";
+        //    this.ddlSimilares.DataValueField = "Nombre";
+        //    this.ddlSimilares.DataBind();
+        //}
 
         private void LimpiarRegistro()
         {

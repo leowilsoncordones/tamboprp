@@ -11,20 +11,21 @@
     <link href="css/ace-rtl.css" rel="stylesheet" />
     <link href="css/ace-ie.css" rel="stylesheet" />
     
+    <script src="js/ace/ace.searchbox-autocomplete.js"></script>
+
     <link href="css/datepicker.css" rel="stylesheet" />
     
     <script src="js/ace-extra.js"></script>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.js"></script>
+    <script src="js/jquery-ui.js"></script>
     <script src="js/jquery.js"></script>
     <script src="js/jquery1x.js"></script>
     <script src="js/excanvas.js"></script>
     <script src="js/bootstrap.js"></script>
 
     <script src="js/date-time/bootstrap-datepicker.js"></script>
-
-    <link href="css/jquery-ui.custom.css" rel="stylesheet" />
-
+    
     <script type="text/javascript">
         $(function () {
             $('#datepicker').datepicker({
@@ -43,48 +44,173 @@
     <div class="row">
         <div class="col-sm-12">
             
-            <!-- Panel para ingreso de celo sin servicio -->
-                <!-- Registro -->
-                <div id="formulario" class="form-group form-group-lg">
+            <!-- Registro -->
+            <div id="formulario" class="form-horizontal">
+                <div class="form-group">
+		            <label class="col-sm-3 control-label no-padding-right"> Seleccione tipo de evento </label>
+			        <div class="col-sm-3">
+			            <asp:DropDownList ID="ddlEvento" CssClass="form-control col-xs-10 col-sm-5" AutoPostBack="True" OnSelectedIndexChanged="ddlEvento_SelectedIndexChanged" runat="server" ></asp:DropDownList>
+			        </div>
+                    <div class="col-sm-12"></div>
+		        </div>
+                <!-- GENERAL - Registro -->
+                <div class="form-group">
 		            <label class="col-sm-3 control-label no-padding-right"> Registro </label>
 			        <div class="col-sm-2">
 			            <input type="text" runat="server" id="fRegistro" placeholder="Registro" class="form-control col-xs-10 col-sm-5" />
 			        </div>
+                    <div class="col-sm-12"></div>
 		        </div>
-                <div class="space-4"></div>
-
-                <!-- Fecha -->
+                <!-- GENERAL - Fecha -->
                 <div class="form-group">
                     <label class="col-sm-3 control-label no-padding-right"> Fecha </label>
 					<div class="col-sm-2">
 						<div class="input-group date">
-						    <input type="text" data-date-format="dd/mm/YYYY" id="datepicker" class="form-control col-xs-10 col-sm-5" runat="server"/>
+						    <input type="text" data-date-format="dd/mm/YYYY" placeholder="dd/mm/AAAA" id="datepicker" class="form-control col-xs-10 col-sm-5" runat="server"/>
 							<span class="input-group-addon"><i class="ace-icon fa fa-calendar"></i></span>
 						</div>
 					</div>
+                    <div class="col-sm-12"></div>
                 </div>
-
-                <!-- Comentario -->
+                <!-- ABORTO -->
+                <asp:Panel ID="pnlAborto" runat="server">
                 <div class="form-group">
-			        <label class="col-sm-3 control-label no-padding-right"> Comentario </label>
+                    <label class="col-sm-3 control-label no-padding-right"> Registro servicio </label>
+			        <div class="col-sm-2">
+			            <input type="text" runat="server" id="fRegistroServ" readonly placeholder="Registro Servicio" class="form-control col-xs-10 col-sm-5" />
+			        </div>
+                    <div class="col-sm-12"></div>
+                </div>
+                </asp:Panel>
+                <!-- CALIFICACIONES -->
+                <asp:Panel ID="pnlCalif" runat="server">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"> Letras </label>
+                    <div class="col-sm-2">
+			            <asp:DropDownList ID="ddlCalificacion" CssClass="form-control col-xs-10 col-sm-5" AutoPostBack="True" OnSelectedIndexChanged="ddlCalif_SelectedIndexChanged" runat="server" ></asp:DropDownList>
+			        </div>
+                </div>
+                <div class="form-group" id="dCalifPuntos">
+                    <label class="col-sm-3 control-label no-padding-right"> Puntos </label>
+                    <div class="col-sm-2">
+			            <asp:DropDownList ID="ddlCalificacionPts" CssClass="form-control col-xs-10 col-sm-5" runat="server" ></asp:DropDownList>
+			        </div>
+                    <div class="col-sm-12"></div>
+                </div>
+                </asp:Panel>
+                <!-- CONTROLES -->
+                <asp:Panel ID="pnlControles" runat="server">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"> Leche </label>
+                    <div class="col-sm-2">
+			            <input type="text" runat="server" id="fControl" placeholder="Leche en kilos" class="form-control col-xs-10 col-sm-5" />
+			        </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"> Grasa </label>
+                    <div class="col-sm-2">
+			            <input type="text" runat="server" id="fGrasa" placeholder="Grasa en kilos" class="form-control col-xs-10 col-sm-5" />
+			        </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"> Días Lactancia </label>
+                    <div class="col-sm-2">
+			            <input type="text" readonly runat="server" id="fLeche" placeholder="" class="form-control col-xs-10 col-sm-5" />
+			        </div>
+                    <div class="col-sm-12"></div>
+                </div>
+                </asp:Panel>
+                <!-- DIAGNOSTICO -->
+                <asp:Panel ID="pnlDiagnostico" runat="server">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"> Diagnóstico </label>
+                    <div class="col-sm-2">
+                        <asp:DropDownList ID="ddlDiagnostico" CssClass="form-control col-xs-10 col-sm-5" runat="server" ></asp:DropDownList>
+			        </div>
+                </div>
+                </asp:Panel>
+                <!-- SECADO -->
+                <asp:Panel ID="pnlSecado" runat="server">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"> Motivo de secado </label>
+                    <div class="col-sm-3">
+			            <asp:DropDownList ID="ddlMotivoSec" AutoPostBack="True" CssClass="form-control col-xs-10 col-sm-5" OnSelectedIndexChanged="ddlMotivoSec_SelectedIndexChanged" runat="server" ></asp:DropDownList>
+			        </div>
+                </div>
+                </asp:Panel>
+                <!-- BAJAS -->
+                <asp:Panel ID="pnlBajas" runat="server">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"> Enfermedad </label>
+			        <div class="col-sm-3">
+			            <input type="text" runat="server" id="fEnfermedad" placeholder="Enfermedad" class="form-control col-xs-10 col-sm-5" />
+			        </div>
+                    <div class="col-sm-12"></div>
+                </div>
+                </asp:Panel>
+                <!-- SERVICIO -->
+                <asp:Panel ID="pnlServicio" runat="server">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"> Monta natural </label>
+                    <div class="col-sm-2">
+					    <label>
+						    <input name="switchMontaNat" class="ace ace-switch ace-switch-6" type="checkbox">
+						    <span class="lbl"></span>
+					    </label>
+				    </div>
+                    <div class="col-sm-12"></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"> Registro padre </label>
+			        <div class="col-sm-2">
+			            <input type="text" runat="server" id="fRegPadre" placeholder="Registro padre" class="form-control col-xs-10 col-sm-5" />
+			        </div>
+                    <div class="col-sm-12"></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"> Inseminador </label>
+			        <div class="col-sm-3">
+			            <input type="text" runat="server" id="fInseminador" placeholder="Inseminador" class="form-control ui-autocomplete-input col-xs-10 col-sm-5" />
+			        </div>
+                    <div class="col-sm-12"></div>
+                </div>
+                </asp:Panel>
+                <!-- CONCURSO -->
+                <asp:Panel ID="pnlConcurso" runat="server">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"> Categoría de concurso </label>
+                    <div class="col-sm-3">
+			            <asp:DropDownList ID="ddlCategConcurso" CssClass="form-control col-xs-10 col-sm-5" runat="server" ></asp:DropDownList>
+			        </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"> Premio </label>
+			        <div class="col-sm-5">
+			            <input type="text" runat="server" id="fPremio" placeholder="Ej. Gran Campeona" class="form-control col-xs-10 col-sm-5" />
+			        </div>
+                    <div class="col-sm-12"></div>
+                </div>
+                </asp:Panel>
+                <!-- GENERAL - Comentarios -->
+                <div class="form-group">
+			        <label class="col-sm-3 control-label no-padding-right"> Comentarios </label>
 			        <div class="col-sm-5">
 			            <textarea class="form-control" id="fComentario" rows="3" runat="server"></textarea>
 			        </div>
+                    <div class="col-sm-12"></div>
 		        </div>
-                <div class="space-4"></div>
-
-                <!-- Submit Boton -->
+                <!-- Botones -->
                 <div class="form-group">
-                <div class="col-md-offset-3 col-md-9">
-                    <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-info" Text="Guardar" OnClick="btn_GuardarEvento" />
-				</div>
-                </div><br/>
-            
-            <asp:Label ID="lblVer" runat="server" Text="Label"></asp:Label>
-            
-
+                    <div class="col-md-offset-3 col-md-9">
+                        <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-info" Text="Guardar" OnClick="btn_GuardarEvento" />
+                        &nbsp;&nbsp;&nbsp;
+                        <asp:Button ID="btnReset" runat="server" CssClass="btn btn-default" Text="Limpiar" OnClick="btn_LimpiarFormulario" />
+				    </div>
+                </div>
+            </div>
         </div>
     </div>
-    
+
+    <asp:Label ID="lblVer" runat="server" Text="Label" Visible="False"></asp:Label>
 
 </asp:Content>

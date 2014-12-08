@@ -145,7 +145,7 @@
                             <div class="row">
                                   <div class="col-md-4"></div>
                                   <div class="col-md-8 text-right text-info">
-                                      <asp:CheckBox ID="cboxControles" Text="Mostrar Controles" Checked="False" OnCheckedChanged="cBoxControles_CheckedChanged" runat="server" />
+                                      <asp:CheckBox ID="cboxControles" CssClass="ace" Text=" Mostrar Controles" Checked="False" OnCheckedChanged="cBoxControles_CheckedChanged" runat="server" />
                                   </div>
                             </div>
                             <asp:GridView ID="gvHistoria" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" 
