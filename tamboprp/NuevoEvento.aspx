@@ -237,14 +237,7 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        $(function () {
-            $('#datepicker').datepicker({
-                autoclose: true,
-                todayHighlight: true
-            });
-        });
-    </script>
+
     <script src="js/typeahead.jquery.js"></script>
     <script src="js/js_tamboprp/NuevoEvento.js"></script>
     <asp:Label ID="lblVer" runat="server" Text="Label" Visible="False"></asp:Label>

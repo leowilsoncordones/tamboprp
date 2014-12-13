@@ -93,7 +93,7 @@ namespace tamboprp
 
         private bool GuardarEvento()
         {
-        string strDate = this.datepicker.Value;
+        string strDate = this.mydate.Value;
             switch (int.Parse(this.ddlEvento.SelectedValue))
             {
                 case 0: // ABORTO
@@ -131,7 +131,7 @@ namespace tamboprp
 
         private bool GuardarAborto()
         {
-            string strDate = this.datepicker.Value;
+            string strDate = this.mydate.Value;
             var aborto = new Aborto
             {
                 Id_evento = 0,
@@ -145,7 +145,7 @@ namespace tamboprp
 
         private bool GuardarCeloSinServicio()
         {
-            string strDate = this.datepicker.Value;
+            string strDate = this.mydate.Value;
             var celoSinServ = new Celo_Sin_Servicio
             {
                 Id_evento = 2,
@@ -158,7 +158,7 @@ namespace tamboprp
 
         private bool GuardarServicio()
         {
-            string strDate = this.datepicker.Value;
+            string strDate = this.mydate.Value;
             var insemin = new Empleado { Nombre = fInseminador.Value };
             var monta = checkMontaNat.Checked ? 'S' : 'N';
             var serv = new Servicio
@@ -176,7 +176,7 @@ namespace tamboprp
 
         private bool GuardarSecado()
         {
-            string strDate = this.datepicker.Value;
+            string strDate = this.mydate.Value;
             var sec = new Secado
             {
                 Id_evento = 4,
@@ -191,7 +191,7 @@ namespace tamboprp
 
         private bool GuardarDiagPrenez()
         {
-            string strDate = this.datepicker.Value;
+            string strDate = this.mydate.Value;
             var diagp = new Diag_Prenez
             {
                 Id_evento = 7,
@@ -205,7 +205,7 @@ namespace tamboprp
 
         private bool GuardarControlProduccion()
         {
-            string strDate = this.datepicker.Value;
+            string strDate = this.mydate.Value;
             var control = new Control_Producc
             {
                 Id_evento = 8,
@@ -220,7 +220,7 @@ namespace tamboprp
 
         private bool GuardarCalificacion()
         {
-            string strDate = this.datepicker.Value;
+            string strDate = this.mydate.Value;
             var calif = new Calificacion
             {
                 Id_evento = 9,
@@ -235,7 +235,7 @@ namespace tamboprp
 
         private bool GuardarConcurso()
         {
-            string strDate = this.datepicker.Value;
+            string strDate = this.mydate.Value;
             var cat = new CategoriaConcurso {Id_categ = Int16.Parse(ddlCategConcurso.SelectedValue)};
             var lugconc = new LugarConcurso {Id = int.Parse(ddlNomConcurso.SelectedValue)};
             var concurso = new Concurso
@@ -253,7 +253,7 @@ namespace tamboprp
 
         private bool GuardarVenta()
         {
-            string strDate = this.datepicker.Value;
+            string strDate = this.mydate.Value;
             var venta = new Venta
             {
                 Id_evento = 11,
@@ -266,7 +266,7 @@ namespace tamboprp
 
         private bool GuardarMuerte()
         {
-            string strDate = this.datepicker.Value;
+            string strDate = this.mydate.Value;
             var muerte = new Muerte
             {
                 Id_evento = 12,
