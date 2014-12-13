@@ -102,6 +102,7 @@
                       <ul class="submenu">
                        <li><a href="Animales.aspx">Fichas</a></li>
                        <li><a href="Lactancias.aspx">Lactancias</a></li>
+                       <li><a href="ListadoPorCategoria.aspx">Listado Por Categoría</a></li>
                       </ul>
                     </li>
                     <li>

@@ -33,6 +33,8 @@
         <ul class="submenu">
             <li><a href="Animales.aspx">Fichas</a></li>
             <li><a href="Lactancias.aspx">Lactancias</a></li>
+            <li><a href="ListadoPorCategoria.aspx">Listado Por Categoría</a></li>
+            
         </ul>
     <a href="Produccion.aspx"><i class="menu-icon fa fa-cogs"></i><span class="menu-text"> Producción </span></a>
         <ul class="submenu">
@@ -52,8 +54,8 @@
     <a href="Calendario_Partos.aspx"><i class="menu-icon fa fa-flask"></i><span class="menu-text"> Reproducción </span></a>
         <ul class="submenu">
             <li><a href="Calendario_Partos.aspx">Calendario de Partos</a></li>
-            <li><a href="Servicios_Sin_DiagP_35.aspx">Vacas con 35 días de servicio y sin diagnostico de preñez</a></li>
-            <li><a href="Servicios_Sin_DiagP_70.aspx">Vacas con 70 días servicios y sin diagnostico de preñez</a></li>
+            <li><a href="Servicios_Sin_DiagP_35.aspx">Vacas con 35 días de servicio y sin diagnóstico de preñez</a></li>
+            <li><a href="Servicios_Sin_DiagP_70.aspx">Vacas con 70 días servicios y sin diagnóstico de preñez</a></li>
             <li><a href="LactanciasSinServ80.aspx">Vacas con 80 días en lactancia y sin servicio</a></li>
         </ul>
     <a href="Cabana.aspx"><i class="menu-icon fa fa-trophy"></i><span class="menu-text"> Cabaña </span></a>

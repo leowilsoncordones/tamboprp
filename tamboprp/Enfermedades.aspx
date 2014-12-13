@@ -10,12 +10,25 @@
     <link href="css/ace-skins.css" rel="stylesheet" />
     <link href="css/ace-rtl.css" rel="stylesheet" />
     <link href="css/ace-ie.css" rel="stylesheet" />
+    
+    <script src="js/otros/bs.pagination.js"></script>
+    
     <script src="js/ace-extra.js"></script>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.js"></script>
     <script src="js/jquery.js"></script>
     <script src="js/jquery1x.js"></script>
     <script src="js/bootstrap.js"></script>
+    
+    
+    <script type="text/javascript">
+        function pageLoad() {
+            $('.bs-pagination td table').each(function (index, obj) {
+                convertToPagination(obj);
+            });
+        }
+    </script>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="page-header">
@@ -26,7 +39,7 @@
             <div>
                 <p>        
                 <asp:GridView ID="gvEnfermedades" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" 
-                    CssClass="table table-hover table-striped table-bordered table-condensed dataTable" 
+                    CssClass="table table-hover table-striped table-bordered table-condensed dataTable" PagerStyle-CssClass="bs-pagination"  
                     AllowPaging="true" AllowSorting="true" PageSize="20" OnPageIndexChanging="GvEnfermedades_PageIndexChanging" >
                 <RowStyle HorizontalAlign="Left"  />
                 <Columns>
@@ -34,8 +47,7 @@
                     <asp:BoundField DataField="Nombre_enfermedad" HeaderText="Nombre" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
                 </Columns>
                 <FooterStyle />
-                <PagerStyle CssClass="pagination pull-right" />
-                <PagerSettings mode="Numeric" position="Bottom" pagebuttoncount="5" />
+                <PagerSettings mode="Numeric" pagebuttoncount="5" />
                 <SelectedRowStyle />
                 <HeaderStyle />
                 <EditRowStyle />

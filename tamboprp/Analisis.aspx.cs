@@ -12,6 +12,7 @@ namespace tamboprp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            this.SetPageBreadcrumbs();
             this.LimpiarRegistro();
 
             // cargo tabla analitica de vacas en ordeñe
@@ -30,6 +31,18 @@ namespace tamboprp
             this.lblCantSecas.Text = Fachada.Instance.GetCantSecas().ToString();
             this.lblFechaUltControl.Text = Fachada.Instance.GetFechaUltimoControl().ToString();
 
+        }
+
+        protected void SetPageBreadcrumbs()
+        {
+            var list = new List<VoListItemDuplaString>();
+            list.Add(new VoListItemDuplaString("Análisis", ""));
+            var strB = PageControl.SetBreadcrumbsPath(list);
+            if (Master != null)
+            {
+                var divBreadcrumbs = Master.FindControl("breadcrumbs") as System.Web.UI.HtmlControls.HtmlGenericControl;
+                if (divBreadcrumbs != null) divBreadcrumbs.InnerHtml = strB.ToString();
+            }
         }
 
         private void LimpiarRegistro()

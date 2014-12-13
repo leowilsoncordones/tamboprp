@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Negocio;
 
 namespace tamboprp
 {
@@ -11,7 +12,19 @@ namespace tamboprp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            this.SetPageBreadcrumbs();
+        }
 
+        protected void SetPageBreadcrumbs()
+        {
+            var list = new List<VoListItemDuplaString>();
+            list.Add(new VoListItemDuplaString("Producción", ""));
+            var strB = PageControl.SetBreadcrumbsPath(list);
+            if (Master != null)
+            {
+                var divBreadcrumbs = Master.FindControl("breadcrumbs") as System.Web.UI.HtmlControls.HtmlGenericControl;
+                if (divBreadcrumbs != null) divBreadcrumbs.InnerHtml = strB.ToString();
+            }
         }
     }
 }

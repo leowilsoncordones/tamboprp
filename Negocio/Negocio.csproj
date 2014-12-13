@@ -39,10 +39,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="VOAnimal.cs" />
-    <Compile Include="StyleMethods.cs" />
+    <Compile Include="PageControl.cs" />
     <Compile Include="VOAnalitico.cs" />
     <Compile Include="VOControlProdUltimo.cs" />
     <Compile Include="VOLactancia.cs" />
+    <Compile Include="VoListItemDuplaString.cs" />
     <Compile Include="VOListItem.cs" />
     <Compile Include="VOEvento.cs" />
     <Compile Include="Fachada.cs" />

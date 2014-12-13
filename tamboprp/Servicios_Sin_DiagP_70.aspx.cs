@@ -23,11 +23,23 @@ namespace tamboprp
         {
             if (!Page.IsPostBack)
             {
+                this.SetPageBreadcrumbs();
                 cargarGrilla();
             }
         }
 
-
+        protected void SetPageBreadcrumbs()
+        {
+            var list = new List<VoListItemDuplaString>();
+            list.Add(new VoListItemDuplaString("Reproducción", "Reproduccion.aspx"));
+            list.Add(new VoListItemDuplaString("Vacas con 70 días de servicio y sin diagnóstico de preñez", ""));
+            var strB = PageControl.SetBreadcrumbsPath(list);
+            if (Master != null)
+            {
+                var divBreadcrumbs = Master.FindControl("breadcrumbs") as System.Web.UI.HtmlControls.HtmlGenericControl;
+                if (divBreadcrumbs != null) divBreadcrumbs.InnerHtml = strB.ToString();
+            }
+        }
 
 
         public void cargarGrilla()

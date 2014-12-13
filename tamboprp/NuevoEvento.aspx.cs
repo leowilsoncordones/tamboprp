@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Data.Entity.Core.Metadata.Edm;
 using System.Globalization;
 using System.Linq;
+using System.Text;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Web;
 using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Windows.Forms;
 using Entidades;
 using Negocio;
 
@@ -20,6 +22,7 @@ namespace tamboprp
         {
             if (!Page.IsPostBack)
             {
+                this.SetPageBreadcrumbs();
                 this.CargarDdlTipoEvento();
                 this.CargarDdlCalificacionLetras();
                 this.CargarDdlDiagnostico();
@@ -28,6 +31,38 @@ namespace tamboprp
                 this.CargarDdlNomConcurso();
                 this.LimpiarFormulario();
                 this.PrepararFormulario();
+            }
+        }
+
+        protected void SetPageBreadcrumbs()
+        {
+            var list = new List<VoListItemDuplaString>();
+            list.Add(new VoListItemDuplaString("Producción", "Produccion.aspx"));
+            list.Add(new VoListItemDuplaString("Nuevo Evento", ""));
+            var strB = PageControl.SetBreadcrumbsPath(list);
+            if (Master != null)
+            {
+                var divBreadcrumbs = Master.FindControl("breadcrumbs") as System.Web.UI.HtmlControls.HtmlGenericControl;
+                if (divBreadcrumbs != null) divBreadcrumbs.InnerHtml = strB.ToString();
+            }
+        }
+
+        protected void SetBreadcrumbs(List<VoListItemDuplaString> list)
+        {
+            var sb = new StringBuilder();
+            sb.Append("<ul class='breadcrumb'>");
+            sb.Append("<li><i class='ace-icon fa fa-home home-icon'></i> <a href='Default.aspx'>Home</a></li>");
+            // cargo list items recorriendo la lista
+            for (int i = 0; i < list.Count; i++)
+            {
+                sb.Append("<li><a href='" + list[i].Valor2 + "'>" + list[i].Valor1 + "</a></li>");
+            }
+            sb.Append("</ul>");
+
+            if (Master != null)
+            {
+                var divBreadcrumbs = Master.FindControl("breadcrumbs") as System.Web.UI.HtmlControls.HtmlGenericControl;
+                if (divBreadcrumbs != null) divBreadcrumbs.InnerHtml += sb.ToString();
             }
         }
 
@@ -54,6 +89,7 @@ namespace tamboprp
             {
             }
         }
+
 
         private bool GuardarEvento()
         {
@@ -91,6 +127,7 @@ namespace tamboprp
             }
             return false;
         }
+
 
         private bool GuardarAborto()
         {
@@ -250,7 +287,7 @@ namespace tamboprp
         private void LimpiarFormulario()
         {
             this.fRegistro.Value = "";
-            this.datepicker.Value = "";
+            //this.mydate.Value = "";
             this.fComentario.Value = "";
             this.fRegistroServ.Value = "";
             this.fControl.Value = "";
@@ -261,7 +298,7 @@ namespace tamboprp
             this.fInseminador.Value = "";
             this.fPremio.Value = "";
             this.fRegistro.Attributes.Remove("disabled");
-            this.datepicker.Attributes.Remove("disabled");
+            this.mydate.Attributes.Remove("disabled");
             this.fComentario.Attributes.Remove("disabled");
             this.fEnfermedad.Attributes.Remove("disabled");
 
@@ -297,7 +334,7 @@ namespace tamboprp
         {
             this.CargarDdlCalificacionPuntos();
         }
-        
+
 
         private void CargarDdlCalificacionPuntos()
         {
@@ -333,12 +370,12 @@ namespace tamboprp
                     for (int i = 1; i <= 5; i++)
                     {
                         num = 80 - i;
-                        var item = new VoListItem { Id = i, Nombre = num.ToString() }; 
+                        var item = new VoListItem { Id = i, Nombre = num.ToString() };
                         lst.Add(item);
                     }
                     break;
             }
-            
+
             this.ddlCalificacionPts.DataSource = lst;
             this.ddlCalificacionPts.DataTextField = "Nombre";
             this.ddlCalificacionPts.DataValueField = "Id";
@@ -373,7 +410,7 @@ namespace tamboprp
             this.ddlMotivoSec.DataBind();
         }
 
-        
+
         private void CargarDdlCategConcurso()
         {
             var lst = new List<CategoriaConcurso>();
@@ -403,12 +440,12 @@ namespace tamboprp
 
         protected void ddlMotivoSec_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
             if (int.Parse(this.ddlMotivoSec.SelectedValue) == 2)
                 this.fEnfermedad.Attributes.Remove("disabled");
             else this.fEnfermedad.Attributes.Add("disabled", "disabled");
         }
-        
+
 
         protected void ddlEvento_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -442,12 +479,12 @@ namespace tamboprp
                     break;
                 case 5: // CONTROL SANITARIO (YA NO SE USA)
                     this.fRegistro.Attributes.Add("disabled", "disabled");
-                    this.datepicker.Attributes.Add("disabled", "disabled");
+                    this.mydate.Attributes.Add("disabled", "disabled");
                     this.fComentario.Attributes.Add("disabled", "disabled");
                     break;
                 case 6: // C.M.T. (YA NO SE USA)
                     this.fRegistro.Attributes.Add("disabled", "disabled");
-                    this.datepicker.Attributes.Add("disabled", "disabled");
+                    this.mydate.Attributes.Add("disabled", "disabled");
                     this.fComentario.Attributes.Add("disabled", "disabled");
                     break;
                 case 7: // DIAGNOSTICO DE PRENEZ

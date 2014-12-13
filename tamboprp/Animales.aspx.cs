@@ -15,20 +15,26 @@ namespace tamboprp
     public partial class Animales : System.Web.UI.Page
     {
         private Animal _animal;
-        private List<Animal> _similares = new List<Animal>(); 
+        private List<Animal> _similares = new List<Animal>();
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            this.SetPageBreadcrumbs();
             this.LimpiarRegistro();
         }
 
-        protected void PageBreadcrums()
+        protected void SetPageBreadcrumbs()
         {
-            //var sb = new StringBuilder();
-            ////<div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
-            //sb.Append("<ul class='breadcrumb'><li><i class='ace-icon fa fa-home home-icon'></i><a href='#'>Home</a></li>");
-            //sb.Append("<li class='active'>Dashboard</li></ul>");
-            //Master.FindControl(breadcrumbs).InnerHtml += sb.ToString()));
+            var list = new List<VoListItemDuplaString>();
+            list.Add(new VoListItemDuplaString("Animales", "Animales.aspx"));
+            list.Add(new VoListItemDuplaString("Ficha de Animal", ""));
+            var strB = PageControl.SetBreadcrumbsPath(list);
+            if (Master != null)
+            {
+                var divBreadcrumbs = Master.FindControl("breadcrumbs") as System.Web.UI.HtmlControls.HtmlGenericControl;
+                if (divBreadcrumbs != null) divBreadcrumbs.InnerHtml = strB.ToString();
+            }
         }
 
         public void CargarFichaAnimal()
@@ -305,14 +311,7 @@ namespace tamboprp
             this.lblServicios.Text = varCantServicios.ToString();
             this.lblRegServicio.Text = varRegUltimoServicio;
             this.lblFechaUltServ.Text = varFechaUltServicio;
-            //var strHembras = "";
-            //var strMachos = "";
-            //var strUnion = "";
-            //if (partosH > 0 && partosM > 0) strUnion=" y ";
-            //if (partosH > 0) strHembras = partosH.ToString() + " H";
-            //if (partosM > 0) strMachos = partosM.ToString() + " M";
             this.lblFechaUltParto.Text = varFechaUltParto;
-            //this.lblParidos.Text = strHembras + strUnion + strMachos;
 
             if (partosH > 0)
             {
@@ -390,7 +389,6 @@ namespace tamboprp
             this.lblRegServicio.Text = "";
             this.lblFechaUltServ.Text = "";
             this.lblFechaUltParto.Text = "";
-            //this.lblParidos.Text = "";
             this.lblH.Text = "";
             this.lblH.Visible = false;
             this.lblM.Text = "";

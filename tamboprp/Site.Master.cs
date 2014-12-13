@@ -10,6 +10,14 @@ namespace tamboprp
 {
     public partial class SiteMaster : MasterPage
     {
+        
+        public System.Web.UI.HtmlControls.HtmlGenericControl Breadcrumbs
+        {
+            // Property para acceder al DIV Breadcrumbs
+            get { return this.breadcrumbs; }
+            set { this.breadcrumbs = value; }
+        }
+
         private const string AntiXsrfTokenKey = "__AntiXsrfToken";
         private const string AntiXsrfUserNameKey = "__AntiXsrfUserName";
         private string _antiXsrfTokenValue;

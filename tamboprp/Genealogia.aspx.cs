@@ -17,8 +17,21 @@ namespace tamboprp
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            this.SetPageBreadcrumbs();
             this.LimpiarRegistro();
-            //this.GetAnimalArbolGenealogico("5582");
+        }
+
+        protected void SetPageBreadcrumbs()
+        {
+            var list = new List<VoListItemDuplaString>();
+            list.Add(new VoListItemDuplaString("Cabaña", "Cabana.aspx"));
+            list.Add(new VoListItemDuplaString("Genealogía", ""));
+            var strB = PageControl.SetBreadcrumbsPath(list);
+            if (Master != null)
+            {
+                var divBreadcrumbs = Master.FindControl("breadcrumbs") as System.Web.UI.HtmlControls.HtmlGenericControl;
+                if (divBreadcrumbs != null) divBreadcrumbs.InnerHtml = strB.ToString();
+            }
         }
 
         private void CargarArbolGenealogico()
@@ -324,6 +337,7 @@ namespace tamboprp
                     animalTemp.Sexo = _animal.Sexo;
                     _animal.Vivo = !Fachada.Instance.EstaMuertoAnimal(_animal.Registro);
                     //_animal.Eventos = Fachada.Instance.GetEventosAnimal(animalTemp);
+                    // GET LACTANCIAS
                     this.GetAnimalArbolGenealogico();
                 }
             }

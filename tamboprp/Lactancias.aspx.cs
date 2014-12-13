@@ -15,12 +15,25 @@ namespace tamboprp
         {
             if (!Page.IsPostBack)
             {
+                this.SetPageBreadcrumbs();
                 this.LimpiarTabla();
                 this.CargarDdlTipoListado();
                 this.CargarDdlCantidad();
             }
         }
 
+        protected void SetPageBreadcrumbs()
+        {
+            var list = new List<VoListItemDuplaString>();
+            list.Add(new VoListItemDuplaString("Animales", "Animales.aspx"));
+            list.Add(new VoListItemDuplaString("Lactancias", ""));
+            var strB = PageControl.SetBreadcrumbsPath(list);
+            if (Master != null)
+            {
+                var divBreadcrumbs = Master.FindControl("breadcrumbs") as System.Web.UI.HtmlControls.HtmlGenericControl;
+                if (divBreadcrumbs != null) divBreadcrumbs.InnerHtml = strB.ToString();
+            }
+        }
 
         private void LimpiarTabla()
         {
