@@ -14,8 +14,22 @@ namespace tamboprp
         {
             if (!Page.IsPostBack)
             {
+                this.SetPageBreadcrumbs();
                 this.LimpiarTabla();
                 this.GetControlesProduccUltimo();
+            }
+        }
+
+        protected void SetPageBreadcrumbs()
+        {
+            var list = new List<VoListItemDuplaString>();
+            list.Add(new VoListItemDuplaString("Producción", "Produccion.aspx"));
+            list.Add(new VoListItemDuplaString("Último control de producción", ""));
+            var strB = PageControl.SetBreadcrumbsPath(list);
+            if (Master != null)
+            {
+                var divBreadcrumbs = Master.FindControl("breadcrumbs") as System.Web.UI.HtmlControls.HtmlGenericControl;
+                if (divBreadcrumbs != null) divBreadcrumbs.InnerHtml = strB.ToString();
             }
         }
         

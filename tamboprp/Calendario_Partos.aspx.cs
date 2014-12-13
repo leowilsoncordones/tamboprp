@@ -14,8 +14,22 @@ namespace tamboprp
         {
             if (!Page.IsPostBack)
             {
+                this.SetPageBreadcrumbs();
                 this.LimpiarTabla();
                 this.cargarDdl();
+            }
+        }
+
+        protected void SetPageBreadcrumbs()
+        {
+            var list = new List<VoListItemDuplaString>();
+            list.Add(new VoListItemDuplaString("Reproducción", "Reproduccion.aspx"));
+            list.Add(new VoListItemDuplaString("Calendario de Partos", ""));
+            var strB = PageControl.SetBreadcrumbsPath(list);
+            if (Master != null)
+            {
+                var divBreadcrumbs = Master.FindControl("breadcrumbs") as System.Web.UI.HtmlControls.HtmlGenericControl;
+                if (divBreadcrumbs != null) divBreadcrumbs.InnerHtml = strB.ToString();
             }
         }
 

@@ -139,6 +139,7 @@
     <Content Include="Account\RegisterExternalLogin.aspx" />
     <Content Include="Analisis.aspx" />
     <Content Include="Animales.aspx" />
+    <Content Include="Auditoria.aspx" />
     <Content Include="avatars\avatar.png" />
     <Content Include="avatars\avatar1.png" />
     <Content Include="avatars\avatar2.png" />
@@ -374,6 +375,7 @@
     <Content Include="js\markdown\bootstrap-markdown.js" />
     <Content Include="js\markdown\markdown.js" />
     <Content Include="js\markdown\to-markdown.js" />
+    <Content Include="js\otros\bs.pagination.js" />
     <Content Include="js\prettify.js" />
     <Content Include="js\respond.js" />
     <Content Include="js\select2.js" />
@@ -720,6 +722,13 @@
     </Compile>
     <Compile Include="Animales.aspx.designer.cs">
       <DependentUpon>Animales.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Auditoria.aspx.cs">
+      <DependentUpon>Auditoria.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Auditoria.aspx.designer.cs">
+      <DependentUpon>Auditoria.aspx</DependentUpon>
     </Compile>
     <Compile Include="Cabana.aspx.cs">
       <DependentUpon>Cabana.aspx</DependentUpon>

@@ -490,6 +490,12 @@ namespace Negocio
             return controlTotal.GetAll();
         }
 
+        public List<Log> LogGetAll()
+        {
+            var logMap = new LogMapper();
+            return logMap.GetAll();
+        }
+
         //public List<VOAnimal> GetArbolGenealogico(string reg)
         //{
         //    var list = new List<VOAnimal>();

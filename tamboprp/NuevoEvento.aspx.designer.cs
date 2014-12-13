@@ -31,13 +31,13 @@ namespace tamboprp {
         protected global::System.Web.UI.HtmlControls.HtmlInputText fRegistro;
         
         /// <summary>
-        /// datepicker control.
+        /// mydate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText datepicker;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl mydate;
         
         /// <summary>
         /// pnlAborto control.

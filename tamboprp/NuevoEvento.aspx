@@ -1,5 +1,8 @@
 ﻿<%@ Page Title="tamboprp | evento" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="NuevoEvento.aspx.cs" Inherits="tamboprp.NuevoEvento" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
+    
+    <link href="css/datepicker.css" rel="stylesheet" />
+
     <link href="css/bootstrap.css" rel="stylesheet" />
     <link href="css/font-awesome.css" rel="stylesheet" />
     <link href="css/ace-fonts.css" rel="stylesheet" />
@@ -11,9 +14,8 @@
     <link href="css/ace-rtl.css" rel="stylesheet" />
     <link href="css/ace-ie.css" rel="stylesheet" />
     
+    <script src="js/date-time/bootstrap-datepicker.js"></script>
     <script src="js/ace/ace.searchbox-autocomplete.js"></script>
-
-    <link href="css/datepicker.css" rel="stylesheet" />
     
     <script src="js/ace-extra.js"></script>
     <script src="js/html5shiv.js"></script>
@@ -24,15 +26,27 @@
     <script src="js/excanvas.js"></script>
     <script src="js/bootstrap.js"></script>
 
-    <script src="js/date-time/bootstrap-datepicker.js"></script>
-    
     <script type="text/javascript">
-        $(function () {
-            $('#datepicker').datepicker({
-                autoclose: true,
-                todayHighlight: true
-            });
-        });
+        
+        //$("#mydate").datepicker("setDate", new Date());
+
+        /*$('#mydate').datepicker({
+            "setDate": new Date(),
+            "todayHighlight": true
+        });*/
+
+        /*
+        $("#mydate").datepicker("setDate", new Date());
+        $('#mydate').datepicker({ autoclose: true, });
+        $(".datepicker").datepicker('update');
+        */
+
+        $('#mydate').datepicker('setDate', new Date());
+        $('#mydate').datepicker('todayHighlight', true);
+        //$('#mydate').datepicker('todayBtn', "linked");
+        $('#mydate').datepicker('update');
+        $('#mydate').val('');
+
     </script>
 
 </asp:Content>
@@ -66,7 +80,7 @@
                     <label class="col-sm-3 control-label no-padding-right"> Fecha </label>
 					<div class="col-sm-2">
 						<div class="input-group date">
-						    <input type="text" data-date-format="dd/mm/YYYY" placeholder="dd/mm/AAAA" id="datepicker" class="form-control col-xs-10 col-sm-5" runat="server"/>
+						    <input type="date" id="mydate" name="mydate" class="form-control col-xs-10 col-sm-5" runat="server"/>
 							<span class="input-group-addon"><i class="ace-icon fa fa-calendar"></i></span>
 						</div>
 					</div>

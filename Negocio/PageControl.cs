@@ -6,8 +6,23 @@ using System.Threading.Tasks;
 
 namespace Negocio
 {
-    class StyleMethods
+    public class PageControl
     {
+        public static StringBuilder SetBreadcrumbsPath(List<VoListItemDuplaString> list)
+        {
+            var sb = new StringBuilder();
+            sb.Append("<ul class='breadcrumb'>");
+            sb.Append("<li><i class='ace-icon fa fa-home home-icon'></i> <a href='Default.aspx'>Home</a></li>");
+            // cargo list items recorriendo la lista
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].Valor2 == "")
+                    sb.Append("<li class='active'>" + list[i].Valor1 + "</li>");
+                else sb.Append("<li><a href='" + list[i].Valor2 + "'>" + list[i].Valor1 + "</a></li>");
+            }
+            sb.Append("</ul>");
+            return sb;
+        }
 
         private void BootstrapDropDownListLarge(string Id)
         {

@@ -14,7 +14,20 @@ namespace tamboprp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            this.SetPageBreadcrumbs();
+        }
 
+        protected void SetPageBreadcrumbs()
+        {
+            var list = new List<VoListItemDuplaString>();
+            list.Add(new VoListItemDuplaString("Reportes", "Reportes.aspx"));
+            list.Add(new VoListItemDuplaString("Gráfica de Producción de Leche ", ""));
+            var strB = PageControl.SetBreadcrumbsPath(list);
+            if (Master != null)
+            {
+                var divBreadcrumbs = Master.FindControl("breadcrumbs") as System.Web.UI.HtmlControls.HtmlGenericControl;
+                if (divBreadcrumbs != null) divBreadcrumbs.InnerHtml = strB.ToString();
+            }
         }
 
         [WebMethod]

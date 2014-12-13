@@ -6,7 +6,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server" >
     <div class="page-header">
-        <h1><i class="menu-icon fa fa-bar-chart-o"></i> Gráfica de producción de Leche <small><i class="ace-icon fa fa-angle-double-right"></i> en kilos</small></h1>
+        <h1><i class="menu-icon fa fa-bar-chart-o"></i> Gráfica de Producción de Leche <small><i class="ace-icon fa fa-angle-double-right"></i> en kilos</small></h1>
     </div>
   <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true" />  
 
