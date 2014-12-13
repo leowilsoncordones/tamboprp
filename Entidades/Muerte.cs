@@ -14,12 +14,12 @@ namespace Entidades
             Nombre = "Muerte";
         }
 
-        public Muerte(Enfermedad enfermedad)
+        public Muerte(short enfermedad)
         {
             Enfermedad = enfermedad;
         }
 
-        public Enfermedad Enfermedad { get; set; }
+        public short Enfermedad { get; set; }
 
         public override string ToString()
         {

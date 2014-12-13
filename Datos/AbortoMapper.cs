@@ -119,7 +119,7 @@ namespace Datos
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Aborto_Insert";
-                cmd.Parameters.Add(new SqlParameter("@REGISTRO", _registroAnimal));
+                cmd.Parameters.Add(new SqlParameter("@REGISTRO", _aborto.Registro));
                 cmd.Parameters.Add(new SqlParameter("@EVENTO", _aborto.Id_evento));
                 cmd.Parameters.Add(new SqlParameter("@FECHA", _aborto.Fecha));
                 cmd.Parameters.Add(new SqlParameter("@COMENTARIO", _aborto.Comentarios));

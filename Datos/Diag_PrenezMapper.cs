@@ -106,7 +106,7 @@ namespace Datos
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Diag_prenez_Insert";
-                cmd.Parameters.Add(new SqlParameter("@REGISTRO", _registroAnimal));
+                cmd.Parameters.Add(new SqlParameter("@REGISTRO", _diag.Registro));
                 cmd.Parameters.Add(new SqlParameter("@EVENTO", _diag.Id_evento));
                 cmd.Parameters.Add(new SqlParameter("@FECHA", _diag.Fecha));
                 cmd.Parameters.Add(new SqlParameter("@COMENTARIO", _diag.Comentarios));

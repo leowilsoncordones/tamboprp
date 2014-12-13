@@ -375,6 +375,7 @@
     <Content Include="js\markdown\markdown.js" />
     <Content Include="js\markdown\to-markdown.js" />
     <Content Include="js\prettify.js" />
+    <Content Include="js\js_tamboprp\NuevoEvento.js" />
     <Content Include="js\respond.js" />
     <Content Include="js\select2.js" />
     <Content Include="js\spin.js" />

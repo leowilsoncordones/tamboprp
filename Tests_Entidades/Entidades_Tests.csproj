@@ -47,9 +47,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestAborto.cs" />
     <Compile Include="TestAnimal.cs" />
+    <Compile Include="TestCalificacion.cs" />
     <Compile Include="TestCeloSinServicio.cs" />
+    <Compile Include="TestConcurso.cs" />
+    <Compile Include="TestControlProd.cs" />
+    <Compile Include="TestDiagPrenez.cs" />
     <Compile Include="TestEmpleado.cs" />
+    <Compile Include="TestMuerte.cs" />
+    <Compile Include="TestSecado.cs" />
     <Compile Include="TestServicio.cs" />
+    <Compile Include="TestVenta.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

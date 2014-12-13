@@ -132,12 +132,12 @@ namespace Datos
             {
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.CommandText = "Muerte_Insert";
-                cmd.Parameters.Add(new SqlParameter("@REGISTRO", _registroAnimal));
+                cmd.CommandText = "Baja_Insert";
+                cmd.Parameters.Add(new SqlParameter("@REGISTRO", _muerte.Registro));
                 cmd.Parameters.Add(new SqlParameter("@EVENTO", _muerte.Id_evento));
                 cmd.Parameters.Add(new SqlParameter("@FECHA", _muerte.Fecha));
                 cmd.Parameters.Add(new SqlParameter("@COMENTARIO", _muerte.Comentarios));
-                //cmd.Parameters.Add(new SqlParameter("@ENFERMEDAD", _muerte.Enfermedad));
+                cmd.Parameters.Add(new SqlParameter("@ENFERMEDAD", _muerte.Enfermedad));
             }
             else if (opType == OperationType.UPDATE)
             {
@@ -160,14 +160,7 @@ namespace Datos
             string strDate = (DBNull.Value == record["FECHA"]) ? string.Empty : record["FECHA"].ToString();
             if (strDate != string.Empty) muerte.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
             muerte.Comentarios = (DBNull.Value == record["COMENTARIO"]) ? string.Empty : (string)record["COMENTARIO"];
-            //muerte.Enfermedad = (short)((DBNull.Value == record["ENFERMEDAD"]) ? 0 : (Int16)record["ENFERMEDAD"]);
-
-            // cambiar! no mappers anidados
-            var e = new Enfermedad();
-            e.Id = (short)((DBNull.Value == record["ENFERMEDAD"]) ? 0 : (Int16)record["ENFERMEDAD"]);
-            var enfMap = new EnfermedadMapper(e);
-            muerte.Enfermedad = enfMap.GetEnfermedadById();
-
+            muerte.Enfermedad = (short)((DBNull.Value == record["ENFERMEDAD"]) ? 0 : (Int16)record["ENFERMEDAD"]);
             return muerte;
         }
 

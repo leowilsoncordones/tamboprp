@@ -132,12 +132,11 @@ namespace Datos
             {
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.CommandText = "Venta_Insert";
-                cmd.Parameters.Add(new SqlParameter("@REGISTRO", _registroAnimal));
+                cmd.CommandText = "Baja_Insert";
+                cmd.Parameters.Add(new SqlParameter("@REGISTRO", _venta.Registro));
                 cmd.Parameters.Add(new SqlParameter("@EVENTO", _venta.Id_evento));
                 cmd.Parameters.Add(new SqlParameter("@FECHA", _venta.Fecha));
                 cmd.Parameters.Add(new SqlParameter("@COMENTARIO", _venta.Comentarios));
-                //cmd.Parameters.Add(new SqlParameter("@ENFERMEDAD", _muerte.Enfermedad));
             }
             else if (opType == OperationType.UPDATE)
             {

@@ -157,7 +157,7 @@ namespace Datos
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Control_Producc_Insert";
-                cmd.Parameters.Add(new SqlParameter("@REGISTRO", _regAnimal));
+                cmd.Parameters.Add(new SqlParameter("@REGISTRO", _Control_Producc.Registro));
                 cmd.Parameters.Add(new SqlParameter("@EVENTO", _Control_Producc.Id_evento));
                 cmd.Parameters.Add(new SqlParameter("@FECHA", _Control_Producc.Fecha));
                 //cmd.Parameters.Add(new SqlParameter("@DIAS_DEL_MES", _Control_Producc.Dias_para_control));
@@ -194,7 +194,7 @@ namespace Datos
             string strDate = (DBNull.Value == record["FECHA"]) ? string.Empty : record["FECHA"].ToString();
             if (strDate != string.Empty) cp.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
             //cp.Dias_para_control = (DBNull.Value == record["DIAS_DEL_MES"]) ? 0 : int.Parse(record["DIAS_DEL_MES"].ToString());
-            cp.Dias_para_control = (DBNull.Value == record["DIAS_LACTANCIA"]) ? 0 : int.Parse(record["DIAS_LACTANCIA"].ToString());
+            cp.Dias_para_control = (short) ((DBNull.Value == record["DIAS_LACTANCIA"]) ? 0 : Int16.Parse(record["DIAS_LACTANCIA"].ToString()));
             cp.Comentarios = (DBNull.Value == record["COMENTARIO"]) ? string.Empty : (string)record["COMENTARIO"];
             return cp;
         }

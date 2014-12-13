@@ -23,20 +23,16 @@
     <script src="js/jquery1x.js"></script>
     <script src="js/excanvas.js"></script>
     <script src="js/bootstrap.js"></script>
+    
+    <script src="js/ace/elements.typeahead.js"></script>
 
     <script src="js/date-time/bootstrap-datepicker.js"></script>
     
-    <script type="text/javascript">
-        $(function () {
-            $('#datepicker').datepicker({
-                autoclose: true,
-                todayHighlight: true
-            });
-        });
-    </script>
+    
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true" />  
     <div class="page-header">
         <h1><i class="menu-icon fa fa-edit"></i> Ingreso de un nuevo evento </h1>
     </div>
@@ -143,7 +139,10 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label no-padding-right"> Enfermedad </label>
 			        <div class="col-sm-3">
-			            <input type="text" runat="server" id="fEnfermedad" placeholder="Enfermedad" class="form-control col-xs-10 col-sm-5" />
+			            <input type="text" runat="server" id="fEnfermedad" placeholder="Enfermedad" class=" form-control col-xs-10 col-sm-5"/>
+			        </div>
+                    <div id="inputEnfermedad">
+			            <input type="text"  id="Text1" placeholder="Enfermedad" class="typeahead" onfocus="GetListaEnf()"/>
 			        </div>
                     <div class="col-sm-12"></div>
                 </div>
@@ -154,7 +153,7 @@
                     <label class="col-sm-3 control-label no-padding-right"> Monta natural </label>
                     <div class="col-sm-2">
 					    <label>
-						    <input name="switchMontaNat" class="ace ace-switch ace-switch-6" type="checkbox">
+					        <input id="checkMontaNat" name="switchMontaNat" class="ace ace-switch ace-switch-6" type="checkbox" runat="server"/>
 						    <span class="lbl"></span>
 					    </label>
 				    </div>
@@ -177,6 +176,12 @@
                 </asp:Panel>
                 <!-- CONCURSO -->
                 <asp:Panel ID="pnlConcurso" runat="server">
+                 <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"> Nombre de concurso / Lugar </label>
+                    <div class="col-sm-3">
+			            <asp:DropDownList ID="ddlNomConcurso" CssClass="form-control col-xs-10 col-sm-5" runat="server" ></asp:DropDownList>
+			        </div>
+                </div>
                 <div class="form-group">
                     <label class="col-sm-3 control-label no-padding-right"> Categoría de concurso </label>
                     <div class="col-sm-3">
@@ -210,7 +215,16 @@
             </div>
         </div>
     </div>
-
+    <script type="text/javascript">
+        $(function () {
+            $('#datepicker').datepicker({
+                autoclose: true,
+                todayHighlight: true
+            });
+        });
+    </script>
+    <script src="js/typeahead.jquery.js"></script>
+    <script src="js/js_tamboprp/NuevoEvento.js"></script>
     <asp:Label ID="lblVer" runat="server" Text="Label" Visible="False"></asp:Label>
 
 </asp:Content>

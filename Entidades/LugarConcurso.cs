@@ -18,6 +18,7 @@ namespace Entidades
 
         public LugarConcurso(string lugar, string nombreExpo)
         {
+            
             Lugar = lugar;
             NombreExpo = nombreExpo;
         }
@@ -25,10 +26,12 @@ namespace Entidades
         public string Lugar { get; set; }
 
         public string NombreExpo { get; set; }
-        
+
+        public int Id { get; set; }
+
         public override string ToString()
         {
-            return NombreExpo + ", " + Lugar + ".";
+            return NombreExpo + ", " + Lugar;
         }
         
     }

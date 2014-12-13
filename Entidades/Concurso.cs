@@ -16,21 +16,24 @@ namespace Entidades
             Nombre = "Concurso";
         }
 
-        public Concurso(LugarConcurso lugar, Premio elPremio)
+        public Concurso(string lugar, string elPremio)
         {
             ElPremio = elPremio;
-            Lugar = lugar;
         }
 
-        public Premio ElPremio { get; set; }
+        public string ElPremio { get; set; }
 
-        public LugarConcurso Lugar { get; set; }
-        
+
+        public LugarConcurso NombreLugarConcurso { get; set; }
+
+
+        public CategoriaConcurso Categoria { get; set; }
+
         public override string ToString()
         {
             string prem = "";
-            if (ElPremio != null) prem = ElPremio.ToString() + ". ";
-            return prem + Lugar.ToString();
+            if (ElPremio != null) prem = ElPremio +" "  ;
+            return prem + Categoria.ToString()+". " + NombreLugarConcurso.ToString() + ".";
         }
         
     }

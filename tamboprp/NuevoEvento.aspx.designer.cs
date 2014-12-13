@@ -13,6 +13,15 @@ namespace tamboprp {
     public partial class NuevoEvento {
         
         /// <summary>
+        /// ScriptManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        
+        /// <summary>
         /// ddlEvento control.
         /// </summary>
         /// <remarks>
@@ -184,6 +193,15 @@ namespace tamboprp {
         protected global::System.Web.UI.WebControls.Panel pnlServicio;
         
         /// <summary>
+        /// checkMontaNat control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox checkMontaNat;
+        
+        /// <summary>
         /// fRegPadre control.
         /// </summary>
         /// <remarks>
@@ -209,6 +227,15 @@ namespace tamboprp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlConcurso;
+        
+        /// <summary>
+        /// ddlNomConcurso control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlNomConcurso;
         
         /// <summary>
         /// ddlCategConcurso control.

@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using Datos;
+using Entidades;
 using Negocio;
 using NUnit.Framework;
 
@@ -41,6 +44,43 @@ namespace Tests_Entidades
         {
             var lista = Fachada.Instance.ControlTotalGetAll();
             Assert.IsNotEmpty(lista);
+        }
+
+        [Test]
+        public void Servicio_Insert_should_insert()
+        {
+            var emple = new Empleado {Id_empleado = 3};
+            var serv = new Servicio
+            {
+                Registro = "3110",
+                Id_evento = 3,
+                Fecha = DateTime.Now,
+                Comentarios = "test_tamboprp",
+                Serv_monta_natural = 'N',
+                Reg_padre = "SENTRY",
+                Inseminador = emple
+            };
+            var sermap = new ServicioMapper(serv);
+            var result = sermap.Insert();
+            Assert.IsTrue(result > 1);
+        }
+
+        [Test]
+        public void Servicio_Insert_should_not_insert()
+        {
+            var emple = new Empleado { Id_empleado = 3 };
+            var serv = new Servicio
+            {
+                Registro = "3110",
+                Id_evento = 3,
+                Fecha = DateTime.Now,
+                Comentarios = "test_tamboprp",
+                Serv_monta_natural = 'N',
+                Reg_padre = "3110",
+                Inseminador = emple
+            };
+            var sermap = new ServicioMapper(serv);
+            Assert.Throws<SqlException>(() => sermap.Insert());
         }
 
     }

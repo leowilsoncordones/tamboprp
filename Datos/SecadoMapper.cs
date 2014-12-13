@@ -107,7 +107,7 @@ namespace Datos
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Secado_Insert";
-                cmd.Parameters.Add(new SqlParameter("@REGISTRO", _registroAnimal));
+                cmd.Parameters.Add(new SqlParameter("@REGISTRO", _secado.Registro));
                 cmd.Parameters.Add(new SqlParameter("@EVENTO", _secado.Id_evento));
                 cmd.Parameters.Add(new SqlParameter("@FECHA", _secado.Fecha));
                 cmd.Parameters.Add(new SqlParameter("@COMENTARIO", _secado.Comentarios));
@@ -138,18 +138,10 @@ namespace Datos
             sec.Comentarios = (DBNull.Value == record["COMENTARIO"]) ? string.Empty : (string)record["COMENTARIO"];
             //sec.Motivos_secado = (DBNull.Value == record["MOTIVO_SECADO"]) ? 0 : (Int16)record["MOTIVO_SECADO"];
             
-            sec.Motivos_secado = (Motivos_Secado)(short)((DBNull.Value == record["MOTIVO_SECADO"]) ? 0 : (Int16)record["MOTIVO_SECADO"]);
-            if (sec.Motivos_secado.Equals(Motivos_Secado.RAZONES_SANITARIAS))
+            sec.Motivos_secado = (short)((DBNull.Value == record["MOTIVO_SECADO"]) ? 0 : (Int16)record["MOTIVO_SECADO"]);
+            if (sec.Motivos_secado.Equals(2))
             {
-                int idEnf = (short)((DBNull.Value == record["ENFERMEDAD"]) ? 0 : (Int16)record["ENFERMEDAD"]);
-                if (idEnf > 0)
-                {
-                    var e = new Enfermedad();
-                    e.Id = idEnf;
-                    var enfMap = new EnfermedadMapper(e);
-                    sec.Enfermedad = enfMap.GetEnfermedadById();
-                }
-                
+                sec.Enfermedad = (short)((DBNull.Value == record["ENFERMEDAD"]) ? 0 : (Int16)record["ENFERMEDAD"]);             
             }
 
             return sec;

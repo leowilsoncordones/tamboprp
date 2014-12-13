@@ -20,6 +20,7 @@ namespace Negocio
         private static CategConcursoMapper _catConcMapper = new CategConcursoMapper();
         private static EmpleadoMapper _empMapper = new EmpleadoMapper();
         private static TipoEventoMapper _tevMapper = new TipoEventoMapper();
+        private static LugarConcursoMapper _lugConcMapper = new LugarConcursoMapper();
 
         private Fachada()
         {
@@ -79,12 +80,20 @@ namespace Negocio
             if (listTemp.Count > 0)
             {
                 var lstCategConcurso = _catConcMapper.GetAll();
+                var lstLugConc = _lugConcMapper.GetAll();
                 foreach (Concurso conc in listTemp)
                 {
-                    if (conc.ElPremio != null && conc.ElPremio.CategConcurso != null && conc.ElPremio.CategConcurso.Id_categ != 0)
+                    if (conc.ElPremio != null && conc.Categoria != null && conc.Categoria.Id_categ != 0)
                     {
-                        CategoriaConcurso laCat = lstCategConcurso.FirstOrDefault(c => c.Id_categ == conc.ElPremio.CategConcurso.Id_categ);
-                        if (laCat != null) conc.ElPremio.CategConcurso.Nombre = laCat.Nombre;
+                        CategoriaConcurso laCat = lstCategConcurso.FirstOrDefault(c => c.Id_categ == conc.Categoria.Id_categ);
+                        if (laCat != null) conc.Categoria.Nombre = laCat.Nombre;
+
+                        var lugConc = lstLugConc.FirstOrDefault(lc => lc.Id == conc.NombreLugarConcurso.Id);
+                        if (lugConc != null)
+                        {
+                            conc.NombreLugarConcurso.NombreExpo = lugConc.NombreExpo;
+                            conc.NombreLugarConcurso.Lugar = lugConc.Lugar;
+                        }
                     }
                 }
                 a.Eventos.AddRange(listTemp);
@@ -586,6 +595,51 @@ namespace Negocio
         public List<Empleado> GetInseminadores()
         {
             return _empMapper.GetAll();
+        }
+
+        public List<LugarConcurso> GetLugaresConcurso()
+        {
+            return _lugConcMapper.GetAll();
+        }
+
+        public bool InsertarEvento(Evento evento)
+        {
+            switch (evento.Id_evento)
+            {
+                case 0: // ABORTO
+                    var abortoMap = new AbortoMapper((Aborto)evento);
+                    return abortoMap.Insert() > 1;
+                case 2: // CELO SIN SERVICIO
+                    var celoMap = new Celo_Sin_ServicioMapper((Celo_Sin_Servicio)evento);
+                    return celoMap.Insert() > 1;
+                case 3: // SERVICIO
+                    var servMap = new ServicioMapper((Servicio)evento);
+                    return servMap.Insert() > 1;
+                case 4: // SECADO
+                    var secMap = new SecadoMapper((Secado)evento);
+                    return secMap.Insert() > 1;
+                case 7: // DIAGNOSTICO DE PRENEZ
+                    var diagMap = new Diag_PrenezMapper((Diag_Prenez)evento);
+                    return diagMap.Insert() > 1;
+                case 8: // CONTROL DE PRODUCCION
+                    var contMap = new Control_ProduccMapper((Control_Producc)evento);
+                    return contMap.Insert() > 1;
+                case 9: // CALIFICACION
+                    var califMap = new CalificacionMapper((Calificacion)evento);
+                    return califMap.Insert() > 1;
+                case 10: // CONCURSO
+                    var concursMap = new ConcursoMapper((Concurso)evento);
+                    return concursMap.Insert() > 1;
+                case 11: // BAJA POR VENTA
+                    var bajaMap = new VentaMapper((Venta)evento);
+                    return bajaMap.Insert() > 1;
+                case 12: // BAJA POR MUERTE
+                    var muerteMap = new MuerteMapper((Muerte)evento);
+                    return muerteMap.Insert() > 1;
+                default:
+                    return false;
+            }
+
         }
     }
 }

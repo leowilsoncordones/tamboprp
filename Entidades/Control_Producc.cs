@@ -16,7 +16,7 @@ namespace Entidades
             Nombre = "Control de Producción";
         }
 
-        public Control_Producc(string registro, int diasParaControl, double leche, double grasa, DateTime fecha)
+        public Control_Producc(string registro, short diasParaControl, double leche, double grasa, DateTime fecha)
         {
             Registro = registro;
             Dias_para_control = diasParaControl;
@@ -29,7 +29,7 @@ namespace Entidades
 
         public double Leche { get; set; }
 
-        public int Dias_para_control { get; set; }
+        public short Dias_para_control { get; set; }
 
         public override string ToString()
         {

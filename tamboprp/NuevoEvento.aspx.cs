@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Metadata.Edm;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using System.Web;
 using System.Web.Services;
 using System.Web.UI;
@@ -22,6 +25,7 @@ namespace tamboprp
                 this.CargarDdlDiagnostico();
                 this.CargarDdlMotivoSecado();
                 this.CargarDdlCategConcurso();
+                this.CargarDdlNomConcurso();
                 this.LimpiarFormulario();
                 this.PrepararFormulario();
             }
@@ -46,15 +50,196 @@ namespace tamboprp
 
         protected void btn_GuardarEvento(object sender, EventArgs e)
         {
-            this.lblVer.Text = this.fRegistro.Value + " " + this.datepicker.Value + " " + this.fComentario.Value;
+            if (GuardarEvento())
+            {
+            }
+        }
 
-            var celo = new Celo_Sin_Servicio();
-            celo.Registro = this.fRegistro.Value.ToString();
-            string strDate = this.datepicker.Value.ToString();
-            if (strDate != string.Empty) celo.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
-            celo.Comentarios = this.fComentario.Value.ToString();
+        private bool GuardarEvento()
+        {
+        string strDate = this.datepicker.Value;
+            switch (int.Parse(this.ddlEvento.SelectedValue))
+            {
+                case 0: // ABORTO
+                    return GuardarAborto();
+                case 1: // PARTO
+                    break;
+                case 2: // CELO SIN SERVICIO
+                    return GuardarCeloSinServicio();
+                case 3: // SERVICIO
+                    return GuardarServicio();
+                case 4: // SECADO
+                    return GuardarSecado();
+                case 5: // CONTROL SANITARIO (YA NO SE USA)
+                    break;
+                case 6: // C.M.T. (YA NO SE USA)
+                    break;
+                case 7: // DIAGNOSTICO DE PRENEZ
+                    return GuardarDiagPrenez();
+                case 8: // CONTROL DE PRODUCCION
+                    return GuardarControlProduccion();
+                case 9: // CALIFICACION
+                    return GuardarCalificacion();
+                case 10: // CONCURSO
+                    return GuardarConcurso();
+                case 11: // BAJA POR VENTA
+                    return GuardarVenta();
+                case 12: // BAJA POR MUERTE
+                    return GuardarMuerte();
+                default:
+                    return false;
+            }
+            return false;
+        }
 
-            bool ret = Fachada.Instance.CeloSinServicioInsert(celo);
+        private bool GuardarAborto()
+        {
+            string strDate = this.datepicker.Value;
+            var aborto = new Aborto
+            {
+                Id_evento = 0,
+                Registro = fRegistro.Value,
+                Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR")),
+                Comentarios = fComentario.Value,
+                Reg_padre = fRegistroServ.Value
+            };
+            return Fachada.Instance.InsertarEvento(aborto);
+        }
+
+        private bool GuardarCeloSinServicio()
+        {
+            string strDate = this.datepicker.Value;
+            var celoSinServ = new Celo_Sin_Servicio
+            {
+                Id_evento = 2,
+                Registro = fRegistro.Value,
+                Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR")),
+                Comentarios = fComentario.Value,
+            };
+            return Fachada.Instance.InsertarEvento(celoSinServ);
+        }
+
+        private bool GuardarServicio()
+        {
+            string strDate = this.datepicker.Value;
+            var insemin = new Empleado { Nombre = fInseminador.Value };
+            var monta = checkMontaNat.Checked ? 'S' : 'N';
+            var serv = new Servicio
+            {
+                Id_evento = 3,
+                Registro = fRegistro.Value,
+                Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR")),
+                Comentarios = fComentario.Value,
+                Serv_monta_natural = monta,
+                Reg_padre = fRegPadre.Value,
+                Inseminador = insemin
+            };
+            return Fachada.Instance.InsertarEvento(serv);
+        }
+
+        private bool GuardarSecado()
+        {
+            string strDate = this.datepicker.Value;
+            var sec = new Secado
+            {
+                Id_evento = 4,
+                Registro = fRegistro.Value,
+                Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR")),
+                Comentarios = fComentario.Value,
+                Motivos_secado =  Int16.Parse(ddlMotivoSec.SelectedValue),
+                Enfermedad = Int16.Parse(fEnfermedad.Value) 
+            };
+            return Fachada.Instance.InsertarEvento(sec);
+        }
+
+        private bool GuardarDiagPrenez()
+        {
+            string strDate = this.datepicker.Value;
+            var diagp = new Diag_Prenez
+            {
+                Id_evento = 7,
+                Registro = fRegistro.Value,
+                Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR")),
+                Comentarios = fComentario.Value,
+                Diagnostico = Convert.ToChar(ddlDiagnostico.SelectedValue)
+            };
+            return Fachada.Instance.InsertarEvento(diagp);
+        }
+
+        private bool GuardarControlProduccion()
+        {
+            string strDate = this.datepicker.Value;
+            var control = new Control_Producc
+            {
+                Id_evento = 8,
+                Registro = fRegistro.Value,
+                Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR")),
+                Comentarios = fComentario.Value,
+                Leche = double.Parse(fLeche.Value),
+                Grasa = double.Parse(fGrasa.Value),
+            };
+            return Fachada.Instance.InsertarEvento(control);
+        }
+
+        private bool GuardarCalificacion()
+        {
+            string strDate = this.datepicker.Value;
+            var calif = new Calificacion
+            {
+                Id_evento = 9,
+                Registro = fRegistro.Value,
+                Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR")),
+                Comentarios = fComentario.Value,
+                Letras = ddlCalificacionPts.SelectedValue,
+                Puntos = Int32.Parse(ddlCalificacionPts.SelectedValue)
+            };
+            return Fachada.Instance.InsertarEvento(calif);
+        }
+
+        private bool GuardarConcurso()
+        {
+            string strDate = this.datepicker.Value;
+            var cat = new CategoriaConcurso {Id_categ = Int16.Parse(ddlCategConcurso.SelectedValue)};
+            var lugconc = new LugarConcurso {Id = int.Parse(ddlNomConcurso.SelectedValue)};
+            var concurso = new Concurso
+            {
+                Id_evento = 10,
+                Registro = fRegistro.Value,
+                Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR")),
+                Comentarios = fComentario.Value,
+                ElPremio = fPremio.Value,
+                NombreLugarConcurso = lugconc,
+                Categoria = cat
+            };
+            return Fachada.Instance.InsertarEvento(concurso);
+        }
+
+        private bool GuardarVenta()
+        {
+            string strDate = this.datepicker.Value;
+            var venta = new Venta
+            {
+                Id_evento = 11,
+                Registro = fRegistro.Value,
+                Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR")),
+                Comentarios = fComentario.Value,
+            };
+            return Fachada.Instance.InsertarEvento(venta);
+        }
+
+        private bool GuardarMuerte()
+        {
+            string strDate = this.datepicker.Value;
+            var muerte = new Muerte
+            {
+                Id_evento = 12,
+                Registro = fRegistro.Value,
+                Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR")),
+                Comentarios = fComentario.Value,
+               // Enfermedad = Int16.Parse(fEnfermedad.Value)
+                Enfermedad = Int16.Parse(Request.Form["testEnf"])
+            };
+            return Fachada.Instance.InsertarEvento(muerte);
         }
 
         protected void btn_LimpiarFormulario(object sender, EventArgs e)
@@ -199,6 +384,23 @@ namespace tamboprp
             this.ddlCategConcurso.DataBind();
         }
 
+        private void CargarDdlNomConcurso()
+        {
+            var lst = Fachada.Instance.GetLugaresConcurso();
+            var lista = new List<VoListItem>();
+            foreach (var lg in lst)
+            {
+                var item = new VoListItem();
+                item.Id = lg.Id;
+                item.Nombre = lg.NombreExpo + " / " + lg.Lugar;
+                lista.Add(item);
+            }
+            ddlNomConcurso.DataSource = lista;
+            ddlNomConcurso.DataTextField = "Nombre";
+            ddlNomConcurso.DataValueField = "Id";
+            ddlNomConcurso.DataBind();
+        }
+
         protected void ddlMotivoSec_SelectedIndexChanged(object sender, EventArgs e)
         {
             
@@ -260,7 +462,7 @@ namespace tamboprp
                 case 10: // CONCURSO
                     this.pnlConcurso.Visible = true;
                     break;
-                case 11: // BAJA POR VENTA
+                case 11: // BAJA POR VENTA                   
                     this.pnlBajas.Visible = true;
                     break;
                 case 12: // BAJA POR MUERTE
@@ -270,5 +472,13 @@ namespace tamboprp
                     break;
             }
         }
+
+        [WebMethod]
+        public static List<Enfermedad> GetEnfermedades()
+        {
+            return Fachada.Instance.GetEnfermedades();
+        }
+
+        
     }
 }
