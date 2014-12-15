@@ -15,36 +15,39 @@ namespace Entidades
         {
         }
 
-        public Remito(float temp2, float temp1, string encargado, string observaciones, float litros, string matricula, string factura, Empresas empresa, DateTime fecha)
+        public Remito(DateTime fecha, EmpresaRemisora empresa,
+                        string factura, string matricula,
+                        double litros, string observaciones,
+                        string encargado, double temp2, double temp1 )
         {
-            temp_2 = temp2;
-            temp_1 = temp1;
-            Encargado = encargado;
-            Observaciones = observaciones;
-            Litros = litros;
-            Matricula = matricula;
-            Factura = factura;
-            Empresa = empresa;
             Fecha = fecha;
+            Empresa = empresa;
+            Factura = factura;
+            Matricula = matricula;
+            Litros = litros;
+            Observaciones = observaciones;
+            Encargado = encargado;
+            Temp_1 = temp1;
+            Temp_2 = temp2;
         }
 
         public DateTime Fecha { get; set; }
 
-        public Empresas Empresa { get; set; }
+        public EmpresaRemisora Empresa { get; set; }
 
         public string Factura { get; set; }
 
         public string Matricula { get; set; }
 
-        public float Litros { get; set; }
+        public double Litros { get; set; }
 
         public string Observaciones { get; set; }
 
         public string Encargado { get; set; }
 
-        public float temp_1 { get; set; }
+        public double Temp_1 { get; set; }
 
-        public float temp_2 { get; set; }
+        public double Temp_2 { get; set; }
 
     }
 }

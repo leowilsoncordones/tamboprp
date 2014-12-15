@@ -42,6 +42,7 @@
     <Compile Include="Aborto.cs" />
     <Compile Include="Animal.cs" />
     <Compile Include="Calificacion.cs" />
+    <Compile Include="EmpresaRemisora.cs" />
     <Compile Include="TipoEvento.cs" />
     <Compile Include="CategoriaConcurso.cs" />
     <Compile Include="LugarConcurso.cs" />
@@ -53,7 +54,6 @@
     <Compile Include="Control_Producc.cs" />
     <Compile Include="Diag_Prenez.cs" />
     <Compile Include="Empleado.cs" />
-    <Compile Include="Empresas.cs" />
     <Compile Include="Enfermedades.cs" />
     <Compile Include="Evento.cs" />
     <Compile Include="Lugar_Concurso.cs" />

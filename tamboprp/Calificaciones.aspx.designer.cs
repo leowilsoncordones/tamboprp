@@ -10,150 +10,114 @@
 namespace tamboprp {
     
     
-    public partial class VacaEnOrdene {
+    public partial class Calificaciones {
         
         /// <summary>
-        /// titCant control.
+        /// phPersonal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label titCant;
+        protected global::System.Web.UI.WebControls.PlaceHolder phPersonal;
         
         /// <summary>
-        /// lblCant control.
+        /// gvCalificaciones control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCant;
+        protected global::System.Web.UI.WebControls.GridView gvCalificaciones;
         
         /// <summary>
-        /// titPromProdLecheLts control.
+        /// titCantCalif control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label titPromProdLecheLts;
+        protected global::System.Web.UI.WebControls.Label titCantCalif;
         
         /// <summary>
-        /// lblPromProdLecheLts control.
+        /// lblCantCalif control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPromProdLecheLts;
+        protected global::System.Web.UI.WebControls.Label lblCantCalif;
         
         /// <summary>
-        /// titCantL1 control.
+        /// lblEX control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label titCantL1;
+        protected global::System.Web.UI.WebControls.Label lblEX;
         
         /// <summary>
-        /// lblCantL1 control.
+        /// lblMB control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCantL1;
+        protected global::System.Web.UI.WebControls.Label lblMB;
         
         /// <summary>
-        /// titCantL2 control.
+        /// lblBM control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label titCantL2;
+        protected global::System.Web.UI.WebControls.Label lblBM;
         
         /// <summary>
-        /// lblCantL2 control.
+        /// lblB control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCantL2;
+        protected global::System.Web.UI.WebControls.Label lblB;
         
         /// <summary>
-        /// titCantOtrasL control.
+        /// lblR control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label titCantOtrasL;
+        protected global::System.Web.UI.WebControls.Label lblR;
         
         /// <summary>
-        /// lblCantOtrasL control.
+        /// lblTotal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCantOtrasL;
+        protected global::System.Web.UI.WebControls.Label lblTotal;
         
         /// <summary>
-        /// titConSSP control.
+        /// lblProm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label titConSSP;
+        protected global::System.Web.UI.WebControls.Label lblProm;
         
         /// <summary>
-        /// lblConSSP control.
+        /// lblMax control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblConSSP;
-        
-        /// <summary>
-        /// titPrenezConf control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label titPrenezConf;
-        
-        /// <summary>
-        /// lblPrenezConf control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPrenezConf;
-        
-        /// <summary>
-        /// titPromL control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label titPromL;
-        
-        /// <summary>
-        /// lblPromL control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPromL;
+        protected global::System.Web.UI.WebControls.Label lblMax;
     }
 }

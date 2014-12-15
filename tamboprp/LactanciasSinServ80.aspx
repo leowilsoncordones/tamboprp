@@ -19,7 +19,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="page-header">
-        <h1><i class="menu-icon fa fa-suitcase"></i> Vacas en lactancia con más de 80 días sin servicio </h1>
+        <h1><i class="menu-icon fa fa-binoculars"></i> Vacas en lactancia con más de 80 días sin servicio </h1>
     </div>
     <div>
         <asp:GridView ID="gvServicios" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" 

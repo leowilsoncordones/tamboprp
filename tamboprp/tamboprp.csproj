@@ -148,7 +148,14 @@
     <Content Include="avatars\avatar5.png" />
     <Content Include="avatars\profile-pic.jpg" />
     <Content Include="avatars\user.jpg" />
+    <Content Include="Usuarios.aspx" />
+    <Content Include="Sanidad.aspx" />
     <Content Include="Cabana.aspx" />
+    <Content Include="Calificaciones.aspx" />
+    <Content Include="EmpresaRemisora.aspx" />
+    <Content Include="CategConcurso.aspx" />
+    <Content Include="Concursos.aspx" />
+    <Content Include="Categorias.aspx" />
     <Content Include="ControlProduccionUltimo.aspx" />
     <Content Include="css\ace-fonts.css" />
     <Content Include="css\ace-ie.css" />
@@ -248,6 +255,8 @@
     <Content Include="img_tamboprp\animales\reg_3110_expoprado2013.jpg" />
     <Content Include="img_tamboprp\animales\reg_digger.png" />
     <Content Include="img_tamboprp\animales\reg_manoman.jpg" />
+    <Content Include="img_tamboprp\corporativo\logo.png" />
+    <Content Include="img_tamboprp\corporativo\logo_ch.png" />
     <Content Include="Indicadores.aspx" />
     <Content Include="js\ace-elements.js" />
     <Content Include="js\ace-extra.js" />
@@ -689,7 +698,6 @@
     <Content Include="GraficaLeche.aspx" />
     <Content Include="Tablero.aspx" />
     <Content Include="Tambo.aspx" />
-    <Content Include="VacaEnOrdene.aspx" />
     <Content Include="Servicios_Sin_DiagP_70.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config">
@@ -731,12 +739,61 @@
     <Compile Include="Auditoria.aspx.designer.cs">
       <DependentUpon>Auditoria.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Usuarios.aspx.cs">
+      <DependentUpon>Usuarios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Usuarios.aspx.designer.cs">
+      <DependentUpon>Usuarios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sanidad.aspx.cs">
+      <DependentUpon>Sanidad.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sanidad.aspx.designer.cs">
+      <DependentUpon>Sanidad.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Cabana.aspx.cs">
       <DependentUpon>Cabana.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Cabana.aspx.designer.cs">
       <DependentUpon>Cabana.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Calificaciones.aspx.cs">
+      <DependentUpon>Calificaciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Calificaciones.aspx.designer.cs">
+      <DependentUpon>Calificaciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EmpresaRemisora.aspx.cs">
+      <DependentUpon>EmpresaRemisora.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EmpresaRemisora.aspx.designer.cs">
+      <DependentUpon>EmpresaRemisora.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CategConcurso.aspx.cs">
+      <DependentUpon>CategConcurso.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CategConcurso.aspx.designer.cs">
+      <DependentUpon>CategConcurso.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Concursos.aspx.cs">
+      <DependentUpon>Concursos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Concursos.aspx.designer.cs">
+      <DependentUpon>Concursos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Categorias.aspx.cs">
+      <DependentUpon>Categorias.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Categorias.aspx.designer.cs">
+      <DependentUpon>Categorias.aspx</DependentUpon>
     </Compile>
     <Compile Include="ControlProduccionUltimo.aspx.cs">
       <DependentUpon>ControlProduccionUltimo.aspx</DependentUpon>
@@ -990,13 +1047,6 @@
     <Compile Include="Tambo.aspx.designer.cs">
       <DependentUpon>Tambo.aspx</DependentUpon>
     </Compile>
-    <Compile Include="VacaEnOrdene.aspx.cs">
-      <DependentUpon>VacaEnOrdene.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="VacaEnOrdene.aspx.designer.cs">
-      <DependentUpon>VacaEnOrdene.aspx</DependentUpon>
-    </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1007,7 +1057,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="img_tamboprp\corporativo\" />
     <Folder Include="img_tamboprp\usuarios\" />
   </ItemGroup>
   <ItemGroup>

@@ -13,13 +13,15 @@ namespace Entidades
         {
         }
 
-        public Usuario(string nickname, string password, string nombre, string apellido, string email)
+        public Usuario(string nickname, string password, string nombre, string apellido, string email, string rol, bool habilitado)
         {
             Nickname = nickname;
             Password = password;
             Nombre = nombre;
             Apellido = apellido;
             Email = email;
+            Rol = rol;
+            Habilitado = habilitado;
         }
 
         public string Nickname { get; set; }
@@ -31,6 +33,10 @@ namespace Entidades
         public string Apellido { get; set; }
 
         public string Email {  get; set; }
+
+        public string Rol { get; set; }
+
+        public bool Habilitado { get; set; }
 
         public override string ToString()
         {

@@ -34,22 +34,20 @@
             <li><a href="Animales.aspx">Fichas</a></li>
             <li><a href="Lactancias.aspx">Lactancias</a></li>
             <li><a href="ListadoPorCategoria.aspx">Listado Por Categoría</a></li>
-            
+            <li><a href="Categorias.aspx">Categorías</a></li>
         </ul>
     <a href="Produccion.aspx"><i class="menu-icon fa fa-cogs"></i><span class="menu-text"> Producción </span></a>
         <ul class="submenu">
-            <li><a href="NuevoEvento.aspx">Nuevo Evento</a></li>
-            <li><a href="Remitos.aspx">Remitos a planta</a></li>
+            <li><a href="NuevoEvento.aspx">Nuevo Evento (remitos?)</a></li>
             <li><a href="ControlProduccionUltimo.aspx">Ultimo Control de Producción</a></li>
             <li><a href="Tambo.aspx">Tambo (?)</a></li>
         </ul>
-    <a href="Analisis.aspx"><i class="menu-icon fa fa-eye"></i><span class="menu-text"> Análisis </span></a>
-        <ul class="submenu">
-            <li><a href="VacaEnOrdene.aspx">Vacas en ordeñe (no va)</a></li>
-        </ul>
+    <a href="Analisis.aspx"><i class="menu-icon fa fa-eye"></i><span class="menu-text"> Análisis </span></a><br/>
     <a href="Reportes.aspx"><i class="menu-icon fa fa-bar-chart-o"></i><span class="menu-text"> Reportes </span></a>
         <ul class="submenu">
             <li><a href="GraficaLeche.aspx">Producción Leche</a></li>
+            <li><a href="Remitos.aspx">Remitos a planta</a></li>
+            <li><a href="EmpresaRemisora.aspx">Empresas Remisoras</a></li>
         </ul>
     <a href="Calendario_Partos.aspx"><i class="menu-icon fa fa-flask"></i><span class="menu-text"> Reproducción </span></a>
         <ul class="submenu">
@@ -61,16 +59,21 @@
     <a href="Cabana.aspx"><i class="menu-icon fa fa-trophy"></i><span class="menu-text"> Cabaña </span></a>
         <ul class="submenu">
             <li><a href="Genealogia.aspx">Genealogía</a></li>
-            <li><a href="Default.aspx">Concursos</a></li>
+            <li><a href="Calificaciones.aspx">Calificaciones</a></li>
+            <li><a href="Concursos.aspx">Concursos</a></li>
+            <li><a href="CategConcurso.aspx">Categorías de concurso</a></li>
+        </ul>
+    <a href="Cabana.aspx"><i class="menu-icon fa fa-stethoscope"></i><span class="menu-text"> Sanidad </span></a>
+        <ul class="submenu">
+            <li><a href="Enfermedades.aspx">Enfermedades</a></li>
         </ul>
     <a href="Personal.aspx"><i class="menu-icon fa fa-users"></i><span class="menu-text"> Personal </span></a><br/>
     <a href="Notificaciones.aspx"><i class="menu-icon fa fa-bell-o"></i><span class="menu-text"> Notificaciones </span></a><br/>
     <a href="Sistema.aspx"><i class="menu-icon fa fa-desktop"></i><span class="menu-text"> Sistema </span></a>
         <ul class="submenu">
-            <li><a href="Enfermedades.aspx">Enfermedades</a></li>
-            <li><a href="Default.aspx">Categorías</a></li>
-            <li><a href="Default.aspx">Usuarios</a></li>
+            <li><a href="Usuarios.aspx">Usuarios</a></li>
             <li><a href="Sitio.aspx">Sitio</a></li>
+            <li><a href="Auditoria.aspx">Auditoría</a></li>
             <li><a href="Default.aspx">Ayuda</a></li>
         </ul>
     <a href="Contact.aspx"><i class="menu-icon fa fa-envelope"></i><span class="menu-text"> Contacto </span></a><br/>

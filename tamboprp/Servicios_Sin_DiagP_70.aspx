@@ -3,7 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
         <div class="page-header">
-            <h1><i class="menu-icon fa fa-suitcase"></i> Vacas con mas de 70 días de servicio<small><i class="ace-icon fa fa-angle-double-right"></i> y aún sin diagnosticar preñez</small></h1>
+            <h1><i class="menu-icon fa fa-binoculars"></i> Vacas con mas de 70 días de servicio<small><i class="ace-icon fa fa-angle-double-right"></i> y aún sin diagnosticar preñez</small></h1>
         </div>
         <asp:Button ID="btnPrint" runat="server" Text="Print" OnClick="Print" />
         <asp:GridView ID="gvServicios" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" 

@@ -9317,7 +9317,8 @@ input[type=checkbox].ace.ace-switch.ace-switch-6:checked + .lbl::before {
   text-indent: 6px;
   color: #FFF;
   border-color: #b7d3e5;
-  background-color: #ff893c;
+  /*background-color: #ff893c;*/
+  background-color: #629b58;
 }
 input[type=checkbox].ace.ace-switch.ace-switch-6:checked + .lbl::after {
   left: 32px;

@@ -505,6 +505,129 @@ namespace Negocio
             return logMap.GetAll();
         }
 
+        public List<Remito> RemitosGetAll()
+        {
+            var remMap = new RemitoMapper();
+            return remMap.GetAll();
+        }
+
+        public List<Remito> GetRemitoByEmpresa(int idEmpresa)
+        {
+            var remMap = new RemitoMapper();
+            return remMap.GetRemitoByEmpresa(idEmpresa);
+        }
+
+        public EmpresaRemisora GetEmpresaRemisoraById(int id)
+        {
+            var empRem = new EmpresaRemisora(id);
+            var empRemMap = new EmpresaRemisoraMapper(empRem);
+            return empRemMap.GetEmpresaRemisoraById();
+        }
+
+        public List<EmpresaRemisora> GetEmpresaRemisoraActual()
+        {
+            var empRemMap = new EmpresaRemisoraMapper();
+            return empRemMap.GetEmpresaRemisoraSelectActual();
+        }
+
+        public List<EmpresaRemisora> GetEmpresaRemisoraAll()
+        {
+            var empRemMap = new EmpresaRemisoraMapper();
+            return empRemMap.GetAll();
+        }
+
+        public List<Calificacion> GetCalificacionesAll()
+        {
+            var califMap = new CalificacionMapper();
+            return califMap.GetAll();
+        }
+
+        public List<CategoriaConcurso> GetCategoriasConcursoAll()
+        {
+            var catConcMap = new CategConcursoMapper();
+            return catConcMap.GetAll();
+        }
+
+        public List<Categoria> GetCategoriasAnimalAll()
+        {
+            var catMap = new CategoriaMapper();
+            return catMap.GetAll();
+        }
+
+        public List<Concurso> GetConcursosAll()
+        {
+            var concMap = new ConcursoMapper();
+            var lst = concMap.GetAll();
+            foreach (Concurso conc in lst)
+            {
+                int id = conc.NombreLugarConcurso.Id;
+                conc.NombreLugarConcurso = Fachada.Instance.GetConcursoById(id);
+            }
+            return lst;
+        }
+
+        public LugarConcurso GetConcursoById(int id)
+        {
+            var conc = new LugarConcurso();
+            conc.Id = id;
+            var lugConcMap = new LugarConcursoMapper(conc);
+            return lugConcMap.GetLugarConcursoById();
+        }
+
+        //public int GetCalificacionesMax()
+        //{
+        //    var califMap = new CalificacionMapper();
+        //    return califMap.GetCalificacionMax();
+        //}
+
+        //public int GetCantCalificacionesTotal()
+        //{
+        //    var califMap = new CalificacionMapper();
+        //    return califMap.GetCantCalificacionesTotal();
+        //}
+
+        //public double GetCalificacionProm()
+        //{
+        //    var califMap = new CalificacionMapper();
+        //    return (double)califMap.GetCalificacionProm();
+        //}
+
+        //public int GetCantCalificacionesEx()
+        //{
+        //    var califMap = new CalificacionMapper();
+        //    return califMap.GetCantCalificacionesEx();
+        //}
+
+        //public int GetCantCalificacionesMb()
+        //{
+        //    var califMap = new CalificacionMapper();
+        //    return califMap.GetCantCalificacionesMb();
+        //}
+
+        //public int GetCantCalificacionesBm()
+        //{
+        //    var califMap = new CalificacionMapper();
+        //    return califMap.GetCantCalificacionesBm();
+        //}
+
+        //public int GetCantCalificacionesB()
+        //{
+        //    var califMap = new CalificacionMapper();
+        //    return califMap.GetCantCalificacionesB();
+        //}
+
+        public List<EmpresaRemisora> GetEmpresasRemisorasAll()
+        {
+            var empRemMap = new EmpresaRemisoraMapper();
+            return empRemMap.GetAll();
+        }
+
+        public List<Usuario> GetUsuariosAll()
+        {
+            var uMap = new UsuarioMapper();
+            return uMap.GetAll();
+        }
+
         //public List<VOAnimal> GetArbolGenealogico(string reg)
         //{
         //    var list = new List<VOAnimal>();

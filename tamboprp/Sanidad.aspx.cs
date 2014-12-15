@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Remoting.Contexts;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -9,31 +8,23 @@ using Negocio;
 
 namespace tamboprp
 {
-    public partial class Sitio : System.Web.UI.Page
+    public partial class Sanidad : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack)
-            {
-                this.SetPageBreadcrumbs();
-            }
+            this.SetPageBreadcrumbs();
         }
 
         protected void SetPageBreadcrumbs()
         {
             var list = new List<VoListItemDuplaString>();
-            list.Add(new VoListItemDuplaString("Sistema", "Sistema.aspx"));
-            list.Add(new VoListItemDuplaString("Sitio", ""));
+            list.Add(new VoListItemDuplaString("Sanidad", ""));
             var strB = PageControl.SetBreadcrumbsPath(list);
             if (Master != null)
             {
                 var divBreadcrumbs = Master.FindControl("breadcrumbs") as System.Web.UI.HtmlControls.HtmlGenericControl;
-                //var corporativo = Fachada.Instance.GetDatosCorporativos();
-                strB.Append("<span class='pull-right'><strong>" + "Tambo y Cabaña 'El Grillo' " + "</strong></span>");
                 if (divBreadcrumbs != null) divBreadcrumbs.InnerHtml = strB.ToString();
             }
-
         }
-
     }
 }

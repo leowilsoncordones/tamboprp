@@ -1,4 +1,4 @@
-﻿<%@ Page Title="tamboprp | enfermedades" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Enfermedades.aspx.cs" Inherits="tamboprp.Enfermedades" %>
+﻿<%@ Page Title="tamboprp | categorias" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Categorias.aspx.cs" Inherits="tamboprp.Categorias" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <link href="css/bootstrap.css" rel="stylesheet" />
     <link href="css/font-awesome.css" rel="stylesheet" />
@@ -28,23 +28,24 @@
             });
         }
     </script>
-
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    
     <div class="page-header">
-        <h1><i class="menu-icon fa fa-stethoscope"></i> Lista de enfermedades</h1>
+        <h1><i class="menu-icon fa fa-tags"></i> Lista de categorías de animal </h1>
     </div>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div>
                 <p>        
-                <asp:GridView ID="gvEnfermedades" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" 
+                <asp:GridView ID="gvCategorias" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" 
                     CssClass="table table-hover table-striped table-bordered table-condensed dataTable" PagerStyle-CssClass="bs-pagination text-center"  
-                    AllowPaging="true" AllowSorting="true" PageSize="20" OnPageIndexChanging="GvEnfermedades_PageIndexChanging" >
+                    AllowPaging="true" AllowSorting="true" PageSize="20" OnPageIndexChanging="GvCategorias_PageIndexChanging" >
                 <RowStyle HorizontalAlign="Left"  />
                 <Columns>
-                    <asp:BoundField DataField="Id" HeaderText="Id" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
-                    <asp:BoundField DataField="Nombre_enfermedad" HeaderText="Nombre" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                    <asp:BoundField DataField="Id_categ" HeaderText="Id" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                    <asp:BoundField DataField="Nombre" HeaderText="Nombre" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                    <asp:BoundField DataField="Observacion" HeaderText="Observación" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
                 </Columns>
                 <FooterStyle />
                 <PagerSettings mode="Numeric" pagebuttoncount="5" />
@@ -54,10 +55,10 @@
                 <AlternatingRowStyle />
                 </asp:GridView>
                 </p>
-                <asp:Label ID="titCantEnf" runat="server" Text="Cantidad de enfermedades: " Visible="False"></asp:Label><asp:Label ID="lblCantEnf" runat="server" ></asp:Label><br/>
+                <asp:Label ID="titCantEnf" runat="server" Text="Cantidad de categorías: " Visible="False"></asp:Label><asp:Label ID="lblCantEnf" runat="server" ></asp:Label><br/>
             </div>
         </div>
-        <div class="col-md-8"></div>
+        <div class="col-md-6"></div>
     </div>
 
 </asp:Content>

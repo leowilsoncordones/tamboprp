@@ -23,7 +23,7 @@
         <h1><i class="menu-icon fa fa-users"></i> Personal</h1>
     </div>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-5">
         <asp:PlaceHolder ID="phPersonal" runat="server">
             <asp:GridView ID="gvEmpleados" runat="server" AutoGenerateColumns="False" GridLines="None" 
                 HorizontalAlign="Left" CssClass="table table-hover table-striped table-bordered table-condensed dataTable" >
@@ -43,7 +43,6 @@
             </asp:GridView>    
         </asp:PlaceHolder><!-- Fin de tabla personal -->
             </div>
-            <div class="col-md-4"></div>
-            <div class="col-md-4"></div>
+            <div class="col-md-7"></div>
         </div>
 </asp:Content>

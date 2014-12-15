@@ -3,7 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="page-header">
-        <h1><i class="menu-icon fa fa-list"></i> Lactancias</h1>
+        <h1><i class="menu-icon fa fa-recycle"></i> Lactancias</h1>
     </div>
     <div class="row">
         <div class="col-md-4">

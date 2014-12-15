@@ -135,9 +135,7 @@ namespace tamboprp
                                 sb.Append("<div class='widget-main no-padding'>");
                                     // elijo texto y su correspondiente estilo según operación y tabla
                                     string operation = GetOperationVoAuditoria(list[j]);
-                                    //sb.Append("<span class='black bolder'>" + list[j].User + "</span> ");
                                     sb.Append(operation);
-                                    //sb.Append("<span class='green bolder'>" + list[j].Registro + "</span>");
                                 sb.Append("</div>");
                             sb.Append("</div>");
                         sb.Append("</div>");
@@ -210,16 +208,16 @@ namespace tamboprp
                     operation += " <span class='orange2 bolder'>control de producción</span> de la vaca ";
                     break;
                 case "empleados":
-                    operation += " <span class='blue bolder'>empleado</span>, de nombre ";
+                    operation += " empleado de nombre ";
                     break;
                 case "enfermedades":
                     operation += "a <span class='black bolder'>enfermedad</span> ";
                     break;
                 case "fotos":
-                    operation += "a foto de ";
+                    operation += "a foto del animal ";
                     break;
                 case "remitos_planta":
-                    operation += " <span class='orange2 bolder'>remito a planta</span> del día ";
+                    operation += " <span class='blue bolder'>remito a planta</span> correspondiente al día ";
                     break;
                 case "secados":
                     operation += " <span class='pink2 bolder'>secado</span> de la vaca ";

@@ -4,30 +4,27 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Entidades;
 using Negocio;
 
 namespace tamboprp
 {
-    public partial class Enfermedades : System.Web.UI.Page
+    public partial class Categorias : System.Web.UI.Page
     {
-        private List<Enfermedad> _listTemp = new List<Enfermedad>();
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
                 this.SetPageBreadcrumbs();
                 this.LimpiarTabla();
-                this.GetEnfermedades();
+                this.GetCategorias();
             }
         }
 
         protected void SetPageBreadcrumbs()
         {
             var list = new List<VoListItemDuplaString>();
-            list.Add(new VoListItemDuplaString("Sanidad", "SAnidad.aspx"));
-            list.Add(new VoListItemDuplaString("Tabla de Enfermedades", ""));
+            list.Add(new VoListItemDuplaString("Animales", "Animales.aspx"));
+            list.Add(new VoListItemDuplaString("Categorías", ""));
             var strB = PageControl.SetBreadcrumbsPath(list);
             if (Master != null)
             {
@@ -38,37 +35,28 @@ namespace tamboprp
 
         private void LimpiarTabla()
         {
-            this.gvEnfermedades.DataSource = null;
-            this.gvEnfermedades.DataBind();
+            this.gvCategorias.DataSource = null;
+            this.gvCategorias.DataBind();
             this.titCantEnf.Visible = false;
             this.lblCantEnf.Text = "";
         }
 
-        private void GetEnfermedades()
+        private void GetCategorias()
         {
-            _listTemp = Fachada.Instance.GetEnfermedades();
-            this.gvEnfermedades.DataSource = _listTemp;
-            this.gvEnfermedades.DataBind();
+            var lst = Fachada.Instance.GetCategoriasAnimalAll();
+            this.gvCategorias.DataSource = lst;
+            this.gvCategorias.DataBind();
             this.titCantEnf.Visible = true;
-            this.lblCantEnf.Text = _listTemp.Count.ToString();
+            this.lblCantEnf.Text = lst.Count.ToString();
         }
 
-        protected void GvEnfermedades_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        protected void GvCategorias_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             var gv = (GridView)sender;
             gv.PageIndex = e.NewPageIndex;
-            GetEnfermedades();
+            this.GetCategorias();
             //gv.DataSource = _listTemp;
             //gv.DataBind();
         }
-
-        //protected void GvEnfermedades_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        //{
-        //    var gv = (GridView)sender;
-        //    gv.PageIndex = e.NewPageIndex;
-        //    gv.DataSource = _listTemp;
-        //    gv.DataBind();
-        //}
-
     }
 }

@@ -46,7 +46,7 @@ namespace Datos
 
         public List<Calificacion> GetAll()
         {
-            List<Calificacion> ls = new List<Calificacion>();
+            var ls = new List<Calificacion>();
             ls = loadAll(Find(OperationType.SELECT_DEF));
             return ls;
         }
@@ -54,7 +54,7 @@ namespace Datos
 
         protected List<Calificacion> loadAll(SqlDataReader rs)
         {
-            List<Calificacion> result = new List<Calificacion>();
+            var result = new List<Calificacion>();
             while (rs.Read())
                 result.Add(load(rs));
             rs.Close();
@@ -63,7 +63,7 @@ namespace Datos
 
         public List<Evento> GetCalificacionesByRegistro(string regAnimal)
         {
-            List<Evento> result = new List<Evento>();
+            var result = new List<Evento>();
             SqlCommand cmd = null;
             cmd = new SqlCommand();
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -77,7 +77,40 @@ namespace Datos
             return result;
         }
 
+        public float GetCalificacionProm()
+        {
+            return GetScalarFloat("Calificaciones_Prom");
+        }
 
+        public int GetCantCalificacionesTotal()
+        {
+            return GetScalarInt("Calificaciones_CountTotal");
+        }
+
+        public int GetCalificacionMax()
+        {
+            return GetScalarInt("Calificaciones_Maximo");
+        }
+
+        public int GetCantCalificacionesEx()
+        {
+            return GetScalarInt("Calificaciones_CountEX");
+        }
+
+        public int GetCantCalificacionesMb()
+        {
+            return GetScalarInt("Calificaciones_CountMB");
+        }
+
+        public int GetCantCalificacionesBm()
+        {
+            return GetScalarInt("Calificaciones_CountBM");
+        }
+
+        public int GetCantCalificacionesB()
+        {
+            return GetScalarInt("Calificaciones_CountB");
+        }
 
 
         protected override SqlCommand GetStatement(OperationType opType)
@@ -133,6 +166,7 @@ namespace Datos
         protected Calificacion load(SqlDataReader record)
         {
             var calif = new Calificacion();
+            calif.Registro = (DBNull.Value == record["REGISTRO"]) ? string.Empty : (string)record["REGISTRO"];
             calif.Id_evento = (short)((DBNull.Value == record["EVENTO"]) ? 0 : (Int16)record["EVENTO"]);
             calif.Puntos = (short)((DBNull.Value == record["PUNTOS"]) ? 0 : (Int16)record["PUNTOS"]);
             calif.Letras = (DBNull.Value == record["LETRAS"]) ? string.Empty : (string)record["LETRAS"];

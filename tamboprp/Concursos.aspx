@@ -1,4 +1,4 @@
-﻿<%@ Page Title="tamboprp | enfermedades" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Enfermedades.aspx.cs" Inherits="tamboprp.Enfermedades" %>
+﻿<%@ Page Title="tamboprp | concursos" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Concursos.aspx.cs" Inherits="tamboprp.Concursos" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <link href="css/bootstrap.css" rel="stylesheet" />
     <link href="css/font-awesome.css" rel="stylesheet" />
@@ -28,23 +28,25 @@
             });
         }
     </script>
-
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    
     <div class="page-header">
-        <h1><i class="menu-icon fa fa-stethoscope"></i> Lista de enfermedades</h1>
+        <h1><i class="menu-icon fa fa-trophy"></i> Concursos <small><i class="ace-icon fa fa-angle-double-right"></i> de nuestros animales en exposiciones</small> </h1>
     </div>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-8">
             <div>
                 <p>        
-                <asp:GridView ID="gvEnfermedades" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" 
-                    CssClass="table table-hover table-striped table-bordered table-condensed dataTable" PagerStyle-CssClass="bs-pagination text-center"  
-                    AllowPaging="true" AllowSorting="true" PageSize="20" OnPageIndexChanging="GvEnfermedades_PageIndexChanging" >
+                <asp:GridView ID="gvCategorias" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" 
+                    CssClass="table table-hover table-striped table-bordered table-condensed dataTable" PagerStyle-CssClass="bs-pagination"  
+                    AllowPaging="true" AllowSorting="true" PageSize="20" OnPageIndexChanging="GvConcursos_PageIndexChanging" >
                 <RowStyle HorizontalAlign="Left"  />
                 <Columns>
-                    <asp:BoundField DataField="Id" HeaderText="Id" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
-                    <asp:BoundField DataField="Nombre_enfermedad" HeaderText="Nombre" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                    <asp:BoundField DataField="Fecha" HeaderText="Fecha" dataformatstring="{0:dd/MM/yyyy}" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                    <asp:BoundField DataField="NombreLugarConcurso" HeaderText="Nombre y Lugar" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                    <asp:BoundField DataField="Registro" HeaderText="Registro" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                    <asp:BoundField DataField="ElPremio" HeaderText="Premio" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
                 </Columns>
                 <FooterStyle />
                 <PagerSettings mode="Numeric" pagebuttoncount="5" />
@@ -54,10 +56,10 @@
                 <AlternatingRowStyle />
                 </asp:GridView>
                 </p>
-                <asp:Label ID="titCantEnf" runat="server" Text="Cantidad de enfermedades: " Visible="False"></asp:Label><asp:Label ID="lblCantEnf" runat="server" ></asp:Label><br/>
+                <asp:Label ID="titCantEnf" runat="server" Text="Cantidad de concursos: " Visible="False"></asp:Label><asp:Label ID="lblCantEnf" runat="server" ></asp:Label><br/>
             </div>
         </div>
-        <div class="col-md-8"></div>
+        <div class="col-md-4"></div>
     </div>
 
 </asp:Content>

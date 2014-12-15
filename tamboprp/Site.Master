@@ -103,6 +103,7 @@
                        <li><a href="Animales.aspx">Fichas</a></li>
                        <li><a href="Lactancias.aspx">Lactancias</a></li>
                        <li><a href="ListadoPorCategoria.aspx">Listado Por Categoría</a></li>
+                          <li><a href="Default.aspx">Categorías</a></li>
                       </ul>
                     </li>
                     <li>
@@ -153,6 +154,15 @@
                       </ul>
                     </li>
                     <li>
+                    <a href="Cabana.aspx">
+					    <i class="menu-icon fa fa-stethoscope"></i>
+					    <span class="menu-text"> Sanidad </span>
+				    </a>
+                       <ul class="submenu">
+                        <li><a href="Enfermedades.aspx"> Enfermedades </a></li>
+                      </ul>
+                    </li>
+                    <li>
                     <a href="Personal.aspx">
 					    <i class="menu-icon fa fa-users"></i>
 					    <span class="menu-text"> Personal </span>
@@ -171,8 +181,7 @@
 				    </a>
                       <ul class="submenu">
                        <li><a href="Default.aspx">Enfermedades</a></li>
-                       <li><a href="Default.aspx">Categorías</a></li>
-                       <li><a href="Default.aspx">Usuarios</a></li>
+                       <li><a href="Usuarios.aspx">Usuarios</a></li>
                        <li><a href="Sitio.aspx">Sitio</a></li>
                        <li><a href="Default.aspx">Ayuda</a></li>
                       </ul>
