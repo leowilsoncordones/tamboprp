@@ -17,6 +17,8 @@ namespace Datos
 
         private static string Aborto_SelecByRegistro = "Aborto_SelecByRegistro";
         private string Aborto_SelectCountEsteAnio = "Aborto_SelectCountEsteAnio";
+        private string Aborto_SelectAnimalesConServicios = "Aborto_SelectAnimalesConServicios";
+        private string Aborto_GetServicioPadre = "Aborto_GetServicioPadre";
 
         public AbortoMapper(Aborto aborto)
         {
@@ -149,6 +151,32 @@ namespace Datos
             aborto.Reg_padre = (DBNull.Value == record["REG_SERV"]) ? string.Empty : (string)record["REG_SERV"];
 
             return aborto;
+        }
+
+        protected Aborto loadReg(SqlDataReader record)
+        {
+            var aborto = new Aborto();
+            aborto.Registro = (DBNull.Value == record["REGISTRO"]) ? string.Empty : (string)record["REGISTRO"]; 
+            return aborto;
+        }
+
+        public List<Aborto> GetAbortosAnimalesConServicio()
+        {
+            List<Aborto> result = new List<Aborto>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = Aborto_SelectAnimalesConServicios;
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+                result.Add(loadReg(dr));
+            dr.Close();
+            return result;
+        }
+
+        public string GetServicioPadreAborto(string reg)
+        {
+            return GetScalarString(Aborto_GetServicioPadre, reg);
         }
 
     }

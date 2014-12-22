@@ -45,8 +45,10 @@ $("#inputEnfermedad .typeahead").typeahead({
     name: 'enfs',
     displayKey: 'value',
     source: substringMatcher(enfs),
-    updater: function (item) {
-        selectedEnf = map[item].Id;
-        return item;
-    }
+});
+
+
+$("#mydate").datepicker({
+    autoclose: true,
+    todayHighlight: true
 });

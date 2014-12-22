@@ -91,6 +91,15 @@ namespace Datos
             return value;
         }
 
+        public string GetScalarString(string storedProcedure, string param)
+        {
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = storedProcedure;
+            cmd.Parameters.Add(new SqlParameter("@REGISTRO", param));
+            return ReturnScalarValue(cmd).ToString();
+        }
         public int GetScalarInt(string storedProcedure)
         {
             return (int)GetScalar(storedProcedure);

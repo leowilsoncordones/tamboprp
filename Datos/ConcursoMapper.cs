@@ -137,7 +137,7 @@ namespace Datos
             conc.Registro = (DBNull.Value == record["REGISTRO"]) ? string.Empty : (string)record["REGISTRO"];
             conc.Id_evento = (short)((DBNull.Value == record["EVENTO"]) ? 0 : (Int16)record["EVENTO"]);
             var lugConc = new LugarConcurso();
-            var idLugConc = (short)((DBNull.Value == record["LUGAR_CONCURSO"]) ? 0 : (Int16)record["LUGAR_CONCURSO"]);
+            var idLugConc = (int)((DBNull.Value == record["LUGAR_CONCURSO"]) ? 0 : (int)record["LUGAR_CONCURSO"]);
             lugConc.Id = idLugConc;
             conc.NombreLugarConcurso = lugConc;
             string strDate = (DBNull.Value == record["FECHA"]) ? string.Empty : record["FECHA"].ToString();

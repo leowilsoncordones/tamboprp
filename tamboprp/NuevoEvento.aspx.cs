@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity.Core.Metadata.Edm;
 using System.Globalization;
 using System.Linq;
@@ -31,9 +32,15 @@ namespace tamboprp
                 this.CargarDdlNomConcurso();
                 this.LimpiarFormulario();
                 this.PrepararFormulario();
+                this.OcultarInputs();
             }
+           if(this.ddlEvento.SelectedIndex != 13) CargarListaRegistrosParaTypeahead(int.Parse(this.ddlEvento.SelectedValue));
         }
 
+        private static string _dato="";
+        private static string _datoAbortoRegistro = "";
+        private static string _datoAbortoRegistroPadre = "";
+        private static List<VoListItem>  _listaRegistrosTypeahead = new List<VoListItem>();
         protected void SetPageBreadcrumbs()
         {
             var list = new List<VoListItemDuplaString>();
@@ -93,7 +100,7 @@ namespace tamboprp
 
         private bool GuardarEvento()
         {
-        string strDate = this.mydate.Value;
+        string strDate = Request.Form["mydate"];
             switch (int.Parse(this.ddlEvento.SelectedValue))
             {
                 case 0: // ABORTO
@@ -131,21 +138,24 @@ namespace tamboprp
 
         private bool GuardarAborto()
         {
-            string strDate = this.mydate.Value;
+            string strDate = Request.Form["mydate"];
+            string reg = _datoAbortoRegistro;
+            string regServ = _datoAbortoRegistroPadre;
+            var fecha = DateTime.Parse(strDate, new CultureInfo("en-US"));
             var aborto = new Aborto
             {
                 Id_evento = 0,
-                Registro = fRegistro.Value,
-                Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR")),
+                Registro = reg,
+                Fecha = fecha,
                 Comentarios = fComentario.Value,
-                Reg_padre = fRegistroServ.Value
+                Reg_padre = regServ
             };
             return Fachada.Instance.InsertarEvento(aborto);
         }
 
         private bool GuardarCeloSinServicio()
         {
-            string strDate = this.mydate.Value;
+            string strDate = Request.Form["mydate"];
             var celoSinServ = new Celo_Sin_Servicio
             {
                 Id_evento = 2,
@@ -158,7 +168,7 @@ namespace tamboprp
 
         private bool GuardarServicio()
         {
-            string strDate = this.mydate.Value;
+            string strDate = Request.Form["mydate"];
             var insemin = new Empleado { Nombre = fInseminador.Value };
             var monta = checkMontaNat.Checked ? 'S' : 'N';
             var serv = new Servicio
@@ -176,7 +186,7 @@ namespace tamboprp
 
         private bool GuardarSecado()
         {
-            string strDate = this.mydate.Value;
+            string strDate = Request.Form["mydate"];
             var sec = new Secado
             {
                 Id_evento = 4,
@@ -191,7 +201,7 @@ namespace tamboprp
 
         private bool GuardarDiagPrenez()
         {
-            string strDate = this.mydate.Value;
+            string strDate = Request.Form["mydate"];
             var diagp = new Diag_Prenez
             {
                 Id_evento = 7,
@@ -205,7 +215,7 @@ namespace tamboprp
 
         private bool GuardarControlProduccion()
         {
-            string strDate = this.mydate.Value;
+            string strDate = Request.Form["mydate"];
             var control = new Control_Producc
             {
                 Id_evento = 8,
@@ -220,7 +230,7 @@ namespace tamboprp
 
         private bool GuardarCalificacion()
         {
-            string strDate = this.mydate.Value;
+            string strDate = Request.Form["mydate"];
             var calif = new Calificacion
             {
                 Id_evento = 9,
@@ -235,7 +245,7 @@ namespace tamboprp
 
         private bool GuardarConcurso()
         {
-            string strDate = this.mydate.Value;
+            string strDate = Request.Form["mydate"];
             var cat = new CategoriaConcurso {Id_categ = Int16.Parse(ddlCategConcurso.SelectedValue)};
             var lugconc = new LugarConcurso {Id = int.Parse(ddlNomConcurso.SelectedValue)};
             var concurso = new Concurso
@@ -253,7 +263,7 @@ namespace tamboprp
 
         private bool GuardarVenta()
         {
-            string strDate = this.mydate.Value;
+            string strDate = Request.Form["mydate"];
             var venta = new Venta
             {
                 Id_evento = 11,
@@ -266,15 +276,16 @@ namespace tamboprp
 
         private bool GuardarMuerte()
         {
-            string strDate = this.mydate.Value;
+            string strDate = Request.Form["mydate"];
+            string enf = _dato;
+            string reg = _datoAbortoRegistro;
             var muerte = new Muerte
             {
                 Id_evento = 12,
-                Registro = fRegistro.Value,
+                Registro = reg,
                 Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR")),
                 Comentarios = fComentario.Value,
-               // Enfermedad = Int16.Parse(fEnfermedad.Value)
-                Enfermedad = Int16.Parse(Request.Form["testEnf"])
+                Enfermedad = Int16.Parse(enf)
             };
             return Fachada.Instance.InsertarEvento(muerte);
         }
@@ -284,12 +295,40 @@ namespace tamboprp
             this.LimpiarFormulario();
         }
 
+        private void OcultarInputs()
+        {
+            divInputAborto.Visible = false;
+            divInputBajas.Visible = false;
+            divInputCalificaciones.Visible = false;
+            divInputConcurso.Visible = false;
+            divInputControles.Visible = false;
+            divInputDiagnostico.Visible = false;
+            divInputSecado.Visible = false;
+            divInputServicio.Visible = false;
+        }
+
+        public void CargarListaRegistrosParaTypeahead(int idEvento)
+        {
+            switch (idEvento)
+            {
+                case 0:
+                    _listaRegistrosTypeahead = Fachada.Instance.GetAbortosAnimalesConServicios();
+                    ScriptManager.RegisterStartupScript(this, GetType(), "cargarTypeaheadAbortos", "cargarTypeaheadAbortos();", true); 
+                break;
+
+                case 9:
+                _listaRegistrosTypeahead = Fachada.Instance.GetAbortosAnimalesConServicios();
+                ScriptManager.RegisterStartupScript(this, GetType(), "cargarTypeaheadCategorias", "cargarTypeaheadCategorias();", true);
+                break;
+            }
+        }
+
         private void LimpiarFormulario()
         {
-            this.fRegistro.Value = "";
+            //this.fRegistro.Value = "";
             //this.mydate.Value = "";
             this.fComentario.Value = "";
-            this.fRegistroServ.Value = "";
+            //this.fRegistroServ.Value = "";
             this.fControl.Value = "";
             this.fGrasa.Value = "";
             this.fLeche.Value = "";
@@ -297,8 +336,8 @@ namespace tamboprp
             this.fRegPadre.Value = "";
             this.fInseminador.Value = "";
             this.fPremio.Value = "";
-            this.fRegistro.Attributes.Remove("disabled");
-            this.mydate.Attributes.Remove("disabled");
+            //this.fRegistro.Attributes.Remove("disabled");
+            //this.mydate.Attributes.Remove("disabled");
             this.fComentario.Attributes.Remove("disabled");
             this.fEnfermedad.Attributes.Remove("disabled");
 
@@ -313,6 +352,9 @@ namespace tamboprp
             this.ddlEvento.DataTextField = "Nombre";
             this.ddlEvento.DataValueField = "Id";
             this.ddlEvento.DataBind();
+            int iCount = this.ddlEvento.Items.Count;
+            this.ddlEvento.Items.Add("Seleccione");
+            this.ddlEvento.SelectedIndex = iCount;
         }
         private void CargarDdlCalificacionLetras()
         {
@@ -458,11 +500,15 @@ namespace tamboprp
             this.pnlSecado.Visible = false;
             this.pnlServicio.Visible = false;
             this.pnlConcurso.Visible = false;
+            this.OcultarInputs();
 
             switch (int.Parse(this.ddlEvento.SelectedValue))
             {
                 case 0: // ABORTO
                     this.pnlAborto.Visible = true;
+                    this.divInputAborto.Visible = true;
+                    CargarListaRegistrosParaTypeahead(0);
+                    
                     break;
                 case 1: // PARTO
                     break;
@@ -478,13 +524,13 @@ namespace tamboprp
                     this.pnlBajas.Visible = true;
                     break;
                 case 5: // CONTROL SANITARIO (YA NO SE USA)
-                    this.fRegistro.Attributes.Add("disabled", "disabled");
-                    this.mydate.Attributes.Add("disabled", "disabled");
+                   // this.fRegistro.Attributes.Add("disabled", "disabled");
+                    //this.mydate.Attributes.Add("disabled", "disabled");
                     this.fComentario.Attributes.Add("disabled", "disabled");
                     break;
                 case 6: // C.M.T. (YA NO SE USA)
-                    this.fRegistro.Attributes.Add("disabled", "disabled");
-                    this.mydate.Attributes.Add("disabled", "disabled");
+                    //this.fRegistro.Attributes.Add("disabled", "disabled");
+                    //this.mydate.Attributes.Add("disabled", "disabled");
                     this.fComentario.Attributes.Add("disabled", "disabled");
                     break;
                 case 7: // DIAGNOSTICO DE PRENEZ
@@ -495,6 +541,8 @@ namespace tamboprp
                     break;
                 case 9: // CALIFICACION
                     this.pnlCalif.Visible = true;
+                    this.divInputCalificaciones.Visible = true;
+                    CargarListaRegistrosParaTypeahead(9);
                     break;
                 case 10: // CONCURSO
                     this.pnlConcurso.Visible = true;
@@ -504,6 +552,7 @@ namespace tamboprp
                     break;
                 case 12: // BAJA POR MUERTE
                     this.pnlBajas.Visible = true;
+                    ScriptManager.RegisterStartupScript(this, GetType(), "cargarTypeaheadEnfermedades", "cargarTypeaheadEnfermedades();", true);
                     break;
                 default:
                     break;
@@ -516,6 +565,28 @@ namespace tamboprp
             return Fachada.Instance.GetEnfermedades();
         }
 
-        
+        [WebMethod]
+        public static string RecibirDato(dynamic dato)
+        {
+            _dato = dato;
+            return dato;
+        }
+
+        [WebMethod]
+        public static List<VoListItem> GetAbortosAnimalesConServicios()
+        {
+            return _listaRegistrosTypeahead;
+        }
+
+        [WebMethod]
+        public static string RecibirDatoAbortoRegistro(dynamic dato)
+        {         
+            _datoAbortoRegistro = dato.Replace("\"", "");
+            var padre = Fachada.Instance.GetAbortoServicioPadre(_datoAbortoRegistro);
+            _datoAbortoRegistroPadre = padre;
+            return padre;
+        }
+
+
     }
 }

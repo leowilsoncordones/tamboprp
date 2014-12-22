@@ -14,7 +14,8 @@
     <link href="css/ace-rtl.css" rel="stylesheet" />
     <link href="css/ace-ie.css" rel="stylesheet" />
     
-    <script src="js/date-time/bootstrap-datepicker.js"></script>
+    
+
     <script src="js/ace/ace.searchbox-autocomplete.js"></script>
     
     <script src="js/ace-extra.js"></script>
@@ -27,29 +28,6 @@
     <script src="js/bootstrap.js"></script>
     
     <script src="js/ace/elements.typeahead.js"></script>
-
-    <script type="text/javascript">
-        
-        //$("#mydate").datepicker("setDate", new Date());
-
-        /*$('#mydate').datepicker({
-            "setDate": new Date(),
-            "todayHighlight": true
-        });*/
-
-        /*
-        $("#mydate").datepicker("setDate", new Date());
-        $('#mydate').datepicker({ autoclose: true, });
-        $(".datepicker").datepicker('update');
-        */
-
-        $('#mydate').datepicker('setDate', new Date());
-        $('#mydate').datepicker('todayHighlight', true);
-        //$('#mydate').datepicker('todayBtn', "linked");
-        $('#mydate').datepicker('update');
-        $('#mydate').val('');
-
-    </script>
     
 
 </asp:Content>
@@ -76,6 +54,14 @@
 		            <label class="col-sm-3 control-label no-padding-right"> Registro </label>
 			        <div class="col-sm-2">
 			            <input type="text" runat="server" id="fRegistro" placeholder="Registro" class="form-control col-xs-10 col-sm-5" />
+                        <div id="divInputAborto" runat="server"><input type="text"  id="inputAborto" placeholder="Aborto Reg" class="typeahead form-control col-xs-10 col-sm-5"/></div>
+                        <div id="divInputCalificaciones" runat="server"><input type="text"  id="inputCalificaciones" placeholder="Calif Reg" class="typeahead form-control col-xs-10 col-sm-5"/></div>
+                        <div id="divInputControles" runat="server"><input type="text"  id="inputControles" placeholder="Control Reg" class="typeahead form-control col-xs-10 col-sm-5"/></div>
+                        <div id="divInputDiagnostico" runat="server"><input type="text"  id="inputDiagnostico" placeholder="Diag Reg" class="typeahead form-control col-xs-10 col-sm-5"/></div>
+                        <div id="divInputSecado" runat="server"><input type="text"  id="inputSecado" placeholder="Secado Reg" class="typeahead form-control col-xs-10 col-sm-5"/></div>
+                        <div id="divInputBajas" runat="server"><input type="text"  id="inputBajas" placeholder="Bajas Reg" class="typeahead form-control col-xs-10 col-sm-5"/></div>
+                        <div id="divInputServicio" runat="server"><input type="text"  id="inputServicio" placeholder="Servicio Reg" class="typeahead form-control col-xs-10 col-sm-5"/></div>
+                        <div id="divInputConcurso" runat="server"><input type="text"  id="inputConcurso" placeholder="Concurso Reg" class="typeahead form-control col-xs-10 col-sm-5"/></div>
 			        </div>
                     <div class="col-sm-12"></div>
 		        </div>
@@ -84,9 +70,14 @@
                     <label class="col-sm-3 control-label no-padding-right"> Fecha </label>
 					<div class="col-sm-2">
 						<div class="input-group date">
-						    <input type="date" id="mydate" name="mydate" class="form-control col-xs-10 col-sm-5" runat="server"/>
+						    <input type="text" id="mydate" name="mydate" class="form-control col-xs-10 col-sm-5"/>
 							<span class="input-group-addon"><i class="ace-icon fa fa-calendar"></i></span>
 						</div>
+                        <%--<asp:TextBox ID="DateTextBox" runat="server"  />
+                        <asp:Image ID="Image1" runat="server" ImageUrl="Images/CalendarIcon3.png" />
+                        <ajaxToolkit:CalendarExtender ID="CalendarExtender1" runat="server" 
+                            TargetControlID="DateTextBox" PopupButtonID="Image1">
+                        </ajaxToolkit:CalendarExtender>--%>
 					</div>
                     <div class="col-sm-12"></div>
                 </div>
@@ -95,7 +86,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label no-padding-right"> Registro servicio </label>
 			        <div class="col-sm-2">
-			            <input type="text" runat="server" id="fRegistroServ" readonly placeholder="Registro Servicio" class="form-control col-xs-10 col-sm-5" />
+			            <input type="text" id="fRegistroServ" readonly placeholder="Registro Servicio" class="form-control col-xs-10 col-sm-5" />
 			        </div>
                     <div class="col-sm-12"></div>
                 </div>
@@ -164,7 +155,7 @@
 			            <input type="text" runat="server" id="fEnfermedad" placeholder="Enfermedad" class=" form-control col-xs-10 col-sm-5"/>
 			        </div>
                     <div id="inputEnfermedad">
-			            <input type="text"  id="Text1" placeholder="Enfermedad" class="typeahead" onfocus="GetListaEnf()"/>
+			            <input type="text"  id="inputEnf" placeholder="Enfermedad" class="typeahead"/>
 			        </div>
                     <div class="col-sm-12"></div>
                 </div>
@@ -237,9 +228,191 @@
             </div>
         </div>
     </div>
-
+    
+    <script src="js/bloodhound.js"></script>
+    <script src="js/date-time/bootstrap-datepicker.js"></script>
     <script src="js/typeahead.jquery.js"></script>
-    <script src="js/js_tamboprp/NuevoEvento.js"></script>
+    <%--<script src="js/js_tamboprp/NuevoEvento.js"></script>--%>
+    
+    <script text="javascript">
+
+        //   ---------DATEPICKER----------   //
+
+        $("#mydate").datepicker({
+            autoclose: true,
+            todayHighlight: true
+        });
+        $("#mydate").datepicker('setDate', new Date());
+
+
+        //  ---------TYPEAHEAD-----------   //
+
+
+        // ------------ typeahead ENFERMEDADES ------------- //
+
+        function cargarTypeaheadEnfermedades() {
+        
+        var substringMatcherEnf = function (strs) {
+            return function findMatches(q, cb) {
+                var matches, substrRegex;
+                matches = [];
+                substrRegex = new RegExp(q, 'i');
+                $.each(strs, function (i, str) {
+                    if (substrRegex.test(str.Nombre_enfermedad)) {
+                        matches.push({ Nombre_enfermedad: str.Nombre_enfermedad, Id:str.Id});
+                    }
+                });
+                cb(matches);
+            };
+        };
+      
+        var listaTypeahead = [];
+        GetListaEnf();
+        function GetListaEnf() {
+            PageMethods.GetEnfermedades(OnSuccess);
+        }
+        function OnSuccess(response) {
+            var list = response;
+            for (var i = 0; i < list.length; i++) {
+                var enfermedad = { Id: list[i].Id, Nombre_enfermedad: list[i].Nombre_enfermedad};
+                listaTypeahead.push(enfermedad);
+            }
+        }
+
+        $("#inputEnf.typeahead").typeahead({
+            hint: true,
+            highlight: true,
+            minLength: 2
+        },
+        {
+            name: 'listaTypeahead',
+            displayKey: 'Nombre_enfermedad',
+            source: substringMatcherEnf(listaTypeahead)
+        });
+
+        var enfermedadSeleccionada = function (eventObject, suggestionObject, suggestionDataset) {
+            alert(JSON.stringify(suggestionObject));
+            var dato = JSON.stringify(suggestionObject.Id);
+            pasarDatos(dato);
+        };
+        $("#inputEnf.typeahead").on('typeahead:selected', enfermedadSeleccionada);
+
+        function pasarDatos(dato) {
+            PageMethods.RecibirDato(dato, function (response) { console.write(response); }, function (response) { console.write(response); });
+        }
+
+        }
+        // ------------ typeahead REGISTROS ABORTOS ------------- //
+
+        function cargarTypeaheadAbortos() {
+
+        var substringMatcherAborto = function (strs) {
+            return function findMatches(q, cb) {
+                var matches, substrRegex;
+                matches = [];
+                substrRegex = new RegExp(q, 'i');
+                $.each(strs, function (i, str) {
+                    if (substrRegex.test(str.Nombre)) {
+                        matches.push({ Nombre: str.Nombre });
+                    }
+                });
+                cb(matches);
+            };
+        };
+
+        var listaAbortos = [];
+        GetListaAbortos();
+        function GetListaAbortos() {
+            PageMethods.GetAbortosAnimalesConServicios(OnSuccessAb);
+        }
+        function OnSuccessAb(response) {
+            var list = response;
+            for (var i = 0; i < list.length; i++) {
+                var aborto = { Nombre: list[i].Nombre };
+                listaAbortos.push(aborto);
+            }
+        }
+
+        $("#inputAborto.typeahead").typeahead({
+            hint: true,
+            highlight: true,
+            minLength: 2
+        },
+        {
+            name: 'listaAbortos',
+            displayKey: 'Nombre',
+            source: substringMatcherAborto(listaAbortos)
+        });
+
+        var abortoSeleccionada = function (eventObject, suggestionObject, suggestionDataset) {
+            //alert(JSON.stringify(suggestionObject));
+            var dato = JSON.stringify(suggestionObject.Nombre);
+            pasarDatos(dato);
+        };
+        $("#inputAborto.typeahead").on('typeahead:selected', abortoSeleccionada);
+
+        function pasarDatos(dato) {
+            PageMethods.RecibirDatoAbortoRegistro(dato, function (response) { document.getElementById("fRegistroServ").value =response; }, function (response) { console.write(response); });
+        }
+
+        }
+
+        // ------------ typeahead REGISTROS CALIFICACIONES ------------- //
+
+        function cargarTypeaheadCategorias() {
+
+            var substringMatcherAborto = function (strs) {
+                return function findMatches(q, cb) {
+                    var matches, substrRegex;
+                    matches = [];
+                    substrRegex = new RegExp(q, 'i');
+                    $.each(strs, function (i, str) {
+                        if (substrRegex.test(str.Nombre)) {
+                            matches.push({ Nombre: str.Nombre });
+                        }
+                    });
+                    cb(matches);
+                };
+            };
+
+            var listaAbortos = [];
+            GetListaAbortos();
+            function GetListaAbortos() {
+                PageMethods.GetAbortosAnimalesConServicios(OnSuccessAb);
+            }
+            function OnSuccessAb(response) {
+                var list = response;
+                for (var i = 0; i < list.length; i++) {
+                    var aborto = { Nombre: list[i].Nombre };
+                    listaAbortos.push(aborto);
+                }
+            }
+
+            $("#divInputCalificaciones.typeahead").typeahead({
+                hint: true,
+                highlight: true,
+                minLength: 2
+            },
+            {
+                name: 'listaAbortos',
+                displayKey: 'Nombre',
+                source: substringMatcherAborto(listaAbortos)
+            });
+
+            var abortoSeleccionada = function (eventObject, suggestionObject, suggestionDataset) {
+                var dato = JSON.stringify(suggestionObject.Nombre);
+                pasarDatos(dato);
+            };
+            $("#divInputCalificaciones.typeahead").on('typeahead:selected', abortoSeleccionada);
+
+            function pasarDatos(dato) {
+                PageMethods.RecibirDatoAbortoRegistro(dato, function (response) { console.write(response); } , function (response) { console.write(response); });
+            }
+
+        }
+    </script>
+    
+
     <asp:Label ID="lblVer" runat="server" Text="Label" Visible="False"></asp:Label>
 
 </asp:Content>

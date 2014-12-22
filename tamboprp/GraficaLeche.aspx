@@ -12,7 +12,11 @@
 
     
    <div class="row">
-    <div class="col-md-10" id="sales-charts"></div>
+    <div class="col-md-10" id="graficaLeche"></div>
+    <div class="col-md-2"></div>
+   </div>
+    <div class="row">
+    <div class="col-md-10" id="graficaGrasa"></div>
     <div class="col-md-2"></div>
    </div>
     <br/>
@@ -37,29 +41,37 @@
            
         });
 
+
+        
+
         function gd1(date) {
             return new Date(date).getTime();
         }
+
+        // ---------- Se traen valores de la consulta sql para generar graficas -------------- //
 
         function GetValoreLeche() {
             PageMethods.ControlTotalGetAll(OnSuccess);
         }
 
         function OnSuccess(response){
-            var leche3 = [];
+            var listaLeche = [];
+            var listaGrasa = [];
         var list = response;
             for (var i = 0; i < list.length; i++) {
-                leche3.push([gd1(list[i].Fecha), list[i].Leche]);
+                listaLeche.push([gd1(list[i].Fecha), list[i].Leche]);
+                listaGrasa.push([gd1(list[i].Fecha), list[i].Grasa]);
             }
-            imprimir(leche3);
-            
+            imprimirLeche(listaLeche);
+            imprimirGrasa(listaGrasa);
         }
 
+        // ----------  GRAFICA  LECHE -------------- //
+        var grafLeche = $('#graficaLeche').css({ 'height': '360px' });
 
-        var sales_charts = $('#sales-charts').css({ 'height': '360px' });
-        function imprimir(totalLeche) {
+        function imprimirLeche(totalLeche) {
         
-        $.plot("#sales-charts", [
+        $.plot("#graficaLeche", [
             { label: "Leche", data: totalLeche }
             //{ label: "Grasa", data: grasa }
 
@@ -89,6 +101,46 @@
                 hoverable: true
             }
         });
+
+        }
+
+        // ----------  GRAFICA  GRASA -------------- //
+
+        var grafLeche = $('#graficaGrasa').css({ 'height': '360px' });
+
+        function imprimirGrasa(totalGrasa) {
+
+            $.plot("#graficaGrasa", [
+                //{ label: "Leche", data: totalGrasa }
+                { label: "Grasa", data: totalGrasa }
+
+            ], {
+                hoverable: true,
+                shadowSize: 0,
+                series: {
+                    lines: { show: true },
+                    points: { show: true }
+                },
+                xaxis: {
+                    tickLength: 0,
+                    mode: "time",
+                    timeformat: "%Y/%m",
+                    tickSize: [2, "month"]
+                },
+                yaxis: {
+                    ticks: 10,
+                    min: 0,
+                    max: 4000,
+                    tickDecimals: 0
+                },
+                grid: {
+                    backgroundColor: { colors: ["#fff", "#fff"] },
+                    borderWidth: 1,
+                    borderColor: '#555',
+                    hoverable: true
+                },
+                colors: ["#ff2b00"]
+            });
 
         }
 

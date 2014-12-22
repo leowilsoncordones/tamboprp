@@ -12,6 +12,7 @@ namespace Negocio
     public class Fachada
     {
         private static Fachada _instance;
+        private static AbortoMapper _abortoMapper = new AbortoMapper();
         private static Control_ProduccMapper _controlProdMapper = new Control_ProduccMapper();
         private static AnimalMapper _animalMapper = new AnimalMapper();
         private static LactanciaMapper _lactMapper = new LactanciaMapper();
@@ -769,6 +770,24 @@ namespace Negocio
                     return false;
             }
 
+        }
+
+        public List<VoListItem> GetAbortosAnimalesConServicios()
+        {
+           var lista =  _abortoMapper.GetAbortosAnimalesConServicio();
+            var listaVO = new List<VoListItem>();
+            foreach (var item in lista)
+            {
+                var reg = item.Registro; 
+                var valueobj = new VoListItem{Nombre = reg};
+                listaVO.Add(valueobj);
+            }
+            return listaVO;
+        }
+
+        public string GetAbortoServicioPadre(string reg)
+        {
+            return _abortoMapper.GetServicioPadreAborto(reg);
         }
     }
 }

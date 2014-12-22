@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Datos;
 using Entidades;
+using Negocio;
 using NUnit.Framework;
 
 namespace Tests_Entidades
@@ -54,6 +55,13 @@ namespace Tests_Entidades
             Assert.Throws<System.Data.SqlClient.SqlException>(() => abmap.Insert());
         }
 
+
+        [Test]
+        public void abortoAnimServicio_should_return()
+        {
+            var list = Fachada.Instance.GetAbortosAnimalesConServicios();
+            Assert.IsNotEmpty(list);
+        }
 
     }
 }
