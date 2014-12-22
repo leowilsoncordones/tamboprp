@@ -14,6 +14,8 @@ namespace Datos
     {
         private Usuario _user;
 
+        private static string UsuariosRoles_SelectAll = "UsuariosRoles_SelectAll";
+        
         public UsuarioMapper(Usuario user)
         {
             _user = user;
@@ -88,6 +90,7 @@ namespace Datos
                 cmd.Parameters.Add(new SqlParameter("@NOMBRE", _user.Nombre));
                 cmd.Parameters.Add(new SqlParameter("@APELLIDO", _user.Apellido));
                 cmd.Parameters.Add(new SqlParameter("@EMAIL", _user.Email));
+                cmd.Parameters.Add(new SqlParameter("@FOTO", _user.Foto));
                 cmd.Parameters.Add(new SqlParameter("@ROL", _user.Rol));
                 cmd.Parameters.Add(new SqlParameter("@HABILITADO", _user.Habilitado));
             }
@@ -101,6 +104,7 @@ namespace Datos
                 cmd.Parameters.Add(new SqlParameter("@NOMBRE", _user.Nombre));
                 cmd.Parameters.Add(new SqlParameter("@APELLIDO", _user.Apellido));
                 cmd.Parameters.Add(new SqlParameter("@EMAIL", _user.Email));
+                cmd.Parameters.Add(new SqlParameter("@FOTO", _user.Foto));
                 cmd.Parameters.Add(new SqlParameter("@ROL", _user.Rol));
                 cmd.Parameters.Add(new SqlParameter("@HABILITADO", _user.Habilitado));
             }
@@ -115,12 +119,37 @@ namespace Datos
             user.Nombre = (DBNull.Value == record["NOMBRE"]) ? string.Empty : (string)record["NOMBRE"];
             user.Apellido = (DBNull.Value == record["APELLIDO"]) ? string.Empty : (string)record["APELLIDO"];
             user.Email = (DBNull.Value == record["EMAIL"]) ? string.Empty : (string)record["EMAIL"];
+            user.Foto = (DBNull.Value == record["FOTO"]) ? string.Empty : (string)record["FOTO"];
             user.Rol = (DBNull.Value == record["ROL"]) ? string.Empty : (string)record["ROL"];
-            //user.Habilitado = (bool)record["HABILITADO"];
             int hab = (short)((DBNull.Value == record["HABILITADO"]) ? 0 : (Int16)record["HABILITADO"]);
             if (hab == 1) user.Habilitado = true;
             else user.Habilitado = false;
             return user;
+        }
+
+
+        protected RolUsuario loadRoles(SqlDataReader record)
+        {
+            var rol = new RolUsuario();
+            rol.Nivel = (short)((DBNull.Value == record["NIVEL"]) ? 0 : (Int16)record["NIVEL"]);
+            rol.Rol = (DBNull.Value == record["ROL"]) ? string.Empty : (string)record["ROL"];
+            rol.Descripcion = (DBNull.Value == record["DESCRIPCION"]) ? string.Empty : (string)record["DESCRIPCION"];
+            return rol;
+        }
+
+        public List<RolUsuario> GetRolesUsuarioAll()
+        {
+            var result = new List<RolUsuario>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = UsuariosRoles_SelectAll;
+
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+                result.Add(loadRoles(dr));
+            dr.Close();
+            return result;
         }
 
     }

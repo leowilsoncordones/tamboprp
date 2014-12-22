@@ -18,6 +18,7 @@ namespace Datos
         //private static string Control_Producc_BusqByID = "Control_Producc_BusqByID";
         private static string Control_producc_SelectByRegistro = "Control_producc_SelectByRegistro";
         private static string Control_producc_SelectUltimoVacaEnOrdene = "Control_producc_SelectUltimoVacaEnOrdene";
+        
 
         public Control_ProduccMapper(Control_Producc controlProducc)
         {

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="tamboprp | listados" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ListadoPorCategoria.aspx.cs" Inherits="tamboprp.ListadoPorCategoria" %>
+﻿<%@ Page Title="tamboprp | listados" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ListadoVitalicias.aspx.cs" Inherits="tamboprp.ListadoVitalicias" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <link href="css/bootstrap.css" rel="stylesheet" />
     <link href="css/font-awesome.css" rel="stylesheet" />
@@ -32,41 +32,30 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="page-header">
-        <h1><i class="menu-icon fa fa-list"></i> Listados de animales</h1>
+        <h1><i class="menu-icon fa fa-star"></i> Listado de vacas vitalicias <small><i class="ace-icon fa fa-angle-double-right"></i> producción mayor a 50.000kg de Leche</small></h1>
     </div>
     <div class="row">
-        <div class="col-md-4 wrapper">
-            <div class="input-group">
-                <span class="input-group-btn">
-                    <asp:Button ID="btnListar" runat="server" Text="Listar" onclick="btnListar_Click" CssClass="btn btn-white btn-default" />
-                </span>
-                <asp:DropDownList ID="ddlCategorias" cssClass="form-control" runat="server" ></asp:DropDownList>
-            </div>
-        </div>
-        <div class="col-md-8"></div>
-    </div>
-    
-    <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-12">
         <h3><asp:Label ID="lblCateg" runat="server" ></asp:Label></h3>
         <p>        
-        <asp:GridView ID="gvAnimales" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" 
+        <asp:GridView ID="gvVitalicias" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" 
             CssClass="table table-hover table-striped table-bordered table-condensed dataTable"  PagerStyle-CssClass="bs-pagination text-center" 
-                AllowPaging="true" AllowSorting="true" PageSize="40" OnPageIndexChanging="GvAnimales_PageIndexChanging" >
+                AllowPaging="true" AllowSorting="true" PageSize="40" OnPageIndexChanging="GvVitalicias_PageIndexChanging" >
         <RowStyle HorizontalAlign="Left"  />
         <Columns>
             <asp:BoundField DataField="Registro" HeaderText="Registro" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
             <asp:BoundField DataField="Identificacion" HeaderText="Identificacion" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
             <asp:BoundField DataField="Reg_trazab" HeaderText="Trazabilidad" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
-            <asp:BoundField DataField="Sexo" HeaderText="Sexo" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
-            <asp:BoundField DataField="Gen" HeaderText="Gen" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+            <asp:BoundField DataField="NumGen" HeaderText="Gen." HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
             <asp:BoundField DataField="Fecha_Nacim" HeaderText="Fecha Nac." dataformatstring="{0:dd/MM/yyyy}" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />    
-            <asp:BoundField DataField="Origen" HeaderText="Origen" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
-            <asp:BoundField DataField="Reg_padre" HeaderText="Reg. Padre" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
             <asp:BoundField DataField="Reg_madre" HeaderText="Reg. Madre" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+            <asp:BoundField DataField="Reg_padre" HeaderText="Reg. Padre" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+            <asp:BoundField DataField="Categoria" HeaderText="Categoría" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+            <asp:BoundField DataField="NumLact" HeaderText="Núm. Lact." HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+            <asp:BoundField DataField="ProdVitalicia" HeaderText="Producción vitalicia" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
         </Columns>
         <FooterStyle />
-        <PagerSettings Mode="NumericFirstLast" PageButtonCount="10" />
+        <PagerSettings Mode="NumericFirstLast" PageButtonCount="5" />
         <SelectedRowStyle />
         <HeaderStyle />
         <EditRowStyle />
@@ -74,8 +63,6 @@
         </asp:GridView>
         <asp:Label ID="titCantAnimales" runat="server" Text="Cantidad de animales en la categoría: " Visible="False"></asp:Label><asp:Label ID="lblCantAnimales" runat="server" ></asp:Label><br/>
         </p>
-        </div>
-        <div class="col-md-3">
         </div>
     </div>
 </asp:Content>

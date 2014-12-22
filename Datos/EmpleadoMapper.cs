@@ -95,7 +95,7 @@ namespace Datos
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Empleado_Update";
-                //cmd.Parameters.Add(new SqlParameter("@ID_EMPLEADO", _empleado.Id_empleado));
+                cmd.Parameters.Add(new SqlParameter("@ID_EMPLEADO", _empleado.Id_empleado));
                 cmd.Parameters.Add(new SqlParameter("@NOMBRE", _empleado.Nombre));
                 cmd.Parameters.Add(new SqlParameter("@APELLIDO", _empleado.Apellido));
                 cmd.Parameters.Add(new SqlParameter("@INICIALES", _empleado.Iniciales));

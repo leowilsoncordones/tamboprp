@@ -33,12 +33,13 @@
         <ul class="submenu">
             <li><a href="Animales.aspx">Fichas</a></li>
             <li><a href="Lactancias.aspx">Lactancias</a></li>
+            <li><a href="ListadoVitalicias.aspx">Vitalicias</a></li>
             <li><a href="ListadoPorCategoria.aspx">Listado Por Categoría</a></li>
             <li><a href="Categorias.aspx">Categorías</a></li>
-        </ul>
+            </ul>
     <a href="Produccion.aspx"><i class="menu-icon fa fa-cogs"></i><span class="menu-text"> Producción </span></a>
         <ul class="submenu">
-            <li><a href="NuevoEvento.aspx">Nuevo Evento (remitos?)</a></li>
+            <li><a href="NuevoEvento.aspx">Nuevo Evento</a></li>
             <li><a href="ControlProduccionUltimo.aspx">Ultimo Control de Producción</a></li>
             <li><a href="Tambo.aspx">Tambo (?)</a></li>
         </ul>
@@ -47,14 +48,16 @@
         <ul class="submenu">
             <li><a href="GraficaLeche.aspx">Producción Leche</a></li>
             <li><a href="Remitos.aspx">Remitos a planta</a></li>
-            <li><a href="EmpresaRemisora.aspx">Empresas Remisoras</a></li>
+            <li><a href="NuevoRemito.aspx">Nuevo remito</a></li>
+            <li><a href="EmpresasRemisoras.aspx">Empresas Remisoras</a></li>
         </ul>
     <a href="Calendario_Partos.aspx"><i class="menu-icon fa fa-flask"></i><span class="menu-text"> Reproducción </span></a>
         <ul class="submenu">
             <li><a href="Calendario_Partos.aspx">Calendario de Partos</a></li>
-            <li><a href="Servicios_Sin_DiagP_35.aspx">Vacas con 35 días de servicio y sin diagnóstico de preñez</a></li>
+            <li><a href="Servicios_Sin_DiagP_35.aspx">Vacas con 35 días de servicio y sin diagnóstico de preñez (ecográficos)</a></li>
             <li><a href="Servicios_Sin_DiagP_70.aspx">Vacas con 70 días servicios y sin diagnóstico de preñez</a></li>
             <li><a href="LactanciasSinServ80.aspx">Vacas con 80 días en lactancia y sin servicio</a></li>
+            <li><a href="Inseminaciones.aspx">Inseminaciones</a></li>
         </ul>
     <a href="Cabana.aspx"><i class="menu-icon fa fa-trophy"></i><span class="menu-text"> Cabaña </span></a>
         <ul class="submenu">
@@ -72,6 +75,7 @@
     <a href="Sistema.aspx"><i class="menu-icon fa fa-desktop"></i><span class="menu-text"> Sistema </span></a>
         <ul class="submenu">
             <li><a href="Usuarios.aspx">Usuarios</a></li>
+            <li><a href="NuevoUsuario.aspx">Nuevo usuario</a></li>
             <li><a href="Sitio.aspx">Sitio</a></li>
             <li><a href="Auditoria.aspx">Auditoría</a></li>
             <li><a href="Default.aspx">Ayuda</a></li>

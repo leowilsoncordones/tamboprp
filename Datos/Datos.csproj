@@ -30,6 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -42,6 +43,7 @@
   <ItemGroup>
     <Compile Include="CategConcursoMapper.cs" />
     <Compile Include="Controles_totalesMapper.cs" />
+    <Compile Include="EmpresaMapper.cs" />
     <Compile Include="UsuarioMapper.cs" />
     <Compile Include="EmpresaRemisoraMapper.cs" />
     <Compile Include="RemitoMapper.cs" />

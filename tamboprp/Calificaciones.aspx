@@ -39,7 +39,7 @@
         <div class="col-md-6">
         <asp:PlaceHolder ID="phPersonal" runat="server">
             <asp:GridView ID="gvCalificaciones" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" 
-                    CssClass="table table-hover table-striped table-bordered table-condensed dataTable" PagerStyle-CssClass="bs-pagination text-center "  
+                    CssClass="table table-hover table-striped table-bordered table-condensed dataTable" PagerStyle-CssClass="bs-pagination text-center"  
                     AllowPaging="true" AllowSorting="true" PageSize="20" OnPageIndexChanging="GvCalificaciones_PageIndexChanging" >
                 <RowStyle HorizontalAlign="Left"  />
                 <Columns>

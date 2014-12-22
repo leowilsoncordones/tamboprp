@@ -10,7 +10,7 @@
 namespace tamboprp {
     
     
-    public partial class EmpresaRemisora {
+    public partial class EmpresasRemisoras {
         
         /// <summary>
         /// gvRemisoras control.

@@ -1,5 +1,8 @@
 ﻿<%@ Page Title="tamboprp | animales" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Animales.aspx.cs" Inherits="tamboprp.Animales" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
+    
+    <link href="css/colorbox.css" rel="stylesheet" />
+
     <link href="css/bootstrap.css" rel="stylesheet" />
     <link href="css/font-awesome.css" rel="stylesheet" />
     <link href="css/ace-fonts.css" rel="stylesheet" />
@@ -10,12 +13,38 @@
     <link href="css/ace-skins.css" rel="stylesheet" />
     <link href="css/ace-rtl.css" rel="stylesheet" />
     <link href="css/ace-ie.css" rel="stylesheet" />
+    
+    <script src="js/jquery.colorbox.js"></script>
+
     <script src="js/ace-extra.js"></script>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.js"></script>
     <script src="js/jquery.js"></script>
     <script src="js/jquery1x.js"></script>
     <script src="js/excanvas.js"></script>
+    
+        <script type="text/javascript">
+            var colorbox_params = {
+                rel: 'colorbox',
+                reposition: true,
+                scalePhotos: true,
+                scrolling: false,
+                previous: '<i class="ace-icon fa fa-arrow-left"></i>',
+                next: '<i class="ace-icon fa fa-arrow-right"></i>',
+                close: '&times;',
+                current: '{current} of {total}',
+                maxWidth: '100%',
+                maxHeight: '100%',
+                onComplete: function () {
+                    $.colorbox.resize();
+                }
+            }
+
+            $('[data-rel="colorbox"]').colorbox(colorbox_params);
+            $('#cboxLoadingGraphic').append("<i class='ace-icon fa fa-spinner orange'></i>");
+
+        </script>
+    
 
 </asp:Content>
 <asp:Content ID="ContentAnimal" ContentPlaceHolderID="MainContent" runat="server">
@@ -54,9 +83,9 @@
                 </div>
                 <div class="col-xs-6 col-md-4 text-right">
                     <div class="btn-group" role="group" >
-                        <button type="button" class="btn btn-white btn-default btn-sm" id="btnAgregar"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Evento</button>
                       <button type="button" class="btn btn-white btn-default btn-sm" id="btnEditar"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar</button>
-                      <button type="button" class="btn btn-white btn-default btn-sm" id="btnEliminar"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar</button>
+                      <a href="#fotosModal" role="button" class="btn btn-white btn-default btn-sm" onclick="GetFotos()" data-toggle="modal"><span class="fa fa-camera-retro" aria-hidden="true"></span> Fotos</a>
+                      <a href="#grafModal" role="button" class="btn btn-white btn-default btn-sm" onclick="GetValoreLeche()" data-toggle="modal"><span class="fa fa-bar-chart-o" aria-hidden="true"></span> Producción</a>
                     </div>
                 </div>
                 </div>
@@ -86,10 +115,28 @@
               <!-- Ficha solo para hembras -->
               <asp:PlaceHolder ID="phFichaHembra" Visible="false" runat="server">
                 <ul class="list-group" >
+                <!-- Linea de info de produccion ultimo control y ultima lactancia -->
+                <li class="list-group-item">
+                    <div class="row">
+                      <div class="col-xs-6 col-sm-3"><asp:Label ID="titLecheUltControl" CssClass="text-info" runat="server" Text="Leche último control: "></asp:Label><strong><asp:Label ID="lblLecheUltControl" runat="server" ></asp:Label></strong></div>
+                      <div class="col-xs-6 col-sm-3"><asp:Label ID="titProdLecheUlt" CssClass="text-info" runat="server" Text="Producción leche: "></asp:Label><strong><asp:Label ID="lblProdLecheUlt" runat="server" ></asp:Label></strong></div>
+                      <div class="col-xs-6 col-sm-3"><asp:Label ID="titProdGrasaUlt" CssClass="text-info" runat="server" Text="Producción grasa: "></asp:Label><strong><asp:Label ID="lblProdGrasaUlt" runat="server" ></asp:Label></strong></div>
+                      <div class="col-xs-6 col-sm-3"><asp:Label ID="titAvgGrasaUlt" CssClass="text-info" runat="server" Text="Porcentaje grasa: "></asp:Label><strong><asp:Label ID="lblAvgGrasaUlt" runat="server" ></asp:Label></strong></div>
+                    </div>
+                </li>
+                <!-- Linea de info lactancias -->
+                <li class="list-group-item">
+                    <div class="row">
+                      <div class="col-xs-6 col-sm-3"><asp:Label ID="titNumLact" CssClass="text-info" runat="server" Text="Lactancia: "></asp:Label><strong><asp:Label ID="lblNumLact" runat="server" ></asp:Label></strong></div>
+                      <div class="col-xs-6 col-sm-3"><asp:Label ID="titDiasLact" CssClass="text-info" runat="server" Text="Días de lactancia: "></asp:Label><strong><asp:Label ID="lblDiasLact" runat="server" ></asp:Label></strong></div>
+                        <div class="col-xs-6 col-sm-3"><asp:Label ID="titParidos" CssClass="text-info" runat="server" Text="Partos: "></asp:Label><asp:Label ID="lblH" runat="server" CssClass="badge badge-pink" ></asp:Label>&nbsp;<asp:Label ID="lblM" runat="server" CssClass="badge badge-primary" ></asp:Label></div>
+                      <div class="col-xs-6 col-sm-3"><asp:Label ID="titFechaUltParto" CssClass="text-info" runat="server" Text="Último parto: "></asp:Label><strong><asp:Label ID="lblFechaUltParto" runat="server" ></asp:Label></strong></div>
+                    </div>
+                </li>
                 <!-- Linea de info total produccion -->
                 <li class="list-group-item">
                     <div class="row">
-                      <div class="col-xs-6 col-sm-3"><asp:Label ID="titControles" CssClass="text-info" runat="server" Text="Controles: "></asp:Label><strong><asp:Label ID="lblControles" runat="server" ></asp:Label></strong></div>
+                      <div class="col-xs-6 col-sm-3"><asp:Label ID="titControles" CssClass="text-info" runat="server" Text="Total controles: "></asp:Label><strong><asp:Label ID="lblControles" runat="server" ></asp:Label></strong></div>
                       <div class="col-xs-6 col-sm-3"><asp:Label ID="titProdLeche" CssClass="text-info" runat="server" Text="Producción total leche: "></asp:Label><strong><asp:Label ID="lblProdLeche" runat="server" ></asp:Label></strong></div>
                       <div class="col-xs-6 col-sm-3"><asp:Label ID="titProdGrasa" CssClass="text-info" runat="server" Text="Producción total grasa: "></asp:Label><strong><asp:Label ID="lblProdGrasa" runat="server" ></asp:Label></strong></div>
                       <div class="col-xs-6 col-sm-3"><asp:Label ID="titAvgGrasa" CssClass="text-info" runat="server" Text="Porcentaje total grasa: "></asp:Label><strong><asp:Label ID="lblAvgGrasa" runat="server" ></asp:Label></strong></div>
@@ -104,24 +151,14 @@
                       <div class="col-xs-6 col-sm-3"><asp:Label ID="titDiag" CssClass="text-info" runat="server" Text="Diagnóstico: "></asp:Label><strong><asp:Label ID="lblDiag" runat="server" ></asp:Label></strong></div>
                     </div>
                 </li>
-                <!-- Linea info de lactancias -->
-                <li class="list-group-item">
-                    <div class="row">
-                      <div class="col-xs-6 col-sm-3"><asp:Label ID="titNumLact" CssClass="text-info" runat="server" Text="Lactancia: "></asp:Label><strong><asp:Label ID="lblNumLact" runat="server" ></asp:Label></strong></div>
-                      <div class="col-xs-6 col-sm-3"><asp:Label ID="titDiasLact" CssClass="text-info" runat="server" Text="Días de lactancia: "></asp:Label><strong><asp:Label ID="lblDiasLact" runat="server" ></asp:Label></strong></div>
-                      <div class="col-xs-6 col-sm-3"><asp:Label ID="titParidos" CssClass="text-info" runat="server" Text="Partos: "></asp:Label><asp:Label ID="lblH" runat="server" CssClass="badge badge-pink" ></asp:Label>&nbsp;<asp:Label ID="lblM" runat="server" CssClass="badge badge-primary" ></asp:Label></div>
-                      <div class="col-xs-6 col-sm-3"><asp:Label ID="titFechaUltParto" CssClass="text-info" runat="server" Text="Último parto: "></asp:Label><strong><asp:Label ID="lblFechaUltParto" runat="server" ></asp:Label></strong></div>
-                    </div>
-                </li>
-                <!-- Linea de info de secados -->
+                <!-- Linea info de de secados y partos -->
                 <li class="list-group-item">
                     <div class="row">
                       <div class="col-xs-6 col-sm-3"><asp:Label ID="titFechaSecado" CssClass="text-info" runat="server" Text="Último secado: "></asp:Label><strong><asp:Label ID="lblFechaSecado" runat="server" ></asp:Label></strong></div>
                       <div class="col-xs-6 col-sm-3"><asp:Label ID="titMotivoSecado" CssClass="text-info" runat="server" Text="Motivo: "></asp:Label><strong><asp:Label ID="lblMotivoSecado" runat="server" ></asp:Label></strong></div>
-                      <div class="col-xs-6 col-sm-3"><asp:Label ID="titLecheUltControl" CssClass="text-info" runat="server" Text="Leche último control: "></asp:Label><strong><asp:Label ID="lblLecheUltControl" runat="server" ></asp:Label></strong></div>
-                      <div class="col-xs-6 col-sm-3"><span class="glyphicon glyphicon-camera" aria-hidden="true"></span><asp:Label ID="lblFotos" CssClass="text-info" runat="server" Text=" Ver fotos"></asp:Label></div>
                     </div>
                 </li>
+                
                 </ul>
                </asp:PlaceHolder>
 
@@ -170,14 +207,159 @@
                   </div>
                  </div> 
                 </div> <!-- fin acordeon -->
-              
-
+          
           </div><!-- Fin panel boby -->
             <!-- Panel footer -->
           <div class="panel-footer">
-            Aca va el footer del panel ficha del animal
+            <asp:Label ID="titFooterPanel" Text="Ficha del animal " runat="server"></asp:Label>
+            <asp:Label ID="lblFooterPanel" Visible="False" runat="server"></asp:Label>
           </div><!-- Fin panel footer -->
         </asp:Panel>
+    
+    
+    <!-- MODAL CON LA GRAFICA DE CONTROLES DEL ANIMALES HEMBRA -->
+          <div id="grafModal" class="modal fade">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title"><span class="menu-icon fa fa-bar-chart-o"></span> Controles de <asp:Label ID="lblRegistroModal" CssClass="text-info" runat="server"></asp:Label> 
+                            <small><i class="ace-icon fa fa-angle-double-right"></i> último año en producción</small></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="sales-charts" class="center-block"></div>
+                        <span class="text-warning"><small></small></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <!-- FIN MODAL CON LA GRAFICA DE CONTROLES DEL ANIMALES HEMBRA -->
+              
+        
+      <!-- MODAL FOTOS -->
+          <div id="fotosModal" class="modal fade">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title"><span class="menu-icon fa fa-bar-chart-o"></span> Fotos de <asp:Label ID="lblRegistroModalFotos" CssClass="text-info" runat="server"></asp:Label></h4>
+                    </div>
+                    <div class="modal-body">
+                        <!-- GALLERY thumbnails -->
+                        <ul class="ace-thumbnails clearfix">
+                            <li>
+                             <a data-rel="colorbox" title="YJ3110, 70ª Expo Florida" href="img_tamboprp/animales/reg_3110.jpg">
+                               <img src="img_tamboprp/animales/animales_thumbs/reg_3110_th.png" alt="150x150" />
+                               <!-- optional tags here -->
+                               <!-- optional caption here -->
+                             </a>
+                             <!-- optional tags here -->
+                             <!-- optional caption here -->
+                             <!-- optional tools -->
+                            </li>
+                            <li>
+                             <a data-rel="colorbox" title="YJ3110, Expo Prado 2013" href="img_tamboprp/animales/reg_3110_expoprado2013.jpg">
+                               <img src="img_tamboprp/animales/animales_thumbs/reg_3110_expoprado2013_th.png" alt="150x150" />
+                               <!-- optional tags here -->
+                               <!-- optional caption here -->
+                             </a>
+                             <!-- optional tags here -->
+                             <!-- optional caption here -->
+                             <!-- optional tools -->
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <!-- File upload -->
+                        <button type="button" class="btn btn-default btn-sm"><i class=" ace-icon fa fa-upload"></i> Subir Foto</button>
+                        <!-- boton cerrar -->
+                        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>    
+        <!-- FIN MODAL FOTOS -->      
+    
+    
+    
+
+    <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true" /> 
+    
+    <!-- DATOS GRAFICA -->
+    
+    <script type="text/javascript">
+        
+        //$(document).ready(function() {
+        //    GetValoreLeche();
+           
+        //});
+
+        function gd1(date) {
+            return new Date(date).getTime();
+        }
+
+        function GetValoreLeche() {
+            //var reg = $('#regBuscar').val();
+            PageMethods.GetControlesByRegistro(OnSuccess);
+        }
+
+        function OnSuccess(response){
+            var leche3 = [];
+        var list = response;
+            for (var i = 0; i < list.length; i++) {
+                leche3.push([gd1(list[i].Fecha), list[i].Leche]);
+            }
+            imprimir(leche3);
+            
+        }
+
+
+        var sales_charts = $('#sales-charts').css({ 'height': '240px', 'width': '780px' });
+        function imprimir(totalLeche) {
+        
+        $.plot("#sales-charts", [
+            { label: "Leche", data: totalLeche }
+
+        ], {
+            hoverable: true,
+            shadowSize: 0,
+            series: {
+                lines: { show: true },
+                points: { show: true }
+            },
+            xaxis: {
+                tickLength: 0,
+                mode: "time",
+                timeformat: "%Y/%m",
+                tickSize: [2, "month"]
+            },
+            yaxis: {
+                ticks: 10,
+                min: 0,
+                max: 80,
+                tickDecimals: 0
+            },
+            grid: {
+                backgroundColor: { colors: ["#fff", "#fff"] },
+                borderWidth: 1,
+                borderColor: '#555',
+                hoverable: true
+            }
+        });
+
+        }
+
+    </script>
+    
+    <script src="js/flot/jquery.flot.js"></script>
+    <script src="/js/flot/jquery.flot.time.js"></script>
+    <script src="/js/flot/jquery.flot.symbol.js"></script>
+    <script src="/js/flot/jquery.flot.axislabels.js"></script>
+
+    <!-- FIN GRAFICA -->
 
 
 </asp:Content>

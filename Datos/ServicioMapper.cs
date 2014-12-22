@@ -21,7 +21,8 @@ namespace Datos
         private static string Servicio_RegistroCantServAntesPrenez = "Servicio_RegistroCantServAntesPrenez";
         private static string Servicio_DiasSinDiagPrenez = "Servicio_DiasSinDiagPrenez";
         private static string Servicio_RegistroCantServDespuesPrenez = "Servicio_RegistroCantServDespuesPrenez";
-        private static string Servicio_80DiasLactanciaSinServicio = "Servicio_80DiasLactanciaSinServicio"; 
+        private static string Servicio_80DiasLactanciaSinServicio = "Servicio_80DiasLactanciaSinServicio";
+        private static string Servicio_SelectByRegistroDespUltParto = "Servicio_SelectByRegistroDespUltParto";
 
         public ServicioMapper(Servicio servicio)
         {
@@ -137,6 +138,22 @@ namespace Datos
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.Add(new SqlParameter("@REGISTRO", regAnimal));
             cmd.CommandText = Servicio_SelecByRegistro;
+
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+                result.Add(load(dr));
+            dr.Close();
+            return result;
+        }
+
+        public List<Evento> GetServiciosByRegistroDespUltParto(string regAnimal)
+        {
+            var result = new List<Evento>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@REGISTRO", regAnimal));
+            cmd.CommandText = Servicio_SelectByRegistroDespUltParto;
 
             SqlDataReader dr = FindByCmd(cmd);
             while (dr.Read())

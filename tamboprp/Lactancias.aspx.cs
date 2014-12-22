@@ -199,7 +199,29 @@ namespace tamboprp
             }
         }
 
-        
+        protected void GvLactancias_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            var gv = (GridView)sender;
+            gv.PageIndex = e.NewPageIndex;
+            switch (this.ddlTipoListado.SelectedValue)
+            {
+                case "1":
+                    this.GetLactanciasActuales();
+                    break;
+                case "2":
+                    this.GetLactanciasHistoricas();
+                    break;
+                case "3":
+                    this.GetMejorProduccion305();
+                    break;
+                case "4":
+                    this.GetMejorProduccion365();
+                    break;
+                default:
+                    this.GetLactanciasActuales();
+                    break;
+            }
+        }
 
     }
 }

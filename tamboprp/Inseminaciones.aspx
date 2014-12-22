@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="LactanciasSinServ80.aspx.cs" Inherits="tamboprp.LactanciasSinServ80" %>
+﻿<%@ Page Title="tamboprp | inseminaciones" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Inseminaciones.aspx.cs" Inherits="tamboprp.Inseminaciones" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <link href="css/bootstrap.css" rel="stylesheet" />
     <link href="css/font-awesome.css" rel="stylesheet" />
@@ -31,18 +31,21 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="page-header">
-        <h1><i class="menu-icon fa fa-binoculars"></i> Vacas en lactancia con más de 80 días sin servicio </h1>
+        <h1><i class="menu-icon fa fa-hand-o-right"></i> Inseminaciones con diágnostico de preñez confirmado </h1>
     </div>
     <div class="row">
         <div class="col-md-8">
-        <asp:GridView ID="gvServicios" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" 
+        <asp:GridView ID="gvInseminaciones" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" 
                 CssClass="table table-hover table-striped table-bordered table-condensed dataTable"  PagerStyle-CssClass="bs-pagination text-center"  
-                    AllowPaging="true" AllowSorting="true" PageSize="20" OnPageIndexChanging="GvLactanciasSinServ80_PageIndexChanging" >
+                    AllowPaging="true" AllowSorting="true" PageSize="20" OnPageIndexChanging="GvInseminaciones_PageIndexChanging" >
             <RowStyle HorizontalAlign="Left"  />
             <Columns>
                 <asp:BoundField DataField="Registro" HeaderText="Registro" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />  
-                <asp:BoundField DataField="FechaServicio" dataformatstring="{0:dd/MM/yyyy}" HeaderText="Fecha de Servicio" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
-                <asp:BoundField DataField="RegistroPadre" HeaderText="Caravana de Servicio" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                <asp:BoundField DataField="FechaServicio" dataformatstring="{0:dd/MM/yyyy}" HeaderText="Fecha serv." HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                <asp:BoundField DataField="RegistroPadre" HeaderText="Reg. Servicio" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                <asp:BoundField DataField="FechaDiagnostico" dataformatstring="{0:dd/MM/yyyy}" HeaderText="Fecha diag." HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                <asp:BoundField DataField="Diagnostico" HeaderText="Diag." HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                <asp:BoundField DataField="Comentario" HeaderText="Comentario" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
                 <asp:BoundField DataField="Inseminador" HeaderText="Inseminador" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
             </Columns>
             <FooterStyle />
@@ -54,8 +57,19 @@
         </asp:GridView>
         <asp:Label ID="titCantAnimales" runat="server" Text="Cantidad total de animales: " Visible="True"></asp:Label><asp:Label ID="lblCantAnimales" runat="server" Visible="False"></asp:Label><br/>
         </div>
-        <div class="col-md-4">
-        </div>
+        <!-- RESUMEN EN COLUMNA DERECHA -->
+            <div class="col-md-4">
+                <div class="well">
+						<h4 class="header smaller lighter blue"><i class="menu-icon fa fa-paperclip"></i> Resumen por inseminador</h4>
+                        <ul class="list-unstyled spaced2" runat="server" id="listaInseminadores">
+                        </ul>
+                        <hr/>
+                        <ul class="list-unstyled spaced2">
+                        <li class="bigger-110"><i class="ace-icon fa fa-caret-right blue"></i><span> Total preñadas &nbsp;&nbsp;</span>
+                            <strong><asp:Label ID="lblTotal" runat="server" ></asp:Label></strong></li>                        
+                        </ul>
+					</div>
+            </div>
     </div>
 
 </asp:Content>

@@ -28,8 +28,6 @@ namespace tamboprp
             if (Master != null)
             {
                 var divBreadcrumbs = Master.FindControl("breadcrumbs") as System.Web.UI.HtmlControls.HtmlGenericControl;
-                //var corporativo = Fachada.Instance.GetDatosCorporativos();
-                strB.Append("<span class='pull-right'><strong>" + "Tambo y Cabaña 'El Grillo' " + "</strong></span>");
                 if (divBreadcrumbs != null) divBreadcrumbs.InnerHtml = strB.ToString();
             }
 

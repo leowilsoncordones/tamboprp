@@ -8,7 +8,7 @@ using Negocio;
 
 namespace tamboprp
 {
-    public partial class EmpresaRemisora : System.Web.UI.Page
+    public partial class EmpresasRemisoras : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

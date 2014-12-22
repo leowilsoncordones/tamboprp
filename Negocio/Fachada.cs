@@ -21,6 +21,7 @@ namespace Negocio
         private static EmpleadoMapper _empMapper = new EmpleadoMapper();
         private static TipoEventoMapper _tevMapper = new TipoEventoMapper();
         private static LugarConcursoMapper _lugConcMapper = new LugarConcursoMapper();
+        private static Diag_PrenezMapper _diagMapper = new Diag_PrenezMapper();
 
         private Fachada()
         {
@@ -292,20 +293,85 @@ namespace Negocio
             return lstResult;
         }
 
-        public List<VOControlProdUltimo> GetControlesProduccUltimo()
+        public List<VOLactancia> GetLactanciaByRegistro(string registro)
+        {
+            var lstResult = new List<VOLactancia>();
+            _lactMapper = new LactanciaMapper(registro);
+            List<Lactancia> lstLact = _lactMapper.GetLactanciasByRegistro();
+            for (int i = 0; i < lstLact.Count; i++)
+            {
+                var tmp = lstLact[i];
+                var voLact = new VOLactancia(tmp.Registro, tmp.Numero, tmp.Dias,
+                                             tmp.Leche305, tmp.Grasa305, tmp.Leche365, tmp.Grasa365,
+                                             tmp.ProdLeche, tmp.ProdGrasa);
+                lstResult.Add(voLact);
+            }
+            return lstResult;
+        }
+
+        public List<AnimalMapper.VOAnimalVitalicio> GetVitalicias()
+        {
+            var lstCateg = _catMapper.GetAll();
+            var lstResult = _animalMapper.GetVitalicias();
+            for (int i = 0; i < lstResult.Count; i++)
+            {
+                var tmp = lstResult[i];
+                Categoria categ = lstCateg.FirstOrDefault(c => c.Id_categ == tmp.IdCategoria);
+                if (categ != null)
+                    tmp.Categoria = categ.ToString();
+
+            }
+            return lstResult;
+        }
+
+        public List<VOControlProd> GetControlesProduccUltimo()
         {
             
-            var lstResult = new List<VOControlProdUltimo>();
+            var lstResult = new List<VOControlProd>();
             List<Control_Producc> lstLact = _controlProdMapper.GetControlesProduccUltimo();
             for (int i = 0; i < lstLact.Count; i++)
             {
                 var tmp = lstLact[i];
-                var lactAux = new LactanciaMapper(tmp.Registro);
-                int numLact = lactAux.GetMaxLactanciaByRegistro();
-                //fechaServicio
-                //numServicio
-                var voLact = new VOControlProdUltimo(tmp.Registro, numLact, tmp.Dias_para_control,
-                                                     tmp.Leche, tmp.Grasa, tmp.Fecha);
+                var lactMap = new LactanciaMapper(tmp.Registro);
+                var numLact = lactMap.GetMaxLactanciaByRegistro();
+                var diasLact = lactMap.GetDiasMaxLactanciaByRegistro();
+                /* var lactUlt = lactMap.GetUltimaLactanciaByRegistro();
+                if (lactUlt != null)
+                {
+                    numLact = lactUlt.Numero;
+                    diasLact = lactUlt.Dias;
+                } */
+                
+                // Armo el value object
+                var voLact = new VOControlProd(tmp.Registro, numLact, diasLact,
+                                                     tmp.Leche, tmp.Grasa, tmp.Fecha.ToShortDateString());
+                voLact.FechaServicio = "-";
+                voLact.FechaProbParto = "-";
+                voLact.Diag = '-';
+                // traigo los servicios luego del ultimo parto
+                var listServDespUltParto = _servMapper.GetServiciosByRegistroDespUltParto(tmp.Registro);
+                var cantServ = listServDespUltParto.Count();
+                if (cantServ > 0)
+                {
+                    listServDespUltParto.Sort();
+                    var fechaUltServicio = listServDespUltParto[cantServ - 1].Fecha;
+                    voLact.FechaServicio = fechaUltServicio.ToShortDateString();
+                    // traigo los diagnosticos hechos luego del ultimo servicio
+                    var listDiagDespUltServicio = _diagMapper.GetDiag_PrenezByRegistroUltDespFecha(tmp.Registro, fechaUltServicio);
+                    var cantDiag = listDiagDespUltServicio.Count();
+                    if (cantDiag > 0)
+                    {
+                        listDiagDespUltServicio.Sort();
+                        var ultDiag = (Diag_Prenez)listDiagDespUltServicio[cantDiag - 1];
+                        voLact.Diag = ultDiag.Diagnostico;
+                        // si el disg en preñada sumo 285 días para obtener la fecha probable de parto
+                        if (ultDiag.Diagnostico == 'P')
+                            voLact.FechaProbParto = (fechaUltServicio.AddDays(285).ToShortDateString());
+                    }
+
+                }
+                
+                voLact.NumServicio = cantServ;
                 lstResult.Add(voLact);
             }
             return lstResult;
@@ -448,7 +514,7 @@ namespace Negocio
                     RegistroPadre = serv.Reg_padre,
                 };
                 var emp = listemp.FirstOrDefault(e => e.Id_empleado == serv.Inseminador.Id_empleado);
-                voServ.Inseminador = emp != null ? emp.Nombre + " " + emp.Apellido : "sin registro";
+                voServ.Inseminador = emp != null ? emp.Nombre + " " + emp.Apellido : "-";
                 listaVoServ.Add(voServ);
             }
             return listaVoServ;
@@ -472,7 +538,7 @@ namespace Negocio
                 voServ.CantServicios = cantServ;
                 voServ.DiasServicio = CalcularDiasServicio(vaca.Fecha);
                 var emp = listemp.FirstOrDefault(e => e.Id_empleado == vaca.Inseminador.Id_empleado);
-                voServ.Inseminador = emp != null ? emp.Nombre + " " + emp.Apellido : "sin registro";
+                voServ.Inseminador = emp != null ? emp.Nombre + " " + emp.Apellido : "-";
                 listaVOServ.Add(voServ);
             }
             return listaVOServ;
@@ -498,6 +564,19 @@ namespace Negocio
             var controlTotal = new Controles_totalesMapper();
             return controlTotal.GetAll();
         }
+
+        public List<Controles_totalesMapper.VOControlTotal> ControlesByRegistroGetAll(string reg)
+        {
+            var controlesMap = new Controles_totalesMapper(reg);
+            return controlesMap.GetControlesProduccByRegistro();
+        }
+
+        public List<Controles_totalesMapper.VOControlTotal> ControlesByRegistroGetUltAnio(string reg)
+        {
+            var controlesMap = new Controles_totalesMapper(reg);
+            return controlesMap.ControlesByRegistroGetUltAnio();
+        }
+
 
         public List<Log> LogGetAll()
         {
@@ -621,6 +700,13 @@ namespace Negocio
             var empRemMap = new EmpresaRemisoraMapper();
             return empRemMap.GetAll();
         }
+
+        public Empresa GetDatosCorporativos()
+        {
+            var empMap = new EmpresaMapper();
+            return empMap.GetEmpresaSelectActual();
+        }
+        
 
         public List<Usuario> GetUsuariosAll()
         {
@@ -770,5 +856,30 @@ namespace Negocio
             }
 
         }
+
+        public bool InsertarRemito(Remito remito)
+        {
+            var remitoMap = new RemitoMapper(remito);
+            return remitoMap.Insert() > 0;
+        }
+
+        public List<Diag_PrenezMapper.VODiagnostico> GetInseminacionesExitosas(DateTime fecha)
+        {
+            var listemp = _empMapper.GetAll();
+            var list = _diagMapper.GetInseminacionesExitosas(fecha);
+            foreach (var diagVo in list)
+            {
+                var emp = listemp.FirstOrDefault(e => e.Id_empleado == diagVo.IdInseminador);
+                diagVo.Inseminador = emp != null ? emp.Nombre + " " + emp.Apellido : "-";
+            }
+            return list;
+        }
+
+        public List<RolUsuario> GetRolesDeUsuario()
+        {
+            var _userMap = new UsuarioMapper();
+            return _userMap.GetRolesUsuarioAll();
+        }
+        
     }
 }

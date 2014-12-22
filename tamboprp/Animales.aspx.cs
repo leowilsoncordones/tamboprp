@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
@@ -16,6 +17,7 @@ namespace tamboprp
     {
         private Animal _animal;
         private List<Animal> _similares = new List<Animal>();
+        private static string _reg = "";
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -41,7 +43,10 @@ namespace tamboprp
         {
             if (_animal != null)
             {
+                _reg = regBuscar.Value;
                 this.lblAnimal.Text = _animal.Registro;
+                this.lblRegistroModal.Text = _animal.Registro;
+                this.lblRegistroModalFotos.Text = _animal.Registro;
                 this.lblIdentif.Text = _animal.Identificacion;
                 this.lblGen.Text = (_animal.Gen != -1) ? _animal.Gen.ToString() : "";
                 Categoria catAnimal = Fachada.Instance.GetCategoriaById(_animal.IdCategoria);
@@ -107,7 +112,10 @@ namespace tamboprp
                             break;
                         }
                     }
-
+                    //this.titFooterPanel.Visible = true;
+                    this.lblFooterPanel.Visible = true;
+                    this.lblFooterPanel.Text = _animal.Registro;
+                    this.lblFooterPanel.CssClass = this.lblCategoria.CssClass;
                     this.lblCategoria.Text = catAnimal.ToString();
                 }
                 // nombre
@@ -266,7 +274,9 @@ namespace tamboprp
                     case 4: // secados
                     {
                         var sec = (Secado)list[i];
-                        varMotivoUltSecado = sec.Motivos_secado.ToString();
+                        // traigo el nombre del motivo de secado con id dado
+                        //varMotivoUltSecado = sec.Motivos_secado.ToString();
+                        varMotivoUltSecado = ((Motivos_Secado)sec.Motivos_secado).ToString();
                         varFechaUltSecado = sec.Fecha.ToShortDateString();
                         break;
                     }
@@ -326,7 +336,12 @@ namespace tamboprp
             
             this.lblControles.Text = varControles.ToString();
             this.lblLecheUltControl.Text = varLecheUltControl.ToString() + " lts";
-            this.lblProdLeche.Text = varProdLeche.ToString();
+            if (varProdLeche >= 50000)
+            {
+                // es "vitalicia"
+                this.lblProdLeche.CssClass = "label label-yellow arrowed bolder";
+            }
+            this.lblProdLeche.Text = varProdLeche.ToString(); // NO DA IGUAL QUE CUANDO SUMAMOS LAS LACTANCIAS (VER VITALICIAS)
             this.lblProdGrasa.Text = varProdGrasa.ToString();
             this.lblAvgGrasa.Text = (varCantDias.Equals(0)) ? "0" : Math.Round(varProdGrasa / varCantDias, 2).ToString();
             this.lblMotivoSecado.Text = varMotivoUltSecado;
@@ -338,6 +353,30 @@ namespace tamboprp
                 this.lblCalif.Visible = true;
                 this.lblCalif.Text = _animal.Calific;
             }
+
+            // cargo y proceso la parte de lactancia
+            var lst_lact = Fachada.Instance.GetLactanciaByRegistro(_animal.Registro);
+            int maxLact = 0;
+            int maxInd = 0;
+            int tam = lst_lact.Count;
+            if (tam > 0)
+            {
+                for (int j = 0; j < tam; j++)
+                {
+                    if (lst_lact[j].Numero > maxLact)
+                    {
+                        maxLact = lst_lact[j].Numero;
+                        maxInd = j;
+                    }
+                }
+                this.lblDiasLact.Text = lst_lact[maxInd].Dias.ToString();
+                this.lblNumLact.Text = maxLact.ToString();
+                this.lblProdLecheUlt.Text = lst_lact[maxInd].ProdLeche.ToString();
+                this.lblProdGrasaUlt.Text = lst_lact[maxInd].ProdGrasa.ToString();
+                this.lblAvgGrasaUlt.Text = Math.Round(lst_lact[maxInd].ProdGrasa / lst_lact[maxInd].ProdLeche * 100, 2).ToString();
+            }
+
+            //GetControlesByRegistro(_animal.Registro);
         }
 
         public void BindearEventosAnimalGridView(List<VOEvento> list)
@@ -361,6 +400,7 @@ namespace tamboprp
             this.lblCategoria.CssClass = "";
             this.lblNombre.Text = "";
             this.lblNombre.Visible = false;
+            this.lblRegistroModal.Text = "";
             this.lblTraz.Visible = false;
             this.lblTraz.Text = "";
             this.lblSexo.Text = "";
@@ -396,12 +436,18 @@ namespace tamboprp
             this.lblControles.Text = "";
             this.lblLecheUltControl.Text = "";
             this.lblProdLeche.Text = "";
+            this.lblProdLeche.CssClass = "";
             this.lblProdGrasa.Text = "";
             this.lblAvgGrasa.Text = "";
+            this.lblProdLecheUlt.Text = "";
+            this.lblProdGrasaUlt.Text = "";
+            this.lblAvgGrasaUlt.Text = "";
             this.lblMotivoSecado.Text = "";
             this.lblFechaSecado.Text = "";
             this.lblDiag.Text = "";
 
+            //this.titFooterPanel.Visible = false;
+            this.lblFooterPanel.Visible = false;
         }
 
         private void LimpiarDdlResultadosSimilares()
@@ -509,11 +555,30 @@ namespace tamboprp
 
         public void cBoxControles_CheckedChanged(Object sender, EventArgs e)
         {
-            foreach (GridViewRow rw in gvHistoria.Rows)
-            {
-                if (rw.Cells[1].Text == "Control de Producción")
-                    rw.Visible = false;
-            }
+            //var list = new List<VOEvento>();
+            //for (int i = 0; i < _animal.Eventos.Count; i++)
+            //{
+            //    if (_animal.Eventos[i].Id_evento != 8)
+            //    {
+            //        var voEv = new VOEvento();
+            //        voEv.Fecha = _animal.Eventos[i].Fecha.ToShortDateString();
+            //        voEv.NombreEvento = _animal.Eventos[i].Nombre;
+            //        voEv.Observaciones = _animal.Eventos[i].ToString();
+            //        voEv.Comentarios = _animal.Eventos[i].Comentarios;
+            //        list.Add(voEv);
+            //    }
+            //}
+            //this.BindearEventosAnimalGridView(list);
+
+
+
+
+            //foreach (GridViewRow rw in gvHistoria.Rows)
+            //{
+            //    if (rw.Cells[1].Text == "Control de Producción")
+            //        rw.Visible = false;
+            //}
+
         }
 
         public void gvHistoria_RowDataBound(Object sender, GridViewRowEventArgs e)
@@ -526,6 +591,15 @@ namespace tamboprp
             //        e.Row.Visible = false;
             //}
         }
+
+        [WebMethod]
+        public static List<Controles_totalesMapper.VOControlTotal> GetControlesByRegistro()
+        {
+            //var list = Fachada.Instance.ControlesByRegistroGetAll(_reg);
+            var list = Fachada.Instance.ControlesByRegistroGetUltAnio(_reg);
+            return list;
+        }
+
        
     }
 }

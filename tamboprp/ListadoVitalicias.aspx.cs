@@ -4,11 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Datos;
 using Negocio;
+using Entidades;
 
 namespace tamboprp
 {
-    public partial class ControlProduccionUltimo : System.Web.UI.Page
+    public partial class ListadoVitalicias : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -16,15 +18,15 @@ namespace tamboprp
             {
                 this.SetPageBreadcrumbs();
                 this.LimpiarTabla();
-                this.GetControlesProduccUltimo();
+                this.CargarVitalicias();
             }
         }
 
         protected void SetPageBreadcrumbs()
         {
             var list = new List<VoListItemDuplaString>();
-            list.Add(new VoListItemDuplaString("Producción", "Produccion.aspx"));
-            list.Add(new VoListItemDuplaString("Último control de producción", ""));
+            list.Add(new VoListItemDuplaString("Animales", "Animales.aspx"));
+            list.Add(new VoListItemDuplaString("Listado de vacas vitalicias", ""));
             var strB = PageControl.SetBreadcrumbsPath(list);
             if (Master != null)
             {
@@ -35,34 +37,30 @@ namespace tamboprp
         
         private void LimpiarTabla()
         {
-            this.gvControlProdUltimo.DataSource = null;
-            this.gvControlProdUltimo.DataBind();
-            this.lblFecha.Visible = false;
-            this.lblFecha.Text = "";
+            this.gvVitalicias.DataSource = null;
+            this.gvVitalicias.DataBind();
+            this.lblCateg.Text = "";
             this.lblCantAnimales.Text = "";
         }
 
-        private void GetControlesProduccUltimo()
+
+        private void CargarVitalicias()
         {
-            var listTemp = Fachada.Instance.GetControlesProduccUltimo();
-            this.gvControlProdUltimo.DataSource = listTemp;
-            this.gvControlProdUltimo.DataBind();
+            var listTemp = Fachada.Instance.GetVitalicias();
+            this.gvVitalicias.DataSource = listTemp;
+            this.gvVitalicias.DataBind();
+
             this.titCantAnimales.Visible = true;
-            this.lblFecha.Visible = true;
             this.lblCantAnimales.Text = listTemp.Count.ToString();
-            if (listTemp.Count > 0)
-            {
-                this.lblFecha.Text = listTemp[0].FechaControl;
-            }
         }
 
-
-        protected void GvControlProdUltimo_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        protected void GvVitalicias_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             var gv = (GridView)sender;
             gv.PageIndex = e.NewPageIndex;
-            this.GetControlesProduccUltimo();
+            this.CargarVitalicias();
         }
+
 
     }
 }

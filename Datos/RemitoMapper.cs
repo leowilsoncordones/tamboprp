@@ -119,7 +119,7 @@ namespace Datos
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Remito_Insert";
                 cmd.Parameters.Add(new SqlParameter("@FECHA", _remito.Fecha));
-                cmd.Parameters.Add(new SqlParameter("@EMPRESA", _remito.Empresa));
+                cmd.Parameters.Add(new SqlParameter("@EMPRESA", _remito.Empresa.Id));
                 cmd.Parameters.Add(new SqlParameter("@FACTURA", _remito.Factura));
                 cmd.Parameters.Add(new SqlParameter("@MATRICULA", _remito.Matricula));
                 cmd.Parameters.Add(new SqlParameter("@LITROS", _remito.Litros));
@@ -135,7 +135,7 @@ namespace Datos
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Remito_Update";
                 cmd.Parameters.Add(new SqlParameter("@FECHA", _remito.Fecha));
-                cmd.Parameters.Add(new SqlParameter("@EMPRESA", _remito.Empresa));
+                cmd.Parameters.Add(new SqlParameter("@EMPRESA", _remito.Empresa.Id));
                 cmd.Parameters.Add(new SqlParameter("@FACTURA", _remito.Factura));
                 cmd.Parameters.Add(new SqlParameter("@MATRICULA", _remito.Matricula));
                 cmd.Parameters.Add(new SqlParameter("@LITROS", _remito.Litros));

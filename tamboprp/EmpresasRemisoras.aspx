@@ -1,4 +1,4 @@
-﻿<%@ Page Title="tamboprp | remisoras" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EmpresaRemisora.aspx.cs" Inherits="tamboprp.EmpresaRemisora" %>
+﻿<%@ Page Title="tamboprp | remisoras" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EmpresasRemisoras.aspx.cs" Inherits="tamboprp.EmpresasRemisoras" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <link href="css/bootstrap.css" rel="stylesheet" />
     <link href="css/font-awesome.css" rel="stylesheet" />

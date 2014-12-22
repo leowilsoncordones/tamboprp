@@ -16,6 +16,9 @@ namespace Datos
         private string _registroAnimal;
 
         private static string Diag_prenez_SelecByRegistro = "Diag_prenez_SelectByRegistro";
+        private static string Diag_prenez_SelectByRegistroDespFecha = "Diag_prenez_SelectByRegistroDespFecha";
+        private static string Diag_prenez_SelectInseminacionesExito = "Diag_prenez_SelectInseminacionesExito";
+
 
         public Diag_PrenezMapper(Diag_Prenez diag)
         {
@@ -46,7 +49,7 @@ namespace Datos
 
         public List<Diag_Prenez> GetAll()
         {
-            List<Diag_Prenez> ls = new List<Diag_Prenez>();
+            var ls = new List<Diag_Prenez>();
             ls = loadAll(Find(OperationType.SELECT_DEF));
             return ls;
         }
@@ -54,7 +57,7 @@ namespace Datos
 
         protected List<Diag_Prenez> loadAll(SqlDataReader rs)
         {
-            List<Diag_Prenez> result = new List<Diag_Prenez>();
+            var result = new List<Diag_Prenez>();
             while (rs.Read())
                 result.Add(load(rs));
             rs.Close();
@@ -63,7 +66,7 @@ namespace Datos
 
         public List<Evento> GetDiag_PrenezByRegistro(string regAnimal)
         {
-            List<Evento> result = new List<Evento>();
+            var result = new List<Evento>();
             SqlCommand cmd = null;
             cmd = new SqlCommand();
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -76,7 +79,28 @@ namespace Datos
             dr.Close();
             return result;
         }
+
+        public List<Evento> GetDiag_PrenezByRegistroUltDespFecha(string regAnimal, DateTime fecha)
+        {
+            var result = new List<Evento>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@REGISTRO", regAnimal));
+            cmd.Parameters.Add(new SqlParameter("@FECHA", fecha));
+            cmd.CommandText = Diag_prenez_SelectByRegistroDespFecha;
+
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+                result.Add(load(dr));
+            dr.Close();
+            return result;
+        }
+
         
+        
+
+
         protected override SqlCommand GetStatement(OperationType opType)
         {
             SqlCommand cmd = null;
@@ -135,6 +159,65 @@ namespace Datos
             diagp.Comentarios = (DBNull.Value == record["COMENTARIO"]) ? string.Empty : (string)record["COMENTARIO"];
             diagp.Diagnostico = (DBNull.Value == record["DIAGNOSTIC"]) ? ' ' : Convert.ToChar(record["DIAGNOSTIC"]);
             return diagp;
+        }
+
+        public List<VODiagnostico> GetInseminacionesExitosas(DateTime fecha)
+        {
+            var result = new List<VODiagnostico>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@FECHA", fecha));
+            cmd.CommandText = Diag_prenez_SelectInseminacionesExito;
+
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+                result.Add(loadInseminacionesExito(dr));
+            dr.Close();
+            return result;
+        }
+
+        protected VODiagnostico loadInseminacionesExito(SqlDataReader record)
+        {
+            var diagVo = new VODiagnostico();
+            diagVo.Registro = (DBNull.Value == record["REGISTRO"]) ? string.Empty : (string)record["REGISTRO"];
+            string strDateS = (DBNull.Value == record["FECHA_SERV"]) ? string.Empty : record["FECHA_SERV"].ToString();
+            if (strDateS != string.Empty) diagVo.FechaServicio = DateTime.Parse(strDateS, new CultureInfo("fr-FR"));
+            diagVo.RegistroPadre = (DBNull.Value == record["REG_PADRE"]) ? string.Empty : (string)record["REG_PADRE"];
+            string strDateD = (DBNull.Value == record["FECHA_DIAG"]) ? string.Empty : record["FECHA_DIAG"].ToString();
+            if (strDateD != string.Empty) diagVo.FechaDiagnostico = DateTime.Parse(strDateD, new CultureInfo("fr-FR"));
+            diagVo.Diagnostico = (DBNull.Value == record["DIAGNOSTIC"]) ? ' ' : Convert.ToChar(record["DIAGNOSTIC"]);
+            diagVo.Comentario = (DBNull.Value == record["COMENTARIO"]) ? string.Empty : (string)record["COMENTARIO"];
+            diagVo.IdInseminador = (short)((DBNull.Value == record["INSEMINADOR"]) ? 0 : (Int16)record["INSEMINADOR"]);
+            return diagVo;
+        }
+
+
+        public class VODiagnostico
+        {
+            public string Registro { get; set; }
+
+            public string Edad { get; set; }
+
+            public DateTime FechaServicio { get; set; }
+
+            public string RegistroPadre { get; set; }
+
+            public int CantServicios { get; set; }
+
+            public string DiasServicio { get; set; }
+
+            public int IdInseminador { get; set; }
+
+            public string Inseminador { get; set; }
+
+            public string Comentario { get; set; }
+
+            public DateTime FechaDiagnostico { get; set; }
+
+            public char Diagnostico { get; set; }
+
+
         }
 
     }
