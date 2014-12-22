@@ -28,6 +28,40 @@
     <script src="/js/flot/jquery.flot.time.js"></script>
     <script src="/js/flot/jquery.flot.symbol.js"></script>
     <script src="/js/flot/jquery.flot.axislabels.js"></script>
+    
+    <script type="text/javascript">
+        
+        $('.sidebar').ace_sidebar();
+
+        $('.sidebar').ace_sidebar('toggleMenu');
+        $('.sidebar').ace_sidebar('toggleMenu', toggleButton);
+        //if there is an optional toggleButton element, its icons will be flipped
+
+        $('.sidebar').ace_sidebar('toggleMenu', false);
+        //optional false value means don't save changes to cookies
+
+        $('.sidebar').ace_sidebar('toggleMenu', [toggleButton, true ]);
+
+        var new_active = $(this).parent();
+
+        //remove ".active" class from all (previously) ".active" elements
+        $('.nav-list li.active').removeClass('active');
+
+        //add ".active" class to our newly selected item and all its parent "LI" elements
+        new_active.addClass('active').parents('.nav-list li').addClass('active');
+
+        //you can also update breadcrumbs:
+        var breadcrumb_items = [];
+        //$(this) is a reference to our clicked/selected element
+        $(this).parents('.nav-list li').each(function() {
+            var link = $(this).find('> a');
+            var text = link.text();
+            var href = link.attr('href');
+            breadcrumb_items.push({ 'text': text, 'href': href });
+        });
+
+    </script>
+
     <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
 </head>
 <body class="no-skin">
@@ -113,6 +147,7 @@
 				    </a>
                        <ul class="submenu">
                        <li><a href="Remitos.aspx">Remitos a planta</a></li>
+                       <li><a href="NuevoRemito.aspx">Nuevo remito</a></li>
                        <li><a href="ControlProduccionUltimo.aspx">Ultimo Control de Producción</a></li>
                       </ul>
                     </li>

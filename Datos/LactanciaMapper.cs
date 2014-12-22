@@ -24,7 +24,9 @@ namespace Datos
         private static string Lactancia_SelectMejorProduccion305Top = "Lactancia_SelectMejorProduccion305Top";
         private static string Lactancia_SelectMejorProduccion365 = "Lactancia_SelectMejorProduccion365";
         private static string Lactancia_SelectMaxByRegistro = "Lactancia_SelectMaxByRegistro";
-        
+        private static string Lactancia_SelectUltimaByRegistro = "Lactancia_SelectUltimaByRegistro";
+        private static string Lactancia_SelectDiasMaxByRegistro = "Lactancia_SelectDiasMaxByRegistro";
+      
         
         public LactanciaMapper(Lactancia lact)
         {
@@ -51,7 +53,7 @@ namespace Datos
             return ConfigurationManager.ConnectionStrings["con"].ConnectionString;
         }
 
-        public Lactancia GetControl_ProduccById()
+        public Lactancia GetLactanciaById()
         {
             SqlDataReader dr = Find(OperationType.SELECT_ID);
             dr.Read();
@@ -112,6 +114,21 @@ namespace Datos
             return result;
         }
 
+        //public List<VOProdVitalicia> GetVitalicias()
+        //{
+        //    var result = new List<VOProdVitalicia>();
+        //    SqlCommand cmd = null;
+        //    cmd = new SqlCommand();
+        //    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+        //    cmd.CommandText = Lactancias_SelectVitalicias;
+
+        //    SqlDataReader dr = FindByCmd(cmd);
+        //    while (dr.Read())
+        //        result.Add(loadVitalicia(dr));
+        //    dr.Close();
+        //    return result;
+        //}
+
         public List<Lactancia> GetLactanciaMejorProduccion305(int tope)
         {
             var result = new List<Lactancia>();
@@ -170,6 +187,30 @@ namespace Datos
             return Convert.ToInt32(value);
         }
 
+        public int GetDiasMaxLactanciaByRegistro()
+        {
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = Lactancia_SelectDiasMaxByRegistro;
+            cmd.Parameters.Add(new SqlParameter("@REGISTRO", _regAnimal));
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
+
+        public Lactancia GetUltimaLactanciaByRegistro()
+        {
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = Lactancia_SelectUltimaByRegistro;
+            cmd.Parameters.Add(new SqlParameter("@REGISTRO", _regAnimal));
+
+            SqlDataReader dr = FindByCmd(cmd);
+            dr.Read();
+            return (Lactancia)load(dr);
+        }
 
         protected List<Lactancia> loadAll(SqlDataReader rs)
         {
@@ -259,5 +300,37 @@ namespace Datos
         {
             return GetScalarDate("Control_producc_SelectFechaUltimoControl");
         }
+
+        //protected VOProdVitalicia loadVitalicia(SqlDataReader record)
+        //{
+        //    var voVital = new VOProdVitalicia();
+        //    voVital.Registro = (DBNull.Value == record["REGISTRO"]) ? string.Empty : (string)record["REGISTRO"];
+        //    voVital.ProdLecheVitalicia = (DBNull.Value == record["PROD_VITALICIA"]) ? 0 : double.Parse(record["PROD_VITALICIA"].ToString());
+        //    voVital.NumLact = (DBNull.Value == record["LACT_NUM"]) ? 0 : int.Parse(record["LACT_NUM"].ToString());
+        //    return voVital;
+        //}
+
+        //public class VOProdVitalicia
+        //{
+        //    public VOProdVitalicia()
+        //    {
+
+        //    }
+
+        //    public VOProdVitalicia(string reg, double prodVitalicia, int num)
+        //    {
+        //        Registro = reg;
+        //        ProdLecheVitalicia = prodVitalicia;
+        //        NumLact = num;
+        //    }
+
+        //    public string Registro { get; set; }
+
+        //    public double ProdLecheVitalicia { get; set; }
+
+        //    public int NumLact { get; set; }
+
+        //}
+
     }
 }

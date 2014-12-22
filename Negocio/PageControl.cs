@@ -21,7 +21,14 @@ namespace Negocio
                 else sb.Append("<li><a href='" + list[i].Valor2 + "'>" + list[i].Valor1 + "</a></li>");
             }
             sb.Append("</ul>");
+            sb.Append("<span class='pull-right'><strong>" + DatosEmpresa() + "</strong></span>");
             return sb;
+        }
+
+        public static string DatosEmpresa()
+        {
+            var corporativo = Fachada.Instance.GetDatosCorporativos();
+            return corporativo.ToString();
         }
 
         private void BootstrapDropDownListLarge(string Id)

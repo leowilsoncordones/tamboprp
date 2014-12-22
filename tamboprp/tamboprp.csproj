@@ -170,13 +170,19 @@
     <Content Include="avatars\avatar5.png" />
     <Content Include="avatars\profile-pic.jpg" />
     <Content Include="avatars\user.jpg" />
+    <Content Include="img_tamboprp\animales\animales_thumbs\reg_3110_expoprado2013_th.png" />
+    <Content Include="img_tamboprp\animales\animales_thumbs\reg_3110_th.png" />
     <Content Include="Images\CalendarIcon3.png" />
     <Content Include="js\bloodhound.js" />
+    <Content Include="Inseminaciones.aspx" />
+    <Content Include="ListadoVitalicias.aspx" />
+    <Content Include="NuevoUsuario.aspx" />
+    <Content Include="NuevoRemito.aspx" />
     <Content Include="Usuarios.aspx" />
     <Content Include="Sanidad.aspx" />
     <Content Include="Cabana.aspx" />
     <Content Include="Calificaciones.aspx" />
-    <Content Include="EmpresaRemisora.aspx" />
+    <Content Include="EmpresasRemisoras.aspx" />
     <Content Include="CategConcurso.aspx" />
     <Content Include="Concursos.aspx" />
     <Content Include="Categorias.aspx" />
@@ -763,6 +769,34 @@
     <Compile Include="Auditoria.aspx.designer.cs">
       <DependentUpon>Auditoria.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Inseminaciones.aspx.cs">
+      <DependentUpon>Inseminaciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inseminaciones.aspx.designer.cs">
+      <DependentUpon>Inseminaciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ListadoVitalicias.aspx.cs">
+      <DependentUpon>ListadoVitalicias.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ListadoVitalicias.aspx.designer.cs">
+      <DependentUpon>ListadoVitalicias.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="NuevoUsuario.aspx.cs">
+      <DependentUpon>NuevoUsuario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NuevoUsuario.aspx.designer.cs">
+      <DependentUpon>NuevoUsuario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="NuevoRemito.aspx.cs">
+      <DependentUpon>NuevoRemito.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NuevoRemito.aspx.designer.cs">
+      <DependentUpon>NuevoRemito.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Usuarios.aspx.cs">
       <DependentUpon>Usuarios.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -791,12 +825,12 @@
     <Compile Include="Calificaciones.aspx.designer.cs">
       <DependentUpon>Calificaciones.aspx</DependentUpon>
     </Compile>
-    <Compile Include="EmpresaRemisora.aspx.cs">
-      <DependentUpon>EmpresaRemisora.aspx</DependentUpon>
+    <Compile Include="EmpresasRemisoras.aspx.cs">
+      <DependentUpon>EmpresasRemisoras.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="EmpresaRemisora.aspx.designer.cs">
-      <DependentUpon>EmpresaRemisora.aspx</DependentUpon>
+    <Compile Include="EmpresasRemisoras.aspx.designer.cs">
+      <DependentUpon>EmpresasRemisoras.aspx</DependentUpon>
     </Compile>
     <Compile Include="CategConcurso.aspx.cs">
       <DependentUpon>CategConcurso.aspx</DependentUpon>

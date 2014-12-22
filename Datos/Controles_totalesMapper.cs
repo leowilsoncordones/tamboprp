@@ -12,11 +12,16 @@ namespace Datos
 {
     public class Controles_totalesMapper : AbstractMapper
     {
+        private string _regAnimal; 
 
         public Controles_totalesMapper()
         {
         }
 
+        public Controles_totalesMapper(string registro)
+        {
+            _regAnimal = registro;
+        }
 
         public List<VOControlTotal> GetAll()
         {
@@ -114,6 +119,38 @@ namespace Datos
         }
 
 
+        public List<VOControlTotal> GetControlesProduccByRegistro()
+        {
+            var result = new List<VOControlTotal>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@REGISTRO", _regAnimal));
+            cmd.CommandText = "Control_producc_SelectByRegistro";
+
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+                result.Add(load(dr));
+            dr.Close();
+            return result;
+        }
+
+        public List<VOControlTotal> ControlesByRegistroGetUltAnio()
+        {
+            var result = new List<VOControlTotal>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@REGISTRO", _regAnimal));
+            cmd.CommandText = "Control_producc_SelectByRegistroUltAnio";
+
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+                result.Add(load(dr));
+            dr.Close();
+            return result;
+        }
+        
 
         public class VOControlTotal
         {

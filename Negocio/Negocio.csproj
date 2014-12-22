@@ -68,8 +68,10 @@
     <Compile Include="VOAnimal.cs" />
     <Compile Include="PageControl.cs" />
     <Compile Include="VOAnalitico.cs" />
+    <Compile Include="VOControlProd.cs" />
     <Compile Include="VOControlProdUltimo.cs" />
     <Compile Include="VOLactancia.cs" />
+    <Compile Include="VOListItem2.cs" />
     <Compile Include="VoListItemDuplaString.cs" />
     <Compile Include="VOListItem.cs" />
     <Compile Include="VOEvento.cs" />

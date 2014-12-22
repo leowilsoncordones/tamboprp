@@ -36,6 +36,11 @@ namespace tamboprp
         protected void btnListar_Click(object sender, EventArgs e)
         {
             LimpiarTabla();
+            this.GetProximosPartos();
+        }
+
+        private void GetProximosPartos()
+        {
             var idFecha = DateTime.Parse(this.ddlMeses.SelectedValue);
             var listServ = Fachada.Instance.GetProximosPartos(idFecha);
             this.gvPartos.DataSource = listServ;
@@ -51,7 +56,6 @@ namespace tamboprp
             this.ddlMeses.DataSource = list;
             this.ddlMeses.DataTextFormatString = "{0:MMMM - yyyy}";
             this.ddlMeses.DataBind();
-
         }
 
 
@@ -62,6 +66,13 @@ namespace tamboprp
             this.lblCantAnimales.Visible = false;
             this.lblCantAnimales.Text = "";
             this.titCantAnimales.Visible = false;
+        }
+
+        protected void GvPartos_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            var gv = (GridView)sender;
+            gv.PageIndex = e.NewPageIndex;
+            this.GetProximosPartos();
         }
 
     }

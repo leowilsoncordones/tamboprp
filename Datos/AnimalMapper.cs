@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Entidades;
 using Microsoft.Win32;
+using Negocio;
 
 namespace Datos
 {
@@ -20,6 +21,7 @@ namespace Datos
         //private static string Animal_BusqByCategoria = "Animal_BusqByCategoria";
         private static string Animal_SelectByCategoria = "Animal_SelectByCategoria";
         private static string Animal_SelectFotosByRegistro = "Animal_SelectFotosByRegistro";
+        private static string Animales_SelectVitalicias = "Animales_SelectVitalicias";
 
         public AnimalMapper(Animal animal)
         {
@@ -176,7 +178,7 @@ namespace Datos
             var anim = new Animal();
             anim.Registro = (DBNull.Value == record["REGISTRO"]) ? string.Empty : (string)record["REGISTRO"];
             anim.Identificacion = (DBNull.Value == record["IDENTIFICACION"]) ? string.Empty : (string)record["IDENTIFICACION"];
-            string strGen = (DBNull.Value == record["GEN"]) ? string.Empty : record["GEN"].ToString();
+            //string strGen = (DBNull.Value == record["GEN"]) ? string.Empty : record["GEN"].ToString();
             anim.Gen = (DBNull.Value == record["GEN"]) ? -1 : int.Parse(record["GEN"].ToString());
             anim.IdCategoria = (short)((DBNull.Value == record["CATEGORIA"]) ? 0 : (Int16)record["CATEGORIA"]);
             anim.Nombre = (DBNull.Value == record["NOMBRE"]) ? string.Empty : (string)record["NOMBRE"];
@@ -276,5 +278,110 @@ namespace Datos
             public string Registro { get; set; }
         }
 
+        protected VOAnimalVitalicio loadVitalicias(SqlDataReader record)
+        {
+            var anim = new Animal();
+            anim.Registro = (DBNull.Value == record["REGISTRO"]) ? string.Empty : (string)record["REGISTRO"];
+            anim.Identificacion = (DBNull.Value == record["IDENTIFICACION"]) ? string.Empty : (string)record["IDENTIFICACION"];
+            anim.Gen = (DBNull.Value == record["GEN"]) ? -1 : int.Parse(record["GEN"].ToString());
+            anim.IdCategoria = (short)((DBNull.Value == record["CATEGORIA"]) ? 0 : (Int16)record["CATEGORIA"]);
+            //anim.Nombre = (DBNull.Value == record["NOMBRE"]) ? string.Empty : (string)record["NOMBRE"];
+            anim.Reg_trazab = (DBNull.Value == record["REG_TRAZAB"]) ? string.Empty : (string)record["REG_TRAZAB"];
+            //anim.Sexo = (DBNull.Value == record["SEXO"]) ? 'X' : Convert.ToChar(record["SEXO"]);
+            string strDate = (DBNull.Value == record["FECHA_NACIM"]) ? string.Empty : record["FECHA_NACIM"].ToString();
+            if (strDate != string.Empty) anim.Fecha_nacim = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+            //anim.Origen = (DBNull.Value == record["ORIGEN"]) ? string.Empty : (string)record["ORIGEN"];
+            anim.Reg_padre = (DBNull.Value == record["REG_PADRE"]) ? string.Empty : (string)record["REG_PADRE"];
+            anim.Reg_madre = (DBNull.Value == record["REG_MADRE"]) ? string.Empty : (string)record["REG_MADRE"];
+
+            var voVital = new VOAnimalVitalicio(anim);
+            voVital.ProdVitalicia = (DBNull.Value == record["PROD_VITALICIA"]) ? 0 : double.Parse(record["PROD_VITALICIA"].ToString());
+            voVital.NumLact = (DBNull.Value == record["LACT_NUM"]) ? 0 : int.Parse(record["LACT_NUM"].ToString());
+            
+            return voVital;
+        }
+
+        
+        public List<VOAnimalVitalicio> GetVitalicias()
+        {
+            var result = new List<VOAnimalVitalicio>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = Animales_SelectVitalicias;
+
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+                result.Add(loadVitalicias(dr));
+            dr.Close();
+            return result;
+        }
+
+        public class VOAnimalVitalicio
+        {
+            public VOAnimalVitalicio()
+            {
+                Vivo = true;
+            }
+
+            public VOAnimalVitalicio(Animal anim)
+            {
+                IdCategoria = anim.IdCategoria;
+                Identificacion = anim.Identificacion;
+                Origen = anim.Origen;
+                Reg_madre = anim.Reg_madre;
+                Reg_padre = anim.Reg_padre;
+                Fecha_nacim = anim.Fecha_nacim;
+                Sexo = anim.Sexo;
+                Reg_trazab = anim.Reg_trazab;
+                Gen = anim.Gen;
+                NumGen = Gen == -1 ? "-" : Gen.ToString();
+                Registro = anim.Registro;
+                Nombre = anim.Nombre;
+                Calific = anim.Calific;
+            }
+
+            public string Reg_madre { get; set; }
+
+            public string Reg_padre { get; set; }
+
+            public string Calific { get; set; }
+
+            public bool Vivo { get; set; }
+
+            public string Nombre { get; set; }
+
+            public string Registro { get; set; }
+
+            public int Gen { get; set; }
+
+            public string NumGen { get; set; }
+
+            public string Reg_trazab { get; set; }
+
+            public Char Sexo { get; set; }
+
+            public DateTime Fecha_nacim { get; set; }
+
+            public string Origen { get; set; }
+
+            public string Identificacion { get; set; }
+
+            public int IdCategoria { get; set; }
+
+            public string Categoria { get; set; }
+
+            public double ProdVitalicia { get; set; }
+
+            public int NumLact { get; set; }
+
+            public override string ToString()
+            {
+                return Registro;
+            }
+
+        }
+
     }
 }
+

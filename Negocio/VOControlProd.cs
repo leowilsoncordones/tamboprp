@@ -2,16 +2,16 @@
 
 namespace Negocio
 {
-    public class VOControlProdUltimo
+    public class VOControlProd
     {
-        public VOControlProdUltimo()
+        public VOControlProd()
         {
             
         }
 
-        public VOControlProdUltimo  (string registro, int numLact, int dias, 
-                                    double leche, double grasa, DateTime fechaServicio, int numServicio, 
-                                    char diag, DateTime fechaProbParto, DateTime fechaControl)
+        public VOControlProd  (string registro, int numLact, int dias, 
+                                    double leche, double grasa, string fechaServicio, int numServicio, 
+                                    char diag, string fechaProbParto, string fechaControl)
         {
             Registro = registro;
             NumLact = numLact;
@@ -28,7 +28,7 @@ namespace Negocio
             FechaControl = fechaControl;
         }
 
-        public VOControlProdUltimo(string registro, int numLact, int dias, double leche, double grasa, DateTime fechaControl)
+        public VOControlProd(string registro, int numLact, int dias, double leche, double grasa, string fechaControl)
         {
             Registro = registro;
             NumLact = numLact;
@@ -37,19 +37,18 @@ namespace Negocio
             Grasa = grasa;
             ProdLeche = Dias * Leche;
             ProdGrasa = Dias * Grasa;
-
             FechaControl = fechaControl;
         }
 
-        public DateTime FechaControl { get; set; }
+        public string FechaControl { get; set; }
 
         public char Diag { get; set; }
 
-        public DateTime FechaProbParto { get; set; }
+        public string FechaProbParto { get; set; }
 
         public int NumServicio { get; set; }
 
-        public DateTime FechaServicio { get; set; }
+        public string FechaServicio { get; set; }
 
         public double Grasa { get; set; }
 

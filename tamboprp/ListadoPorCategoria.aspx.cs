@@ -59,7 +59,9 @@ namespace tamboprp
             var listTemp = Fachada.Instance.GetAnimalesByCategoria(idCategoria);
             this.gvAnimales.DataSource = listTemp;
             this.gvAnimales.DataBind();
-            // formatear la fecha
+
+            this.titCantAnimales.Visible = true;
+            this.lblCantAnimales.Text = listTemp.Count.ToString();
         }
 
         protected void btnListar_Click(object sender, EventArgs e)
@@ -67,6 +69,14 @@ namespace tamboprp
             this.CargarAnimalesPorCategoria();
             //this.lblCateg.Text = this.ddlCategorias.SelectedItem.Text;
         }
+
+        protected void GvAnimales_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            var gv = (GridView)sender;
+            gv.PageIndex = e.NewPageIndex;
+            this.CargarAnimalesPorCategoria();
+        }
+
 
     }
 }

@@ -29,9 +29,28 @@ namespace Negocio
             Sexo = sexo;
             Reg_trazab = regTrazab;
             Gen = gen;
+            NumGen = gen == -1 ? "-" : gen.ToString();
             Registro = registro;
             Nombre = nombre;
             Calific = calific;
+        }
+
+        public VOAnimal(Animal anim)
+        {
+            IdCategoria = anim.IdCategoria;
+            Fotos = new List<AnimalMapper.VOFoto>();
+            Identificacion = anim.Identificacion;
+            Origen = anim.Origen;
+            Reg_madre = anim.Reg_madre;
+            Reg_padre = anim.Reg_padre;
+            Fecha_nacim = anim.Fecha_nacim;
+            Sexo = anim.Sexo;
+            Reg_trazab = anim.Reg_trazab;
+            Gen = anim.Gen;
+            NumGen = Gen == -1 ? "-" : Gen.ToString();
+            Registro = anim.Registro;
+            Nombre = anim.Nombre;
+            Calific = anim.Calific;
         }
 
         public string Reg_madre { get; set; }
@@ -52,6 +71,8 @@ namespace Negocio
 
         public int Gen { get; set; }
 
+        public string NumGen { get; set; }
+
         public string Reg_trazab { get; set; }
 
         public Char Sexo { get; set; }
@@ -66,6 +87,12 @@ namespace Negocio
 
         public int IdCategoria { get; set; }
 
+        public string Categoria { get; set; }
+
+        public double ProdVitalicia { get; set; }
+
+        public int NumLact { get; set; }
+        
         public bool esHembra()
         {
             return Sexo != 'M';

@@ -13,7 +13,7 @@ namespace tamboprp
         protected void Page_Load(object sender, EventArgs e)
         {
             this.SetPageBreadcrumbs();
-            cargarGrilla();
+            this.CargarGrilla();
         }
 
         protected void SetPageBreadcrumbs()
@@ -29,13 +29,20 @@ namespace tamboprp
             }
         }
 
-        public void cargarGrilla()
+        public void CargarGrilla()
         {
             var list = Fachada.Instance.GetLactanciasSinServicio80();
             this.lblCantAnimales.Text = list.Count.ToString();
             this.lblCantAnimales.Visible = true;
             this.gvServicios.DataSource = list;
             this.gvServicios.DataBind();
+        }
+
+        protected void GvLactanciasSinServ80_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            var gv = (GridView)sender;
+            gv.PageIndex = e.NewPageIndex;
+            this.CargarGrilla();
         }
     }
 }
