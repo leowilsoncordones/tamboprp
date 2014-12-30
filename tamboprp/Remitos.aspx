@@ -68,7 +68,7 @@
 			    <div class="row">
 					<!-- GRAFICA -->
                     
-                    <div class="col-md-10" id="sales-charts"></div>
+                    <div class="col-md-10" id="grafRemitos"></div>
                     <div class="col-md-2"></div>
 
                     <script src="js/ace-extra.js" ></script>
@@ -86,8 +86,7 @@
 
 
                         $(document).ready(function() {
-                            GetValoreLeche();
-           
+                            GetValoreLeche();          
                         });
 
                         function gd1(date) {
@@ -95,7 +94,7 @@
                         }
 
                         function GetValoreLeche() {
-                            PageMethods.ControlTotalGetAll(OnSuccess);
+                            PageMethods.RemitosGraficasGetAll(OnSuccess);
                         }
 
                         function OnSuccess(response){
@@ -108,15 +107,13 @@
             
                         }
 
-
-                        var sales_charts = $('#sales-charts').css({
-                            'height': '360px', 'width': '720px' // tengo que ponerle el ancho porque queda de 83px ¿?
+                        var grafRemitos = $('#grafRemitos').css({
+                            'height': '360px' , 'width': '720px'  //tengo que ponerle el ancho porque queda de 83px ¿?
                         });
                         function imprimir(totalLeche) {
         
-                        $.plot("#sales-charts", [
+                            $.plot("#grafRemitos", [
                             { label: "Leche", data: totalLeche }
-                            //{ label: "Grasa", data: grasa }
 
                         ], {
                             hoverable: true,
@@ -129,7 +126,7 @@
                                 tickLength: 0,
                                 mode: "time",
                                 timeformat: "%Y/%m",
-                                tickSize: [2, "month"]
+                                tickSize: [1, "month"]
                             },
                             yaxis: {
                                 ticks: 10,
@@ -142,7 +139,8 @@
                                 borderWidth: 1,
                                 borderColor: '#555',
                                 hoverable: true
-                            }
+                            },
+                            colors: ["#008115"]
                         });
 
                         }

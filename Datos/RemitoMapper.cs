@@ -16,6 +16,7 @@ namespace Datos
 
         private static string Remito_SelectByFecha = "Remito_SelectByFecha";
         private static string Remito_SelectByEmpresa = "Remito_SelectByEmpresa";
+        private static string Remito_SelectAll = "Remito_SelectAll";
 
         public RemitoMapper(Remito remito)
         {
@@ -163,6 +164,39 @@ namespace Datos
             rem.Temp_1 = (DBNull.Value == record["TEMP_1"]) ? 0 : double.Parse(record["TEMP_1"].ToString());
             rem.Temp_2 = (DBNull.Value == record["TEMP_2"]) ? 0 : double.Parse(record["TEMP_2"].ToString());
             return rem;
+        }
+
+        public class VORemitoGrafica
+    {
+        public string Fecha { get; set; }
+        public double Leche { get; set; }
+    }
+
+        public List<VORemitoGrafica> GetRemitosGrafica()
+        {
+            var result = new List<VORemitoGrafica>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = Remito_SelectAll;
+
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+                result.Add(loadRemitoGRafica(dr));
+            dr.Close();
+            return result;
+
+        }
+
+        protected VORemitoGrafica loadRemitoGRafica(SqlDataReader record)
+        {
+            var cp = new VORemitoGrafica();
+            var date = new DateTime();
+            string strDate = (DBNull.Value == record["FECHA"]) ? string.Empty : record["FECHA"].ToString();
+            if (strDate != string.Empty) date = DateTime.Parse(strDate);
+            cp.Fecha = date.ToString("yyyy/MM/dd");
+            cp.Leche = (DBNull.Value == record["LITROS"]) ? 0 : double.Parse(record["LITROS"].ToString());
+            return cp;
         }
 
     }

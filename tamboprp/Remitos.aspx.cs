@@ -54,9 +54,9 @@ namespace tamboprp
         }
 
         [WebMethod]
-        public static List<Controles_totalesMapper.VOControlTotal> ControlTotalGetAll()
+        public static List<RemitoMapper.VORemitoGrafica> RemitosGraficasGetAll()
         {
-            return Fachada.Instance.ControlTotalGetAll();
+            return Fachada.Instance.GetRemitosGraficas();
         }
     }
 }

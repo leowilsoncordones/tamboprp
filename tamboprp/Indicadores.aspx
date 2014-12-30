@@ -372,7 +372,7 @@
         }
 
         function GetValoreLeche() {
-            PageMethods.ControlTotalGetAll(OnSuccess);
+            PageMethods.ControlTotalUltAnio(OnSuccess);
         }
 
         function OnSuccess(response) {
@@ -404,7 +404,7 @@
                     tickLength: 0,
                     mode: "time",
                     timeformat: "%Y/%m",
-                    tickSize: [2, "month"]
+                    tickSize: [1, "month"]
                 },
                 yaxis: {
                     ticks: 10,
@@ -417,7 +417,8 @@
                     borderWidth: 1,
                     borderColor: '#555',
                     hoverable: true
-                }
+                },
+                colors: ["#0054ff"]
             });
 
         }

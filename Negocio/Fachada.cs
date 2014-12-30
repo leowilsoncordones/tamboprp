@@ -566,6 +566,12 @@ namespace Negocio
             return controlTotal.GetAll();
         }
 
+        public List<Controles_totalesMapper.VOControlTotal> ControlTotalUltAnio()
+        {
+            var controlTotal = new Controles_totalesMapper();
+            return controlTotal.ControlestUltAnio();
+        }
+
         public List<Controles_totalesMapper.VOControlTotal> ControlesByRegistroGetAll(string reg)
         {
             var controlesMap = new Controles_totalesMapper(reg);
@@ -900,5 +906,12 @@ namespace Negocio
         {
             return _abortoMapper.GetServicioPadreAborto(reg);
         }
+
+        public List<RemitoMapper.VORemitoGrafica> GetRemitosGraficas()
+        {
+            var remMap = new RemitoMapper();
+            return remMap.GetRemitosGrafica();
+        }
+
     }
 }

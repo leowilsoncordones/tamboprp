@@ -30,9 +30,9 @@ namespace tamboprp
         }
 
         [WebMethod]
-        public static List<Controles_totalesMapper.VOControlTotal> ControlTotalGetAll()
+        public static List<Controles_totalesMapper.VOControlTotal> ControlTotalUltAnio()
         {
-            return Fachada.Instance.ControlTotalGetAll();
+            return Fachada.Instance.ControlTotalUltAnio();
         }
     }
 }
