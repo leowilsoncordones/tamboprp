@@ -17,6 +17,8 @@ namespace Datos
 
         private static string Parto_SelecByRegistro = "Parto_SelecByRegistro";
         private static string Parto_SelecNacimByRegistro = "Parto_SelecNacimByRegistro";
+        private static string Parto_SelecByAnio = "Parto_SelecByAnio";
+        
 
         public PartoMapper(Parto parto)
         {
@@ -86,6 +88,22 @@ namespace Datos
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.Add(new SqlParameter("@REG_HIJO", regAnimal));
             cmd.CommandText = Parto_SelecNacimByRegistro;
+
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+                result.Add(load(dr));
+            dr.Close();
+            return result;
+        }
+
+        public List<Parto> GetPartosByAnio(int anio)
+        {
+            var result = new List<Parto>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@ANIO", anio));
+            cmd.CommandText = Parto_SelecByAnio;
 
             SqlDataReader dr = FindByCmd(cmd);
             while (dr.Read())

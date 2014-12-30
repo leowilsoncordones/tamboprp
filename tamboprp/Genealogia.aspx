@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Genealogia.aspx.cs" Inherits="tamboprp.Genealogia" %>
+﻿<%@ Page Title="tamboprp | genealogía" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Genealogia.aspx.cs" Inherits="tamboprp.Genealogia" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <link href="css/bootstrap.css" rel="stylesheet" />
     <link href="css/font-awesome.css" rel="stylesheet" />

@@ -47,6 +47,10 @@
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp, Version=5.5.4.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\iTextSharp.5.5.4\lib\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Data.Edm, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -160,7 +164,11 @@
     <Content Include="Account\Register.aspx" />
     <Content Include="Account\RegisterExternalLogin.aspx" />
     <Content Include="Analisis.aspx" />
-    <Content Include="Animales.aspx" />
+    <Content Include="AnalisisProduccion.aspx" />
+    <Content Include="AnalisisBajas.aspx" />
+    <Content Include="AnalisisReprod.aspx" />
+    <Content Include="NuevoAnimal.aspx" />
+    <Content Include="FichaAnimal.aspx" />
     <Content Include="Auditoria.aspx" />
     <Content Include="avatars\avatar.png" />
     <Content Include="avatars\avatar1.png" />
@@ -170,14 +178,26 @@
     <Content Include="avatars\avatar5.png" />
     <Content Include="avatars\profile-pic.jpg" />
     <Content Include="avatars\user.jpg" />
+    <Content Include="img\glyphicon-cow.ico" />
+    <Content Include="ListTorosUtilizados.aspx" />
+    <Content Include="ListAnimIndRechazo.aspx" />
+    <Content Include="ListPartos.aspx" />
+    <Content Include="Cmt.aspx" />
     <Content Include="img_tamboprp\animales\animales_thumbs\reg_3110_expoprado2013_th.png" />
     <Content Include="img_tamboprp\animales\animales_thumbs\reg_3110_th.png" />
-    <Content Include="Images\CalendarIcon3.png" />
+    <Content Include="AnalisisMuertes.aspx" />
     <Content Include="js\bloodhound.js" />
     <Content Include="Inseminaciones.aspx" />
-    <Content Include="ListadoVitalicias.aspx" />
+    <Content Include="js\js_tamboprp\PasswordStrongChecker.js" />
+    <Content Include="ListVitalicias.aspx" />
+    <Content Include="NuevoEmpleado.aspx" />
     <Content Include="NuevoUsuario.aspx" />
     <Content Include="NuevoRemito.aspx" />
+    <Content Include="Animales.aspx" />
+    <Content Include="Help.aspx" />
+    <Content Include="AnalisisInseminadores.aspx" />
+    <Content Include="Corporativo.aspx" />
+    <Content Include="ListPersonal.aspx" />
     <Content Include="Usuarios.aspx" />
     <Content Include="Sanidad.aspx" />
     <Content Include="Cabana.aspx" />
@@ -186,7 +206,7 @@
     <Content Include="CategConcurso.aspx" />
     <Content Include="Concursos.aspx" />
     <Content Include="Categorias.aspx" />
-    <Content Include="ControlProduccionUltimo.aspx" />
+    <Content Include="ControlProdUltimo.aspx" />
     <Content Include="css\ace-fonts.css" />
     <Content Include="css\ace-ie.css" />
     <Content Include="css\ace-part2.css" />
@@ -287,7 +307,7 @@
     <Content Include="img_tamboprp\animales\reg_manoman.jpg" />
     <Content Include="img_tamboprp\corporativo\logo.png" />
     <Content Include="img_tamboprp\corporativo\logo_ch.png" />
-    <Content Include="Indicadores.aspx" />
+    <Content Include="Tablero.aspx" />
     <Content Include="js\ace-elements.js" />
     <Content Include="js\ace-extra.js" />
     <Content Include="js\ace.js" />
@@ -425,9 +445,9 @@
     <Content Include="js\x-editable\bootstrap-editable.js" />
     <Content Include="Sitio.aspx" />
     <Content Include="Lactancias.aspx" />
-    <Content Include="Calendario_Partos.aspx" />
+    <Content Include="CalendarioPartos.aspx" />
     <Content Include="LactanciasSinServ80.aspx" />
-    <Content Include="ListadoPorCategoria.aspx" />
+    <Content Include="ListPorCategoria.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -488,7 +508,6 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
-    <Content Include="Datos_Generales.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Images\accent.png" />
     <Content Include="Images\bullet.png" />
@@ -723,12 +742,11 @@
     <Content Include="Scripts\WebForms\WebForms.js" />
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
-    <Content Include="Servicios_Sin_DiagP_35.aspx" />
+    <Content Include="DiagEcograficos.aspx" />
     <Content Include="Sistema.aspx" />
-    <Content Include="GraficaLeche.aspx" />
-    <Content Include="Tablero.aspx" />
-    <Content Include="Tambo.aspx" />
-    <Content Include="Servicios_Sin_DiagP_70.aspx" />
+    <Content Include="GraficasProd.aspx" />
+    <Content Include="BlankPage.aspx" />
+    <Content Include="ServiciosSinDiag.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -755,12 +773,40 @@
     <Compile Include="Analisis.aspx.designer.cs">
       <DependentUpon>Analisis.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Animales.aspx.cs">
-      <DependentUpon>Animales.aspx</DependentUpon>
+    <Compile Include="AnalisisProduccion.aspx.cs">
+      <DependentUpon>AnalisisProduccion.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Animales.aspx.designer.cs">
-      <DependentUpon>Animales.aspx</DependentUpon>
+    <Compile Include="AnalisisProduccion.aspx.designer.cs">
+      <DependentUpon>AnalisisProduccion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AnalisisBajas.aspx.cs">
+      <DependentUpon>AnalisisBajas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AnalisisBajas.aspx.designer.cs">
+      <DependentUpon>AnalisisBajas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AnalisisReprod.aspx.cs">
+      <DependentUpon>AnalisisReprod.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AnalisisReprod.aspx.designer.cs">
+      <DependentUpon>AnalisisReprod.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="NuevoAnimal.aspx.cs">
+      <DependentUpon>NuevoAnimal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NuevoAnimal.aspx.designer.cs">
+      <DependentUpon>NuevoAnimal.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FichaAnimal.aspx.cs">
+      <DependentUpon>FichaAnimal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FichaAnimal.aspx.designer.cs">
+      <DependentUpon>FichaAnimal.aspx</DependentUpon>
     </Compile>
     <Compile Include="Auditoria.aspx.cs">
       <DependentUpon>Auditoria.aspx</DependentUpon>
@@ -769,6 +815,41 @@
     <Compile Include="Auditoria.aspx.designer.cs">
       <DependentUpon>Auditoria.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ListTorosUtilizados.aspx.cs">
+      <DependentUpon>ListTorosUtilizados.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ListTorosUtilizados.aspx.designer.cs">
+      <DependentUpon>ListTorosUtilizados.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ListAnimIndRechazo.aspx.cs">
+      <DependentUpon>ListAnimIndRechazo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ListAnimIndRechazo.aspx.designer.cs">
+      <DependentUpon>ListAnimIndRechazo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ListPartos.aspx.cs">
+      <DependentUpon>ListPartos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ListPartos.aspx.designer.cs">
+      <DependentUpon>ListPartos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cmt.aspx.cs">
+      <DependentUpon>Cmt.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cmt.aspx.designer.cs">
+      <DependentUpon>Cmt.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AnalisisMuertes.aspx.cs">
+      <DependentUpon>AnalisisMuertes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AnalisisMuertes.aspx.designer.cs">
+      <DependentUpon>AnalisisMuertes.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Inseminaciones.aspx.cs">
       <DependentUpon>Inseminaciones.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -776,12 +857,19 @@
     <Compile Include="Inseminaciones.aspx.designer.cs">
       <DependentUpon>Inseminaciones.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ListadoVitalicias.aspx.cs">
-      <DependentUpon>ListadoVitalicias.aspx</DependentUpon>
+    <Compile Include="ListVitalicias.aspx.cs">
+      <DependentUpon>ListVitalicias.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ListadoVitalicias.aspx.designer.cs">
-      <DependentUpon>ListadoVitalicias.aspx</DependentUpon>
+    <Compile Include="ListVitalicias.aspx.designer.cs">
+      <DependentUpon>ListVitalicias.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="NuevoEmpleado.aspx.cs">
+      <DependentUpon>NuevoEmpleado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NuevoEmpleado.aspx.designer.cs">
+      <DependentUpon>NuevoEmpleado.aspx</DependentUpon>
     </Compile>
     <Compile Include="NuevoUsuario.aspx.cs">
       <DependentUpon>NuevoUsuario.aspx</DependentUpon>
@@ -796,6 +884,41 @@
     </Compile>
     <Compile Include="NuevoRemito.aspx.designer.cs">
       <DependentUpon>NuevoRemito.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Animales.aspx.cs">
+      <DependentUpon>Animales.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Animales.aspx.designer.cs">
+      <DependentUpon>Animales.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Help.aspx.cs">
+      <DependentUpon>Help.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Help.aspx.designer.cs">
+      <DependentUpon>Help.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AnalisisInseminadores.aspx.cs">
+      <DependentUpon>AnalisisInseminadores.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AnalisisInseminadores.aspx.designer.cs">
+      <DependentUpon>AnalisisInseminadores.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Corporativo.aspx.cs">
+      <DependentUpon>Corporativo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Corporativo.aspx.designer.cs">
+      <DependentUpon>Corporativo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ListPersonal.aspx.cs">
+      <DependentUpon>ListPersonal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ListPersonal.aspx.designer.cs">
+      <DependentUpon>ListPersonal.aspx</DependentUpon>
     </Compile>
     <Compile Include="Usuarios.aspx.cs">
       <DependentUpon>Usuarios.aspx</DependentUpon>
@@ -853,12 +976,12 @@
     <Compile Include="Categorias.aspx.designer.cs">
       <DependentUpon>Categorias.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ControlProduccionUltimo.aspx.cs">
-      <DependentUpon>ControlProduccionUltimo.aspx</DependentUpon>
+    <Compile Include="ControlProdUltimo.aspx.cs">
+      <DependentUpon>ControlProdUltimo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ControlProduccionUltimo.aspx.designer.cs">
-      <DependentUpon>ControlProduccionUltimo.aspx</DependentUpon>
+    <Compile Include="ControlProdUltimo.aspx.designer.cs">
+      <DependentUpon>ControlProdUltimo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Enfermedades.aspx.cs">
       <DependentUpon>Enfermedades.aspx</DependentUpon>
@@ -874,12 +997,12 @@
     <Compile Include="Genealogia.aspx.designer.cs">
       <DependentUpon>Genealogia.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Indicadores.aspx.cs">
-      <DependentUpon>Indicadores.aspx</DependentUpon>
+    <Compile Include="Tablero.aspx.cs">
+      <DependentUpon>Tablero.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Indicadores.aspx.designer.cs">
-      <DependentUpon>Indicadores.aspx</DependentUpon>
+    <Compile Include="Tablero.aspx.designer.cs">
+      <DependentUpon>Tablero.aspx</DependentUpon>
     </Compile>
     <Compile Include="Sitio.aspx.cs">
       <DependentUpon>Sitio.aspx</DependentUpon>
@@ -895,12 +1018,12 @@
     <Compile Include="Lactancias.aspx.designer.cs">
       <DependentUpon>Lactancias.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Calendario_Partos.aspx.cs">
-      <DependentUpon>Calendario_Partos.aspx</DependentUpon>
+    <Compile Include="CalendarioPartos.aspx.cs">
+      <DependentUpon>CalendarioPartos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Calendario_Partos.aspx.designer.cs">
-      <DependentUpon>Calendario_Partos.aspx</DependentUpon>
+    <Compile Include="CalendarioPartos.aspx.designer.cs">
+      <DependentUpon>CalendarioPartos.aspx</DependentUpon>
     </Compile>
     <Compile Include="LactanciasSinServ80.aspx.cs">
       <DependentUpon>LactanciasSinServ80.aspx</DependentUpon>
@@ -909,12 +1032,12 @@
     <Compile Include="LactanciasSinServ80.aspx.designer.cs">
       <DependentUpon>LactanciasSinServ80.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ListadoPorCategoria.aspx.cs">
-      <DependentUpon>ListadoPorCategoria.aspx</DependentUpon>
+    <Compile Include="ListPorCategoria.aspx.cs">
+      <DependentUpon>ListPorCategoria.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ListadoPorCategoria.aspx.designer.cs">
-      <DependentUpon>ListadoPorCategoria.aspx</DependentUpon>
+    <Compile Include="ListPorCategoria.aspx.designer.cs">
+      <DependentUpon>ListPorCategoria.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
@@ -967,13 +1090,6 @@
     </Compile>
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Datos_Generales.aspx.cs">
-      <DependentUpon>Datos_Generales.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Datos_Generales.aspx.designer.cs">
-      <DependentUpon>Datos_Generales.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -1042,19 +1158,19 @@
     <Compile Include="Reproduccion.aspx.designer.cs">
       <DependentUpon>Reproduccion.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Servicios_Sin_DiagP_35.aspx.cs">
-      <DependentUpon>Servicios_Sin_DiagP_35.aspx</DependentUpon>
+    <Compile Include="DiagEcograficos.aspx.cs">
+      <DependentUpon>DiagEcograficos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Servicios_Sin_DiagP_35.aspx.designer.cs">
-      <DependentUpon>Servicios_Sin_DiagP_35.aspx</DependentUpon>
+    <Compile Include="DiagEcograficos.aspx.designer.cs">
+      <DependentUpon>DiagEcograficos.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Servicios_Sin_DiagP_70.aspx.cs">
-      <DependentUpon>Servicios_Sin_DiagP_70.aspx</DependentUpon>
+    <Compile Include="ServiciosSinDiag.aspx.cs">
+      <DependentUpon>ServiciosSinDiag.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Servicios_Sin_DiagP_70.aspx.designer.cs">
-      <DependentUpon>Servicios_Sin_DiagP_70.aspx</DependentUpon>
+    <Compile Include="ServiciosSinDiag.aspx.designer.cs">
+      <DependentUpon>ServiciosSinDiag.aspx</DependentUpon>
     </Compile>
     <Compile Include="Sistema.aspx.cs">
       <DependentUpon>Sistema.aspx</DependentUpon>
@@ -1084,26 +1200,19 @@
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
-    <Compile Include="GraficaLeche.aspx.cs">
-      <DependentUpon>GraficaLeche.aspx</DependentUpon>
+    <Compile Include="GraficasProd.aspx.cs">
+      <DependentUpon>GraficasProd.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="GraficaLeche.aspx.designer.cs">
-      <DependentUpon>GraficaLeche.aspx</DependentUpon>
+    <Compile Include="GraficasProd.aspx.designer.cs">
+      <DependentUpon>GraficasProd.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Tablero.aspx.cs">
-      <DependentUpon>Tablero.aspx</DependentUpon>
+    <Compile Include="BlankPage.aspx.cs">
+      <DependentUpon>BlankPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Tablero.aspx.designer.cs">
-      <DependentUpon>Tablero.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Tambo.aspx.cs">
-      <DependentUpon>Tambo.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Tambo.aspx.designer.cs">
-      <DependentUpon>Tambo.aspx</DependentUpon>
+    <Compile Include="BlankPage.aspx.designer.cs">
+      <DependentUpon>BlankPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>

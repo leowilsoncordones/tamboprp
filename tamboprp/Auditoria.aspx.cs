@@ -226,7 +226,7 @@ namespace tamboprp
                     operation += " <span class='pink2 bolder'>servicio</span> de la vaca ";
                     break;
                 case "usuarios":
-                    operation += " <span class='black bolder'>secado</span> de la vaca ";
+                    operation += " <span class='black bolder'>usuario</span> con nickname ";
                     break;
                 case "usuarios_roles":
                     operation += " <span class='red bolder'>rol de usuario</span> de ";

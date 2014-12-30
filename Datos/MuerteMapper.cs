@@ -161,6 +161,9 @@ namespace Datos
             if (strDate != string.Empty) muerte.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
             muerte.Comentarios = (DBNull.Value == record["COMENTARIO"]) ? string.Empty : (string)record["COMENTARIO"];
             muerte.Enfermedad = (short)((DBNull.Value == record["ENFERMEDAD"]) ? 0 : (Int16)record["ENFERMEDAD"]);
+            //var enf = new Enfermedad();
+            //enf.Id = (short)((DBNull.Value == record["ENFERMEDAD"]) ? 0 : (Int16)record["ENFERMEDAD"]);
+            //muerte.Enfermedad = enf;
             return muerte;
         }
 

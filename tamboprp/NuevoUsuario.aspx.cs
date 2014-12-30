@@ -44,33 +44,34 @@ namespace tamboprp
         protected void btn_GuardarEvento(object sender, EventArgs e)
         {
             // pop-up el modal y mostrar mensaje resultado de guardar en la base de datos
-            //if (this.GuardarRemito())
-            //{
-            //    this.bodySaveModal.InnerText = "El usuario se ha guardado con éxito!";
-            //}
+            if (this.GuardarUsuario())
+            {
+                //this.bodySaveModal.InnerText = "El usuario se ha guardado con éxito!";
+            }
             //else this.bodySaveModal.InnerText = "El usuario no se ha podido guardar";
+            this.LimpiarFormulario();
         }
 
 
         private bool GuardarUsuario()
         {
-            //string strDate = this.mydate.Value;
-            //var idEmp = int.Parse(this.ddlRolUsuario.SelectedValue);
-            //var emp = new EmpresaRemisora(idEmp);
-            //var remito = new Remito
-            //{
-            //    Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR")),
-            //    Empresa = emp,
-            //    Factura = fFactSerie.Value + " " + fFactNum.Value,
-            //    Matricula = fMatricula.Value,
-            //    Litros = Double.Parse(fLitros.Value),
-            //    Encargado = fEncargado.Value,
-            //    Temp_1 = Double.Parse(fTemp1.Value),
-            //    Temp_2 = Double.Parse(fTemp2.Value),
-            //    Observaciones = fObservaciones.Value,
-            //};
-            //return Fachada.Instance.InsertarRemito(remito);
-            return true;
+            var idRol = int.Parse(this.ddlRolUsuario.SelectedValue);
+            var rol = new RolUsuario
+            {
+                Nivel = int.Parse(this.ddlRolUsuario.SelectedValue),
+                NombreRol = this.ddlRolUsuario.SelectedItem.ToString()
+            };
+            var usuario = new Usuario
+            {
+                Nombre = fNombre.Value,
+                Apellido = fApellido.Value,
+                Nickname = username.Value,
+                Password = password.Value,
+                Email = fEmail.Value,
+                Foto = "",
+                Rol = rol
+            };
+            return Fachada.Instance.InsertarUsuario(usuario);
         }
 
         protected void btn_LimpiarFormulario(object sender, EventArgs e)
@@ -91,17 +92,19 @@ namespace tamboprp
         {
             var lst = Fachada.Instance.GetRolesDeUsuario();
             this.ddlRolUsuario.DataSource = lst;
-            this.ddlRolUsuario.DataTextField = "Rol";
+            this.ddlRolUsuario.DataTextField = "NombreRol";
             this.ddlRolUsuario.DataValueField = "Nivel";
             this.ddlRolUsuario.DataBind();
-            // por defecto dejo seleccionado el rol DIGITADOR
+            // por defecto seleccionado el rol DIGITADOR
             this.ddlRolUsuario.SelectedIndex = 1;
         }
 
 
         protected void ddlRolUsuario_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            //var rol = this.ddlRolUsuario.SelectedIndex;
+            //var rol1 = this.ddlRolUsuario.SelectedItem;
+            //var rol2 = this.ddlRolUsuario.SelectedValue;
         }
 
 

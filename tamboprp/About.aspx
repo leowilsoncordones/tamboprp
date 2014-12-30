@@ -1,9 +1,9 @@
-﻿<%@ Page Title="About" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="About.aspx.cs" Inherits="tamboprp.About" %>
+﻿<%@ Page Title="tamboprp | acerca de" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="About.aspx.cs" Inherits="tamboprp.About" %>
 
 <asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="MainContent">
     <hgroup class="title">
-        <h1><%: Title %>.</h1>
-        <h2>Your app description page.</h2>
+        <h1><i class="menu-icon fa fa-copyright" ></i> Acerca de</h1>
+        <h2>Your app description page</h2>
     </hgroup>
 
     <article>

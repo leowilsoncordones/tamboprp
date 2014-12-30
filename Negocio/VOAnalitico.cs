@@ -27,21 +27,27 @@ namespace Negocio
             PromDiasLactancias = promDiasLactancias;
         }
 
-        public object CantVacasEnOrdene { get; set; }
+        public int CantVacasEnOrdene { get; set; }
 
-        public object PromDiasLactancias { get; set; }
+        public double PromDiasLactancias { get; set; }
 
         public int PrenezConfirmada { get; set; }
 
         public int ConServicioSinPreñez { get; set; }
 
+        public int CantLactancia1 { get; set; }
+
+        public double PorcLactancia1 { get; set; }
+        
+        public int CantLactancia2 { get; set; }
+
+        public double PorcLactancia2 { get; set; }
+        
         public int CantLactanciaMayor2 { get; set; }
 
-        public object CantLactancia2 { get; set; }
-
-        public object CantLactancia1 { get; set; }
-
-        public object PromProdLecheLts { get; set; }
+        public double PorcLactanciaMayor2 { get; set; }
+        
+        public double PromProdLecheLts { get; set; }
 
     }
 }

@@ -22,6 +22,10 @@ namespace Datos
         private static string Animal_SelectByCategoria = "Animal_SelectByCategoria";
         private static string Animal_SelectFotosByRegistro = "Animal_SelectFotosByRegistro";
         private static string Animales_SelectVitalicias = "Animales_SelectVitalicias";
+        private static string Animal_SelectCount_MellizosByAnio = "Animal_SelectCount_MellizosByAnio";
+        private static string Animal_SelectCount_TrillizosByAnio = "Animal_SelectCount_TrillizosByAnio";
+        private static string Animal_SelectCount_NacimientosByAnio = "Animal_SelectCount_NacimientosByAnio";
+        
 
         public AnimalMapper(Animal animal)
         {
@@ -244,6 +248,43 @@ namespace Datos
         {
             return GetScalarInt("Animal_SelectCountEnOrdenePromDiasLactancias");
         }
+
+        public int GetCantMellizosByAnio(int anio)
+        {
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@ANIO", anio));
+            cmd.CommandText = Animal_SelectCount_MellizosByAnio;
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
+
+        public int GetCantTrillizosByAnio(int anio)
+        {
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@ANIO", anio));
+            cmd.CommandText = Animal_SelectCount_TrillizosByAnio;
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
+
+        public int GetCantNacimientosByAnio(int anio)
+        {
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@ANIO", anio));
+            cmd.CommandText = Animal_SelectCount_NacimientosByAnio;
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
+
         protected VOFoto loadFoto(SqlDataReader record)
         {
             var voFoto = new VOFoto();

@@ -101,20 +101,35 @@ namespace Negocio
                 a.Eventos.AddRange(listTemp);
             }
 
+            /* traigo lista de enfermedades */
+            var lstEnfermedades = Fachada.Instance.GetEnfermedades();
+
             /* Cargo si el animal esta dado de baja por venta */
-            var ventaMap = new VentaMapper(registro);
-            listTemp = ventaMap.GetVentaByRegistro(registro);
-            if (listTemp.Count > 0) a.Eventos.AddRange(listTemp);
+            //var ventaMap = new VentaMapper(registro);
+            //listTemp = ventaMap.GetVentaByRegistro(registro);
+            //if (listTemp.Count > 0) a.Eventos.AddRange(listTemp);
 
             /* Cargo si el animal esta dado de baja por muerte */
-            var muerteMap = new MuerteMapper(registro);
-            listTemp = muerteMap.GetMuerteByRegistro(registro);
+            //var muerteMap = new MuerteMapper(registro);
+            //listTemp = muerteMap.GetMuerteByRegistro(registro);
+
+            /* Cargo baja del animal muerte */
+            var bajaMap = new BajaMapper(registro);
+            listTemp = bajaMap.GetBajaByRegistro(registro);
+            
             if (listTemp.Count > 0)
             {
+                for (int i = 0; i < listTemp.Count; i++)
+                {
+                    var baja = (Baja) listTemp[i];
+                    Enfermedad enf = lstEnfermedades.FirstOrDefault(e => e.Id == baja.Enfermedad.Id);
+                    baja.Enfermedad = enf;
+                    a.Eventos.Add(listTemp[i]);
+                }
                 a.Vivo = false;
-                a.Eventos.AddRange(listTemp);
+                //a.Eventos.AddRange(listTemp);
             }
-            
+           
             if (a.esHembra())
             {
                 /* Cargo las calificaciones del animal, los M puede ser calificado? */
@@ -381,11 +396,21 @@ namespace Negocio
         public VOAnalitico GetAnaliticoVacasEnOrdene()
         {
             var voA = new VOAnalitico();
-            voA.CantVacasEnOrdene = _animalMapper.GetCantOrdene();
+            var totalEnOrdene = _animalMapper.GetCantOrdene();
+            voA.CantVacasEnOrdene = totalEnOrdene;
             //voA.PromProdLecheLts = _animalMapper.GetEnOrdenePromProdLecheLts();
-            voA.CantLactancia1 = _animalMapper.GetEnOrdeneLanctancia1();
-            voA.CantLactancia2 = _animalMapper.GetEnOrdeneLanctancia2();
+            var lact1 = _animalMapper.GetEnOrdeneLanctancia1();
+            voA.CantLactancia1 = lact1;
+            var lact2 = _animalMapper.GetEnOrdeneLanctancia2();
+            voA.CantLactancia2 = lact2;
             //voA.CantLactanciaMayor2 = _animalMapper.GetEnOrdeneLanctanciaMayor2();
+            voA.CantLactanciaMayor2 = totalEnOrdene - (lact1 + lact2);
+            if (voA.CantVacasEnOrdene > 0)
+            {
+                voA.PorcLactancia1 = Math.Round(voA.CantLactancia1/(double)voA.CantVacasEnOrdene*100, 1);
+                voA.PorcLactancia2 = Math.Round(voA.CantLactancia2/(double)voA.CantVacasEnOrdene*100, 1);
+                voA.PorcLactanciaMayor2 = Math.Round(voA.CantLactanciaMayor2/(double)voA.CantVacasEnOrdene*100, 1);
+            }
             //voA.ConServicioSinPreñez = _animalMapper.GetEnOrdeneServicioSinPrenez();
             //voA.PrenezConfirmada = _animalMapper.GetEnOrdenePrenezConfirmada();
             //voA.PromDiasLactancias = _animalMapper.GetPromDiasLactancias();
@@ -708,10 +733,12 @@ namespace Negocio
             return empRemMap.GetAll();
         }
 
-        public Empresa GetDatosCorporativos()
+        public VOEmpresa GetDatosCorporativos()
         {
             var empMap = new EmpresaMapper();
-            return empMap.GetEmpresaSelectActual();
+            Empresa emp = empMap.GetEmpresaSelectActual();
+            var voEmp = new VOEmpresa(emp);
+            return voEmp;
         }
         
 
@@ -906,6 +933,91 @@ namespace Negocio
         {
             return _abortoMapper.GetServicioPadreAborto(reg);
         }
+
+        public bool InsertarUsuario(Usuario usuario)
+        {
+            var userMap = new UsuarioMapper(usuario);
+            return userMap.Insert() > 0;
+        }
+
+        public List<Cmt> GetCmtAll()
+        {
+            var cmtMap = new CmtMapper();
+            return cmtMap.GetAll();
+        }
+
+        public List<VOBaja> GetMuertesPorAnio(int anio)
+        {
+            var bajaMap = new BajaMapper();
+            var lst = bajaMap.GetMuertesPorAnio(anio);
+            var lstEnfermedades = Fachada.Instance.GetEnfermedades();
+            var lstResult = new List<VOBaja>();
+            for (int i = 0; i < lst.Count; i++)
+            {
+                Enfermedad enf = lstEnfermedades.FirstOrDefault(e => e.Id == lst[i].Enfermedad.Id);
+                var voBaja = new VOBaja(lst[i]);
+                voBaja.Enfermedad = enf;
+                lstResult.Add(voBaja);
+            }
+            return lstResult;
+        }
+
+        public List<BajaMapper.VOEnfermedad> GetCantidadMuertesPorEnfermedadPorAnio(int anio)
+        {
+            var bajaMap = new BajaMapper();
+            var lstResult = bajaMap.GetCantidadMuertesPorEnfermedadPorAnio(anio);
+            var sum = 0;
+            for (int i = 0; i < lstResult.Count; i++) sum += lstResult[i].Cantidad;
+            if (sum > 0)
+            {
+                for (int j = 0; j < lstResult.Count; j++)
+                {
+                    double avg = ((double)lstResult[j].Cantidad / sum) * 100;
+                    lstResult[j].Porcentaje = Math.Round(avg, 2);
+                }
+            }
+            return lstResult;
+        }
+
+        public List<VOParto> GetPartosPorAnio(int anio)
+        {
+            var lstResult = new List<VOParto>();
+            var partoMap = new PartoMapper();
+            var lst = partoMap.GetPartosByAnio(anio);
+            int cant = lst.Count;
+            for (int i = 0; i < cant; i++)
+            {
+                var voP = new VOParto();
+                voP.Comentarios = lst[i].Comentarios;
+                voP.Observaciones = lst[i].Observaciones;
+                voP.Fecha = lst[i].Fecha;
+                voP.Registro = lst[i].Registro;
+                voP.Sexo_parto = lst[i].Sexo_parto;
+                if (lst[i].Reg_hijo == "DESCONOCIDO")
+                {
+                    voP.Reg_hijo = "-";
+                }
+                else voP.Reg_hijo = lst[i].Reg_hijo;
+                lstResult.Add(voP);
+            }
+            return lstResult;
+        }
+
+        public int GetCantMellizosPorAnio(int anio)
+        {
+            return _animalMapper.GetCantMellizosByAnio(anio);
+        }
+
+        public int GetCantTrillizosPorAnio(int anio)
+        {
+            return _animalMapper.GetCantTrillizosByAnio(anio);
+        }
+
+        public int GetCantNacimientosPorAnio(int anio)
+        {
+            return _animalMapper.GetCantNacimientosByAnio(anio);
+        }
+
 
         public List<RemitoMapper.VORemitoGrafica> GetRemitosGraficas()
         {

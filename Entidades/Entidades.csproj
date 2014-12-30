@@ -68,8 +68,10 @@
     <Compile Include="Aborto.cs" />
     <Compile Include="Animal.cs" />
     <Compile Include="Calificacion.cs" />
+    <Compile Include="Cmt.cs" />
     <Compile Include="Empresa.cs" />
     <Compile Include="EmpresaRemisora.cs" />
+    <Compile Include="Baja.cs" />
     <Compile Include="TipoEvento.cs" />
     <Compile Include="CategoriaConcurso.cs" />
     <Compile Include="LugarConcurso.cs" />
@@ -103,9 +105,6 @@
     <Compile Include="Vaquillona.cs" />
     <Compile Include="Venta.cs" />
     <Compile Include="Log.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

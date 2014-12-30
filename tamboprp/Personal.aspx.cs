@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -7,6 +8,11 @@ using System.Web.UI.WebControls;
 using Datos;
 using Entidades;
 using Negocio;
+
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.text.html;
+using iTextSharp.text.html.simpleparser;
 
 namespace tamboprp
 {
@@ -17,7 +23,6 @@ namespace tamboprp
             if (!Page.IsPostBack)
             {
                 this.SetPageBreadcrumbs();
-                this.CargarEmpleados();
             }
         }
 
@@ -33,12 +38,6 @@ namespace tamboprp
             }
         }
 
-        public void CargarEmpleados()
-        {
-            var emp = new EmpleadoMapper();
-            List<Empleado> lst = emp.GetAll();
-            this.gvEmpleados.DataSource = lst;
-            this.gvEmpleados.DataBind();
-        }
+
     }
 }

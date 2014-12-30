@@ -11,10 +11,11 @@ namespace Entidades
     {
         public Usuario()
         {
+            Habilitado = true;
         }
 
         public Usuario( string nickname, string password, string nombre, string apellido, 
-                        string email, string foto, string rol, bool habilitado)
+                        string email, string foto, RolUsuario rol, bool habilitado)
         {
             Nickname = nickname;
             Password = password;
@@ -36,7 +37,7 @@ namespace Entidades
 
         public string Email {  get; set; }
 
-        public string Rol { get; set; }
+        public RolUsuario Rol { get; set; }
 
         public string Foto { get; set; }
 

@@ -70,6 +70,8 @@
     <Compile Include="VOAnalitico.cs" />
     <Compile Include="VOControlProd.cs" />
     <Compile Include="VOControlProdUltimo.cs" />
+    <Compile Include="VOBaja.cs" />
+    <Compile Include="VOEmpresa.cs" />
     <Compile Include="VOLactancia.cs" />
     <Compile Include="VOListItem2.cs" />
     <Compile Include="VoListItemDuplaString.cs" />
@@ -78,6 +80,7 @@
     <Compile Include="Fachada.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VONuevoEvento.cs" />
+    <Compile Include="VOParto.cs" />
     <Compile Include="VOServicio.cs" />
     <Compile Include="VOServicio01.cs" />
     <Compile Include="VOServicioRegCant.cs" />
@@ -91,9 +94,6 @@
       <Project>{388bc54c-1397-4913-b927-e878daa3278d}</Project>
       <Name>Entidades</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

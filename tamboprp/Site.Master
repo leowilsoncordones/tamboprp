@@ -31,24 +31,20 @@
     
     <script type="text/javascript">
         
+        /*
         $('.sidebar').ace_sidebar();
-
         $('.sidebar').ace_sidebar('toggleMenu');
         $('.sidebar').ace_sidebar('toggleMenu', toggleButton);
         //if there is an optional toggleButton element, its icons will be flipped
-
         $('.sidebar').ace_sidebar('toggleMenu', false);
         //optional false value means don't save changes to cookies
-
         $('.sidebar').ace_sidebar('toggleMenu', [toggleButton, true ]);
-
         var new_active = $(this).parent();
-
         //remove ".active" class from all (previously) ".active" elements
         $('.nav-list li.active').removeClass('active');
-
         //add ".active" class to our newly selected item and all its parent "LI" elements
         new_active.addClass('active').parents('.nav-list li').addClass('active');
+        */
 
         //you can also update breadcrumbs:
         var breadcrumb_items = [];
@@ -61,7 +57,7 @@
         });
 
     </script>
-
+    
     <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
 </head>
 <body class="no-skin">
@@ -82,10 +78,6 @@
                     </a>
                 </div>
                 <div class="navbar-buttons navbar-header pull-right">
-                    <!-- nav de botones a la derecha -->
-                    <ul class="nav navbar-nav">
-                        <li><a runat="server" href="~/">Home</a></li>
-                    </ul>
                     <!-- nav de botones a la derecha -->
                     <asp:LoginView runat="server" ViewStateMode="Disabled">
                         <AnonymousTemplate>
@@ -108,10 +100,10 @@
                  <!-- shortcuts -->
                  <div class="sidebar-shortcuts" id="sidebar-shortcuts">
 					<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-						<button class="btn btn-success"><i class="ace-icon fa fa-bar-chart-o"></i></button>
-                        <button class="btn btn-info"><i class="ace-icon fa fa-folder-open"></i></button>
-						<button class="btn btn-warning"><i class="ace-icon fa fa-user"></i></button>
-                        <button class="btn btn-danger"><i class="ace-icon fa fa-bell-o"></i></button>
+					    <a class="btn btn-success ace-icon fa fa-bar-chart-o" href="../Reportes.aspx"></a>
+                        <a class="btn btn-info ace-icon fa fa-folder-open" href="../Animales.aspx"></a>
+                        <a class="btn btn-warning ace-icon fa fa-cogs" href="../Produccion.aspx"></a>
+                        <a class="btn btn-danger ace-icon fa fa-desktop" href="../Sistema.aspx"></a>
 					</div>
 					<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
 						<span class="btn btn-success"></span>
@@ -134,10 +126,10 @@
 					    <span class="menu-text"> Animales </span>
 				    </a>
                       <ul class="submenu">
-                       <li><a href="Animales.aspx">Fichas</a></li>
-                       <li><a href="Lactancias.aspx">Lactancias</a></li>
-                       <li><a href="ListadoPorCategoria.aspx">Listado Por Categoría</a></li>
-                          <li><a href="Default.aspx">Categorías</a></li>
+                        <li><a href="FichaAnimal.aspx">Fichas</a></li>
+                        <li><a href="NuevoAnimal.aspx">Nuevo Animal</a></li>
+                        <li><a href="ListPorCategoria.aspx">Listado por categoría</a></li>
+                        <li><a href="Categorias.aspx">Categorías</a></li>
                       </ul>
                     </li>
                     <li>
@@ -146,9 +138,10 @@
 					    <span class="menu-text"> Producción </span>
 				    </a>
                        <ul class="submenu">
-                       <li><a href="Remitos.aspx">Remitos a planta</a></li>
-                       <li><a href="NuevoRemito.aspx">Nuevo remito</a></li>
-                       <li><a href="ControlProduccionUltimo.aspx">Ultimo Control de Producción</a></li>
+                        <li><a href="NuevoEvento.aspx">Nuevo Evento</a></li>
+                        <li><a href="ControlProdUltimo.aspx">Último Control</a></li>
+                        <li><a href="Lactancias.aspx">Lactancias</a></li>
+                        <li><a href="ListVitalicias.aspx">Vitalicias</a></li>
                       </ul>
                     </li>
                     <li>
@@ -156,6 +149,13 @@
 					    <i class="menu-icon fa fa-eye"></i>
 					    <span class="menu-text"> Análisis </span>
 				    </a>
+                        <ul class="submenu">
+                            <li><a href="AnalisisProduccion.aspx">Productivo</a></li>
+                            <li><a href="AnalisisReprod.aspx">Reproductivo</a></li>
+                            <li><a href="AnalisisBajas.aspx">Bajas y Ventas</a></li>
+                            <li><a href="AnalisisMuertes.aspx">Muertes</a></li>
+                            <li><a href="AnalisisInseminadores.aspx">Inseminadores</a></li>
+                        </ul>
                     </li>
                     <li>
                     <a href="Reportes.aspx">
@@ -163,19 +163,26 @@
 					    <span class="menu-text"> Reportes </span>
 				    </a>
                        <ul class="submenu">
-                       <li><a href="GraficaLeche.aspx">Producción Leche</a></li>
+                        <li><a href="GraficasProd.aspx">Gráficas de producción</a></li>
+                        <li><a href="Remitos.aspx">Remitos a planta</a></li>
+                        <li><a href="NuevoRemito.aspx">Nuevo remito</a></li>
+                        <li><a href="EmpresasRemisoras.aspx">Empresas Remisoras</a></li>
                        </ul>
                     </li>
                     <li>
-                    <a href="Calendario_Partos.aspx">
+                    <a href="Reproduccion.aspx">
 					    <i class="menu-icon fa fa-flask"></i>
 					    <span class="menu-text"> Reproducción </span>
 				    </a>
                       <ul class="submenu">
-                       <li><a href="Calendario_Partos.aspx"> Calendario de Partos </a></li>
-                       <li><a href="Servicios_Sin_DiagP_70.aspx">Vacas con 35 días servicios y sin diagnóstico de preñez</a></li>
-                       <li><a href="Servicios_Sin_DiagP_70.aspx">Vacas con 70 días servicios y sin diagnóstico de preñez</a></li>
-                       <li><a href="Servicios_Sin_DiagP_70.aspx">Vacas con 80 días en lactancia y sin servicio</a></li>
+                        <li><a href="CalendarioPartos.aspx">Calendario de Partos</a></li>
+                        <li><a href="DiagEcograficos.aspx">Diagnósticos ecográficos</a></li>
+                        <li><a href="ServiciosSinDiag.aspx">Servicios sin diagnóstico</a></li>
+                        <li><a href="LactanciasSinServ80.aspx">En lactancia y sin servicio</a></li>
+                        <li><a href="Inseminaciones.aspx">Inseminaciones</a></li>
+                        <li><a href="ListPartos.aspx">Listado de partos</a></li>
+                        <li><a href="ListTorosUtilizados.aspx">Toros utilizados y su efectividad</a></li>
+                        <li><a href="ListAnimIndRechazo.aspx">Animales con indicación de rechazo</a></li>
                       </ul>
                     </li>
                     <li>
@@ -184,24 +191,32 @@
 					    <span class="menu-text"> Cabaña </span>
 				    </a>
                        <ul class="submenu">
-                        <li><a href="Genealogia.aspx"> Genealogía </a></li>
-                        <li><a href="Default.aspx"> Concursos </a></li>
+                        <li><a href="Genealogia.aspx">Genealogía</a></li>
+                        <li><a href="Calificaciones.aspx">Calificaciones</a></li>
+                        <li><a href="Concursos.aspx">Concursos</a></li>
+                        <li><a href="CategConcurso.aspx">Categorías de concurso</a></li>
                       </ul>
                     </li>
                     <li>
-                    <a href="Cabana.aspx">
+                    <a href="Sanidad.aspx">
 					    <i class="menu-icon fa fa-stethoscope"></i>
 					    <span class="menu-text"> Sanidad </span>
 				    </a>
-                       <ul class="submenu">
-                        <li><a href="Enfermedades.aspx"> Enfermedades </a></li>
-                      </ul>
+                        <ul class="submenu">
+                            <li><a href="Enfermedades.aspx">Enfermedades</a></li>
+                            <li><a href="AnalisisMuertes.aspx">Muertes</a></li>
+                            <li><a href="Cmt.aspx">C.M.T.</a></li>
+                        </ul>
                     </li>
                     <li>
                     <a href="Personal.aspx">
 					    <i class="menu-icon fa fa-users"></i>
 					    <span class="menu-text"> Personal </span>
 				    </a>
+                        <ul class="submenu">
+                            <li><a href="NuevoEmpleado.aspx">Nuevo empleado</a></li>
+                            <li><a href="ListPersonal.aspx">Lista de empleados</a></li>
+                        </ul>
                     </li>
                     <li>
                     <a href="Notificaciones.aspx">
@@ -210,15 +225,19 @@
 				    </a>
                     </li>
                     <li>
-                    <a href="Sitio.aspx">
+                    <a href="Sistema.aspx">
 					    <i class="menu-icon fa fa-desktop"></i>
 					    <span class="menu-text"> Sistema </span>
 				    </a>
                       <ul class="submenu">
-                       <li><a href="Default.aspx">Enfermedades</a></li>
-                       <li><a href="Usuarios.aspx">Usuarios</a></li>
-                       <li><a href="Sitio.aspx">Sitio</a></li>
-                       <li><a href="Default.aspx">Ayuda</a></li>
+                        <li><a href="Corporativo.aspx">Corporativo</a></li>
+                        <li><a href="Usuarios.aspx">Usuarios</a></li>
+                        <li><a href="NuevoUsuario.aspx">Nuevo usuario</a></li>
+                        <li><a href="Sitio.aspx">Sitio</a></li>
+                        <li><a href="Auditoria.aspx">Auditoría</a></li>
+                        <li><a href="Help.aspx">Ayuda</a></li>
+                        <li><a href="Contacto.aspx">Contacto</a></li>
+                        <li><a href="About.aspx">Acverca de</a></li>
                       </ul>
                     </li>
                 </ul>
@@ -248,7 +267,7 @@
                         <hr />
                         <!-- footer area -->
                         <footer>
-                            <p>&copy; <%: DateTime.Now.Year %> | <small><span class="ace-icon fa fa-check-square-o" aria-hidden="true"></span></small><strong> tambo<span class="text-primary">prp</span></strong> | todos los derechos reservados</p>
+                            <p class="bigger-110 align-center"><small><span class="ace-icon fa fa-check-square-o" aria-hidden="true"></span></small><strong> tambo<span class="text-primary">prp</span></strong> | &copy; <%: DateTime.Now.Year %> todos los derechos reservados</p>
                         </footer>
 
                   </div><!-- /.col -->

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="tamboprp | remisoras" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EmpresasRemisoras.aspx.cs" Inherits="tamboprp.EmpresasRemisoras" %>
+﻿<%@ Page Title="tamboprp | empresas remisoras" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EmpresasRemisoras.aspx.cs" Inherits="tamboprp.EmpresasRemisoras" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <link href="css/bootstrap.css" rel="stylesheet" />
     <link href="css/font-awesome.css" rel="stylesheet" />
@@ -32,7 +32,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     
     <div class="page-header">
-        <h1><i class="menu-icon fa fa-truck"></i> Empresas remisoras <small><i class="ace-icon fa fa-angle-double-right"></i> actual e históricas</small></h1>
+        <h1><i class="menu-icon fa fa-building-o"></i> Empresas remisoras <small><i class="ace-icon fa fa-angle-double-right"></i> actual e históricas</small></h1>
     </div>
     <div class="row">
         <div class="col-md-9">
