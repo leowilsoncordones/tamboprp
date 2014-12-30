@@ -1,4 +1,4 @@
-﻿<%@ Page Title="tamboprp | evento" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="NuevoEvento.aspx.cs" Inherits="tamboprp.NuevoEvento" %>
+﻿<%@ Page Title="tamboprp | nuevo evento" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="NuevoEvento.aspx.cs" Inherits="tamboprp.NuevoEvento" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     
     <link href="css/datepicker.css" rel="stylesheet" />

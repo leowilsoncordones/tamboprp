@@ -33,7 +33,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="page-header">
-        <h1><i class="menu-icon fa fa-trophy"></i> Calificaciones</h1>
+        <h1><i class="menu-icon fa fa-sort-numeric-desc"></i> Calificaciones</h1>
     </div>
     <div class="row">
         <div class="col-md-6">

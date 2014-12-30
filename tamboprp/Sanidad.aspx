@@ -22,4 +22,50 @@
     <div class="page-header">
         <h1><i class="menu-icon fa fa-stethoscope"></i> Sanidad</h1>
     </div>
+    
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10 container">
+            <div class="col-md-5 jumbotron align-center lighter">
+                <a href="AnalisisMuertes.aspx" class="bigger-160">
+		            <i class="ace-icon fa fa-thumbs-o-down bigger-200"></i><br/>
+                    Análisis de Muertes
+	            </a>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-5 jumbotron align-center lighter">
+                <a href="Enfermedades.aspx" class="bigger-160">
+		            <i class="ace-icon fa fa-stethoscope bigger-200"></i><br/>
+                    Lista de enfermedades
+	            </a>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+    <div class="row">
+       <div class="col-md-1"></div>
+        <div class="col-md-10 container">
+            <div class="col-md-5 jumbotron align-center lighter">
+                <a href="Cmt.aspx" class="bigger-160">
+		            <i class="ace-icon fa fa-history bigger-200"></i><br/>
+                    C.M.T. histórico
+	            </a>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-5 align-center lighter">
+                
+            </div>
+        </div>
+       <div class="col-md-1"></div>
+    </div>
+    
+    
+    <asp:Panel ID="pnlLinks" Visible="false" runat="server">
+    <ul>
+        <li><i class="menu-icon fa fa-stethoscope blue"></i><asp:HyperLink ID="hypEnfermedades" NavigateUrl="Enfermedades.aspx" runat="server"> Lista de enfermedades</asp:HyperLink></li>
+        <li><i class="menu-icon fa fa-thumbs-o-down blue"></i><asp:HyperLink ID="hypAnalisisMuertes" NavigateUrl="AnalisisMuertes.aspx" runat="server"> Análisis de Muertes</asp:HyperLink></li>
+        <li><i class="menu-icon fa fa-history blue"></i><asp:HyperLink ID="hypCmt" NavigateUrl="Cmt.aspx" runat="server">  C.M.T. histórico</asp:HyperLink></li>
+    </ul>
+    </asp:Panel>
+
 </asp:Content>

@@ -91,7 +91,7 @@ namespace Datos
                 cmd.Parameters.Add(new SqlParameter("@APELLIDO", _user.Apellido));
                 cmd.Parameters.Add(new SqlParameter("@EMAIL", _user.Email));
                 cmd.Parameters.Add(new SqlParameter("@FOTO", _user.Foto));
-                cmd.Parameters.Add(new SqlParameter("@ROL", _user.Rol));
+                cmd.Parameters.Add(new SqlParameter("@ROL", _user.Rol.NombreRol));
                 cmd.Parameters.Add(new SqlParameter("@HABILITADO", _user.Habilitado));
             }
             else if (opType == OperationType.UPDATE)
@@ -105,7 +105,7 @@ namespace Datos
                 cmd.Parameters.Add(new SqlParameter("@APELLIDO", _user.Apellido));
                 cmd.Parameters.Add(new SqlParameter("@EMAIL", _user.Email));
                 cmd.Parameters.Add(new SqlParameter("@FOTO", _user.Foto));
-                cmd.Parameters.Add(new SqlParameter("@ROL", _user.Rol));
+                cmd.Parameters.Add(new SqlParameter("@ROL", _user.Rol.NombreRol));
                 cmd.Parameters.Add(new SqlParameter("@HABILITADO", _user.Habilitado));
             }
             return cmd;
@@ -120,7 +120,9 @@ namespace Datos
             user.Apellido = (DBNull.Value == record["APELLIDO"]) ? string.Empty : (string)record["APELLIDO"];
             user.Email = (DBNull.Value == record["EMAIL"]) ? string.Empty : (string)record["EMAIL"];
             user.Foto = (DBNull.Value == record["FOTO"]) ? string.Empty : (string)record["FOTO"];
-            user.Rol = (DBNull.Value == record["ROL"]) ? string.Empty : (string)record["ROL"];
+            var rol = new RolUsuario();
+            rol.NombreRol = (DBNull.Value == record["ROL"]) ? string.Empty : (string)record["ROL"];
+            user.Rol = rol;
             int hab = (short)((DBNull.Value == record["HABILITADO"]) ? 0 : (Int16)record["HABILITADO"]);
             if (hab == 1) user.Habilitado = true;
             else user.Habilitado = false;
@@ -132,7 +134,7 @@ namespace Datos
         {
             var rol = new RolUsuario();
             rol.Nivel = (short)((DBNull.Value == record["NIVEL"]) ? 0 : (Int16)record["NIVEL"]);
-            rol.Rol = (DBNull.Value == record["ROL"]) ? string.Empty : (string)record["ROL"];
+            rol.NombreRol = (DBNull.Value == record["ROL"]) ? string.Empty : (string)record["ROL"];
             rol.Descripcion = (DBNull.Value == record["DESCRIPCION"]) ? string.Empty : (string)record["DESCRIPCION"];
             return rol;
         }

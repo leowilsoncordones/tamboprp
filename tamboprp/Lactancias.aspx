@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Lactancias.aspx.cs" Inherits="tamboprp.Lactancias" %>
+﻿<%@ Page Title="tamboprp | lactancias" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Lactancias.aspx.cs" Inherits="tamboprp.Lactancias" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <link href="css/bootstrap.css" rel="stylesheet" />
     <link href="css/font-awesome.css" rel="stylesheet" />
@@ -31,7 +31,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="page-header">
-        <h1><i class="menu-icon fa fa-recycle"></i> Lactancias</h1>
+        <h1><i class="menu-icon fa fa-refresh"></i> Lactancias</h1>
     </div>
     <div class="row">
         <div class="col-md-4">

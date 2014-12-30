@@ -22,27 +22,25 @@
     <div class="page-header">
         <h1><i class="menu-icon fa fa-users"></i> Personal</h1>
     </div>
+    
     <div class="row">
-        <div class="col-md-5">
-        <asp:PlaceHolder ID="phPersonal" runat="server">
-            <asp:GridView ID="gvEmpleados" runat="server" AutoGenerateColumns="False" GridLines="None" 
-                HorizontalAlign="Left" CssClass="table table-hover table-striped table-bordered table-condensed dataTable" >
-                <RowStyle HorizontalAlign="Left"  />
-                <Columns>
-                    <asp:BoundField DataField="Nombre" HeaderText="Nombre" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
-                    <asp:BoundField DataField="Apellido" HeaderText="Apellido" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />    
-                    <asp:BoundField DataField="Iniciales" HeaderText="Iniciales" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />               
-                    <asp:BoundField DataField="Activo" HeaderText="Activo" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" />
-                </Columns>
-                <FooterStyle />
-                <PagerStyle HorizontalAlign="Left" />
-                <SelectedRowStyle />
-                <HeaderStyle />
-                <EditRowStyle />
-                <AlternatingRowStyle />
-            </asp:GridView>    
-        </asp:PlaceHolder><!-- Fin de tabla personal -->
+       <div class="col-md-1"></div>
+        <div class="col-md-10 container">
+            <div class="col-md-5 jumbotron align-center lighter">
+                <a href="NuevoEmpleado.aspx" class="bigger-160">
+		            <i class="ace-icon fa fa-edit bigger-200"></i><br/>
+                    Ingreso de empleado
+	            </a>
             </div>
-            <div class="col-md-7"></div>
+            <div class="col-md-1"></div>
+            <div class="col-md-5 jumbotron align-center lighter">
+                <a href="ListPersonal.aspx" class="bigger-160">
+		            <i class="ace-icon fa fa-users bigger-200"></i><br/>
+                    Lista de empleados
+	            </a>
+            </div>
         </div>
+       <div class="col-md-1"></div>
+    </div>
+
 </asp:Content>

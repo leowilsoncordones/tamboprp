@@ -28,7 +28,7 @@ namespace Entidades
 
         public override string ToString()
         {
-            return Nombre + ": " + Nombre_enfermedad;
+            return Nombre_enfermedad;
         }
 
     }

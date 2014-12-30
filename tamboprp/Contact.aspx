@@ -1,9 +1,9 @@
-﻿<%@ Page Title="Contact" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Contact.aspx.cs" Inherits="tamboprp.Contact" %>
+﻿<%@ Page Title="tamboprp | contacto" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Contact.aspx.cs" Inherits="tamboprp.Contact" %>
 
 <asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="MainContent">
     <hgroup class="title">
-        <h1><%: Title %>.</h1>
-        <h2>Your contact page.</h2>
+        <h1><i class="menu-icon fa fa-envelope" ></i> Contacto</h1>
+        <h2>Your contact page</h2>
     </hgroup>
 
     <section class="contact">

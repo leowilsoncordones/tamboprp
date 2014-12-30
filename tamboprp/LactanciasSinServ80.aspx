@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="LactanciasSinServ80.aspx.cs" Inherits="tamboprp.LactanciasSinServ80" %>
+﻿<%@ Page Title="tamboprp | en lactancia y sin servicio" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="LactanciasSinServ80.aspx.cs" Inherits="tamboprp.LactanciasSinServ80" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <link href="css/bootstrap.css" rel="stylesheet" />
     <link href="css/font-awesome.css" rel="stylesheet" />
@@ -31,7 +31,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="page-header">
-        <h1><i class="menu-icon fa fa-binoculars"></i> Vacas en lactancia con más de 80 días sin servicio </h1>
+        <h1><i class="menu-icon fa fa-bullhorn"></i> Animales con más de 80 días en lactancia sin servicio </h1>
     </div>
     <div class="row">
         <div class="col-md-8">
