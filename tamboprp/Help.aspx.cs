@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Datos;
 using Negocio;
 
 namespace tamboprp
@@ -25,6 +27,12 @@ namespace tamboprp
                 var divBreadcrumbs = Master.FindControl("breadcrumbs") as System.Web.UI.HtmlControls.HtmlGenericControl;
                 if (divBreadcrumbs != null) divBreadcrumbs.InnerHtml = strB.ToString();
             }
+        }
+
+        [WebMethod]
+        public static List<Controles_totalesMapper.VOControlTotal> ControlTotalUltAnio()
+        {
+            return Fachada.Instance.ControlTotalUltAnio();
         }
     }
 }

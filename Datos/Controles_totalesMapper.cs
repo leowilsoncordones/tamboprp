@@ -150,6 +150,20 @@ namespace Datos
             dr.Close();
             return result;
         }
+
+        public List<VOControlTotal> ControlestUltAnio()
+        {
+            var result = new List<VOControlTotal>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = "Controles_Totales_UltimoAnio";
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+                result.Add(load(dr));
+            dr.Close();
+            return result;
+        }
         
 
         public class VOControlTotal
