@@ -39,6 +39,7 @@
             <li><a href="ControlProdUltimo.aspx">Último Control de Producción</a></li>
             <li><a href="Lactancias.aspx">Lactancias</a></li>
             <li><a href="ListVitalicias.aspx">Vitalicias</a></li>
+            <li><a href="ImportControl.aspx">Importar archivo de controles de producción</a></li>
         </ul>
     <a href="Analisis.aspx"><i class="menu-icon fa fa-eye"></i><span class="menu-text"> Análisis </span></a><br/>
         <ul class="submenu">

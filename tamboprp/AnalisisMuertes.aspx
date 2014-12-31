@@ -67,11 +67,21 @@
                         <EditRowStyle />
                         <AlternatingRowStyle />
                         </asp:GridView>
-                        <asp:Label ID="titTotalMuertes" runat="server" Text="Cantidad de muertes: " Visible="False"></asp:Label><asp:Label ID="lblTotalMuertes" runat="server" ></asp:Label><br/>
-                        <asp:Label ID="titEnfDif" runat="server" Text="Enfermedades diferentes: " Visible="False"></asp:Label><asp:Label ID="lblEnfDif" runat="server" ></asp:Label><br/>
-        
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-2"></div>
+                    <!-- RESUMEN EN COLUMNA DERECHA -->
+                    <div class="col-md-4">
+                        <div class="well">
+						    <h4 class="header smaller lighter blue"><i class="menu-icon fa fa-paperclip"></i> Resumen de muertes</h4>
+                            <ul class="list-unstyled spaced2">
+                            <li class="bigger-110"><i class="ace-icon fa fa-caret-right blue"></i>  
+                                <asp:Label ID="titTotalMuertes" runat="server" Text="Cantidad de muertes: " Visible="False"></asp:Label>
+                                <strong><asp:Label ID="lblTotalMuertes" runat="server" ></asp:Label></strong></li>
+                            <li class="bigger-110"><i class="ace-icon fa fa-caret-right blue"></i>
+                            <asp:Label ID="titEnfDif" runat="server" Text="Enfermedades diferentes: " Visible="False"></asp:Label>
+                                <strong><asp:Label ID="lblEnfDif" runat="server" ></asp:Label></strong></li>
+                            </ul>
+					    </div>
                     </div>
                 </div>
 			</div> <!-- fin Análisis sanitario de muertes -->
@@ -101,7 +111,6 @@
                         <AlternatingRowStyle />
                         </asp:GridView>
                         <asp:Label ID="titCantAnimales" runat="server" Text="Cantidad de muertes: " Visible="False"></asp:Label><asp:Label ID="lblCantAnimales" runat="server" ></asp:Label><br/>
-        
                     </div>
                     <div class="col-md-4">
                     </div>

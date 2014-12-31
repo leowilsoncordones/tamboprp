@@ -76,6 +76,7 @@
         <li><i class="menu-icon fa fa-edit blue"></i><asp:HyperLink ID="hypNuevoRemito" NavigateUrl="NuevoRemito.aspx" runat="server">  Ingreso de nuevo remito</asp:HyperLink></li>
         <li><i class="menu-icon fa fa-building-o blue"></i><asp:HyperLink ID="hypEmpresasRemisoras" NavigateUrl="EmpresasRemisoras.aspx" runat="server"> Empresas Remisoras</asp:HyperLink></li>
     </ul>
+     
         
         <div class="row">
         <div class="col-xs-6">

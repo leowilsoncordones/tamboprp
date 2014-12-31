@@ -191,6 +191,7 @@
     <Content Include="js\js_tamboprp\PasswordStrongChecker.js" />
     <Content Include="ListVitalicias.aspx" />
     <Content Include="NuevoEmpleado.aspx" />
+    <Content Include="ImportControl.aspx" />
     <Content Include="NuevoUsuario.aspx" />
     <Content Include="NuevoRemito.aspx" />
     <Content Include="Animales.aspx" />
@@ -870,6 +871,13 @@
     </Compile>
     <Compile Include="NuevoEmpleado.aspx.designer.cs">
       <DependentUpon>NuevoEmpleado.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ImportControl.aspx.cs">
+      <DependentUpon>ImportControl.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ImportControl.aspx.designer.cs">
+      <DependentUpon>ImportControl.aspx</DependentUpon>
     </Compile>
     <Compile Include="NuevoUsuario.aspx.cs">
       <DependentUpon>NuevoUsuario.aspx</DependentUpon>

@@ -55,8 +55,8 @@ namespace tamboprp
             double promMachos = 0;
             if (cant > 0)
             {
-                promHembras = Math.Round((double)hembras / cant * 100, 2);
-                promMachos = Math.Round((double)machos / cant * 100, 2);
+                promHembras = Math.Round((double)hembras / cant * 100, 1);
+                promMachos = Math.Round((double)machos / cant * 100, 1);
             }
 
             this.gvListPartos.DataSource = lst;
@@ -77,9 +77,9 @@ namespace tamboprp
             this.lblTrillizos.Text = cantTrillizos.ToString();
             
             this.lblTotalMuertos.Text = muertos.ToString();
-            double promMuertos = Math.Round((double)muertos / cant * 100, 2);
+            double promMuertos = Math.Round((double)muertos / cant * 100, 1);
             this.lblPromMuertos.Text = promMuertos.ToString() + "%";
-            double promNac = Math.Round((double)cantNacim / cant * 100, 2);
+            double promNac = Math.Round((double)cantNacim / cant * 100, 1);
             this.lblPromNac.Text = promNac.ToString() + "%";
 
         }
