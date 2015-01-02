@@ -1,51 +1,76 @@
 ﻿<%@ Page Title="tamboprp | contacto" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Contact.aspx.cs" Inherits="tamboprp.Contact" %>
 
 <asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="MainContent">
-    <hgroup class="title">
+    <div class="page-header">
         <h1><i class="menu-icon fa fa-envelope" ></i> Contacto</h1>
-        <h2>Your contact page</h2>
-    </hgroup>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
 
-    <section class="contact">
-        <header>
-            <h3>Phone:</h3>
-        </header>
-        <p>
-            <span class="label">Main:</span>
-            <span>425.555.0100</span>
-        </p>
-        <p>
-            <span class="label">After Hours:</span>
-            <span>425.555.0199</span>
-        </p>
-    </section>
+            <section class="contact">
+                <header>
+                    <h3>Teléfonos:</h3>
+                </header>
+                <p>
+                    <span class="label">Principal:</span>
+                    <span>(+598) 425.555.0100</span>
+                </p>
+                <p>
+                    <span class="label">Después de hora:</span>
+                    <span>(+598) 425.555.0199</span>
+                </p>
+            </section>
 
-    <section class="contact">
-        <header>
-            <h3>Email:</h3>
-        </header>
-        <p>
-            <span class="label">Support:</span>
-            <span><a href="mailto:Support@example.com">Support@example.com</a></span>
-        </p>
-        <p>
-            <span class="label">Marketing:</span>
-            <span><a href="mailto:Marketing@example.com">Marketing@example.com</a></span>
-        </p>
-        <p>
-            <span class="label">General:</span>
-            <span><a href="mailto:General@example.com">General@example.com</a></span>
-        </p>
-    </section>
+            <section class="contact">
+                <header>
+                    <h3>Email:</h3>
+                </header>
+                <p>
+                    <span class="label">Soporte:</span>
+                    <span><a href="mailto:soporte@tamboprp.uy">soporte@tamboprp.uy</a></span>
+                </p>
+                <p>
+                    <span class="label">Marketing:</span>
+                    <span><a href="mailto:marketing@tamboprp.uy">marketing@tamboprp.uy</a></span>
+                </p>
+                <p>
+                    <span class="label">General:</span>
+                    <span><a href="mailto:general@tamboprp">general@tamboprp.uy</a></span>
+                </p>
+            </section>
+            
+            <section class="contact">
+                <header>
+                    <h3>Web:</h3>
+                </header>
+                <p>
+                    <span class="label">Sitio:</span>
+                    <span><a href="http://www.tamboprp.uy">www.tamboprp.uy</a></span>
+                </p>
+                <p>
+                    <span class="label">Blog:</span>
+                    <span><a href="http://blog.tamboprp.uy">blog.tamboprp.uy</a></span>
+                </p>
+            </section>
 
-    <section class="contact">
-        <header>
-            <h3>Address:</h3>
-        </header>
-        <p>
-            One Microsoft Way<br />
-            Redmond, WA 98052-6399
-        </p>
-    </section>
-    <br/>
+            <section class="contact">
+                <header>
+                    <h3>Dirección:</h3>
+                </header>
+                <p>
+                    Calle Avenida Parlamento 314, CP 11100<br />
+                    Montevideo, UY 
+                </p>
+            </section>
+            
+    </div>
+
+        <div class="col-md-4">
+            <h1 class="text-center">
+                <span class="ace-icon fa fa-check-square-o" aria-hidden="true"></span>
+                <span> tambo</span><strong class="text-primary">prp</strong>
+            </h1>
+        </div>
+    </div>
+
 </asp:Content>

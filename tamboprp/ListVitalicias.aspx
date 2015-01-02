@@ -32,7 +32,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="page-header">
-        <h1><i class="menu-icon fa fa-star"></i> Listado de vacas vitalicias <small><i class="ace-icon fa fa-angle-double-right"></i> producción mayor a 50.000kg de Leche</small></h1>
+        <h1><i class="menu-icon fa fa-star-o"></i> Listado de vacas vitalicias <small><i class="ace-icon fa fa-angle-double-right"></i> producción mayor a 50.000kg de Leche</small></h1>
     </div>
     <div class="row">
         <div class="col-md-12">

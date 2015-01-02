@@ -54,7 +54,7 @@
             <div class="col-md-1"></div>
             <div class="col-md-5 jumbotron align-center lighter">
                 <a href="ListVitalicias.aspx" class="bigger-160">
-		            <i class="ace-icon fa fa-star bigger-200"></i><br/>
+		            <i class="ace-icon fa fa-star-o bigger-200"></i><br/>
                     Vitalicias
 	            </a>
             </div>
@@ -83,7 +83,7 @@
             <li><i class="menu-icon fa fa-edit blue"></i><asp:HyperLink ID="hypNuevoEvento" NavigateUrl="NuevoEvento.aspx" runat="server">  Ingreso de nuevo evento</asp:HyperLink></li>
             <li><i class="menu-icon fa fa-cogs blue"></i><asp:HyperLink ID="hypControlProdUltimo" NavigateUrl="ControlProdUltimo.aspx" runat="server"> Último Control de Producción</asp:HyperLink></li>
             <li><i class="menu-icon fa fa-refresh blue"></i><asp:HyperLink ID="hypLactancias" NavigateUrl="Lactancias.aspx" runat="server"> Lactancias</asp:HyperLink></li>
-            <li><i class="menu-icon fa fa-star blue"></i><asp:HyperLink ID="hypVitalicias" NavigateUrl="ListVitalicias.aspx" runat="server"> Vitalicias</asp:HyperLink></li>
+            <li><i class="menu-icon fa fa-star-o blue"></i><asp:HyperLink ID="hypVitalicias" NavigateUrl="ListVitalicias.aspx" runat="server"> Vitalicias</asp:HyperLink></li>
         </ul>
     </asp:Panel>
 

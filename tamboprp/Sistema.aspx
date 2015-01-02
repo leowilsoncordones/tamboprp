@@ -73,8 +73,8 @@
             <div class="col-md-1"></div>
             <div class="col-md-5 jumbotron align-center lighter">
                 <a href="Help.aspx" class="bigger-160">
-		            <i class="ace-icon fa fa-question bigger-200"></i><br/>
-                    Ayuda
+		            <i class="ace-icon fa fa-wrench bigger-200"></i><br/>
+                    Ayuda y soporte
 	            </a>
             </div>
         </div>

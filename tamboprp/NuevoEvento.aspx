@@ -116,9 +116,9 @@
 			        </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label no-padding-right"> Grasa </label>
+                    <label class="col-sm-3 control-label no-padding-right"> Porcentaje de Grasa </label>
                     <div class="col-sm-2">
-			            <input type="text" runat="server" id="fGrasa" placeholder="Grasa en kilos" class="form-control col-xs-10 col-sm-5" />
+			            <input type="text" runat="server" id="fGrasa" placeholder="% Grasa" class="form-control col-xs-10 col-sm-5" />
 			        </div>
                 </div>
                 <div class="form-group">

@@ -9223,8 +9223,10 @@ input[type=checkbox].ace.ace-switch.ace-switch-5 + .lbl::before {
   height: 24px;
   overflow: hidden;
   border-radius: 12px;
-  background-color: #8b9aa3;
-  border: 1px solid #8b9aa3;
+  /*background-color: #8b9aa3;
+  border: 1px solid #8b9aa3;*/
+  background-color: #1b6aaa;
+  border: 1px solid #428bca;
   color: #FFF;
   width: 56px;
   text-indent: -25px;
@@ -9257,8 +9259,10 @@ input[type=checkbox].ace.ace-switch.ace-switch-5 + .lbl::after {
 input[type=checkbox].ace.ace-switch.ace-switch-4:checked + .lbl::before,
 input[type=checkbox].ace.ace-switch.ace-switch-5:checked + .lbl::before {
   text-indent: 9px;
-  background-color: #468fcc;
-  border-color: #468FCC;
+  /*background-color: #468fcc;*/
+  background-color: #d6487e;
+  border-color: #d6487e;
+  /*border-color: #468FCC;*/
 }
 input[type=checkbox].ace.ace-switch.ace-switch-4:checked + .lbl::after,
 input[type=checkbox].ace.ace-switch.ace-switch-5:checked + .lbl::after {
@@ -9267,7 +9271,7 @@ input[type=checkbox].ace.ace-switch.ace-switch-5:checked + .lbl::after {
   color: #848484;
 }
 input[type=checkbox].ace.ace-switch.ace-switch-5 + .lbl::before {
-  content: "YES\a0\a0\a0\a0\a0\a0\a0\a0\a0\a0\a0NO";
+  content: "\a0\a0H\a0\a0\a0\a0\a0\a0\a0\a0\a0\a0\a0\a0M";
 }
 input[type=checkbox].ace.ace-switch.ace-switch-5:checked + .lbl::before {
   text-indent: 8px;

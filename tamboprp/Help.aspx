@@ -3,7 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="page-header">
-        <h1><i class="menu-icon fa fa-question"></i> Ayuda</h1>
+        <h1><i class="menu-icon fa fa-wrench"></i> Ayuda y soporte</h1>
     </div>
     
 
