@@ -20,7 +20,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="page-header">
-        <h1><i class="menu-icon fa fa-folder-open" ></i> Animales</h1>
+        <h1><i class="menu-icon fa fa-github-alt" ></i> Animales</h1>
     </div>
     
     <div class="row">
@@ -35,7 +35,7 @@
             <div class="col-md-1"></div>
             <div class="col-md-5 jumbotron align-center lighter">
                 <a href="FichaAnimal.aspx" class="bigger-160">
-		            <i class="ace-icon fa fa-folder-open bigger-200"></i><br/>
+		            <i class="ace-icon fa fa-github-alt bigger-200"></i><br/>
                     Ficha de animal
 	            </a>
             </div>

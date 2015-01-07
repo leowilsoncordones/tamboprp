@@ -67,7 +67,7 @@
             <div class="col-md-5 jumbotron align-center lighter">
                 <a href="Inseminaciones.aspx" class="bigger-160">
 		            <i class="ace-icon fa fa-hand-o-right bigger-200"></i><br/>
-                    Inseminaciones
+                    Preñez confirmada
 	            </a>
             </div>
             <div class="col-md-1"></div>
@@ -84,9 +84,9 @@
         <div class="col-md-1"></div>
         <div class="col-md-10 container">
             <div class="col-md-5 jumbotron align-center lighter">
-                <a href="ListTorosUtilizados.aspx" class="bigger-160">
+                <a href="AnalisisToros.aspx" class="bigger-160">
 		            <i class="ace-icon fa fa-flask bigger-200"></i><br/>
-                    Toros utilizados
+                    Toros y su efectividad
 	            </a>
             </div>
             <div class="col-md-1"></div>

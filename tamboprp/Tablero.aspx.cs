@@ -14,7 +14,16 @@ namespace tamboprp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            this.SetPageBreadcrumbs();
+            if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]) &&
+               (Session["EsAdmin"] != null && (bool)Session["EsAdmin"]))
+            {
+                if (!Page.IsPostBack)
+                {
+                    //this.SetMyProfileName();
+                    this.SetPageBreadcrumbs();
+                }
+            }
+            else Response.Redirect("~/Login.aspx", true);
         }
 
         protected void SetPageBreadcrumbs()
@@ -28,6 +37,20 @@ namespace tamboprp
                 if (divBreadcrumbs != null) divBreadcrumbs.InnerHtml = strB.ToString();
             }
         }
+
+        //protected void SetMyProfileName()
+        //{
+        //    var u = (VOUsuario)Session["Usuario"];
+        //    if (u != null)
+        //    {
+        //        var strMyName = "Hola, " + u.Nombre;// + " " + u.Apellido;
+        //        if (Master != null)
+        //        {
+        //            var fProf = Master.FindControl("fProfile") as System.Web.UI.HtmlControls.HtmlAnchor;
+        //            if (fProf != null) fProf.InnerHtml = strMyName.ToString();
+        //        }   
+        //    }
+        //}
 
         [WebMethod]
         public static List<Controles_totalesMapper.VOControlTotal> ControlTotalGetAll()

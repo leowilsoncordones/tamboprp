@@ -68,7 +68,7 @@ namespace tamboprp
                 Nickname = username.Value,
                 Password = password.Value,
                 Email = fEmail.Value,
-                Foto = "",
+                Foto = avatar.Src,
                 Rol = rol
             };
             return Fachada.Instance.InsertarUsuario(usuario);

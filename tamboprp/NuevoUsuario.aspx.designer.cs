@@ -22,6 +22,24 @@ namespace tamboprp {
         protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
+        /// avatar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlImage avatar;
+        
+        /// <summary>
+        /// fNomFoto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl fNomFoto;
+        
+        /// <summary>
         /// fNombre control.
         /// </summary>
         /// <remarks>

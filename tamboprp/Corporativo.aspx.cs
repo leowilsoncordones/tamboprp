@@ -40,10 +40,13 @@ namespace tamboprp
                 this.fNombre.Value = emp.Nombre;
                 this.fRazonSocial.Value = emp.RazonSocial;
                 this.fRut.Value = emp.Rut;
+                this.FLetraSistema.Value = emp.LetraSistema;
                 this.fDireccion.Value = emp.Direccion;
+                this.fCiudad.Value = emp.Ciudad;
                 this.fCP.Value = emp.Cpostal;
                 this.fCelular.Value = emp.Celular;
                 this.fTelefono.Value = emp.Telefono;
+                this.fWeb.Value = emp.Web;
             }
         }
 
@@ -86,6 +89,7 @@ namespace tamboprp
             this.fRazonSocial.Value = "";
             this.fRut.Value = "";
             this.fDireccion.Value = "";
+            this.fCiudad.Value = "";
             this.fCP.Value = "";
             this.fCelular.Value = "";
             this.fTelefono.Value = "";

@@ -22,6 +22,15 @@ namespace tamboprp {
         protected global::System.Web.UI.WebControls.ContentPlaceHolder HeadContent;
         
         /// <summary>
+        /// fProfile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor fProfile;
+        
+        /// <summary>
         /// breadcrumbs control.
         /// </summary>
         /// <remarks>

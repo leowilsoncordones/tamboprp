@@ -128,7 +128,7 @@
                 </div>
                 <div class="col-md-6">
                 </div>
-                </div>
+            </div>
             </div> <!-- fin Tabla Analitica de vacas en ordeñe -->
             <!-- PESTANA 3: Indicadores -->
 			<div id="indicadores" class="tab-pane fade">

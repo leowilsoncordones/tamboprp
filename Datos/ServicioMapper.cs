@@ -23,6 +23,8 @@ namespace Datos
         private static string Servicio_RegistroCantServDespuesPrenez = "Servicio_RegistroCantServDespuesPrenez";
         private static string Servicio_80DiasLactanciaSinServicio = "Servicio_80DiasLactanciaSinServicio";
         private static string Servicio_SelectByRegistroDespUltParto = "Servicio_SelectByRegistroDespUltParto";
+        private static string ServicioyDiag_PorTorosUtilizByAnio = "ServicioyDiag_PorTorosUtilizByAnio";
+        
 
         public ServicioMapper(Servicio servicio)
         {
@@ -284,6 +286,65 @@ namespace Datos
         public Dictionary<string, int> GetRegCantServDespuesPrenez()
         {
             return GetRegCantServ(Servicio_RegistroCantServDespuesPrenez);
+        }
+
+
+        public List<VOServicioDiag> GetServDiagPorToroUtilizado(int anio)
+        {
+            var result = new List<VOServicioDiag>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@ANIO", anio));
+            cmd.CommandText = ServicioyDiag_PorTorosUtilizByAnio;
+
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+                result.Add(loadServDiagPorToroUtilizado(dr));
+            dr.Close();
+            return result;
+        }
+
+        protected VOServicioDiag loadServDiagPorToroUtilizado(SqlDataReader record)
+        {
+            var voServDiagToro = new VOServicioDiag();
+            voServDiagToro.Registro = (DBNull.Value == record["REGISTRO"]) ? string.Empty : (string)record["REGISTRO"];
+            string strDate = (DBNull.Value == record["FECHA_SERV"]) ? string.Empty : record["FECHA_SERV"].ToString();
+            voServDiagToro.RegPadre = (DBNull.Value == record["REG_PADRE"]) ? string.Empty : (string)record["REG_PADRE"];
+            if (strDate != string.Empty) voServDiagToro.FechaServ = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+            int idInseminador = (short)((DBNull.Value == record["INSEMINADOR"]) ? 0 : (Int16)record["INSEMINADOR"]);
+            if (idInseminador > 0)
+            {
+                var insTemp = new Empleado();
+                insTemp.Id_empleado = (Int16)idInseminador;
+                voServDiagToro.Inseminador = insTemp;
+            }
+            string strDate2 = (DBNull.Value == record["FECHA_DIAG"]) ? string.Empty : record["FECHA_DIAG"].ToString();
+            if (strDate2 != string.Empty) voServDiagToro.FechaDiag = DateTime.Parse(strDate2, new CultureInfo("fr-FR"));
+            voServDiagToro.Diagnostico = (DBNull.Value == record["DIAGNOSTIC"]) ? ' ' : Convert.ToChar(record["DIAGNOSTIC"]);
+            return voServDiagToro;
+        }
+
+
+        public class VOServicioDiag
+        {
+            public VOServicioDiag()
+            {
+
+            }
+
+            public string Registro { get; set; }
+
+            public DateTime FechaServ { get; set; }
+
+            public string RegPadre { get; set; }
+
+            public Empleado Inseminador { get; set; }
+
+            public DateTime FechaDiag { get; set; }
+
+            public char Diagnostico { get; set; }
+
         }
 
     }

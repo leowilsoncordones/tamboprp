@@ -49,6 +49,7 @@ namespace tamboprp
 
         public void ConsolidarResumen(List<Diag_PrenezMapper.VODiagnostico> lst)
         {
+            //lst.Sort();
             var lstInseminadores = new List<VoListItem2>();
             bool esta = false;
             // Recorro la lista para consolidar la inseminaciones por Inseminador
@@ -70,12 +71,14 @@ namespace tamboprp
                     lstInseminadores.Add(it);
                 }
             }
+            
             this.ImprimirResumen(lstInseminadores);
             this.lblTotal.Text = lst.Count.ToString();
         }
 
         public void ImprimirResumen(List<VoListItem2> lstInseminadores)
         {
+            lstInseminadores.Sort();
             // agrego al cuadro de resumen la lista de inseminadores consolidada
             var sb = new StringBuilder();
             this.listaInseminadores.InnerHtml = "";

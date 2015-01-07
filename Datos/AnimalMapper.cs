@@ -25,6 +25,8 @@ namespace Datos
         private static string Animal_SelectCount_MellizosByAnio = "Animal_SelectCount_MellizosByAnio";
         private static string Animal_SelectCount_TrillizosByAnio = "Animal_SelectCount_TrillizosByAnio";
         private static string Animal_SelectCount_NacimientosByAnio = "Animal_SelectCount_NacimientosByAnio";
+        private static string Animal_SelectCountNacimientosPorToroByAnio = "Animal_SelectCountNacimientosPorToroByAnio";
+        private static string Animal_SelectCountNacimientosHPorToroByAnio = "Animal_SelectCountNacimientosHPorToroByAnio";
         
 
         public AnimalMapper(Animal animal)
@@ -285,6 +287,19 @@ namespace Datos
             return Convert.ToInt32(value);
         }
 
+        public int GetCantNacimientosHPorToroByAnio(string reg, int anio)
+        {
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@REG_PADRE", reg));
+            cmd.Parameters.Add(new SqlParameter("@ANIO", anio));
+            cmd.CommandText = Animal_SelectCountNacimientosHPorToroByAnio;
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
+
         protected VOFoto loadFoto(SqlDataReader record)
         {
             var voFoto = new VOFoto();
@@ -423,6 +438,60 @@ namespace Datos
 
         }
 
+        public class VOToro
+        {
+            public VOToro()
+            {
+
+            }
+
+            public string Registro { get; set; }
+
+            public string Nombre { get; set; }
+
+            public string Origen { get; set; }
+
+            public int CantNacim { get; set; }
+
+            public int CantH { get; set; }
+
+            public int CantM { get; set; }
+
+            public double PorcHembras { get; set; }
+
+        }
+
+        public List<VOToro> GetNacimientosPorToroByAnio(int anio)
+        {
+            var result = new List<VOToro>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@ANIO", anio));
+            cmd.CommandText = Animal_SelectCountNacimientosPorToroByAnio;
+
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+                result.Add(loadNacimPorToroByAnio(dr));
+            dr.Close();
+            return result;
+        }
+
+        protected VOToro loadNacimPorToroByAnio(SqlDataReader record)
+        {
+            var toro = new VOToro();
+            toro.Registro = (DBNull.Value == record["REGISTRO"]) ? string.Empty : (string)record["REGISTRO"];
+            //toro.IdCategoria = (short)((DBNull.Value == record["CATEGORIA"]) ? 0 : (Int16)record["CATEGORIA"]);
+            //toro.Nombre = (DBNull.Value == record["NOMBRE"]) ? string.Empty : (string)record["NOMBRE"];
+            toro.Origen = (DBNull.Value == record["ORIGEN"]) ? string.Empty : (string)record["ORIGEN"];
+            toro.CantNacim = (DBNull.Value == record["CANT_NACIM"]) ? 0 : int.Parse(record["CANT_NACIM"].ToString());
+            //toro.CantH = (short)((DBNull.Value == record["CANT_H"]) ? 0 : (Int16)record["CANT_H"]);
+            //toro.CantH = (short)((DBNull.Value == record["CANT_M"]) ? 0 : (Int16)record["CANT_M"]);
+            //toro.CantNacim = toro.CantH + toro.CantM;
+            //if (toro.CantNacim > 0)
+                //toro.PorcHembras = Math.Round((double)toro.CantH / toro.CantNacim * 100, 1);
+            return toro;
+        }
     }
 }
 

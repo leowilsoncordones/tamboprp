@@ -15,6 +15,8 @@ namespace Datos
         private Usuario _user;
 
         private static string UsuariosRoles_SelectAll = "UsuariosRoles_SelectAll";
+        private static string Usuario_SelectAtLogin = "Usuario_SelectAtLogin";
+        private static string Usuario_Logoff = "Usuario_Logoff";
         
         public UsuarioMapper(Usuario user)
         {
@@ -86,7 +88,7 @@ namespace Datos
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Usuario_Insert";
                 cmd.Parameters.Add(new SqlParameter("@NICKNAME", _user.Nickname));
-                cmd.Parameters.Add(new SqlParameter("@PASSWORD", _user.Password));
+                cmd.Parameters.Add(new SqlParameter("@PASSW", _user.Password));
                 cmd.Parameters.Add(new SqlParameter("@NOMBRE", _user.Nombre));
                 cmd.Parameters.Add(new SqlParameter("@APELLIDO", _user.Apellido));
                 cmd.Parameters.Add(new SqlParameter("@EMAIL", _user.Email));
@@ -100,7 +102,7 @@ namespace Datos
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Usuario_Update";
                 cmd.Parameters.Add(new SqlParameter("@NICKNAME", _user.Nickname));
-                cmd.Parameters.Add(new SqlParameter("@PASSWORD", _user.Password));
+                cmd.Parameters.Add(new SqlParameter("@PASSW", _user.Password));
                 cmd.Parameters.Add(new SqlParameter("@NOMBRE", _user.Nombre));
                 cmd.Parameters.Add(new SqlParameter("@APELLIDO", _user.Apellido));
                 cmd.Parameters.Add(new SqlParameter("@EMAIL", _user.Email));
@@ -115,7 +117,7 @@ namespace Datos
         {
             var user = new Usuario();
             user.Nickname = (DBNull.Value == record["NICKNAME"]) ? string.Empty : (string)record["NICKNAME"];
-            //user.Password = (DBNull.Value == record["PASSWORD"]) ? string.Empty : (string)record["PASSWORD"];
+            //user.Password = (DBNull.Value == record["PASSW"]) ? string.Empty : (string)record["PASSW"];
             user.Nombre = (DBNull.Value == record["NOMBRE"]) ? string.Empty : (string)record["NOMBRE"];
             user.Apellido = (DBNull.Value == record["APELLIDO"]) ? string.Empty : (string)record["APELLIDO"];
             user.Email = (DBNull.Value == record["EMAIL"]) ? string.Empty : (string)record["EMAIL"];
@@ -130,7 +132,7 @@ namespace Datos
         }
 
 
-        protected RolUsuario loadRoles(SqlDataReader record)
+        protected RolUsuario loadRol(SqlDataReader record)
         {
             var rol = new RolUsuario();
             rol.Nivel = (short)((DBNull.Value == record["NIVEL"]) ? 0 : (Int16)record["NIVEL"]);
@@ -149,10 +151,43 @@ namespace Datos
 
             SqlDataReader dr = FindByCmd(cmd);
             while (dr.Read())
-                result.Add(loadRoles(dr));
+                result.Add(loadRol(dr));
             dr.Close();
             return result;
         }
 
+
+        public Usuario GetUsuarioAtLogin(string user, string password)
+        {
+            Usuario usu = null;
+            SqlCommand cmd = null;
+            try
+            {
+                cmd = new SqlCommand();
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.CommandText = Usuario_SelectAtLogin;
+                cmd.Parameters.Add(new SqlParameter("@NICKNAME", user));
+                cmd.Parameters.Add(new SqlParameter("@PASS", password));
+
+                SqlDataReader dr = FindByCmd(cmd);
+                dr.Read();
+                usu = (Usuario)load(dr);
+            }
+            catch { }
+            return usu;
+        }
+
+        public int LogoffUsuario(string user)
+        {
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = Usuario_Logoff;
+            cmd.Parameters.Add(new SqlParameter("@NICKNAME", user));
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
+        
     }
 }

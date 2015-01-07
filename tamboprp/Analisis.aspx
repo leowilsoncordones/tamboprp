@@ -48,13 +48,17 @@
         <div class="col-md-1"></div>
         <div class="col-md-10 container">
             <div class="col-md-5 jumbotron align-center lighter">
+                <a href="AnalisisToros.aspx" class="bigger-160">
+		            <i class="ace-icon fa fa-flask bigger-200"></i><br/>
+                    Toros y su efectividad
+	            </a>
+            </div>
+            <div class="col-md-1"></div>
+                <div class="col-md-5 jumbotron align-center lighter">
                 <a href="AnalisisInseminadores.aspx" class="bigger-160">
 		            <i class="ace-icon fa fa-hand-o-right bigger-200"></i><br/>
                     Inseminadores
 	            </a>
-            </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-5 align-center">
             </div>
         </div>
         <div class="col-md-1"></div>

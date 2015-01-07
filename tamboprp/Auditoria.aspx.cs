@@ -127,7 +127,7 @@ namespace tamboprp
                     sb.Append("<div class='timeline-item clearfix' >");
                         sb.Append("<div class='timeline-info'>");
                             DateTime laFecha2 = list[j].Fecha;
-                            sb.Append("<span class='timeline-date'>" + laFecha2.Hour.ToString() + ":" + laFecha2.Minute.ToString() + "</span>");
+                            sb.Append("<span class='timeline-date'>" + laFecha2.ToShortTimeString() + "</span>");
                             sb.Append("<i class='timeline-indicator btn btn-info no-hover'></i>");
                         sb.Append("</div>");
                         sb.Append("<div class='widget-box transparent'>");
@@ -162,12 +162,12 @@ namespace tamboprp
             switch (logAudit.Operacion)
             {
                 case "login":
-                    operation += " <span class='red bolder'>ingresó</span> al sistema";
-                    botones += "<div class='action-buttons'><i class='ace-icon fa fa-sign-in red bigger-125'></i></div>";
+                    operation += " <span class='blue bolder'>ingresó</span> al sistema";
+                    botones += "<div class='action-buttons'><i class='ace-icon fa fa-sign-in blue bigger-125'></i></div>";
                     break;
                 case "logoff":
-                    operation += " <span class='red bolder'>salió</span> al sistema";
-                    botones += "<div class='action-buttons'><i class='ace-icon fa fa-sign-out red bigger-125'></i></div>";
+                    operation += " <span class='blue bolder'>salió</span> del sistema";
+                    botones += "<div class='action-buttons'><i class='ace-icon fa fa-sign-out blue bigger-125'></i></div>";
                     break;
                 case "insert":
                     operation += " dió de alta un";
@@ -178,64 +178,74 @@ namespace tamboprp
                 case "delete":
                     operation += " eliminó un";
                     break;
+                case "login_intento":
+                    operation += " <span class='red bolder'>intentó ingresar</span> al sistema";
+                    botones += "<div class='action-buttons'><i class='ace-icon fa fa-times red bigger-125'></i></div>";
+                    break;
                 default:
                     break;
             }
             switch (logAudit.Tabla)
             {
                 case "abortos":
-                    operation += " <span class='warning bolder'>aborto</span> de la vaca ";
+                    operation += " ABORTO de la vaca ";
                     break;
                 case "partos":
-                    operation += " <span class='pink2 bolder'>parto</span> de la vaca ";
+                    operation += " PARTO de la vaca ";
                     break;
                 case "celos_sin_servicio":
-                    operation += " <span class='pink2 bolder'>celo</span> de la vaca ";
+                    operation += " CELO de la vaca ";
                     break;
                 case "diag_prenez":
-                    operation += " <span class='pink2 bolder'>diagnóstico de preñez</span> de la vaca ";
+                    operation += " DIAGNÓSTICO DE PREÑEZ de la vaca ";
                     break;
                 case "bajas":
-                    operation += "a <span class='black bolder'>baja</span> del animal ";
+                    operation += "a BAJA del animal ";
                     break;
                 case "concursos":
-                    operation += " <span class='purple bolder'>concurso</span> del animal ";
+                    operation += " CONCURSO del animal ";
                     break;
                 case "calificaciones":
-                    operation += "a <span class='purple bolder'>calificación</span> del animal ";
+                    operation += "a CALIFICACIÓN del animal ";
                     break;
                 case "controles_producc":
-                    operation += " <span class='orange2 bolder'>control de producción</span> de la vaca ";
+                    operation += " CONTROL DE PRODUCCIÓN de la vaca ";
                     break;
                 case "empleados":
-                    operation += " empleado de nombre ";
+                    operation += " EMPLEADO de nombre ";
                     break;
                 case "enfermedades":
-                    operation += "a <span class='black bolder'>enfermedad</span> ";
+                    operation += "a ENFERMEDAD ";
                     break;
                 case "fotos":
-                    operation += "a foto del animal ";
+                    operation += "a FOTO del animal ";
                     break;
                 case "remitos_planta":
-                    operation += " <span class='blue bolder'>remito a planta</span> correspondiente al día ";
+                    operation += " REMITO A PLANTA correspondiente al día ";
                     break;
                 case "secados":
-                    operation += " <span class='pink2 bolder'>secado</span> de la vaca ";
+                    operation += " SECADO de la vaca ";
                     break;
                 case "servicios":
-                    operation += " <span class='pink2 bolder'>servicio</span> de la vaca ";
+                    operation += " SERVICIO de la vaca ";
                     break;
                 case "usuarios":
-                    operation += " <span class='black bolder'>usuario</span> con nickname ";
+                    if (logAudit.Operacion != "login_intento" && logAudit.Operacion != "login")
+                    {
+                        operation += " usuario con nickname ";
+                    }
                     break;
                 case "usuarios_roles":
-                    operation += " <span class='red bolder'>rol de usuario</span> de ";
-                    botones += "<div class='action-buttons'><i class='ace-icon fa fa-user red bigger-125'></i></div>";
+                    operation += " ROL DE USUARIO de ";
+                    botones += "<div class='action-buttons'><i class='ace-icon fa fa-user blue bigger-125'></i></div>";
                     break;
                 default:
                     break;
             }
-            operation += "<span class='green bolder'>" + logAudit.Registro + "</span>";
+            if (logAudit.Registro != "Sistema")
+            {
+                operation += "<span class='green bolder'>" + logAudit.Registro + "</span>";
+            }
             operation += botones;
             return operation;
         }

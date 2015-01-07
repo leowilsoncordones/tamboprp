@@ -35,7 +35,7 @@
         <div class="col-md-1"></div>
             <div class="col-md-5 jumbotron align-center lighter">
                 <a href="Usuarios.aspx" class="bigger-160">
-		            <i class="ace-icon fa fa-user bigger-200"></i><br/>
+		            <i class="ace-icon fa fa-users bigger-200"></i><br/>
                     Usuarios del sistema
 	            </a>
             </div>
@@ -46,16 +46,16 @@
         <div class="col-md-1"></div>
         <div class="col-md-10 container">
             <div class="col-md-5 jumbotron align-center lighter">
-                <a href="Corporativo.aspx" class="bigger-160">
-		            <i class="ace-icon fa fa-book bigger-200"></i><br/>
-                    Datos corporativos
+                <a href="MiPerfil.aspx" class="bigger-160">
+		            <i class="ace-icon fa fa-user bigger-200"></i><br/>
+                    Mi perfil
 	            </a>
             </div>
             <div class="col-md-1"></div>
             <div class="col-md-5 jumbotron align-center lighter">
-                <a href="Auditoria.aspx" class="bigger-160">
-		            <i class="ace-icon fa fa-keyboard-o bigger-200"></i><br/>
-                    Auditoría
+                <a href="Corporativo.aspx" class="bigger-160">
+		            <i class="ace-icon fa fa-book bigger-200"></i><br/>
+                    Datos corporativos
 	            </a>
             </div>
         </div>
@@ -65,9 +65,9 @@
         <div class="col-md-1"></div>
         <div class="col-md-10 container">
             <div class="col-md-5 jumbotron align-center lighter">
-                <a href="Sitio.aspx" class="bigger-160">
-		            <i class="ace-icon fa fa-sitemap bigger-200"></i><br/>
-                    Mapa del sitio
+                <a href="Auditoria.aspx" class="bigger-160">
+		            <i class="ace-icon fa fa-keyboard-o bigger-200"></i><br/>
+                    Auditoría
 	            </a>
             </div>
             <div class="col-md-1"></div>
@@ -84,9 +84,9 @@
         <div class="col-md-1"></div>
         <div class="col-md-10 container">
             <div class="col-md-5 jumbotron align-center lighter">
-                <a href="About.aspx" class="bigger-160">
-		            <i class="ace-icon fa fa-copyright bigger-200"></i><br/>
-                    Acerca de
+                <a href="Sitio.aspx" class="bigger-160">
+		            <i class="ace-icon fa fa-sitemap bigger-200"></i><br/>
+                    Mapa del sitio
 	            </a>
             </div>
             <div class="col-md-1"></div>
@@ -99,7 +99,25 @@
         </div>
         <div class="col-md-1"></div>
     </div>
-    
+    <div class="row">
+       <div class="col-md-1"></div>
+        <div class="col-md-10 container">
+            <div class="col-md-5 jumbotron align-center lighter">
+                <a href="About.aspx" class="bigger-160">
+		            <i class="ace-icon fa fa-check-square-o bigger-200"></i><br/>
+                    Acerca de
+	            </a>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-5 jumbotron align-center lighter">
+                <a href="Logoff.aspx" class="bigger-160">
+		            <i class="ace-icon fa fa-sign-out bigger-200"></i><br/>
+                    Salir
+	            </a>
+            </div>
+        </div>
+       <div class="col-md-1"></div>
+    </div>
     
     
     <asp:Panel ID="pnlLinks" Visible="false" runat="server">

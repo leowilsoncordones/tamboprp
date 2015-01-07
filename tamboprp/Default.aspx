@@ -20,29 +20,5 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container">
-        <div class="row">
-            <div class="col-sm-6 col-md-4 col-md-offset-4">
-                <h1 class="text-center">
-                    <span class="ace-icon fa fa-check-square-o" aria-hidden="true"></span>
-                    <span> tambo</span><strong class="text-primary">prp</strong>
-                </h1>
-                <div class="form-group">
-                    <div class="input-group">
-						<span class="input-group-addon"><i class="ace-icon fa fa-user fa-lg"></i></span>
-                        <input class="form-control input-lg" type="text" placeholder="Usuario" id="form-field-mask-2">
-					</div>
-                </div>
-                <div class="form-group">
-                    <div class="input-group">
-						<span class="input-group-addon"><i class="ace-icon fa fa-lock fa-lg"></i></span>
-                        <input type="password" class="form-control input-lg" placeholder="Contraseña" required>
-					</div>
-                </div>
-                <div class="form-group">
-                    <button class="btn btn-lg btn-primary btn-block btn-round" type="submit">Ingresar</button>
-                </div>
-                <a href="#" class="pull-right">Me olvide la contraseña! </a><span class="clearfix"></span>
-            </div>
-        </div>
     </div>
 </asp:Content>

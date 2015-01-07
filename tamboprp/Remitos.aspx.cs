@@ -22,7 +22,7 @@ namespace tamboprp
         protected void SetPageBreadcrumbs()
         {
             var list = new List<VoListItemDuplaString>();
-            list.Add(new VoListItemDuplaString("Producción", "Produccion.apsx"));
+            list.Add(new VoListItemDuplaString("Reportes", "Reportes.aspx"));
             list.Add(new VoListItemDuplaString("Remitos a planta", ""));
             var strB = PageControl.SetBreadcrumbsPath(list);
             if (Master != null)

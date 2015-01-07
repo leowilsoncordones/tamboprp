@@ -363,6 +363,7 @@ namespace tamboprp
             var item2 = new VoListItem { Id = 2, Nombre = "MB" }; lst.Add(item2);
             var item3 = new VoListItem { Id = 3, Nombre = "BM" }; lst.Add(item3);
             var item4 = new VoListItem { Id = 4, Nombre = "B" }; lst.Add(item4);
+            var item5 = new VoListItem { Id = 5, Nombre = "R" }; lst.Add(item5);
             this.ddlCalificacion.DataSource = lst;
             this.ddlCalificacion.DataTextField = "Nombre";
             this.ddlCalificacion.DataValueField = "Id";
@@ -412,6 +413,14 @@ namespace tamboprp
                     for (int i = 1; i <= 5; i++)
                     {
                         num = 80 - i;
+                        var item = new VoListItem { Id = i, Nombre = num.ToString() };
+                        lst.Add(item);
+                    }
+                    break;
+                case 5:
+                    for (int i = 1; i <= 6; i++)
+                    {
+                        num = 76 - i;
                         var item = new VoListItem { Id = i, Nombre = num.ToString() };
                         lst.Add(item);
                     }
