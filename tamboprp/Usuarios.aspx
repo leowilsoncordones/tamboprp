@@ -32,7 +32,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     
     <div class="page-header">
-        <h1><i class="menu-icon fa fa-user"></i> Usuarios <small><i class="ace-icon fa fa-angle-double-right"></i> del sistema</small></h1>
+        <h1><i class="menu-icon fa fa-users"></i> Usuarios <small><i class="ace-icon fa fa-angle-double-right"></i> del sistema</small></h1>
     </div>
     <div class="row">
         <div class="col-md-9">

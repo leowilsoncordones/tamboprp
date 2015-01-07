@@ -23,6 +23,7 @@ namespace Negocio
         private static TipoEventoMapper _tevMapper = new TipoEventoMapper();
         private static LugarConcursoMapper _lugConcMapper = new LugarConcursoMapper();
         private static Diag_PrenezMapper _diagMapper = new Diag_PrenezMapper();
+        private static UsuarioMapper _userMapper = new UsuarioMapper();
 
         private Fachada()
         {
@@ -1034,11 +1035,116 @@ namespace Negocio
             return remMap.GetRemitosGrafica();
         }
 
+        public bool InsertarCasoSoporte(CasoSoporte caso)
+        {
+            var casoMap = new CasoSoporteMapper(caso);
+            return casoMap.Insert() > 0;
+        }
+
+        public bool EnviarCasoSoporte(CasoSoporte caso)
+        {
+            //envia por mail el caso de soporte a la casilla definida para eso
+
+            // inserto en la base de datos para dejar el registro
+            return InsertarCasoSoporte(caso);
+        }
+
+        public List<VOToroUtilizado> GetTorosUtilizadosPorAnio(int anio)
+        {
+            var lstToros = new List<VOToroUtilizado>();
+            var lst = _servMapper.GetServDiagPorToroUtilizado(anio);
+            bool esta = false;
+            // Recorro la lista para consolidar los servicios y diag por toro
+            for (int i = 0; i < lst.Count; i++)
+            {
+                esta = false;
+                for (int j = 0; j < lstToros.Count; j++)
+                {
+                    if (lst[i].RegPadre.Equals(lstToros[j].Registro))
+                    {
+                        lstToros[j].CantServicios++;
+                        if (lst[i].Diagnostico == 'P') lstToros[j].CantDiagP++;
+                        if (lstToros[j].CantServicios > 0)
+                        {
+                            lstToros[j].PorcEfectividad = Math.Round((double)lstToros[j].CantDiagP / lstToros[j].CantServicios * 100, 1);
+                        }
+                        esta = true;
+                        break;
+                    }
+                }
+                if (!esta)
+                {
+                    Animal toro = GetAnimalByRegistro(lst[i].RegPadre);
+                    var voToro = new VOToroUtilizado
+                    {
+                        Registro = lst[i].RegPadre,
+                        Nombre = toro.Nombre,
+                        Origen = toro.Origen,
+                        CantServicios = 1,
+                        CantDiagP = lst[i].Diagnostico == 'P' ? 1 : 0,
+                        CantNacim = 0,
+                        CantH = 0,
+                        CantM = 0,
+                        //PorcHembras = 0,
+                    };
+                    voToro.PorcEfectividad = Math.Round((double) voToro.CantDiagP/voToro.CantServicios*100, 1);
+                    lstToros.Add(voToro);
+                }
+
+            }
+            lstToros.Sort();
+            return lstToros;
+        }
+
+        public List<AnimalMapper.VOToro> GetTorosNacimPorGenero(int anio)
+        {
+            var lst = _animalMapper.GetNacimientosPorToroByAnio(anio);
+            foreach (AnimalMapper.VOToro vT in lst)
+            {
+                vT.CantH = _animalMapper.GetCantNacimientosHPorToroByAnio(vT.Registro, anio);
+                vT.CantM = vT.CantNacim - vT.CantH;
+                vT.PorcHembras = Math.Round((double)vT.CantH / vT.CantNacim * 100, 1);
+            }
+            return lst;
+        }
+
+        public VOUsuario AskForLogin(string nick, string password)
+        {
+            var user = _userMapper.GetUsuarioAtLogin(nick, password);
+            var lstRoles = this.GetRolesDeUsuario();
+            if (user != null)
+            {
+                var nivel = 0;
+                RolUsuario elRol = lstRoles.FirstOrDefault(c => c.NombreRol == user.Rol.NombreRol);
+                //if (elRol != null) nivel = elRol.Nivel;
+
+                var voUser = new VOUsuario
+                {
+                    Nombre = user.Nombre,
+                    Apellido = user.Apellido,
+                    Email = user.Email,
+                    Foto = user.Foto,
+                    Habilitado = user.Habilitado,
+                    Nickname = user.Nickname,
+                    Rol = elRol,
+                };
+                return voUser;
+            }
+            return null;
+
+        }
+
+        public bool Logoff(string user)
+        {
+            return _userMapper.LogoffUsuario(user) == 0;
+        }
 
         public List<RemitoMapper.VORemitoGrafica> GetRemitosEntreDosFechas(string fecha1, string fecha2)
         {
             var remMap = new RemitoMapper();
             return remMap.GetRemitosEntreDosFechas(fecha1, fecha2);
         }
+
+
     }
 }

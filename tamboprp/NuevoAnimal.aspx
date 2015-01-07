@@ -3,7 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="page-header">
-        <h1><i class="menu-icon fa fa-edit"></i> Ingreso de partos y nuevos animales</h1>
+        <h1><i class="menu-icon fa fa-edit"></i> Ingreso de parto y nuevos animales</h1>
     </div>
     
     <div class="row">
@@ -62,7 +62,7 @@
                     <div class="col-sm-12"></div>
                 </div>
                 <hr/>
-                <!-- + HIJO -->
+                <!-- + CRÍA -->
                 <div class="form-group">
                     <div class="col-sm-3 control-label no-padding-right">
                         <h4 class="widget-title lighter blue">INGRESO DE CRÍAS</h4>
@@ -92,9 +92,9 @@
                 </div>
                 <asp:Panel ID="pnlServicio" runat="server">
                 <div class="form-group">
-                    <label class="col-sm-3 control-label no-padding-right"> Registro hijo </label>
+                    <label class="col-sm-3 control-label no-padding-right"> Registro cría </label>
 			        <div class="col-sm-2">
-			            <input type="text" runat="server" id="fRegHijo" placeholder="Registro hijo" class="form-control col-xs-10 col-sm-5" />
+			            <input type="text" runat="server" id="fRegCria" placeholder="Registro cría" class="form-control col-xs-10 col-sm-5" />
 			        </div>
                     <div class="col-sm-12"></div>
                 </div>

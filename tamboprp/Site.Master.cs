@@ -4,18 +4,37 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using Negocio;
 
 namespace tamboprp
 {
     public partial class SiteMaster : MasterPage
     {
         
-        public System.Web.UI.HtmlControls.HtmlGenericControl Breadcrumbs
+        public HtmlGenericControl Breadcrumbs
         {
             // Property para acceder al DIV Breadcrumbs
             get { return this.breadcrumbs; }
             set { this.breadcrumbs = value; }
+        }
+
+        protected void SetMyProfileName()
+        {
+            var u = (VOUsuario)Session["Usuario"];
+            if (u != null)
+            {
+                var strMyName = "Hola, " + u.Nombre;// + " " + u.Apellido;
+                this.fProfile.InnerHtml = strMyName;
+            }
+        }
+
+        public HtmlAnchor Profile
+        {
+            // Property para acceder al link de MyProfile
+            get { return this.fProfile; }
+            set { this.fProfile = value; }
         }
 
         private const string AntiXsrfTokenKey = "__AntiXsrfToken";
@@ -75,7 +94,7 @@ namespace tamboprp
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            this.SetMyProfileName();
         }
 
     }

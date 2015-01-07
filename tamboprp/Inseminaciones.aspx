@@ -45,7 +45,6 @@
                 <asp:BoundField DataField="RegistroPadre" HeaderText="Reg. Servicio" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
                 <asp:BoundField DataField="FechaDiagnostico" dataformatstring="{0:dd/MM/yyyy}" HeaderText="Fecha diag." HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
                 <asp:BoundField DataField="Diagnostico" HeaderText="Diag." HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
-                <asp:BoundField DataField="Comentario" HeaderText="Comentario" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
                 <asp:BoundField DataField="Inseminador" HeaderText="Inseminador" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
             </Columns>
             <FooterStyle />

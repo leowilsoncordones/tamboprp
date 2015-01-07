@@ -18,7 +18,7 @@ namespace tamboprp
         protected void SetPageBreadcrumbs()
         {
             var list = new List<VoListItemDuplaString>();
-            list.Add(new VoListItemDuplaString("About", ""));
+            list.Add(new VoListItemDuplaString("Acerca de", ""));
             var strB = PageControl.SetBreadcrumbsPath(list);
             if (Master != null)
             {

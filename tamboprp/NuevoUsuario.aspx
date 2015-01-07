@@ -29,62 +29,72 @@
     <div class="page-header">
         <h1><i class="menu-icon fa fa-user"></i> Ingreso de un nuevo usuario </h1>
     </div>
-
+    <br/>
     <div class="row">
-        <div class="col-sm-12">
+        
+        <div class="col-xs-12 col-sm-3 center">
+	    <div>
+		    <!-- #section:pages/profile.picture -->
+		    <span class="profile-picture">
+		        <img id="avatar" runat="server" class="editable img-responsive editable-click editable-empty" alt="Mi Foto" src="avatars/user_silhouette.png" style="display: block;" />
+		    </span>
+
+		    <!-- /section:pages/profile.picture -->
+		    <div class="space-4"></div>
+
+		    <div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
+			    <div class="inline position-relative">
+				    <span class="white" id="fNomFoto" runat="server">Mi Foto</span>
+			    </div>
+		    </div>
+	    </div>
+
+	    <div class="space-6"></div>
+        </div>
+
+        <div class="col-sm-9">
             
             <!-- FORMULARIO -->
             <div id="formulario" class="form-horizontal">
                 <!-- Nombre y Apellido -->
                 <div class="form-group">
-		            <label class="col-sm-3 control-label no-padding-right"> Nombre </label>
-			        <div class="col-sm-3">
+		            <label class="col-sm-2 control-label no-padding-right"> Nombre </label>
+			        <div class="col-sm-4">
 			            <input type="text" runat="server" id="fNombre" class="form-control col-xs-10 col-sm-5" />
 			        </div>
 		        </div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label no-padding-right"> Apellido </label>
-			        <div class="col-sm-3">
+                    <label class="col-sm-2 control-label no-padding-right"> Apellido </label>
+			        <div class="col-sm-4">
 			            <input type="text" runat="server" id="fApellido" class="form-control col-xs-10 col-sm-5" />
 			        </div>
                     <div class="col-sm-12"></div>
 		        </div>
-                <!-- Cargar foto -->
-                <div class="form-group">
-                    <label class="col-sm-3 control-label no-padding-right"> Foto </label>
-                    <div class="col-sm-3">
-                        <label class="ace-file-input"><input type="file" id="id-input-file-2">
-                            <span class="ace-file-container" data-title="Elegir">
-                                <span class="ace-file-name" data-title="..."><i class=" ace-icon fa fa-upload"></i></span>
-                            </span><a class="remove" href="#"><i class=" ace-icon fa fa-times"></i></a></label>
-                    </div>
-                    <div class="col-sm-12"></div>
-		         </div>
                  <!-- Email -->
                  <div class="form-group">
-                    <label class="col-sm-3 control-label no-padding-right"> Email </label>
-                    <div class="col-sm-3">
+                    <label class="col-sm-2 control-label no-padding-right"> Email </label>
+                    <div class="col-sm-4">
 			            <input type="email" runat="server" id="fEmail" placeholder="Ej. usuario@dominio.com" class="form-control col-xs-10 col-sm-5" />
 			        </div>
                 </div>
                 <!-- Rol de usuario -->
                 <div class="form-group">
-		            <label class="col-sm-3 control-label no-padding-right"> Rol de usuario </label>
-			        <div class="col-sm-3">
+		            <label class="col-sm-2 control-label no-padding-right"> Rol de usuario </label>
+			        <div class="col-sm-4">
 			            <asp:DropDownList ID="ddlRolUsuario" CssClass="form-control col-xs-10 col-sm-5" AutoPostBack="True" OnSelectedIndexChanged="ddlRolUsuario_SelectedIndexChanged" runat="server" ></asp:DropDownList>
 			        </div>
                     <div class="col-sm-12"></div>
 		        </div>
                 <!-- Nickname y Password-->
                 <div class="form-group">
-		            <label class="col-sm-3 control-label no-padding-right"> Usuario </label>
-			        <div class="col-sm-3">
+		            <label class="col-sm-2 control-label no-padding-right"> Usuario </label>
+			        <div class="col-sm-4">
 			            <input type="text" runat="server" id="username" class="form-control col-xs-10 col-sm-5" />
 			        </div>
 		        </div>
                 <div class="form-group">
-		            <label class="col-sm-3 control-label no-padding-right"> Contraseña </label>
-                    <div class="col-sm-3">
+		            <label class="col-sm-2 control-label no-padding-right"> Contraseña </label>
+                    <div class="col-sm-4">
 			            <input type="password" runat="server" id="password" class="form-control col-xs-10 col-sm-5" />
 			        </div>
                     <!-- Chequeo de fortaleza de password-->
@@ -94,7 +104,7 @@
 		        </div>
                 <!-- Recomendación -->
                 <div class="form-group">
-		            <label class="col-sm-3 control-label no-padding-right"> Importante! </label>
+		            <label class="col-sm-2 control-label no-padding-right"> Importante! </label>
 			        <div class="col-sm-6">
 			            <small>Por su seguridad, utilice contraseñas de al menos 8 caracteres de largo.<br/> 
                             Combine el uso de mayúsculas, minúsculas, números y caracteres especiales.</small>
@@ -102,7 +112,7 @@
 		        </div>
                 <!-- Botones -->
                 <div class="form-group">
-                    <div class="col-md-offset-3 col-md-9">
+                    <div class="col-md-offset-2 col-md-9">
                         <asp:Button ID="btnSave" runat="server" CssClass="btn btn-info" Text="Guardar" OnClick="btn_GuardarEvento" />
                         &nbsp;&nbsp;&nbsp;
                         <asp:Button ID="btnReset" runat="server" CssClass="btn btn-default" Text="Limpiar" OnClick="btn_LimpiarFormulario" />

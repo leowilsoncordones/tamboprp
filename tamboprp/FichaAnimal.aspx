@@ -27,7 +27,7 @@
 </asp:Content>
 <asp:Content ID="ContentAnimal" ContentPlaceHolderID="MainContent" runat="server">
     <div class="page-header">
-        <h1><i class="menu-icon fa fa-folder-open"></i> Ficha de animal <small><i class="ace-icon fa fa-angle-double-right"></i> y sus eventos históricos</small></h1>
+        <h1><i class="menu-icon fa fa-github-alt"></i> Ficha de animal <small><i class="ace-icon fa fa-angle-double-right"></i> y sus eventos históricos</small></h1>
     </div>
         <div class="row">
             <div class="col-md-4">        
@@ -317,7 +317,7 @@
             yaxis: {
                 ticks: 10,
                 min: 0,
-                max: 80,
+                max: 50,
                 tickDecimals: 0
             },
             grid: {

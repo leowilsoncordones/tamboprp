@@ -20,7 +20,7 @@
 </asp:Content>
 <asp:Content ID="ContentPersonal" ContentPlaceHolderID="MainContent" runat="server">
     <div class="page-header">
-        <h1><i class="menu-icon fa fa-users"></i> Personal</h1>
+        <h1><i class="menu-icon fa fa-male"></i> Personal</h1>
     </div>
     
     <div class="row">
@@ -35,7 +35,7 @@
             <div class="col-md-1"></div>
             <div class="col-md-5 jumbotron align-center lighter">
                 <a href="ListPersonal.aspx" class="bigger-160">
-		            <i class="ace-icon fa fa-users bigger-200"></i><br/>
+		            <i class="ace-icon fa fa-male bigger-200"></i><br/>
                     Lista de empleados
 	            </a>
             </div>

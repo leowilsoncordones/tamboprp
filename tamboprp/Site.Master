@@ -7,6 +7,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%: Page.Title %></title>
+
+    <link rel="icon" href="favicon.ico" type="image/ico"/>
+    
     <link href="css/bootstrap.css" rel="stylesheet" />
     <link href="css/font-awesome.css" rel="stylesheet" />
     <link href="css/ace-fonts.css" rel="stylesheet" />
@@ -33,7 +36,7 @@
         
         //$('.sidebar').ace_sidebar();
         //$('.sidebar').ace_sidebar('toggleMenu');
-        $('.sidebar').ace_sidebar('toggleMenu', toggleButton);
+        //$('.sidebar').ace_sidebar('toggleMenu', toggleButton);
         //if there is an optional toggleButton element, its icons will be flipped
         //$('.sidebar').ace_sidebar('toggleMenu', false);
         //optional false value means don't save changes to cookies
@@ -57,21 +60,19 @@
                     <!-- logo y nombre de la aplicacion -->
                     <a class="navbar-brand" runat="server" href="~/">
                         <small><span class="ace-icon fa fa-check-square-o" aria-hidden="true"></span></small>
-                        <span> tambo</span><strong>prp</strong>
+                        <span> tambo</span><strong><span>prp</span></strong>
                     </a>
                 </div>
                 <div class="navbar-buttons navbar-header pull-right">
                     <!-- nav de botones a la derecha -->
+                    <ul class="nav navbar-nav navbar-right">
+                            <li><a runat="server" href="~/MiPerfil.aspx" title="Mi perfil" id="fProfile">Mi perfil</a></li>
+                            <li><a runat="server" href="~/Logoff.aspx">Salir</a></li>
+                        </ul>
                     <asp:LoginView runat="server" ViewStateMode="Disabled">
                         <AnonymousTemplate>
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a runat="server" href="Login.aspx">Log in</a></li>
-                            </ul>
                         </AnonymousTemplate>
                         <LoggedInTemplate>
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a runat="server" href="~/Account/Manage" title="Manage your account">Hello, !</a></li>
-                            </ul>
                         </LoggedInTemplate>
                     </asp:LoginView>
                 </div>
@@ -79,7 +80,7 @@
         </div>
         <!-- sidebar -->
         <div class="main-container" id="main-container">
-             <div class="sidebar responsive sidebar-fixed sidebar-scroll" id="sidebar" data-sidebar="true" data-sidebar-scroll="true" data-sidebar-hover="true">
+             <div class="sidebar responsive" id="sidebar" >
                  <!-- shortcuts -->
                  <div class="sidebar-shortcuts" id="sidebar-shortcuts">
 					<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
@@ -88,18 +89,12 @@
                         <a class="btn btn-warning ace-icon fa fa-cogs" href="../Produccion.aspx"></a>
                         <a class="btn btn-danger ace-icon fa fa-desktop" href="../Sistema.aspx"></a>
 					</div>
-					<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
-						<span class="btn btn-success"></span>
-						<span class="btn btn-info"></span>
-						<span class="btn btn-warning"></span>
-						<span class="btn btn-danger"></span>
-					</div>
 				</div>
                  <!-- fin shortcuts -->
                   <ul class="nav nav-list">
                     <li><a href="Tablero.aspx"><i class="menu-icon fa fa-tachometer"></i>
 					    <span class="menu-text"> Tablero </span></a></li>
-                    <li><a href="Animales.aspx"><i class="menu-icon fa fa-folder-open"></i>
+                    <li><a href="Animales.aspx"><i class="menu-icon fa fa-github-alt"></i>
 					    <span class="menu-text"> Animales </span></a></li>
                     <li><a href="Produccion.aspx"><i class="menu-icon fa fa-cogs"></i>
 					    <span class="menu-text"> Producción </span></a></li>
@@ -113,7 +108,7 @@
 					    <span class="menu-text"> Cabaña </span></a></li>
                     <li><a href="Sanidad.aspx"><i class="menu-icon fa fa-stethoscope"></i>
 					    <span class="menu-text"> Sanidad </span></a></li>
-                    <li><a href="Personal.aspx"><i class="menu-icon fa fa-users"></i>
+                    <li><a href="Personal.aspx"><i class="menu-icon fa fa-male"></i>
 					    <span class="menu-text"> Personal </span></a></li>
                     <li><a href="Notificaciones.aspx"><i class="menu-icon fa fa-bell-o"></i>
 					    <span class="menu-text"> Notificaciones </span></a></li>

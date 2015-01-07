@@ -65,6 +65,9 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="VOUsuario.cs" />
+    <Compile Include="VOToroUtilizado1.cs" />
+    <Compile Include="VOToroUtilizado.cs" />
     <Compile Include="VOAnimal.cs" />
     <Compile Include="PageControl.cs" />
     <Compile Include="VOAnalitico.cs" />

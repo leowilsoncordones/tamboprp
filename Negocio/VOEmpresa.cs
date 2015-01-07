@@ -17,9 +17,12 @@ namespace Negocio
             Nombre = emp.Nombre;
             RazonSocial = emp.RazonSocial;
             Rut = emp.Rut;
+            LetraSistema = emp.LetraSistema;
             Direccion = emp.Direccion;
+            Ciudad = emp.Ciudad;
             Telefono = emp.Telefono;
             Celular = emp.Celular;
+            Web = emp.Web;
             Cpostal = emp.Cpostal;
             Logo = emp.Logo;
             LogoCh = emp.LogoCh;
@@ -35,11 +38,17 @@ namespace Negocio
 
         public string Rut { get; set; }
 
+        public string LetraSistema { get; set; }
+
         public string Direccion { get; set; }
+
+        public string Ciudad { get; set; }
 
         public string Telefono { get; set; }
 
         public string Celular { get; set; }
+
+        public string Web { get; set; }
 
         public string Cpostal { get; set; }
 

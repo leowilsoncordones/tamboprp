@@ -20,7 +20,7 @@
 </asp:Content>
 <asp:Content ID="ContentPersonal" ContentPlaceHolderID="MainContent" runat="server">
     <div class="page-header">
-        <h1><i class="menu-icon fa fa-users"></i> Personal</h1>
+        <h1><i class="menu-icon fa fa-male"></i> Personal</h1>
     </div>
     <div class="row">
         <div class="col-md-5">

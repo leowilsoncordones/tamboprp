@@ -69,6 +69,7 @@
     <Compile Include="Animal.cs" />
     <Compile Include="Calificacion.cs" />
     <Compile Include="Cmt.cs" />
+    <Compile Include="CasoSoporte.cs" />
     <Compile Include="Empresa.cs" />
     <Compile Include="EmpresaRemisora.cs" />
     <Compile Include="Baja.cs" />

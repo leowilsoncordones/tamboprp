@@ -157,6 +157,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AboutPublic.aspx" />
     <Content Include="About.aspx" />
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\Manage.aspx" />
@@ -167,8 +168,17 @@
     <Content Include="AnalisisProduccion.aspx" />
     <Content Include="AnalisisBajas.aspx" />
     <Content Include="AnalisisReprod.aspx" />
+    <Content Include="avatars\user_silhouette.png" />
+    <Content Include="ContactPublic.aspx" />
     <Content Include="js\flot\jquery.flot.tooltip.js" />
     <Content Include="js\flot\jshashtable-3.0.js" />
+    <Content Include="favicon.ico" />
+    <Content Include="Logoff.aspx" />
+    <Content Include="ErrorPages\Error400.aspx" />
+    <Content Include="ErrorPages\Error401.aspx" />
+    <Content Include="ErrorPages\Error403.aspx" />
+    <Content Include="ErrorPages\Error500.aspx" />
+    <Content Include="ErrorPages\Error404.aspx" />
     <Content Include="NuevoAnimal.aspx" />
     <Content Include="FichaAnimal.aspx" />
     <Content Include="Auditoria.aspx" />
@@ -181,7 +191,7 @@
     <Content Include="avatars\profile-pic.jpg" />
     <Content Include="avatars\user.jpg" />
     <Content Include="img\glyphicon-cow.ico" />
-    <Content Include="ListTorosUtilizados.aspx" />
+    <Content Include="AnalisisToros.aspx" />
     <Content Include="ListAnimIndRechazo.aspx" />
     <Content Include="ListPartos.aspx" />
     <Content Include="Cmt.aspx" />
@@ -194,6 +204,7 @@
     <Content Include="ListVitalicias.aspx" />
     <Content Include="NuevoEmpleado.aspx" />
     <Content Include="ImportControl.aspx" />
+    <Content Include="MiPerfil.aspx" />
     <Content Include="NuevoUsuario.aspx" />
     <Content Include="NuevoRemito.aspx" />
     <Content Include="Animales.aspx" />
@@ -526,7 +537,7 @@
     <Content Include="Images\orderedList8.png" />
     <Content Include="Images\orderedList9.png" />
     <Content Include="Default.aspx" />
-    <Content Include="favicon.ico" />
+    <None Include="favicon.ico.old" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="Notificaciones.aspx" />
@@ -760,7 +771,7 @@
     <Content Include="Scripts\jquery-1.9.0.min.map" />
     <None Include="Scripts\_references.js" />
     <Content Include="Site.Mobile.Master" />
-    <Content Include="Site2.Master" />
+    <Content Include="SitePublic.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -769,6 +780,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutPublic.aspx.cs">
+      <DependentUpon>AboutPublic.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AboutPublic.aspx.designer.cs">
+      <DependentUpon>AboutPublic.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Analisis.aspx.cs">
       <DependentUpon>Analisis.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -797,6 +815,55 @@
     <Compile Include="AnalisisReprod.aspx.designer.cs">
       <DependentUpon>AnalisisReprod.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ContactPublic.aspx.cs">
+      <DependentUpon>ContactPublic.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ContactPublic.aspx.designer.cs">
+      <DependentUpon>ContactPublic.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Logoff.aspx.cs">
+      <DependentUpon>Logoff.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Logoff.aspx.designer.cs">
+      <DependentUpon>Logoff.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorPages\Error400.aspx.cs">
+      <DependentUpon>Error400.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorPages\Error400.aspx.designer.cs">
+      <DependentUpon>Error400.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorPages\Error401.aspx.cs">
+      <DependentUpon>Error401.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorPages\Error401.aspx.designer.cs">
+      <DependentUpon>Error401.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorPages\Error403.aspx.cs">
+      <DependentUpon>Error403.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorPages\Error403.aspx.designer.cs">
+      <DependentUpon>Error403.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorPages\Error500.aspx.cs">
+      <DependentUpon>Error500.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorPages\Error500.aspx.designer.cs">
+      <DependentUpon>Error500.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorPages\Error404.aspx.cs">
+      <DependentUpon>Error404.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorPages\Error404.aspx.designer.cs">
+      <DependentUpon>Error404.aspx</DependentUpon>
+    </Compile>
     <Compile Include="NuevoAnimal.aspx.cs">
       <DependentUpon>NuevoAnimal.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -818,12 +885,12 @@
     <Compile Include="Auditoria.aspx.designer.cs">
       <DependentUpon>Auditoria.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ListTorosUtilizados.aspx.cs">
-      <DependentUpon>ListTorosUtilizados.aspx</DependentUpon>
+    <Compile Include="AnalisisToros.aspx.cs">
+      <DependentUpon>AnalisisToros.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ListTorosUtilizados.aspx.designer.cs">
-      <DependentUpon>ListTorosUtilizados.aspx</DependentUpon>
+    <Compile Include="AnalisisToros.aspx.designer.cs">
+      <DependentUpon>AnalisisToros.aspx</DependentUpon>
     </Compile>
     <Compile Include="ListAnimIndRechazo.aspx.cs">
       <DependentUpon>ListAnimIndRechazo.aspx</DependentUpon>
@@ -880,6 +947,13 @@
     </Compile>
     <Compile Include="ImportControl.aspx.designer.cs">
       <DependentUpon>ImportControl.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MiPerfil.aspx.cs">
+      <DependentUpon>MiPerfil.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MiPerfil.aspx.designer.cs">
+      <DependentUpon>MiPerfil.aspx</DependentUpon>
     </Compile>
     <Compile Include="NuevoUsuario.aspx.cs">
       <DependentUpon>NuevoUsuario.aspx</DependentUpon>
@@ -1189,12 +1263,12 @@
     <Compile Include="Sistema.aspx.designer.cs">
       <DependentUpon>Sistema.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Site2.Master.cs">
-      <DependentUpon>Site2.Master</DependentUpon>
+    <Compile Include="SitePublic.Master.cs">
+      <DependentUpon>SitePublic.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Site2.Master.designer.cs">
-      <DependentUpon>Site2.Master</DependentUpon>
+    <Compile Include="SitePublic.Master.designer.cs">
+      <DependentUpon>SitePublic.Master</DependentUpon>
     </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>

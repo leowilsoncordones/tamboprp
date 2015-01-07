@@ -1,4 +1,4 @@
-﻿<%@ Page Title="tamboprp | login" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="tamboprp.Login" %>
+﻿<%@ Page Title="tamboprp | login" Language="C#" MasterPageFile="~/SitePublic.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="tamboprp.Login" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <link href="css/bootstrap.css" rel="stylesheet" />
     <link href="css/font-awesome.css" rel="stylesheet" />
@@ -29,19 +29,22 @@
                 <div class="form-group">
                     <div class="input-group">
 						<span class="input-group-addon"><i class="ace-icon fa fa-user fa-lg"></i></span>
-                        <input class="form-control input-lg" type="text" placeholder="Usuario" id="form-field-mask-2">
+                        <input type="text" class="form-control input-lg" placeholder="Usuario" id="fUsuario" required runat="server" />
 					</div>
                 </div>
                 <div class="form-group">
                     <div class="input-group">
 						<span class="input-group-addon"><i class="ace-icon fa fa-lock fa-lg"></i></span>
-                        <input type="password" class="form-control input-lg" placeholder="Contraseña" required>
+                        <input type="password" class="form-control input-lg" placeholder="Contraseña" id="fContrasena" required runat="server" />
 					</div>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-lg btn-primary btn-block btn-round" type="submit">Ingresar</button>
+                    <asp:Button ID="btnLogin" runat="server" CssClass="btn btn-lg btn-primary btn-block btn-round" Text="Ingresar" OnClick="btnLogin_Click" />
                 </div>
                 <a href="#" class="pull-right">Me olvide la contraseña! </a><span class="clearfix"></span>
+                <div class="form-group">
+                    <asp:Label ID="lblResLogin" CssClass="bigger-110" runat="server" ></asp:Label>
+                </div>
             </div>
         </div>
     </div>

@@ -193,7 +193,7 @@ namespace Datos
         }
 
 
-        public class VODiagnostico
+        public class VODiagnostico : IComparable
         {
             public string Registro { get; set; }
 
@@ -217,7 +217,15 @@ namespace Datos
 
             public char Diagnostico { get; set; }
 
-
+            public int CompareTo(Object obj)
+            {
+                var vOdiag = obj as VODiagnostico;
+                if (vOdiag != null)
+                {
+                    return vOdiag.FechaDiagnostico.CompareTo(this.FechaDiagnostico);
+                }
+                return 0;
+            }
         }
 
     }

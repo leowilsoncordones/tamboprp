@@ -23,7 +23,7 @@ namespace tamboprp
         {
             var list = new List<VoListItemDuplaString>();
             list.Add(new VoListItemDuplaString("Sistema", "Sistema.aspx"));
-            list.Add(new VoListItemDuplaString("Sitio", ""));
+            list.Add(new VoListItemDuplaString("Mapa del Sitio", ""));
             var strB = PageControl.SetBreadcrumbsPath(list);
             if (Master != null)
             {

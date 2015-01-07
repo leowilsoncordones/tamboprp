@@ -40,6 +40,15 @@ namespace tamboprp {
         protected global::System.Web.UI.HtmlControls.HtmlInputText fRut;
         
         /// <summary>
+        /// FLetraSistema control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText FLetraSistema;
+        
+        /// <summary>
         /// fDireccion control.
         /// </summary>
         /// <remarks>
@@ -47,6 +56,24 @@ namespace tamboprp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText fDireccion;
+        
+        /// <summary>
+        /// fCiudad control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText fCiudad;
+        
+        /// <summary>
+        /// fCP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText fCP;
         
         /// <summary>
         /// fTelefono control.
@@ -67,13 +94,13 @@ namespace tamboprp {
         protected global::System.Web.UI.HtmlControls.HtmlInputText fCelular;
         
         /// <summary>
-        /// fCP control.
+        /// fWeb control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText fCP;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText fWeb;
         
         /// <summary>
         /// btnSave control.
