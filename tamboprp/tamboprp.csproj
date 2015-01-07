@@ -167,6 +167,8 @@
     <Content Include="AnalisisProduccion.aspx" />
     <Content Include="AnalisisBajas.aspx" />
     <Content Include="AnalisisReprod.aspx" />
+    <Content Include="js\flot\jquery.flot.tooltip.js" />
+    <Content Include="js\flot\jshashtable-3.0.js" />
     <Content Include="NuevoAnimal.aspx" />
     <Content Include="FichaAnimal.aspx" />
     <Content Include="Auditoria.aspx" />

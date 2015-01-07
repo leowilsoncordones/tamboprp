@@ -15,7 +15,7 @@ namespace Negocio
         }
 
         public VOAnalitico( int cantVacasEnOrdene, double promProdLecheLts, int cantLactancia1, int cantLactancia2,
-                            int cantLactanciaMayor2, int conServicioSinPreñez, int prenezConfirmada, double promDiasLactancias)
+                            int cantLactanciaMayor2, int conServicioSinPreñez, int prenezConfirmada, double promDiasLactancias, double promServicioSinPrenez, double promPrenezConfirmada)
         {
             CantVacasEnOrdene = cantVacasEnOrdene;
             PromProdLecheLts = promProdLecheLts;
@@ -25,6 +25,8 @@ namespace Negocio
             ConServicioSinPreñez = conServicioSinPreñez;
             PrenezConfirmada = prenezConfirmada;
             PromDiasLactancias = promDiasLactancias;
+            PromServicioSinPrenez = promServicioSinPrenez;
+            PromPrenezConfirmada = promPrenezConfirmada;
         }
 
         public int CantVacasEnOrdene { get; set; }
@@ -48,6 +50,10 @@ namespace Negocio
         public double PorcLactanciaMayor2 { get; set; }
         
         public double PromProdLecheLts { get; set; }
+
+        public double PromServicioSinPrenez { get; set; }
+
+        public double PromPrenezConfirmada { get; set; }
 
     }
 }

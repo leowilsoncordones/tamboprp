@@ -332,5 +332,14 @@ namespace Datos
 
         //}
 
+        public double GetPromProdLecheActual()
+        {
+            return GetScalarFloat("Lactancia_PromedioProdLecheActual");
+        }
+
+        public int GetLactanciaPromedioDiasActual()
+        {
+            return GetScalarInt("Lactancia_PromedioDiasActual");
+        }
     }
 }

@@ -164,7 +164,25 @@ namespace Datos
             dr.Close();
             return result;
         }
-        
+
+
+        public List<VOControlTotal> GetControlesTotalesEntreDosFechas(string fecha1, string fecha2)
+        {
+            var result = new List<VOControlTotal>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@FECHA1", fecha1));
+            cmd.Parameters.Add(new SqlParameter("@FECHA2", fecha2));
+            cmd.CommandText = "Controles_Totales_EntreDosFechas";
+
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+                result.Add(load(dr));
+            dr.Close();
+            return result;
+        }
+
 
         public class VOControlTotal
         {

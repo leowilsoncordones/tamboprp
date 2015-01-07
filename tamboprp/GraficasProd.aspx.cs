@@ -14,7 +14,14 @@ namespace tamboprp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            this.SetPageBreadcrumbs();
+            if (!Page.IsPostBack)
+            {
+                this.SetPageBreadcrumbs();
+                CargarDdl();
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "GetValoreLeche", "GetValoreLeche(0)", true);
+                this.pnlFechasGraf.Visible = false;
+            }
+            
         }
 
         protected void SetPageBreadcrumbs()
@@ -30,10 +37,75 @@ namespace tamboprp
             }
         }
 
-        [WebMethod]
-        public static List<Controles_totalesMapper.VOControlTotal> ControlTotalGetAll()
+        public void CargarDdl()
         {
-            return Fachada.Instance.ControlTotalGetAll();
+            this.ddlFechasGraf.Items.Add(new ListItem("Este año", "0"));
+            this.ddlFechasGraf.Items.Add(new ListItem("Último año", "1"));
+            this.ddlFechasGraf.Items.Add(new ListItem("Seleccionar fechas", "2"));
         }
+
+
+        [WebMethod]
+        public static List<Controles_totalesMapper.VOControlTotal> ControlTotalGetAnioCorriente()
+        {
+            var hoy = DateTime.Now.ToString("yyyy-MM-dd");
+            int year = DateTime.Now.Year;
+            var primerDia = new DateTime(year, 1, 1);
+            string fecha1 = primerDia.ToString("yyyy-MM-dd");
+            return Fachada.Instance.GetControlesTotalesEntreDosFechas(fecha1, hoy);
+        }
+
+        [WebMethod]
+        public static List<Controles_totalesMapper.VOControlTotal> ControlTotalGetUltimoAnio()
+        {
+            var hoy = DateTime.Now.ToString("yyyy-MM-dd");
+            var newDate = DateTime.Now.AddYears(-1);
+            string fecha1 = newDate.ToString("yyyy-MM-dd");
+            return Fachada.Instance.GetControlesTotalesEntreDosFechas(fecha1, hoy);
+        }
+
+        [WebMethod]
+        public static List<Controles_totalesMapper.VOControlTotal> GetControlesTotalesEntreDosFechas(string fecha1, string fecha2)
+        {
+            return Fachada.Instance.GetControlesTotalesEntreDosFechas(fecha1, fecha2);
+        }
+
+        protected void btnListar_Click(object sender, EventArgs e)
+        {
+            switch (this.ddlFechasGraf.SelectedValue)
+            {
+                case "0":
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "GetValoreLeche", "GetValoreLeche(0)", true);
+                    this.pnlFechasGraf.Visible = false;
+                    break;
+                case "1":
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "GetValoreLeche", "GetValoreLeche(1)", true);
+                    this.pnlFechasGraf.Visible = false;
+                    break;
+                case "2":
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "GetValoreLeche", "GetValoreLeche(0)", true);
+                    this.pnlFechasGraf.Visible = true;
+                    break;
+            }
+        }
+
+        //protected void ddlFechasGraf_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    switch (this.ddlFechasGraf.SelectedValue)
+        //    {
+        //        case "0":
+        //            Page.ClientScript.RegisterStartupScript(this.GetType(), "GetValoreLeche", "GetValoreLeche(0)", true);
+        //            this.pnlFechasGraf.Visible = false;
+        //            break;
+        //        case "1":
+        //            Page.ClientScript.RegisterStartupScript(this.GetType(), "GetValoreLeche", "GetValoreLeche(0)", true);
+        //            this.pnlFechasGraf.Visible = false;
+        //            break;
+        //        case "2":
+        //            Page.ClientScript.RegisterStartupScript(this.GetType(), "GetValoreLeche", "GetValoreLeche(0)", true);
+        //            this.pnlFechasGraf.Visible = true;
+        //            break;
+        //    }
+        //}
     }
 }

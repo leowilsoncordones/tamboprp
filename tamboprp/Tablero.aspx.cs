@@ -32,7 +32,10 @@ namespace tamboprp
         [WebMethod]
         public static List<Controles_totalesMapper.VOControlTotal> ControlTotalGetAll()
         {
-            return Fachada.Instance.ControlTotalGetAll();
+            var hoy = DateTime.Now.ToString("yyyy-MM-dd");
+            var newDate = DateTime.Now.AddYears(-1);
+            string fecha1 = newDate.ToString("yyyy-MM-dd");
+            return Fachada.Instance.GetControlesTotalesEntreDosFechas(fecha1, hoy);
         }
     }
 }

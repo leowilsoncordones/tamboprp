@@ -234,15 +234,6 @@ namespace Datos
             return GetScalarInt("Animal_SelectCountEnOrdenePromProdLecheLts");
         }
 
-        public int GetEnOrdeneServicioSinPrenez()
-        {
-            return GetScalarInt("Animal_SelectCountEnOrdeneServicioSinPrenez");
-        }
-
-        public int GetEnOrdenePrenezConfirmada()
-        {
-            return GetScalarInt("Animal_SelectCountEnOrdenePrenezConfirmada");
-        }
 
         public int GetPromDiasLactancias()
         {
@@ -423,6 +414,15 @@ namespace Datos
 
         }
 
+        public int GetAnimalOrdeneServSinPrenez()
+        {
+            return GetScalarInt("Animal_OrdeneServicioSinPrenez");
+        }
+
+        public int GetAnimalOrdenePrenezConf()
+        {
+            return GetScalarInt("Animal_OrdenePrenezConfirmada");
+        }
     }
 }
 

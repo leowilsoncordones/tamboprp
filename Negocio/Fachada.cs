@@ -398,22 +398,25 @@ namespace Negocio
             var voA = new VOAnalitico();
             var totalEnOrdene = _animalMapper.GetCantOrdene();
             voA.CantVacasEnOrdene = totalEnOrdene;
-            //voA.PromProdLecheLts = _animalMapper.GetEnOrdenePromProdLecheLts();
+            voA.PromProdLecheLts = Math.Round(_lactMapper.GetPromProdLecheActual(), 2);
             var lact1 = _animalMapper.GetEnOrdeneLanctancia1();
             voA.CantLactancia1 = lact1;
             var lact2 = _animalMapper.GetEnOrdeneLanctancia2();
             voA.CantLactancia2 = lact2;
             //voA.CantLactanciaMayor2 = _animalMapper.GetEnOrdeneLanctanciaMayor2();
             voA.CantLactanciaMayor2 = totalEnOrdene - (lact1 + lact2);
+            voA.ConServicioSinPreñez = _animalMapper.GetAnimalOrdeneServSinPrenez();
+            voA.PrenezConfirmada = _animalMapper.GetAnimalOrdenePrenezConf();
             if (voA.CantVacasEnOrdene > 0)
             {
                 voA.PorcLactancia1 = Math.Round(voA.CantLactancia1/(double)voA.CantVacasEnOrdene*100, 1);
                 voA.PorcLactancia2 = Math.Round(voA.CantLactancia2/(double)voA.CantVacasEnOrdene*100, 1);
                 voA.PorcLactanciaMayor2 = Math.Round(voA.CantLactanciaMayor2/(double)voA.CantVacasEnOrdene*100, 1);
+                voA.PromServicioSinPrenez = Math.Round(voA.ConServicioSinPreñez / (double)voA.CantVacasEnOrdene * 100, 1);
+                voA.PromPrenezConfirmada = Math.Round(voA.PrenezConfirmada / (double)voA.CantVacasEnOrdene * 100, 1);              
             }
-            //voA.ConServicioSinPreñez = _animalMapper.GetEnOrdeneServicioSinPrenez();
-            //voA.PrenezConfirmada = _animalMapper.GetEnOrdenePrenezConfirmada();
-            //voA.PromDiasLactancias = _animalMapper.GetPromDiasLactancias();
+
+            voA.PromDiasLactancias = _lactMapper.GetLactanciaPromedioDiasActual();
             return voA;
         }
 
@@ -589,6 +592,12 @@ namespace Negocio
         {
             var controlTotal = new Controles_totalesMapper();
             return controlTotal.GetAll();
+        }
+
+        public List<Controles_totalesMapper.VOControlTotal> GetControlesTotalesEntreDosFechas(string fecha1, string fecha2)
+        {
+            var controlTotal = new Controles_totalesMapper();
+            return controlTotal.GetControlesTotalesEntreDosFechas(fecha1, fecha2);
         }
 
         public List<Controles_totalesMapper.VOControlTotal> ControlTotalUltAnio()
@@ -1025,5 +1034,11 @@ namespace Negocio
             return remMap.GetRemitosGrafica();
         }
 
+
+        public List<RemitoMapper.VORemitoGrafica> GetRemitosEntreDosFechas(string fecha1, string fecha2)
+        {
+            var remMap = new RemitoMapper();
+            return remMap.GetRemitosEntreDosFechas(fecha1, fecha2);
+        }
     }
 }

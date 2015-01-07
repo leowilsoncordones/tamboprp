@@ -68,10 +68,39 @@
 			    <div class="row">
 					<!-- GRAFICA -->
                     
-                    <div class="col-md-10" id="grafRemitos"></div>
-                    <div class="col-md-2"></div>
-
+                    <div class="col-md-9" id="grafRemitos"></div>
+                    <div class="col-md-3">
+                        <div class="well">
+                        <h4 class="header smaller lighter blue"><i class="menu-icon fa fa-paperclip"></i>Fechas</h4>
+                        <div class="row">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <asp:Button ID="btnListar" runat="server" Text="Mostrar" onclick="btnListar_Click" CssClass="btn btn-white btn-default" />
+                                </span>
+                                <asp:DropDownList ID="ddlFechasGraf" cssClass="form-control" runat="server"  AutoPostBack="False"></asp:DropDownList>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                    
+                            <asp:Panel ID="pnlFechasGraf" runat="server" class="input-group">
+                                <h5 class="header smaller lighter blue">Entre dos fechas</h5> 
+                                <div class="input-group">                 
+                                <span class="input-group-btn">                   
+                                <input type="button" onclick="cargarGraficas(document.getElementById('fechasGraficas').value)" value="Mostrar" class="btn btn-white btn-default"/>
+                                </span>
+                                <input type="text" id="fechasGraficas" placeholder="Fechas" class="form-control"/>  
+                                    </div>                			                         
+                            </asp:Panel>                   
+                        </div> 
+                        </div> 
+                    </div>
+                  </div>
                     <script src="js/ace-extra.js" ></script>
+                <script src="js/date-time/moment.js"></script>
+               <script src="js/date-time/daterangepicker.js"></script>
+
+                    <link href="css/daterangepicker.css" rel="stylesheet" />
                     <link href="css/bootstrap.css" rel="stylesheet" />
                     <link href="css/font-awesome.css" rel="stylesheet" />
                     <link href="css/ace-fonts.css" rel="stylesheet" />
@@ -85,16 +114,26 @@
                     <script type="text/javascript">
 
 
+                        $("#fechasGraficas").daterangepicker({
+                            locale: {
+                                applyLabel: 'Confirma',
+                                cancelLabel: 'Cancela',
+                                fromLabel: 'Desde',
+                                toLabel: 'Hasta',
+                            }
+                        });
+
                         $(document).ready(function() {
-                            GetValoreLeche();          
+                           // GetValoreLeche();          
                         });
 
                         function gd1(date) {
                             return new Date(date).getTime();
                         }
 
-                        function GetValoreLeche() {
-                            PageMethods.RemitosGraficasGetAll(OnSuccess);
+                        function GetValoreLeche(data) {
+                            if (data == 0) PageMethods.RemitosGetAnioCorriente(OnSuccess);
+                            if (data == 1) PageMethods.RemitosGetUltimoAnio(OnSuccess);
                         }
 
                         function OnSuccess(response){
@@ -108,10 +147,11 @@
                         }
 
                         var grafRemitos = $('#grafRemitos').css({
-                            'height': '360px' , 'width': '720px'  //tengo que ponerle el ancho porque queda de 83px ¿?
+                            'height': '360px' , 'width': '800px'  //tengo que ponerle el ancho porque queda de 83px ¿?
                         });
                         function imprimir(totalLeche) {
         
+                            var tick = Math.round(totalLeche.length / 10);
                             $.plot("#grafRemitos", [
                             { label: "Leche", data: totalLeche }
 
@@ -126,7 +166,7 @@
                                 tickLength: 0,
                                 mode: "time",
                                 timeformat: "%Y/%m",
-                                tickSize: [1, "month"]
+                                tickSize: [tick, "month"]
                             },
                             yaxis: {
                                 ticks: 10,
@@ -140,9 +180,28 @@
                                 borderColor: '#555',
                                 hoverable: true
                             },
+                            tooltip: true,
+                            tooltipOpts: {
+                                content: "<h6><strong>Fecha:</strong> %x</h6><h6><strong>%s:</strong> %y lts</h6>",
+                            },
                             colors: ["#008115"]
                         });
 
+                        }
+
+                        function cargarGraficas(data) {
+
+                            var res = data.split(" - ");
+                            var fecha1 = formatoFecha(res[0]);
+                            var fecha2 = formatoFecha(res[1]);
+                            PageMethods.GetRemitosEntreDosFechas(fecha1, fecha2, OnSuccess);
+                        };
+
+                        function formatoFecha(fecha) {
+                            var res = fecha.split("/");
+                            var salida = "";
+                            salida = res[2] + "-" + res[0] + "-" + res[1];
+                            return salida;
                         }
 
 
@@ -157,8 +216,10 @@
                     <script src="/js/flot/jquery.flot.time.js"></script>
                     <script src="/js/flot/jquery.flot.symbol.js"></script>
                     <script src="/js/flot/jquery.flot.axislabels.js"></script>
+                    <script src="/js/flot/jshashtable-3.0.js"></script>
+                    <script src="/js/flot/jquery.flot.tooltip.js"></script>
                     
-                </div>
+                
             </div> <!-- fin GRAFICA de remitos -->
 		</div>
 	</div> <!-- fin tabbable -->
