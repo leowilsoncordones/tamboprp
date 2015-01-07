@@ -170,7 +170,6 @@
     <Content Include="AnalisisReprod.aspx" />
     <Content Include="avatars\user_silhouette.png" />
     <Content Include="ContactPublic.aspx" />
-    <Content Include="favicon.ico" />
     <Content Include="Logoff.aspx" />
     <Content Include="ErrorPages\Error400.aspx" />
     <Content Include="ErrorPages\Error401.aspx" />
@@ -535,7 +534,7 @@
     <Content Include="Images\orderedList8.png" />
     <Content Include="Images\orderedList9.png" />
     <Content Include="Default.aspx" />
-    <None Include="favicon.ico.old" />
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="Notificaciones.aspx" />

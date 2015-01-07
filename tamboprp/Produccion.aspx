@@ -65,14 +65,17 @@
         <div class="col-md-1"></div>
         <div class="col-md-10 container">
             <div class="col-md-5 jumbotron align-center lighter">
+                <a href="GraficasProd.aspx" class="bigger-160">
+		            <i class="ace-icon fa fa-bar-chart-o bigger-200"></i><br/>
+                    Gráficas de producción
+	            </a>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-5 jumbotron align-center lighter">
                 <a href="ImportControl.aspx" class="bigger-160">
 		            <i class="ace-icon fa fa-upload bigger-200"></i><br/>
                     Importar control
 	            </a>
-            </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-5 align-center lighter">
-                
             </div>
         </div>
         <div class="col-md-1"></div>
