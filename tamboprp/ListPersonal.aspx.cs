@@ -77,8 +77,8 @@ namespace tamboprp
             HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
             PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
             pdfDoc.Open();
-            pdfDoc.Add(new Paragraph("My first PDF"));
-            //htmlparser.Parse(sr);
+            //pdfDoc.Add(new Paragraph("My first PDF"));
+            htmlparser.Parse(sr);
             pdfDoc.Close();
             Response.Write(pdfDoc);
             Response.End();

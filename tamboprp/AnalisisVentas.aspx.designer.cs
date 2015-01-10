@@ -10,34 +10,7 @@
 namespace tamboprp {
     
     
-    public partial class AnalisisBajas {
-        
-        /// <summary>
-        /// lblMuertes control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMuertes;
-        
-        /// <summary>
-        /// titCantPartos control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label titCantPartos;
-        
-        /// <summary>
-        /// lblCantPartos control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCantPartos;
+    public partial class AnalisisVentas {
         
         /// <summary>
         /// lblVentas control.
@@ -49,21 +22,75 @@ namespace tamboprp {
         protected global::System.Web.UI.WebControls.Label lblVentas;
         
         /// <summary>
-        /// titCantLactComp control.
+        /// titCantVentas control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label titCantLactComp;
+        protected global::System.Web.UI.WebControls.Label titCantVentas;
         
         /// <summary>
-        /// lblCantLactComp control.
+        /// lblCantVentas control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCantLactComp;
+        protected global::System.Web.UI.WebControls.Label lblCantVentas;
+        
+        /// <summary>
+        /// titAFrigorifico control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label titAFrigorifico;
+        
+        /// <summary>
+        /// lblAFrigorifico control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAFrigorifico;
+        
+        /// <summary>
+        /// titRecienNac control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label titRecienNac;
+        
+        /// <summary>
+        /// lblRecienNac control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRecienNac;
+        
+        /// <summary>
+        /// titPorVieja control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label titPorVieja;
+        
+        /// <summary>
+        /// lblPorVieja control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPorVieja;
     }
 }

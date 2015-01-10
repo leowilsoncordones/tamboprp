@@ -10,7 +10,7 @@
         <div class="col-md-8">
             <p class="bigger-110">
                 El servidor web ha encontrado un error en este momento, y no ha podido completar su solicitud.<br/>
-                Vuelva atrás o a la página <a href="Default.aspx">HOME</a> por favor.
+                Vuelva atrás o a la página <a href="../Default.aspx">HOME</a> por favor.
             </p>
         </div>
         <div class="col-md-2"></div>

@@ -25,7 +25,7 @@
     <a href="Default.aspx"><i class="menu-icon fa fa-home"></i><span class="menu-text"> Home </span></a> <i class="fa fa-check text-success"></i><br/>
     <a href="Login.aspx" class="dropdown-toggle"><i class="menu-icon fa fa-unlock"></i><span class="menu-text"> Login </span></a> <i class="fa fa-check text-success"></i><br/>
 
-    <a href="Tablero.aspx"><i class="menu-icon fa fa-tachometer"></i><span class="menu-text"> Tablero </span></a><br/>
+    <a href="Tablero.aspx"><i class="menu-icon fa fa-tachometer"></i><span class="menu-text"> Tablero </span></a> <i class="fa fa-check text-success"></i><br/>
     <a href="Animales.aspx" class="dropdown-toggle"><i class="menu-icon fa fa-folder-open"></i><span class="menu-text"> Animales </span></a>
         <ul class="submenu">
             <li><a href="FichaAnimal.aspx">Ficha de animal</a></li>
@@ -45,7 +45,7 @@
         <ul class="submenu">
             <li><a href="AnalisisProduccion.aspx">Productivo</a></li>
             <li><a href="AnalisisReprod.aspx">Reproductivo</a></li>
-            <li><a href="AnalisisBajas.aspx">Bajas y Ventas</a></li>
+            <li><a href="AnalisisVentas.aspx">Ventas</a> <i class="fa fa-check text-success"></i></li>
             <li><a href="AnalisisMuertes.aspx">Muertes</a> <i class="fa fa-check text-success"></i></li>
             <li><a href="AnalisisToros.aspx">Toros utilizados y su efectividad</a> <i class="fa fa-check text-success"></i></li>
             <li><a href="AnalisisInseminadores.aspx">Inseminadores</a></li>

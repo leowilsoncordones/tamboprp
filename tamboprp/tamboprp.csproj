@@ -166,10 +166,13 @@
     <Content Include="Account\RegisterExternalLogin.aspx" />
     <Content Include="Analisis.aspx" />
     <Content Include="AnalisisProduccion.aspx" />
-    <Content Include="AnalisisBajas.aspx" />
+    <Content Include="AnalisisVentas.aspx" />
     <Content Include="AnalisisReprod.aspx" />
     <Content Include="avatars\user_silhouette.png" />
     <Content Include="ContactPublic.aspx" />
+    <Content Include="js\flot\jquery.flot.tooltip.js" />
+    <Content Include="js\flot\jshashtable-3.0.js" />
+    <Content Include="favicon.ico" />
     <Content Include="Logoff.aspx" />
     <Content Include="ErrorPages\Error400.aspx" />
     <Content Include="ErrorPages\Error401.aspx" />
@@ -798,12 +801,12 @@
     <Compile Include="AnalisisProduccion.aspx.designer.cs">
       <DependentUpon>AnalisisProduccion.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AnalisisBajas.aspx.cs">
-      <DependentUpon>AnalisisBajas.aspx</DependentUpon>
+    <Compile Include="AnalisisVentas.aspx.cs">
+      <DependentUpon>AnalisisVentas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AnalisisBajas.aspx.designer.cs">
-      <DependentUpon>AnalisisBajas.aspx</DependentUpon>
+    <Compile Include="AnalisisVentas.aspx.designer.cs">
+      <DependentUpon>AnalisisVentas.aspx</DependentUpon>
     </Compile>
     <Compile Include="AnalisisReprod.aspx.cs">
       <DependentUpon>AnalisisReprod.aspx</DependentUpon>

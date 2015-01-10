@@ -29,9 +29,9 @@
         <div class="col-md-1"></div>
         <div class="col-md-10 container">
             <div class="col-md-5 jumbotron align-center lighter">
-                <a href="AnalisisBajas.aspx" class="bigger-160">
+                <a href="AnalisisVentas.aspx" class="bigger-160">
 		            <i class="ace-icon fa fa-money bigger-200"></i><br/>
-                    Bajas y ventas
+                    Analisis de Ventas
 	            </a>
             </div>
             <div class="col-md-1"></div>

@@ -4,15 +4,14 @@
     <link href="css/bootstrap.css" rel="stylesheet" />
     <link href="css/ace.css" rel="stylesheet" />
     <link href="css/ace-part2.css" rel="stylesheet" />
-
     <link href="css/font-awesome.css" rel="stylesheet" />
     <link href="css/ace-fonts.css" rel="stylesheet" />
     <link href="css/chosen.css" rel="stylesheet" />
     <link href="css/ui.jqgrid.css" rel="stylesheet" />
-    
     <link href="css/ace-skins.css" rel="stylesheet" />
     <link href="css/ace-rtl.css" rel="stylesheet" />
     <link href="css/ace-ie.css" rel="stylesheet" />
+
     <script src="js/ace-extra.js"></script>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.js"></script>
@@ -29,13 +28,10 @@
     <script src="js/flot/jquery.flot.resize.js"></script>
     
     <script src="js/jquery.easypiechart.js"></script>
-    
+    <script src="js/jquery.sparkline.js"></script>
     <script src="js/ace/ace.widget-box.js"></script>
     <script src="js/ace/ace.widget-on-reload.js"></script>
     
-    
-        
-
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -48,107 +44,50 @@
     
     <!------------------- PRIMER FILA --------------------->
     <div class="row">
+        
         <!-- PRIMER FILA - PRIMER COLUMNA -->
         <div class="col-sm-6 infobox-container">
-	    <!-- #section:pages/dashboard.infobox -->
-        <h4 class="smaller lighter blue"><i class="ace-icon fa fa-gears"></i> Producción</h4>
+	        <!-- #section:pages/dashboard.infobox -->
+            <h4 class="smaller lighter blue"><i class="ace-icon fa fa-gears"></i> Indicadores </h4>
 
-        <div class="infobox infobox-green">
-		    <div class="infobox-icon"><i class="ace-icon fa fa-gears"></i></div>
-		    <div class="infobox-data">
-		        <span class="infobox-data-number">661</span>
-                <div class="infobox-content">vacas en ordeñe</div>
-		    </div>
-            <!-- #section:pages/dashboard.infobox.stat -->
-		    <div class="stat stat-success">8%</div>
-            <!-- /section:pages/dashboard.infobox.stat -->
-	    </div>
+            <div class="infobox infobox-green" id="fVacasOrdene" runat="server" >
+	        </div>
+            <div class="infobox infobox-orange2" id="fPromLeche" runat="server">
+	        </div>
+	        <div class="infobox infobox-orange" id="fLecheUltControl" runat="server">
+	        </div>
+            <div class="infobox infobox-light-brown" id="fPromDiasLact" runat="server">
+	        </div>
+	        <div class="infobox infobox-red" id="fAbortos" runat="server">
+	        </div>
+            <div class="infobox infobox-blue" id="fPartos" runat="server">
+	        </div>
+            <!-- /section:pages/dashboard.infobox -->
         
-        <div class="infobox infobox-orange">
-		    <div class="infobox-icon"><i class="ace-icon fa fa-tint"></i></div>
-            <div class="infobox-data">
-			    <span class="infobox-data-number">24,31 <small>lts</small></span>
-			    <div class="infobox-content">promedio leche</div>
-		    </div>
-	    </div>
-
-	    <div class="infobox infobox-orange2">
-		    <!-- #section:pages/dashboard.infobox.sparkline -->
-		    <div class="infobox-chart">
-			    <span class="sparkline" data-values="196,128,202,177,154,94,100,170,224">
-			        <canvas width="44" height="27" style="display: inline-block; width: 44px; height: 27px; vertical-align: top;"></canvas>
-			    </span>
-		    </div>
-            <!-- /section:pages/dashboard.infobox.sparkline -->
-		    <div class="infobox-data">
-			    <span class="infobox-data-number">26.251 <small>lts</small></span>
-			    <div class="infobox-content">leche último control</div>
-		    </div>
-	    </div>
-
-	    <div class="infobox infobox-blue2">
-		    <div class="infobox-progress">
-			    <!-- #section:pages/dashboard.infobox.easypiechart -->
-			    <div class="easy-pie-chart percentage" data-percent="42" data-size="46" style="height: 46px; width: 46px; line-height: 45px;">
-				    <span class="percent">42</span>%
-			    <canvas height="46" width="46"></canvas></div>
-			    <!-- /section:pages/dashboard.infobox.easypiechart -->
-		    </div>
-            <div class="infobox-data">
-			    <span class="infobox-text">traffic used</span>
-                <div class="infobox-content">
-				    <span class="bigger-110">~</span>
-				    58GB remaining
-			    </div>
-		    </div>
-	    </div>
-
-	    <!-- /section:pages/dashboard.infobox -->
-	    <!-- #section:pages/dashboard.infobox.dark -->
-	    <div class="infobox infobox-green infobox-small infobox-dark">
-		    <div class="infobox-progress">
-			    <!-- #section:pages/dashboard.infobox.easypiechart -->
-			    <div class="easy-pie-chart percentage" data-percent="61" data-size="39" style="height: 39px; width: 39px; line-height: 38px;">
-				    <span class="percent">61</span>%
-			    <canvas height="39" width="39"></canvas></div>
-                <!-- /section:pages/dashboard.infobox.easypiechart -->
-		    </div>
-
-		    <div class="infobox-data">
-			    <div class="infobox-content">Task</div>
-			    <div class="infobox-content">Completion</div>
-		    </div>
-	    </div>
-
-	    <div class="infobox infobox-blue infobox-small infobox-dark">
-		    <!-- #section:pages/dashboard.infobox.sparkline -->
-		    <div class="infobox-chart">
-			    <span class="sparkline" data-values="3,4,2,3,4,4,2,2">
-			        <canvas width="39" height="16" style="display: inline-block; width: 39px; height: 16px; vertical-align: top;"></canvas>
-			    </span>
-		    </div>
-            <!-- /section:pages/dashboard.infobox.sparkline -->
-		    <div class="infobox-data">
-			    <div class="infobox-content">Remito</div>
-			    <div class="infobox-content">15.233 lts</div>
-		    </div>
-	    </div>
-
-	    <div class="infobox infobox-grey infobox-small infobox-dark">
-		    <div class="infobox-icon"><i class="ace-icon fa fa-download"></i></div>
-            <div class="infobox-data">
-			    <div class="infobox-content">Downloads</div>
-			    <div class="infobox-content">1,205</div>
-		    </div>
-	    </div>
-	    <!-- /section:pages/dashboard.infobox.dark -->
+            <div class="space-6"></div>    
+	        
+	        <!-- #section:pages/dashboard.infobox.dark -->
+            <div class="infobox infobox-green infobox-small infobox-dark" id="fNacidos" runat="server">
+	        </div>
+	        <div class="infobox infobox-blue infobox-small infobox-dark" id="fPrenadas" runat="server">
+	        </div>
+            <div class="infobox infobox-grey infobox-small infobox-dark" id="fToroMasUsado" runat="server">
+	        </div>    
+	        <!-- /section:pages/dashboard.infobox.dark -->
         </div>
         
         <!-- PRIMER FILA - SEGUNDA COLUMNA -->
         <div class="col-sm-6">
             <div class="widget-box transparent">
 			    <div class="widget-header widget-header-flat">
-				    <h4 class="widget-title lighter"><i class="ace-icon fa fa-signal"></i> Producción de leche año actual</h4>
+				    <h4 class="widget-title lighter"><i class="ace-icon fa fa-signal"></i> Producción de leche del último año</h4>
+                    <div class="widget-toolbar no-border">
+					<div class="inline">
+					    <a href="GraficasProd.aspx" class="btn btn-minier btn-white btn-default">
+                            <i class="ace-icon fa fa-bar-chart-o icon-on-right bigger-110"></i>&nbsp;Gráficas
+                        </a>
+					</div>
+				</div>
 			    </div>
                 <div class="widget-body">
 				    <div class="widget-main padding-4">
@@ -158,101 +97,31 @@
                 </div>						    
             </div>
         </div>
-        </div>
-        
-        <div class="space-6"></div>
-        <!------------------- SEGUNDA FILA --------------------->
 
-        <div class="row">
+    </div>
+    <!------------------- FIN PRIMER FILA --------------------->
+        
+    <div class="space-6"></div>
+    <hr />
+    
+    <!------------------- SEGUNDA FILA --------------------->
+    <div class="row">
         
         <!-- SEGUNDA FILA - PRIMER COLUMNA -->
-        <div class="col-sm-6 infobox-container">
-	    <!-- #section:pages/dashboard.infobox -->
-        <h4 class="smaller lighter blue"><i class="ace-icon fa fa-flask"></i> Reproducción</h4>
-
-	    <div class="infobox infobox-blue">
-		    <div class="infobox-icon"><i class="ace-icon fa fa-tag"></i></div>
-            <div class="infobox-data">
-			    <span class="infobox-data-number">11</span>
-			    <div class="infobox-content">partos este mes</div>
-		    </div>
-		    <div class="stat stat-important">17%</div>
-	    </div>
-        
-        <div class="infobox infobox-red">
-		    <div class="infobox-icon"><i class="ace-icon fa fa-thumbs-o-down"></i></div>
-            <div class="infobox-data">
-			    <span class="infobox-data-number">7%</span>
-			    <div class="infobox-content">índice de aborto</div>
-		    </div>
-	    </div>
-
-        <div class="infobox infobox-light-brown">
-		    <div class="infobox-icon"><i class="ace-icon fa fa-binoculars"></i></div>
-            <div class="infobox-data">
-			    <span class="infobox-data-number">9</span>
-			    <div class="infobox-content">lact sin servicio (80d)</div>
-		    </div>
-		    <div class="badge badge-success">+12%<i class="ace-icon fa fa-arrow-up"></i></div>
-	    </div>
-
-	    <div class="infobox infobox-pink">
-	        <div class="infobox-icon"><i class="ace-icon fa fa-flask"></i></div>
-            <div class="infobox-data">
-			    <span class="infobox-data-number">8</span>
-			    <div class="infobox-content">servicios sin diag (70d)</div>
-		    </div>
-		    <div class="stat stat-important">4%</div>
-	    </div>
-
-	    <div class="infobox infobox-orange2">
-		    <!-- #section:pages/dashboard.infobox.sparkline -->
-		    <div class="infobox-chart">
-			    <span class="sparkline" data-values="196,128,202,177,154,94,100,170,224">
-			        <canvas width="44" height="27" style="display: inline-block; width: 44px; height: 27px; vertical-align: top;"></canvas>
-			    </span>
-		    </div>
-            <!-- /section:pages/dashboard.infobox.sparkline -->
-		    <div class="infobox-data">
-			    <span class="infobox-data-number">6,251</span>
-			    <div class="infobox-content">pageviews</div>
-		    </div>
-            <div class="badge badge-success">7.2%<i class="ace-icon fa fa-arrow-up"></i></div>
-	    </div>
-
-	    <div class="infobox infobox-blue2">
-		    <div class="infobox-progress">
-			    <!-- #section:pages/dashboard.infobox.easypiechart -->
-			    <div class="easy-pie-chart percentage" data-percent="42" data-size="46" style="height: 46px; width: 46px; line-height: 45px;">
-				    <span class="percent">42</span>%
-			    <canvas height="46" width="46"></canvas></div>
-			    <!-- /section:pages/dashboard.infobox.easypiechart -->
-		    </div>
-            <div class="infobox-data">
-			    <span class="infobox-text">traffic used</span>
-                <div class="infobox-content">
-				    <span class="bigger-110">~</span>
-				    58GB remaining
-			    </div>
-		    </div>
-	    </div>
+        <div class="col-sm-6" id="fAlertas" runat="server">
+            <!-- #section:alertas y notificaciones -->
         </div>
+
         <!-- SEGUNDA FILA - SEGUNDA COLUMNA -->
         <div class="col-sm-6">
-            
-            
             <div class="widget-box">
 			<div class="widget-header widget-header-flat widget-header-small">
 				<h5 class="widget-title"><i class="ace-icon fa fa-signal"></i>Categorías</h5>
                 <div class="widget-toolbar no-border">
-					<div class="inline dropdown-hover">
-						<button class="btn btn-minier btn-primary">This Week<i class="ace-icon fa fa-angle-down icon-on-right bigger-110"></i></button>
-                        <ul class="dropdown-menu dropdown-menu-right dropdown-125 dropdown-lighter dropdown-close dropdown-caret">
-							<li class="active"><a href="#" class="blue"><i class="ace-icon fa fa-caret-right bigger-110">&nbsp;</i>This Week</a></li>
-                            <li><a href="#"><i class="ace-icon fa fa-caret-right bigger-110 invisible">&nbsp;</i>Last Week</a></li>
-							<li><a href="#"><i class="ace-icon fa fa-caret-right bigger-110 invisible">&nbsp;</i>This Month</a></li>
-                            <li><a href="#"><i class="ace-icon fa fa-caret-right bigger-110 invisible">&nbsp;</i>Last Month</a></li>
-						</ul>
+					<div class="inline">
+					    <a href="ListPorCategoria.aspx" class="btn btn-minier btn-white btn-default">
+                            <i class="ace-icon fa fa-list icon-on-right bigger-110"></i>&nbsp;Listados
+                        </a>
 					</div>
 				</div>
 			</div>
@@ -260,105 +129,25 @@
 				<div class="widget-main">
 					<!-- #section:plugins/charts.flotchart -->
 					<div id="piechart-placeholder" style="width: 90%; min-height: 150px; padding: 0px; position: relative;">
-					    <canvas class="flot-base" width="351" height="150" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 351px; height: 150px;"></canvas>
-                        <canvas class="flot-overlay" width="351" height="150" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 351px; height: 150px;"></canvas>
-                        <div class="legend"><div style="position: absolute; width: 90px; height: 110px; top: 15px; right: -30px; opacity: 0.85; background-color: rgb(255, 255, 255);"> </div>
-                            <table style="position:absolute;top:15px;right:-30px;;font-size:smaller;color:#545454">
-                                <tbody>
-                                    <tr><td class="legendColorBox"><div style="border:1px solid null;padding:1px"><div style="width:4px;height:0;border:5px solid #68BC31;overflow:hidden"></div></div></td><td class="legendLabel">en ordeñe</td></tr>
-                                    <tr><td class="legendColorBox"><div style="border:1px solid null;padding:1px"><div style="width:4px;height:0;border:5px solid #2091CF;overflow:hidden"></div></div></td><td class="legendLabel">vaquillonas</td></tr>
-                                    <tr><td class="legendColorBox"><div style="border:1px solid null;padding:1px"><div style="width:4px;height:0;border:5px solid #AF4E96;overflow:hidden"></div></div></td><td class="legendLabel">entoradas</td></tr>
-                                    <tr><td class="legendColorBox"><div style="border:1px solid null;padding:1px"><div style="width:4px;height:0;border:5px solid #DA5430;overflow:hidden"></div></div></td><td class="legendLabel">terneras</td></tr>
-                                    <tr><td class="legendColorBox"><div style="border:1px solid null;padding:1px"><div style="width:4px;height:0;border:5px solid #FEE074;overflow:hidden"></div></div></td><td class="legendLabel">otros</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
 					</div>
 
 					<!-- /section:plugins/charts.flotchart -->
 					<div class="hr hr8 hr-double"></div>
-					<div class="clearfix">
+					<div class="clearfix" id="fExtraGrid" runat="server">
 						<!-- #section:custom/extra.grid -->
-						<div class="grid3">
-							<span class="grey"><i class="ace-icon fa fa-filter fa-2x orange"></i>&nbsp; Secas</span>
-                            <h4 class="bigger pull-right">31</h4>
-						</div>
-                        <div class="grid3">
-							<span class="grey"><i class="ace-icon fa fa-stethoscope fa-2x red"></i>&nbsp; Muertes</span>
-							<h4 class="bigger pull-right">6</h4>
-						</div>
-                        <div class="grid3">
-							<span class="grey"><i class="ace-icon fa fa-money fa-2x green"></i>&nbsp; Ventas</span>
-							<h4 class="bigger pull-right">13</h4>
-						</div>
-
-						<!-- /section:custom/extra.grid -->
 					</div>
 				</div><!-- /.widget-main -->
 			</div><!-- /.widget-body -->
-		</div>
-
-
+		    </div>
         </div>
-    </div>
+
+     </div>
+     <!------------------- FIN SEGUNDA FILA --------------------->
     
     <div class="space-6"></div>
-    <!------------------- TERCER FILA --------------------->
+   
 
-    <div class="row">
-        <!-- TERCER FILA - PRIMERA COLUMNA -->
-        <div class="col-sm-4">
-            <h4 class="smaller lighter blue"><i class="ace-icon fa fa-eye"></i> Otros indicadores de interés</h4>
-            <h6 class="smaller"> Tasa de concepción promedio <strong>26%</strong></h6>
-            <div id="progressbar0" class="ui-progressbar ui-widget ui-widget-content ui-corner-all progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="26">
-                <div class="ui-progressbar-value ui-widget-header ui-corner-left progress-bar progress-bar-warning" style="width: 26%;"></div>
-            </div>
-            <h6 class="smaller"> Intervalo PPC <strong>67%</strong></h6>
-            <div id="progressbar1" class="ui-progressbar ui-widget ui-widget-content ui-corner-all progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="67">
-                <div class="ui-progressbar-value ui-widget-header ui-corner-left progress-bar progress-bar-success" style="width: 67%;"></div>
-            </div>
-            <h6 class="smaller"> Indice de abortos <strong>8%</strong></h6>
-            <div id="progressbar2" class="ui-progressbar ui-widget ui-widget-content ui-corner-all progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="8">
-                <div class="ui-progressbar-value ui-widget-header ui-corner-left progress-bar progress-bar-danger" style="width: 8%;"></div>
-            </div>
-        </div>
-        <div class="col-sm-2"></div>
-        <!-- TERCER FILA - SEGUNDA COLUMNA -->
-        <div class="col-sm-6">
-            <h4 class="smaller lighter blue"><i class="ace-icon fa fa-bell-o"></i> Alertas y notificaciones</h4>
-			<div class="alert alert-danger">
-				<button class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>
-                <strong>5</strong> vacas con 70 días de servicio y sin diagnóstico!
-			</div>
-            <div class="alert alert-warning">
-				<button class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>
-                <strong>16</strong> vacas con 35 días de servicio y sin diagnóstico!
-			</div>
-            <div class="alert alert-info">
-				<button class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>
-                <strong> 9</strong> vacas con 80 días o más en lactancia y sin servicio!
-			</div>
-        </div>
-    </div>
-    
-    <div class="space-6"></div> 
-    <!------------------- CUARTA FILA --------------------->
-
-    <div class="row">
-        <div class="col-sm-12">
-        </div>
-        <!-- CUARTA FILA - PRIMERA COLUMNA -->
-        <div class="col-sm-6">
-            
-        </div>
-        <!-- CUARTA FILA - SEGUNDA COLUMNA -->
-        <div class="col-sm-6">
-            
-        </div>
-    </div>
-    
-    
-    <!-- Script para grafica de puntos -->
+    <!------------- Script para grafica de puntos --------------->
     <script type="text/javascript">
 
 
@@ -386,7 +175,7 @@
         }
 
 
-        var sales_charts = $('#sales-charts').css({ 'height': '200px' });
+        var sales_charts = $('#sales-charts').css({ 'height': '260px' });
         function imprimir(totalLeche) {
 
             $.plot("#sales-charts", [
@@ -403,8 +192,8 @@
                 xaxis: {
                     tickLength: 0,
                     mode: "time",
-                    timeformat: "%Y/%m",
-                    tickSize: [2, "month"]
+                    timeformat: "%m/%Y",
+                    tickSize: [1, "month"]
                 },
                 yaxis: {
                     ticks: 10,
@@ -420,12 +209,111 @@
                 }
             });
 
-        }
+        };
 
+
+        // Grafica de torta
+
+        //jQuery(function($) {
+        //    $('.easy-pie-chart.percentage').each(function() {
+        //        var $box = $(this).closest('.infobox');
+        //        var barColor = $(this).data('color') || (!$box.hasClass('infobox-dark') ? $box.css('color') : 'rgba(255,255,255,0.95)');
+        //        var trackColor = barColor == 'rgba(255,255,255,0.95)' ? 'rgba(255,255,255,0.25)' : '#E2E2E2';
+        //        var size = parseInt($(this).data('size')) || 50;
+        //        $(this).easyPieChart({
+        //            barColor: barColor,
+        //            trackColor: trackColor,
+        //            scaleColor: false,
+        //            lineCap: 'butt',
+        //            lineWidth: parseInt(size / 10),
+        //            animate: /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase()) ? false : 1000,
+        //            size: size
+        //        });
+        //    });
+			
+            $('.sparkline').each(function(){
+                var $box = $(this).closest('.infobox');
+                var barColor = !$box.hasClass('infobox-dark') ? $box.css('color') : '#FFF';
+                $(this).sparkline('html',
+                                 {
+                                     tagValuesAttribute:'data-values',
+                                     type: 'bar',
+                                     barColor: barColor ,
+                                     chartRangeMin:$(this).data('min') || 0
+                                 });
+            });
+			
+			
+            //flot chart resize plugin, somehow manipulates default browser resize event to optimize it!
+            //but sometimes it brings up errors with normal resize event handlers
+            $.resize.throttleWindow = false;
+			
+            var placeholder = $('#piechart-placeholder').css({'width':'80%' , 'min-height':'150px'});
+            var data = [
+                { label: "en ordeñe", data: 661, color: "#68BC31" },
+                { label: "entoradas", data: 212, color: "#FEE074" },
+                { label: "secas", data: 137, color: "#DA5430" },
+                { label: "vaquillonas", data: 169, color: "#AF4E96" },
+                { label: "terneras", data: 383, color: "#2091CF" }
+            ];
+            function drawPieChart(placeholder, data, position) {
+                $.plot(placeholder, data, {
+                    series: {
+                        pie: {
+                            show: true,
+                            tilt: 0.8,
+                            highlight: {
+                                opacity: 0.25
+                            },
+                            stroke: {
+                                color: '#fff',
+                                width: 2
+                            },
+                            startAngle: 2
+                        }
+                    },
+                    legend: {
+                        show: true,
+                        position: position || "ne",
+                        labelBoxBorderColor: null,
+                        margin: [-30, 15]
+                    },
+                    grid: {
+                        hoverable: true,
+                        clickable: true
+                    }
+                });
+            }
+            drawPieChart(placeholder, data);
+			
+            /**
+            we saved the drawing function and the data to redraw with different position later when switching to RTL mode dynamically
+            so that's not needed actually.
+            */
+            placeholder.data('chart', data);
+            placeholder.data('draw', drawPieChart);
+			
+			
+            //pie chart tooltip example
+            var $tooltip = $("<div class='tooltip top in'><div class='tooltip-inner'></div></div>").hide().appendTo('body');
+            var previousPoint = null;
+			
+            placeholder.on('plothover', function (event, pos, item) {
+                if(item) {
+                    if (previousPoint != item.seriesIndex) {
+                        previousPoint = item.seriesIndex;
+                        var tip = item.series['label'] + " : " + Math.round(item.series['percent'])+'%';
+                        $tooltip.show().children(0).text(tip);
+                    }
+                    $tooltip.css({top:pos.pageY + 10, left:pos.pageX + 10});
+                } else {
+                    $tooltip.hide();
+                    previousPoint = null;
+                }
+				
+            });
 
     </script>
     
-    
-
 
 </asp:Content>

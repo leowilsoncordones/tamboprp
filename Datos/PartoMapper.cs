@@ -18,6 +18,7 @@ namespace Datos
         private static string Parto_SelecByRegistro = "Parto_SelecByRegistro";
         private static string Parto_SelecNacimByRegistro = "Parto_SelecNacimByRegistro";
         private static string Parto_SelecByAnio = "Parto_SelecByAnio";
+        private static string Parto_SelecCountByMonth = "Parto_SelecCountByMonth";
         
 
         public PartoMapper(Parto parto)
@@ -111,6 +112,19 @@ namespace Datos
             dr.Close();
             return result;
         }
+
+        public int GetPartosByMesAnio(DateTime fecha)
+        {
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@DATE", fecha));
+            cmd.CommandText = Parto_SelecCountByMonth;
+            
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
+        
 
         protected override SqlCommand GetStatement(OperationType opType)
         {

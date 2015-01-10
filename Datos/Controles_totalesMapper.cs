@@ -113,6 +113,7 @@ namespace Datos
             string strDate = (DBNull.Value == record["FECHA"]) ? string.Empty : record["FECHA"].ToString();
             if (strDate != string.Empty) date = DateTime.Parse(strDate);
             cp.Fecha = date.ToString("yyyy/MM/dd");
+            cp.Vacas = (DBNull.Value == record["VACAS"]) ? 0 : int.Parse(record["VACAS"].ToString());
             cp.Leche = (DBNull.Value == record["LECHE"]) ? 0 : double.Parse(record["LECHE"].ToString());
             cp.Grasa = (DBNull.Value == record["GRASA"]) ? 0 : double.Parse(record["GRASA"].ToString());
             return cp;
@@ -164,25 +165,61 @@ namespace Datos
             dr.Close();
             return result;
         }
-        
 
+
+        public List<VOControlTotal> GetControlesTotalesEntreDosFechas(string fecha1, string fecha2)
+        {
+            var result = new List<VOControlTotal>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@FECHA1", fecha1));
+            cmd.Parameters.Add(new SqlParameter("@FECHA2", fecha2));
+            cmd.CommandText = "Controles_Totales_EntreDosFechas";
+
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+                result.Add(load(dr));
+            dr.Close();
+            return result;
+        }
+
+        
         public class VOControlTotal
         {
             public VOControlTotal()
             {
             }
 
-            public VOControlTotal(string fecha, double leche, double grasa)
+            public VOControlTotal(string fecha, double leche, double grasa, int cantVacas)
             {
                 Fecha = fecha;
                 Leche = leche;
                 Grasa = grasa;
+                Vacas = cantVacas;
             }
 
             public string Fecha { get; set; }
             public double Leche { get; set; }
             public double Grasa { get; set; }
+            public int Vacas { get; set; }
         }
 
+
+        public List<VOControlTotal> GetControlesLastXTotalesLast(int x)
+        {
+            var result = new List<VOControlTotal>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@TOP", x));
+            cmd.CommandText = "Controles_Totales_SelectLastX";
+
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+                result.Add(load(dr));
+            dr.Close();
+            return result;
+        }
     }
 }

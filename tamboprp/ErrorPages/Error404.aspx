@@ -10,7 +10,7 @@
         <div class="col-md-8">
             <p class="bigger-110">
                 La página que busca no existe, o ha ocurrido un error en este momento.<br/>
-                Vuelva atrás o a la página <a href="Default.aspx">HOME</a> por favor.
+                Vuelva atrás o a la página <a href="../Default.aspx">HOME</a> por favor.
             </p>
         </div>
         <div class="col-md-2"></div>

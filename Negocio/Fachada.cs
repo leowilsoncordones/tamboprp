@@ -399,22 +399,25 @@ namespace Negocio
             var voA = new VOAnalitico();
             var totalEnOrdene = _animalMapper.GetCantOrdene();
             voA.CantVacasEnOrdene = totalEnOrdene;
-            //voA.PromProdLecheLts = _animalMapper.GetEnOrdenePromProdLecheLts();
+            voA.PromProdLecheLts = Math.Round(_lactMapper.GetPromProdLecheActual(), 2);
             var lact1 = _animalMapper.GetEnOrdeneLanctancia1();
             voA.CantLactancia1 = lact1;
             var lact2 = _animalMapper.GetEnOrdeneLanctancia2();
             voA.CantLactancia2 = lact2;
             //voA.CantLactanciaMayor2 = _animalMapper.GetEnOrdeneLanctanciaMayor2();
             voA.CantLactanciaMayor2 = totalEnOrdene - (lact1 + lact2);
+            voA.ConServicioSinPreñez = _animalMapper.GetAnimalOrdeneServSinPrenez();
+            voA.PrenezConfirmada = _animalMapper.GetAnimalOrdenePrenezConf();
             if (voA.CantVacasEnOrdene > 0)
             {
                 voA.PorcLactancia1 = Math.Round(voA.CantLactancia1/(double)voA.CantVacasEnOrdene*100, 1);
                 voA.PorcLactancia2 = Math.Round(voA.CantLactancia2/(double)voA.CantVacasEnOrdene*100, 1);
                 voA.PorcLactanciaMayor2 = Math.Round(voA.CantLactanciaMayor2/(double)voA.CantVacasEnOrdene*100, 1);
+                voA.PromServicioSinPrenez = Math.Round(voA.ConServicioSinPreñez / (double)voA.CantVacasEnOrdene * 100, 1);
+                voA.PromPrenezConfirmada = Math.Round(voA.PrenezConfirmada / (double)voA.CantVacasEnOrdene * 100, 1);              
             }
-            //voA.ConServicioSinPreñez = _animalMapper.GetEnOrdeneServicioSinPrenez();
-            //voA.PrenezConfirmada = _animalMapper.GetEnOrdenePrenezConfirmada();
-            //voA.PromDiasLactancias = _animalMapper.GetPromDiasLactancias();
+
+            voA.PromDiasLactancias = _lactMapper.GetLactanciaPromedioDiasActual();
             return voA;
         }
 
@@ -590,6 +593,12 @@ namespace Negocio
         {
             var controlTotal = new Controles_totalesMapper();
             return controlTotal.GetAll();
+        }
+
+        public List<Controles_totalesMapper.VOControlTotal> GetControlesTotalesEntreDosFechas(string fecha1, string fecha2)
+        {
+            var controlTotal = new Controles_totalesMapper();
+            return controlTotal.GetControlesTotalesEntreDosFechas(fecha1, fecha2);
         }
 
         public List<Controles_totalesMapper.VOControlTotal> ControlTotalUltAnio()
@@ -1130,6 +1139,320 @@ namespace Negocio
             return _userMapper.LogoffUsuario(user) == 0;
         }
 
+        public List<RemitoMapper.VORemitoGrafica> GetRemitosEntreDosFechas(string fecha1, string fecha2)
+        {
+            var remMap = new RemitoMapper();
+            return remMap.GetRemitosEntreDosFechas(fecha1, fecha2);
+        }
 
+        public VOIndicadores GetIndicadoresTablero()
+        {
+            var indTablero = new VOIndicadores();
+
+            var _controlTotal = new Controles_totalesMapper();
+            var lstUltXControles = _controlTotal.GetControlesLastXTotalesLast(9);
+
+            // VACAS EN ORDEÑE
+            indTablero.VacasEnOrdene = new VoListItemInd("vacas en ordeñe");
+            var totalEnOrdene = _animalMapper.GetCantOrdene();
+            indTablero.VacasEnOrdene.Valor = totalEnOrdene.ToString();
+            // Valores de la gráfica pequeña
+            var cAnterior = 0.0;
+            var cActual = 0.0;
+            var porc = 0.0;
+            var strValuesGraficaChicaVacasOrdene = "";
+            if (lstUltXControles.Count > 0)
+            {
+                for (int i = lstUltXControles.Count - 1; i >= 0; i--)
+                {
+                    strValuesGraficaChicaVacasOrdene += lstUltXControles[i].Vacas.ToString();
+                    if (i != 0) strValuesGraficaChicaVacasOrdene += ",";
+                }
+                
+                //if (lstUltXControles.Count > 1)
+                //{
+                //    cAnterior = lstUltXControles[lstUltXControles.Count - 1].Leche;
+                //    cActual = lstUltXControles[lstUltXControles.Count - 2].Leche;
+                //    porc = Math.Round(cActual * 100 / cAnterior, 1);
+                //}
+                //var strPre = "-";
+                //indTablero.VacasEnOrdene.Status = "important";
+                //if (porc > 0)
+                //{
+                //    strPre = "+";
+                //    indTablero.VacasEnOrdene.Status = "success";
+                //}
+                //indTablero.VacasEnOrdene.Porcentaje = strPre + porc.ToString() + "%";
+            }
+            indTablero.VacasEnOrdene.DataValue = strValuesGraficaChicaVacasOrdene;
+            
+            // PROMEDIO LECHE EN ULTIMO CONTROL
+            var promLecheUltCtl = Math.Round(GetPromLecheUltControl(), 1);
+            indTablero.PromLeche = new VoListItemInd("promedio leche");
+            indTablero.PromLeche.Valor = promLecheUltCtl.ToString();
+
+            // LECHE ULTIMO CONTROL
+            indTablero.LecheUltControl = new VoListItemInd("leche último control");
+            if (lstUltXControles.Count > 0)
+            {
+                indTablero.LecheUltControl.Valor = Math.Truncate(lstUltXControles[0].Leche).ToString();
+            }
+            // Valores de la gráfica pequeña
+            //var strValuesGraficaChica = "";
+            //var ctlAnterior = 0.0;
+            //var ctlActual = 0.0;
+            //var porc = 0.0;
+            //if (lstUltXControles.Count > 0)
+            //{
+            //    indTablero.LecheUltControl.Valor = Math.Truncate(lstUltXControles[0].Leche).ToString();
+            //    for (int i = lstUltXControles.Count - 1; i >= 0; i--)
+            //    {
+            //        var valorTrunc = Math.Truncate(lstUltXControles[i].Leche);
+            //        strValuesGraficaChica += valorTrunc.ToString();
+            //        if (i != 0) strValuesGraficaChica += ",";
+            //    }
+            //    //if (lstUltXControles.Count > 1)
+            //    //{
+            //    //    ctlAnterior = lstUltXControles[lstUltXControles.Count - 1].Leche;
+            //    //    ctlActual = lstUltXControles[lstUltXControles.Count - 2].Leche;
+            //    //    porc = Math.Round(ctlActual * 100 / ctlAnterior, 1);
+            //    //}
+            //}
+            //indTablero.LecheUltControl.Porcentaje = porc.ToString();
+            //if (porc > 0) indTablero.LecheUltControl.Status = "success";
+            //else indTablero.LecheUltControl.Status = "important";
+            //indTablero.LecheUltControl.DataValue = strValuesGraficaChica;
+
+            // PROMEDIO DE DIAS DE LACTANCIA
+            var promDiasLactancias = _lactMapper.GetLactanciaPromedioDiasActual();
+            indTablero.PromDiasLactancias = new VoListItemInd("lactancia promedio");
+            indTablero.PromDiasLactancias.Valor = promDiasLactancias.ToString();
+
+            // PARTOS PARA ESTE MES
+            indTablero.PartosMes = new VoListItemInd("partos este mes");
+            //var hoy = DateTime.Today;
+            var hoy = new DateTime(2014,09,01);  // TESTING --------------------------
+            var mesAnt = hoy.AddMonths(-1);
+            var partosMes = this.GetPartosByMesAnio(hoy);
+            var partosMesAnt = this.GetPartosByMesAnio(mesAnt);
+            indTablero.PartosMes.Valor = partosMes.ToString();
+            if (partosMes > partosMesAnt) indTablero.PartosMes.Status = "success";
+            if (partosMes < partosMesAnt) indTablero.PartosMes.Status = "important";
+            indTablero.PartosMes.Porcentaje = partosMesAnt.ToString();
+
+            // ABORTOS ESTE AÑO
+            indTablero.AbortosAnual = new VoListItemInd("abortos este año");
+            var anioAnt = hoy.AddYears(-1);
+            var abortosAnio = this.GetAbortosByAnio(hoy);
+            var abortosAnioAnt = this.GetAbortosByAnio(anioAnt);
+            indTablero.AbortosAnual.Valor = abortosAnio.ToString();
+            if (abortosAnio > abortosAnioAnt) indTablero.AbortosAnual.Status = "important";
+            if (abortosAnio < abortosAnioAnt) indTablero.AbortosAnual.Status = "success";
+            indTablero.AbortosAnual.Porcentaje = abortosAnioAnt.ToString();
+            
+            // NACIMIENTOS ESTE AÑO
+            indTablero.NacidosAnual = new VoListItemInd("Nacidos");
+            var nacimAnio = this.GetCantNacimientosPorAnio(2014);  // TESTING --------------------------
+            //var nacimAnio = this.GetCantNacimientosPorAnio(hoy.Year);
+            indTablero.NacidosAnual.Valor = nacimAnio.ToString();
+
+            // PREÑADAS
+            var fecha = new DateTime(2014, 09, 01);
+            var cantPrenadas = GetInseminacionesExitosas(fecha).Count;
+            //var cantPrenadas = GetInseminacionesExitosas(hoy).Count;
+            indTablero.Prenadas = new VoListItemInd("Preñadas");
+            indTablero.Prenadas.Valor = cantPrenadas.ToString();
+
+            // TORO MAS USADO
+            var nomToro = "Sin insem.";
+            var efect = 0.0;
+            var lst = GetTorosUtilizadosPorAnio(2014);  // TESTING --------------------------
+            //var lst = GetTorosUtilizadosPorAnio(hoy.Year);
+            if (lst.Count > 0)
+            {
+                var lstConsolidada = GetTopUtilizados(lst);
+                nomToro = (lstConsolidada[0].Registro).ToLower();
+                nomToro = char.ToUpper(nomToro[0]) + nomToro.Substring(1);
+                efect = lstConsolidada[0].PorcEfectividad;
+            }
+            indTablero.ToroMasUsado = new VoListItemInd("% efectividad");
+            indTablero.ToroMasUsado.Texto = nomToro;
+            indTablero.ToroMasUsado.Valor = "efectividad";
+            indTablero.ToroMasUsado.Porcentaje = efect.ToString()+"%";
+
+            return indTablero;
+        }
+
+        public List<VOToroUtilizado1> GetTopUtilizados(List<VOToroUtilizado> lst)
+        {
+            var lstOrderByCantServ = new List<VOToroUtilizado1>();
+            for (int i = 0; i < lst.Count; i++)
+            {
+                var item = new VOToroUtilizado1(lst[i]);
+                lstOrderByCantServ.Add(item);
+            }
+            lstOrderByCantServ.Sort();
+            return lstOrderByCantServ;
+        }
+
+
+        public int GetPartosByMesAnio(DateTime fecha)
+        {
+            var _partoMap = new PartoMapper();
+            return _partoMap.GetPartosByMesAnio(fecha);
+        }
+
+        public int GetAbortosByAnio(DateTime fecha)
+        {
+            return _abortoMapper.GetAbortosByAnio(fecha);
+        }
+
+        public List<VoListItemInd> GetAlertasYNotificacionesTablero()
+        {
+            var lstAlertas = new List<VoListItemInd>();
+
+            // ALERTA DIAG 35 DIAS DE SERVICIO Y SIN DIAGNOSTICO
+            var alertDiag35 = new VoListItemInd("vacas con 35 días de servicio y sin diagnóstico ecográfico!");
+            alertDiag35.Link = "../DiagEcograficos.aspx";
+            alertDiag35.LinkAlt = "Diagnósticos ecográficos";
+            alertDiag35.Icono = "fa-bell-o";
+            var cant35 = 0;   // TESTING -----------------------------
+            /*var cant35 = this.GetServicios35SinDiagPrenezVacOrdene().Count +
+                this.GetServicios35SinDiagPrenezVacSecas().Count +
+                this.GetServicios35SinDiagPrenezVaqEnt().Count;*/
+            alertDiag35.Valor = cant35.ToString();
+            alertDiag35.Status = "success";
+            if (cant35 == 0)
+            {
+                alertDiag35.Valor = "";
+                alertDiag35.Texto = "No hay vacas con diagnóstico ecográfico pendiente!";
+
+            }
+            else if (cant35 <= 10) alertDiag35.Status = "info";
+            else if (cant35 <= 20) alertDiag35.Status = "warning";
+            else
+            {
+                alertDiag35.Status = "danger";
+                alertDiag35.Icono = "fa-bomb";
+            }
+            lstAlertas.Add(alertDiag35);
+
+
+            // ALERTA DIAG 70 DIAS DE SERVICIO Y SIN DIAGNOSTICO
+            var alertDiag70 = new VoListItemInd("vacas con 70 días de servicio y sin diagnóstico!");
+            alertDiag70.Link = "../ServiciosSinDiag.aspx";
+            alertDiag70.LinkAlt = "Servicios sin diagnóstico de preñez";
+            alertDiag70.Icono = "icon-animated-bell fa-bell-o";
+            var cant70 = 37;   // TESTING -----------------------------
+            /*var cant70 = this.GetServicios70SinDiagPrenezVacOrdene().Count +
+                this.GetServicios70SinDiagPrenezVacSecas().Count + 
+                this.GetServicios70SinDiagPrenezVaqEnt().Count;*/
+            alertDiag70.Valor = cant70.ToString();
+            alertDiag70.Status = "success";
+            if (cant70 == 0)
+            {
+                alertDiag70.Valor = "";
+                alertDiag70.Texto = "No hay vacas con 70 días de servicio sin diagnósticar!";
+                
+            }
+            else if (cant70 <= 20) alertDiag70.Status = "info";
+            else if (cant70 <= 40) alertDiag70.Status = "warning";
+            else
+            {
+                alertDiag70.Status = "danger";
+                alertDiag70.Icono = "fa-bomb";
+            }
+            lstAlertas.Add(alertDiag70);
+
+
+            // ALERTA EN LACTANCIA 80 DIAS Y SIN SERVICIO
+            var alertLact80 = new VoListItemInd("vacas con 80 días o más en lactancia y sin servicio!");
+            alertLact80.Link = "../LactanciasSinServ80.aspx";
+            alertLact80.LinkAlt = "Animales con más de 80 días en lactancia sin servicio";
+            alertLact80.Icono = "fa-bell-o";
+            var cant80 = this.GetLactanciasSinServicio80().Count;
+            alertLact80.Valor = cant80.ToString();
+            alertLact80.Status = "success";
+            if (cant80 == 0)
+            {
+                alertLact80.Valor = "";
+                alertLact80.Texto = "No hay vacas con 80 días o más en lactancia sin servicio!";
+
+            }
+            else if (cant80 <= 25) alertLact80.Status = "info";
+            else if (cant80 <= 50) alertLact80.Status = "warning";
+            else
+            {
+                alertLact80.Status = "danger";
+                alertLact80.Icono = "fa-bomb";
+            }
+            lstAlertas.Add(alertLact80);
+
+            return lstAlertas;
+        }
+
+        public List<VoListItemInd> GetExtrasGraficaCategorías()
+        {
+            var lstExtras = new List<VoListItemInd>();
+
+            var extraSecas = new VoListItemInd("Vitalicias");
+            var lstVitalicias = this.GetVitalicias();
+            extraSecas.Valor = lstVitalicias.Count.ToString();
+            extraSecas.Icono = "fa-star-o";
+            extraSecas.Color = "orange";
+            extraSecas.Link = "../ListVitalicias.aspx";
+            extraSecas.LinkAlt = "Lista de vitalicias";
+            lstExtras.Add(extraSecas);
+
+            //int anio = DateTime.Today.Year;
+            int anio = 2014;   // TESTING -----------------------------
+            var extraMuertes = new VoListItemInd("Muertes");
+            extraMuertes.Valor = this.GetCantMuertesPorAnio(anio).ToString();
+            extraMuertes.Icono = "fa-stethoscope";
+            extraMuertes.Color = "red";
+            extraMuertes.Link = "../AnalisisMuertes.aspx";
+            extraMuertes.LinkAlt = "Análisis de Muertes";
+            lstExtras.Add(extraMuertes);
+
+            var extraVentas = new VoListItemInd("Ventas");
+            extraVentas.Valor = this.GetCantVentasPorAnio(anio).ToString();
+            extraVentas.Icono = "fa-money";
+            extraVentas.Color = "green";
+            extraVentas.Link = "../AnalisisVentas.aspx";
+            extraVentas.LinkAlt = "Análisis de Ventas";
+            lstExtras.Add(extraVentas);
+            
+            return lstExtras;
+        }
+
+        public int GetCantMuertesPorAnio(int anio)
+        {
+            var _bajMap = new BajaMapper();
+            return _bajMap.GetCantMuertesPorAnio(anio);
+        }
+
+        public int GetCantVentasPorAnio(int anio)
+        {
+            var _bajMap = new BajaMapper();
+            return _bajMap.GetCantVentasPorAnio(anio);
+        }
+
+        public int GetCantVentasAFrigPorAnio(int anio)
+        {
+            var _bajMap = new BajaMapper();
+            return _bajMap.GetCantVentasAFrigPorAnio(anio);
+        }
+
+        public int GetCantVentasRecienNacidosPorAnio(int anio)
+        {
+            var _bajMap = new BajaMapper();
+            return _bajMap.GetCantVentasRecienNacidosPorAnio(anio);
+        }
+
+        public int GetCantVentasViejasPorAnio(int anio)
+        {
+            var _bajMap = new BajaMapper();
+            return _bajMap.GetCantVentasViejasPorAnio(anio);
+        }
     }
 }

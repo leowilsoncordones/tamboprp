@@ -236,15 +236,6 @@ namespace Datos
             return GetScalarInt("Animal_SelectCountEnOrdenePromProdLecheLts");
         }
 
-        public int GetEnOrdeneServicioSinPrenez()
-        {
-            return GetScalarInt("Animal_SelectCountEnOrdeneServicioSinPrenez");
-        }
-
-        public int GetEnOrdenePrenezConfirmada()
-        {
-            return GetScalarInt("Animal_SelectCountEnOrdenePrenezConfirmada");
-        }
 
         public int GetPromDiasLactancias()
         {
@@ -491,6 +482,15 @@ namespace Datos
             //if (toro.CantNacim > 0)
                 //toro.PorcHembras = Math.Round((double)toro.CantH / toro.CantNacim * 100, 1);
             return toro;
+        }
+        public int GetAnimalOrdeneServSinPrenez()
+        {
+            return GetScalarInt("Animal_OrdeneServicioSinPrenez");
+        }
+
+        public int GetAnimalOrdenePrenezConf()
+        {
+            return GetScalarInt("Animal_OrdenePrenezConfirmada");
         }
     }
 }

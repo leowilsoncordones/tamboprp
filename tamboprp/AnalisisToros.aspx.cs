@@ -43,7 +43,7 @@ namespace tamboprp
             int totalPren = 0;
             if (lst.Count > 0)
             {
-                this.GetTopUtilizados(lst);
+                this.ImprimirTopUtilizados(lst);
                 for (int i = 0; i < lst.Count; i++)
                 {
                     totalServ += lst[i].CantServicios;
@@ -68,14 +68,9 @@ namespace tamboprp
          
         }
 
-        private void GetTopUtilizados(List<VOToroUtilizado> lst)
+        private void ImprimirTopUtilizados(List<VOToroUtilizado> lst)
         {
-            var lstOrderByCantServ = new List<VOToroUtilizado1>();
-            for (int i = 0; i < lst.Count; i++)
-            {
-                var item = new VOToroUtilizado1(lst[i]);
-                lstOrderByCantServ.Add(item);
-            }
+            var lstOrderByCantServ = Fachada.Instance.GetTopUtilizados(lst);
             if (lstOrderByCantServ.Count > 0)
             {
                 lstOrderByCantServ.Sort();
@@ -97,7 +92,6 @@ namespace tamboprp
             }
 
         }
-        
 
         protected void GvTorosUtilizados_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {

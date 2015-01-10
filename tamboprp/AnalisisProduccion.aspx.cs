@@ -30,7 +30,6 @@ namespace tamboprp
             this.lblCantEntoradas.Text = Fachada.Instance.GetCantEntoradas().ToString();
             this.lblCantSecas.Text = Fachada.Instance.GetCantSecas().ToString();
             this.lblFechaUltControl.Text = Fachada.Instance.GetFechaUltimoControl().ToString();
-
         }
 
         protected void SetPageBreadcrumbs()
@@ -67,7 +66,7 @@ namespace tamboprp
         {
             var voAnalitico = Fachada.Instance.GetAnaliticoVacasEnOrdene();
             this.lblCant.Text = voAnalitico.CantVacasEnOrdene.ToString();
-            //this.lblPromProdLecheLts.Text = voAnalitico.PromProdLecheLts.ToString();
+            this.lblPromProdLecheLts.Text = voAnalitico.PromProdLecheLts.ToString();
             this.lblCantL1.Text = voAnalitico.CantLactancia1.ToString();
             this.lblPorcL1.Text = voAnalitico.PorcLactancia1.ToString() + "%";
             this.lblCantL2.Text = voAnalitico.CantLactancia2.ToString();
@@ -75,10 +74,11 @@ namespace tamboprp
             this.lblCantOtrasL.Text = voAnalitico.CantLactanciaMayor2.ToString();
             this.lblPorcOtrasL.Text = voAnalitico.PorcLactanciaMayor2.ToString() + "%";
             
-            //this.lblConSSP.Text = voAnalitico.ConServicioSinPreñez.ToString();
-            //this.lblPrenezConf.Text = voAnalitico.PrenezConfirmada.ToString();
-            //this.lblPorcPrenezConf.Text = ;
-            //this.lblPromL.Text = voAnalitico.PromDiasLactancias.ToString();
+            this.lblConSSP.Text = voAnalitico.ConServicioSinPreñez.ToString();
+            this.lblPorcConSSP.Text = voAnalitico.PromServicioSinPrenez.ToString() + "%";
+            this.lblPrenezConf.Text = voAnalitico.PrenezConfirmada.ToString();
+            this.lblPorcPrenezConf.Text = voAnalitico.PromPrenezConfirmada.ToString() + "%";
+            this.lblPromL.Text = voAnalitico.PromDiasLactancias.ToString();
         }
     }
 }

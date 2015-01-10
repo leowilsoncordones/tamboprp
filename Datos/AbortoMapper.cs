@@ -19,7 +19,8 @@ namespace Datos
         private string Aborto_SelectCountEsteAnio = "Aborto_SelectCountEsteAnio";
         private string Aborto_SelectAnimalesConServicios = "Aborto_SelectAnimalesConServicios";
         private string Aborto_GetServicioPadre = "Aborto_GetServicioPadre";
-
+        private string Aborto_SelecCountByAnio = "Aborto_SelecCountByAnio";
+        
         public AbortoMapper(Aborto aborto)
         {
             _aborto = aborto;
@@ -90,6 +91,18 @@ namespace Datos
 
             result = (int)ReturnScalarValue(cmd);
             return result;
+        }
+
+        public int GetAbortosByAnio(DateTime fecha)
+        {
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@DATE", fecha));
+            cmd.CommandText = Aborto_SelecCountByAnio;
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
         }
 
         protected override SqlCommand GetStatement(OperationType opType)

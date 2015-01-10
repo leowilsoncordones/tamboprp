@@ -29,5 +29,14 @@ namespace Tests_Entidades
             var result = contmap.Insert();
             Assert.IsTrue(result > 1);
         }
+
+        [Test]
+
+        public void GetShouldGet()
+        {
+            var conmap = new Controles_totalesMapper();
+            var list = conmap.GetControlesTotalesEntreDosFechas("2010-03-25","2015-01-03");
+            Assert.IsNotEmpty(list);
+        }
     }
 }

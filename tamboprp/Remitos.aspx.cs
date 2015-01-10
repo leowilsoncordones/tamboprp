@@ -14,9 +14,16 @@ namespace tamboprp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            this.SetPageBreadcrumbs();
-            this.LimpiarRegistro();
-            this.CargarRemitos();
+            if (!Page.IsPostBack)
+            {
+                this.SetPageBreadcrumbs();
+                this.LimpiarRegistro();
+                this.CargarRemitos();
+                this.CargarDdl();
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "GetValoreLeche", "GetValoreLeche(0)", true);
+                this.pnlFechasGraf.Visible = false;
+            }
+            
         }
 
         protected void SetPageBreadcrumbs()
@@ -53,10 +60,64 @@ namespace tamboprp
             // CARGO GRAFICA
         }
 
+        //[WebMethod]
+        //public static List<RemitoMapper.VORemitoGrafica> RemitosGraficasGetAll()
+        //{
+        //    return Fachada.Instance.GetRemitosGraficas();
+        //}
+
+
         [WebMethod]
-        public static List<RemitoMapper.VORemitoGrafica> RemitosGraficasGetAll()
+        public static List<RemitoMapper.VORemitoGrafica> RemitosGetAnioCorriente()
         {
-            return Fachada.Instance.GetRemitosGraficas();
+            var hoy = DateTime.Now.ToString("yyyy-MM-dd");
+            int year = DateTime.Now.Year;
+            var primerDia = new DateTime(year, 1, 1);
+            string fecha1 = primerDia.ToString("yyyy-MM-dd");
+            return Fachada.Instance.GetRemitosEntreDosFechas(fecha1, hoy);
         }
+
+        [WebMethod]
+        public static List<RemitoMapper.VORemitoGrafica> RemitosGetUltimoAnio()
+        {
+            var hoy = DateTime.Now.ToString("yyyy-MM-dd");
+            var newDate = DateTime.Now.AddYears(-1);
+            string fecha1 = newDate.ToString("yyyy-MM-dd");
+            return Fachada.Instance.GetRemitosEntreDosFechas(fecha1, hoy);
+        }
+
+        [WebMethod]
+        public static List<RemitoMapper.VORemitoGrafica> GetRemitosEntreDosFechas(string fecha1, string fecha2)
+        {
+            return Fachada.Instance.GetRemitosEntreDosFechas(fecha1, fecha2);
+        }
+
+
+        protected void btnListar_Click(object sender, EventArgs e)
+        {
+            switch (this.ddlFechasGraf.SelectedValue)
+            {
+                case "0":
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "GetValoreLeche", "GetValoreLeche(0)", true);
+                    this.pnlFechasGraf.Visible = false;
+                    break;
+                case "1":
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "GetValoreLeche", "GetValoreLeche(1)", true);
+                    this.pnlFechasGraf.Visible = false;
+                    break;
+                case "2":
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "GetValoreLeche", "GetValoreLeche(0)", true);
+                    this.pnlFechasGraf.Visible = true;
+                    break;
+            }
+        }
+
+        public void CargarDdl()
+        {
+            this.ddlFechasGraf.Items.Add(new ListItem("Este año", "0"));
+            this.ddlFechasGraf.Items.Add(new ListItem("Último año", "1"));
+            this.ddlFechasGraf.Items.Add(new ListItem("Seleccionar fechas", "2"));
+        }
+
     }
 }

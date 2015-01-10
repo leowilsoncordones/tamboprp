@@ -18,6 +18,12 @@ namespace Datos
         private static string Baja_SelecByRegistro = "Baja_SelecByRegistro";
         private static string Baja_MuerteByAnioSelectAll = "Baja_MuerteByAnioSelectAll";
         private static string Baja_MuerteByAnioSelectCount = "Baja_MuerteByAnioSelectCount";
+        private static string Baja_MuerteSelectCountByAnio = "Baja_MuerteSelectCountByAnio";
+        private static string Baja_VentaSelectCountByAnio = "Baja_VentaSelectCountByAnio";
+        private static string Baja_VentaAFrigSelectCountByAnio = "Baja_VentaAFrigSelectCountByAnio";
+        private static string Baja_VentaRecNacidoSelectCountByAnio = "Baja_VentaRecNacidoSelectCountByAnio";
+        private static string Baja_VentaViejaSelectCountByAnio = "Baja_VentaViejaSelectCountByAnio";
+        
 
         public BajaMapper(Baja baja)
         {
@@ -95,7 +101,71 @@ namespace Datos
             return result;
         }
 
+        public int GetCantMuertesPorAnio(int anio)
+        {
+            var result = new List<Baja>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@ANIO", anio));
+            cmd.CommandText = Baja_MuerteSelectCountByAnio;
 
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
+
+        public int GetCantVentasPorAnio(int anio)
+        {
+            var result = new List<Baja>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@ANIO", anio));
+            cmd.CommandText = Baja_VentaSelectCountByAnio;
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
+
+        public int GetCantVentasAFrigPorAnio(int anio)
+        {
+            var result = new List<Baja>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@ANIO", anio));
+            cmd.CommandText = Baja_VentaAFrigSelectCountByAnio;
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
+
+        public int GetCantVentasRecienNacidosPorAnio(int anio)
+        {
+            var result = new List<Baja>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@ANIO", anio));
+            cmd.CommandText = Baja_VentaRecNacidoSelectCountByAnio;
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
+
+        public int GetCantVentasViejasPorAnio(int anio)
+        {
+            var result = new List<Baja>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@ANIO", anio));
+            cmd.CommandText = Baja_VentaViejaSelectCountByAnio;
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
+        
         protected override SqlCommand GetStatement(OperationType opType)
         {
             SqlCommand cmd = null;
