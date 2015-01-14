@@ -83,7 +83,6 @@ namespace Datos
             return result;
         }
 
-
         public List<Lactancia> GetLactanciaActualCategoriaVacaOrdene()
         {
             var result = new List<Lactancia>();

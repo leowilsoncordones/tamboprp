@@ -14,9 +14,6 @@
     <link href="css/ace-rtl.css" rel="stylesheet" />
     <link href="css/ace-ie.css" rel="stylesheet" />
     
-    <script src="js/date-time/bootstrap-datepicker.js"></script>
-    <script src="js/ace/ace.searchbox-autocomplete.js"></script>
-    
     <script src="js/ace-extra.js"></script>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.js"></script>
@@ -25,17 +22,6 @@
     <script src="js/jquery1x.js"></script>
     <script src="js/excanvas.js"></script>
     <script src="js/bootstrap.js"></script>
-    
-    <script src="js/ace/elements.typeahead.js"></script>
-
-    <script type="text/javascript">
-
-        $('#mydate').datepicker('setDate', new Date());
-        $('#mydate').datepicker('todayHighlight', true);
-        $('#mydate').datepicker('update');
-        $('#mydate').val('');
-
-    </script>
     
 
 </asp:Content>
@@ -50,12 +36,12 @@
             
             <!-- FORMULARIO -->
             <div id="formulario" class="form-horizontal">
-                <!-- Fecha -->
+                <!-- GENERAL - Fecha -->
                 <div class="form-group">
                     <label class="col-sm-3 control-label no-padding-right"> Fecha </label>
 					<div class="col-sm-2">
 						<div class="input-group date">
-						    <input type="date" id="mydate" name="mydate" class="form-control col-xs-10 col-sm-5" runat="server"/>
+						    <input type="text" id="mydate" name="mydate" class="form-control col-xs-10 col-sm-5"/>
 							<span class="input-group-addon"><i class="ace-icon fa fa-calendar"></i></span>
 						</div>
 					</div>
@@ -121,24 +107,22 @@
                 <div class="form-group">
 			        <label class="col-sm-3 control-label no-padding-right"> Observaciones </label>
 			        <div class="col-sm-5">
-			            <textarea class="form-control" id="fObservaciones" rows="3" runat="server"></textarea>
+			            <textarea class="form-control" id="fObservaciones" rows="4" runat="server"></textarea>
 			        </div>
                     <div class="col-sm-12"></div>
 		        </div>
                 <!-- Botones -->
                 <div class="form-group">
                     <div class="col-md-offset-3 col-md-9">
-                        <asp:Button ID="btnSave" runat="server" CssClass="btn btn-info" Text="Guardar" OnClick="btn_GuardarEvento" />
-                        <a href="#saveModal" role="button" id="id-btn-save" class="btn btn-info" onclick="btn_GuardarEvento" data-toggle="modal">Guardar_</a>
+                        <a href="#saveModal" role="button" id="id-btn-save" class="btn btn-info" data-toggle="modal" OnClick="setBodyModal()">Guardar</a>
                         &nbsp;&nbsp;&nbsp;
                         <asp:Button ID="btnReset" runat="server" CssClass="btn btn-default" Text="Limpiar" OnClick="btn_LimpiarFormulario" />
 				    </div>
                 </div>
             </div>
         </div>
+        <asp:Label ID="lblStatus" runat="server" Text=""></asp:Label>
     </div>
-
-    <script src="js/typeahead.jquery.js"></script>
 
     <!-- CONFIRMATION MODAL -->
     
@@ -146,18 +130,42 @@
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header widget-header-small">
-                    <h4 class="smaller"><i class="ace-icon fa fa-save"></i> Guardar</h4>
+                    <h4 class="smaller"><i class="ace-icon fa fa-save"></i> Confirmar</h4>
                 </div>
                 <div class="modal-body">
-                    <span id="bodySaveModal" class="text-warning" runat="server"></span>
+                    <span id="bodySaveModal" class="text-warning">
+                        
+                    </span>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancelar</button>
+                    <asp:Button ID="btnSave" runat="server" CssClass="btn btn-sm btn-info" Text="Ok" OnClick="btn_GuardarEvento" />
                 </div>
             </div>
         </div>
     </div>    
+    
+    <script>
+        function setBodyModal() {
+            var fecha = document.getElementById("mydate").value;
+            var bodySaveModal = document.getElementById("bodySaveModal");
+            bodySaveModal.innerHTML = "Seguro que desea guardar un remito a planta correspondiente al día " + fecha + "?";
+        }
+    </script>
+
     <!-- FINAL MODAL -->
+    
+    <script src="js/date-time/bootstrap-datepicker.js"></script>
+    <script>
+
+        //   ---------DATEPICKER----------   //
+
+        $("#mydate").datepicker({
+            autoclose: true,
+            todayHighlight: true
+        });
+        $("#mydate").datepicker('setDate', new Date());
+    </script>
     
 
 </asp:Content>

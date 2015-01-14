@@ -38,43 +38,240 @@
             </div>
         </div>
         <br/>
-    <!-- arbol genealogico -->
+
+<asp:Panel ID="verResultado" runat="server" Visible="False">
+    
+    <!-- row registro - arbol genealogico -->
     <div class="row clearfix">
-		<div class="col-md-4">
-            <asp:Panel ID="PanelAnimal" runat="server" Height="500px">
-                <h5><asp:Label ID="Animal" runat="server"></asp:Label></h5>
-                <asp:Label ID="lblEstado" Visible="False" runat="server" Text=""></asp:Label>
-            </asp:Panel>
-        </div>
-        <div class="col-md-4">
-            <asp:Panel ID="PanelMadre" runat="server" Height="250px">
-                <h5><asp:Label ID="Madre" runat="server">Madre: </asp:Label></h5>
-                <asp:Label ID="lblEstadoMadre" Visible="False" runat="server" Text=""></asp:Label>
-            </asp:Panel>
-            <asp:Panel ID="PanelPadre" runat="server" BackColor="#eeeeee" Height="250px">
-                <h5><asp:Label ID="Padre" runat="server">Padre: </asp:Label></h5>
-                <asp:Label ID="lblEstadoPadre" Visible="False" runat="server" Text=""></asp:Label>
-            </asp:Panel>
-        </div>
-        <div class="col-md-4">
-            <asp:Panel ID="PanelAbuelaM" runat="server" Height="125px">
-                <h5><asp:Label ID="AbuelaM" runat="server">Abuela Materna: </asp:Label></h5>
-                <asp:Label ID="lblEstadoAbuelaM" Visible="False" runat="server" Text=""></asp:Label>
-            </asp:Panel>
-            <asp:Panel ID="PanelAbueloM" runat="server" BackColor="#eeeeee" Height="125px">
-                <h5><asp:Label ID="AbueloM" runat="server">Abuelo Materno: </asp:Label></h5>
-                <asp:Label ID="lblEstadoAbueloM" Visible="False" runat="server" Text=""></asp:Label>
-            </asp:Panel>
-            <asp:Panel ID="PanelAbuelaP" runat="server" Height="125px">
-                <h5><asp:Label ID="AbuelaP" runat="server">Abuela Paterna: </asp:Label></h5>
-                <asp:Label ID="lblEstadoAbuelaP" Visible="False" runat="server" Text=""></asp:Label>
-            </asp:Panel>
-            <asp:Panel ID="PanelAbueloP" runat="server" BackColor="#eeeeee" Height="125px">
-                <h5><asp:Label ID="AbueloP" runat="server">Abuelo Paterno: </asp:Label></h5>
-                <asp:Label ID="lblEstadoAbueloP" Visible="False" runat="server" Text=""></asp:Label>
+		<div class="col-md-12">
+		    <asp:Panel ID="PanelAnimal" runat="server" CssClass="panel panel-default" Height="620px">
+                <div class="panel-heading">
+                    <span class="widget-title h4"><strong><asp:Label ID="Animal" runat="server"></asp:Label></strong>&nbsp;
+                    <asp:Label ID="lblNom" CssClass="btn-lg" runat="server" Visible="false"></asp:Label></span>
+                    <span class="pull-right">Registro</span>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+		            <div class="col-md-6">
+		                <asp:Label ID="lblSexo" runat="server" CssClass="badge badge-pink" Text="H" Visible="True" ></asp:Label>&nbsp;
+                        <asp:Label ID="titFNac" runat="server" CssClass="label label-default arrowed-right" Text="Fecha Nac." Visible="False"></asp:Label>&nbsp;<asp:Label ID="lblFNac" runat="server" Visible="False"></asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="titGen" runat="server" CssClass="label label-default arrowed-right" Text="Gen." Visible="False"></asp:Label>&nbsp;<asp:Label ID="lblGen" runat="server" Visible="False"></asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="titId" runat="server" CssClass="label label-default arrowed-right" Text="Identif." Visible="False"></asp:Label>&nbsp;<asp:Label ID="lblId" runat="server" Visible="False"></asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="titTraz" runat="server" CssClass="label label-default arrowed-right" Text="MGAP" Visible="False"></asp:Label>&nbsp;<asp:Label ID="lblTraz" runat="server" Visible="False"></asp:Label>&nbsp;&nbsp;
+                        <div class="space-4"></div>
+                        <asp:Label ID="lblEst" runat="server" Text="" Visible="False"></asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="lblCat" runat="server" Text="" Visible="False"></asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="titPL" runat="server" CssClass="label label-default arrowed-right" Text="Prod. Leche" Visible="False"></asp:Label>&nbsp;<asp:Label ID="lblPL" runat="server" Text="" Visible="False"></asp:Label>&nbsp;
+                        <p>        
+                        <asp:GridView ID="gvLactancias" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" 
+                            CssClass="table table-hover table-striped table-bordered table-condensed dataTable" >
+                        <RowStyle HorizontalAlign="Left" CssClass="small" />
+                        <Columns>
+                            <asp:BoundField DataField="Numero" HeaderText="Núm." HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                            <asp:BoundField DataField="Dias" HeaderText="Días" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                            <asp:BoundField DataField="ProdLeche" HeaderText="Prod. Leche" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                            <asp:BoundField DataField="PorcentajeGrasa" HeaderText="%Grasa" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                            <asp:BoundField DataField="Leche305" HeaderText="Leche 305" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                            <asp:BoundField DataField="Leche365" HeaderText="Leche 365" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                        </Columns>
+                        <FooterStyle />
+                        <PagerSettings />
+                        <SelectedRowStyle />
+                        <HeaderStyle CssClass="small" />
+                        <EditRowStyle />
+                        <AlternatingRowStyle />
+                        </asp:GridView>
+                        </p>
+                    </div>
+                    <div class="col-md-6"></div>
+                    </div>
+                </div>
             </asp:Panel>
         </div>
     </div>
+    <!-- row linea materna -->
+    <div class="row clearfix">
+        <div class="col-md-6">
+            <asp:Panel ID="PanelMadre" runat="server" CssClass="panel panel-default" Height="620px">
+                <div class="panel-heading">
+                    <span class="widget-title h4"><strong><asp:Label ID="Madre" runat="server"></asp:Label></strong>&nbsp;
+                    <asp:Label ID="lblNomMadre" runat="server" Visible="false"></asp:Label></span>
+                    <span class="pull-right">Madre</span>
+                </div>
+                <div class="panel-body">
+                    <asp:Label ID="lblSexoMadre" runat="server" CssClass="badge badge-pink" Text="H" ></asp:Label>&nbsp;
+                    <asp:Label ID="titFNacMadre" runat="server" CssClass="label label-default arrowed-right" Text="Fecha Nac." Visible="False"></asp:Label>&nbsp;<asp:Label ID="lblFNacMadre" runat="server" Visible="False"></asp:Label>&nbsp;&nbsp;
+                    <asp:Label ID="titIdMadre" runat="server" CssClass="label label-default arrowed-right" Text="Identif." Visible="False"></asp:Label>&nbsp;<asp:Label ID="lblIdMadre" runat="server" Visible="False"></asp:Label>&nbsp;&nbsp;
+                    <asp:Label ID="titTrazMadre" runat="server" CssClass="label label-default arrowed-right" Text="MGAP" Visible="False"></asp:Label>&nbsp;<asp:Label ID="lblTrazMadre" runat="server" Visible="False"></asp:Label>&nbsp;&nbsp;
+                    <div class="space-4"></div>
+                    <asp:Label ID="lblEstMadre" Visible="False" runat="server" Text=""></asp:Label>&nbsp;&nbsp;
+                    <asp:Label ID="lblCatMadre" Visible="False" runat="server" Text=""></asp:Label>&nbsp;&nbsp;
+                    <asp:Label ID="titPLMadre" runat="server" CssClass="label label-default arrowed-right" Text="Prod. Leche" Visible="False"></asp:Label>&nbsp;<asp:Label ID="lblPLMadre" runat="server" Text="" Visible="False"></asp:Label>&nbsp;
+                    <div class="space-4"></div>
+                    <p>        
+                    <asp:GridView ID="gvLactMadre" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" 
+                        CssClass="table table-hover table-striped table-bordered table-condensed dataTable" >
+                    <RowStyle HorizontalAlign="Left" CssClass="small" />
+                    <Columns>
+                        <asp:BoundField DataField="Numero" HeaderText="Núm." HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                        <asp:BoundField DataField="Dias" HeaderText="Días" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                        <asp:BoundField DataField="ProdLeche" HeaderText="Prod. Leche" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                        <asp:BoundField DataField="PorcentajeGrasa" HeaderText="%Grasa" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                        <asp:BoundField DataField="Leche305" HeaderText="Leche 305" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                        <asp:BoundField DataField="Leche365" HeaderText="Leche 365" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                    </Columns>
+                    <FooterStyle />
+                    <PagerSettings />
+                    <SelectedRowStyle />
+                    <HeaderStyle CssClass="small" />
+                    <EditRowStyle />
+                    <AlternatingRowStyle />
+                    </asp:GridView>
+                    </p>
+                </div>
+            </asp:Panel>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <asp:Panel ID="PanelAbuelaM" runat="server" CssClass="panel panel-default" Height="400px">
+                    <div class="panel-heading">
+                        <span class="widget-title h4"><strong><asp:Label ID="AbuelaM" runat="server"></asp:Label></strong>&nbsp;
+                        <asp:Label ID="lblNomAbuelaM" CssClass="btn-lg" runat="server" Visible="false"></asp:Label></span>
+                        <span class="pull-right">Abuela materna</span>
+                    </div>
+                    <div class="panel-body">
+                        <asp:Label ID="lblSexoAbuelaM" runat="server" CssClass="badge badge-pink" Text="H" ></asp:Label>&nbsp;
+                        <asp:Label ID="titFNacAbuelaM" runat="server" CssClass="label label-default arrowed-right" Text="Fecha Nac." Visible="False"></asp:Label>&nbsp;<asp:Label ID="lblFNacAbuelaM" runat="server" Visible="False"></asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="titIdAbuelaM" runat="server" CssClass="label label-default arrowed-right" Text="Identif." Visible="False"></asp:Label>&nbsp;<asp:Label ID="lblIdAbuelaM" runat="server" Visible="False"></asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="titTrazAbuelaM" runat="server" CssClass="label label-default arrowed-right" Text="MGAP" Visible="False"></asp:Label>&nbsp;<asp:Label ID="lblTrazAbuelaM" runat="server" Visible="False"></asp:Label>&nbsp;&nbsp;
+                        <div class="space-4"></div>
+                        <asp:Label ID="lblEstAbuelaM" Visible="False" runat="server" Text=""></asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="lblCatAbuelaM" Visible="False" runat="server" Text=""></asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="titPLAbuelaM" runat="server" CssClass="label label-default arrowed-right" Text="Prod. Leche" Visible="False"></asp:Label>&nbsp;<asp:Label ID="lblPLAbuelaM" runat="server" Text="" Visible="False"></asp:Label>&nbsp;
+                        <p>        
+                        <asp:GridView ID="gvLactAbuelaM" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" 
+                            CssClass="table table-hover table-striped table-bordered table-condensed dataTable" >
+                        <RowStyle HorizontalAlign="Left" CssClass="small" />
+                        <Columns>
+                            <asp:BoundField DataField="Numero" HeaderText="Núm." HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                            <asp:BoundField DataField="Dias" HeaderText="Días" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                            <asp:BoundField DataField="ProdLeche" HeaderText="Prod. Leche" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                            <asp:BoundField DataField="PorcentajeGrasa" HeaderText="%Grasa" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                            <asp:BoundField DataField="Leche305" HeaderText="Leche 305" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                            <asp:BoundField DataField="Leche365" HeaderText="Leche 365" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                        </Columns>
+                        <FooterStyle />
+                        <PagerSettings />
+                        <SelectedRowStyle />
+                        <HeaderStyle CssClass="small" />
+                        <EditRowStyle />
+                        <AlternatingRowStyle />
+                        </asp:GridView>
+                        </p>
+                    </div>
+                </asp:Panel>
+            </div>
+            <div class="row">
+                <asp:Panel ID="PanelAbueloM" runat="server" CssClass="panel panel-default" Height="200px">
+                    <div class="panel-heading">
+                        <span class="widget-title h4"><strong><asp:Label ID="AbueloM" runat="server"></asp:Label></strong>&nbsp;
+                    <asp:Label ID="lblNomAbueloM" runat="server" Visible="false"></asp:Label></span>
+                        <span class="pull-right">Abuelo materno</span>
+                    </div>
+                    <div class="panel-body">
+                        <asp:Label ID="lblSexoAbueloM" runat="server" CssClass="badge badge-primary" Text="M" ></asp:Label>&nbsp;
+                        <asp:Label ID="titFNacAbueloM" runat="server" CssClass="label label-default arrowed-right" Text="Fecha Nac." Visible="False"></asp:Label>&nbsp;<asp:Label ID="lblFNacAbueloM" runat="server" Visible="False"></asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="titIdAbueloM" runat="server" CssClass="label label-default arrowed-right" Text="Identif." Visible="False"></asp:Label>&nbsp;<asp:Label ID="lblIdAbueloM" runat="server" Visible="False"></asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="titTrazAbueloM" runat="server" CssClass="label label-default arrowed-right" Text="MGAP" Visible="False"></asp:Label>&nbsp;<asp:Label ID="lblTrazAbueloM" runat="server" Visible="False"></asp:Label>&nbsp;&nbsp;
+                        <div class="space-4"></div>
+                        <asp:Label ID="lblEstAbueloM" Visible="False" runat="server" Text=""></asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="lblCatAbueloM" Visible="False" runat="server" Text=""></asp:Label>
+                    </div>
+                </asp:Panel>
+            </div>
+        </div>
+    </div>
+    <!-- row linea paterna -->
+    <div class="row clearfix">
+        <div class="col-md-6">
+            <asp:Panel ID="PanelPadre" runat="server" CssClass="panel panel-default" Height="620px">
+                <div class="panel-heading">
+                    <span class="widget-title h4"><strong><asp:Label ID="Padre" runat="server"></asp:Label></strong>&nbsp;
+                    <asp:Label ID="lblNomPadre" runat="server" Visible="false"></asp:Label></span>
+                    <span class="pull-right">Padre</span>
+                </div>
+                <div class="panel-body">
+                    <asp:Label ID="lblSexoPadre" runat="server" CssClass="badge badge-primary" Text="M" ></asp:Label>&nbsp;
+                    <asp:Label ID="titFNacPadre" runat="server" CssClass="label label-default arrowed-right" Text="Fecha Nac." Visible="False"></asp:Label>&nbsp;<asp:Label ID="lblFNacPadre" runat="server" Visible="False"></asp:Label>&nbsp;&nbsp;
+                    <asp:Label ID="titIdPadre" runat="server" CssClass="label label-default arrowed-right" Text="Identif." Visible="False"></asp:Label>&nbsp;<asp:Label ID="lblIdPadre" runat="server" Visible="False"></asp:Label>&nbsp;&nbsp;
+                    <asp:Label ID="titTrazPadre" runat="server" CssClass="label label-default arrowed-right" Text="MGAP" Visible="False"></asp:Label>&nbsp;<asp:Label ID="lblTrazPadre" runat="server" Visible="False"></asp:Label>&nbsp;&nbsp;
+                    <div class="space-4"></div>
+                    <asp:Label ID="lblEstPadre" Visible="False" runat="server" Text=""></asp:Label>&nbsp;&nbsp;
+                    <asp:Label ID="lblCatPadre" Visible="False" runat="server" Text=""></asp:Label>
+                </div>
+            </asp:Panel>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <asp:Panel ID="PanelAbuelaP" runat="server" CssClass="panel panel-default" Height="400px">
+                    <div class="panel-heading">
+                        <span class="widget-title h4"><strong><asp:Label ID="AbuelaP" runat="server"></asp:Label></strong>&nbsp;
+                    <asp:Label ID="lblNomAbuelaP" runat="server" Visible="false"></asp:Label></span>
+                        <span class="pull-right">Abuela paterna</span>
+                    </div>
+                    <div class="panel-body">
+                        <asp:Label ID="lblSexoAbuelaP" runat="server" CssClass="badge badge-pink" Text="H" ></asp:Label>&nbsp;
+                        <asp:Label ID="titFNacAbuelaP" runat="server" CssClass="label label-default arrowed-right" Text="Fecha Nac." Visible="False"></asp:Label>&nbsp;<asp:Label ID="lblFNacAbuelaP" runat="server" Visible="False"></asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="titIdAbuelaP" runat="server" CssClass="label label-default arrowed-right" Text="Identif." Visible="False"></asp:Label>&nbsp;<asp:Label ID="lblIdAbuelaP" runat="server" Visible="False"></asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="titTrazAbuelaP" runat="server" CssClass="label label-default arrowed-right" Text="MGAP" Visible="False"></asp:Label>&nbsp;<asp:Label ID="lblTrazAbuelaP" runat="server" Visible="False"></asp:Label>&nbsp;&nbsp;
+                        <div class="space-4"></div>
+                        <asp:Label ID="lblEstAbuelaP" Visible="False" runat="server" Text=""></asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="lblCatAbuelaP" Visible="False" runat="server" Text=""></asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="titPLAbuelaP" runat="server" CssClass="label label-default arrowed-right" Text="Prod. Leche" Visible="False"></asp:Label>&nbsp;<asp:Label ID="lblPLAbuelaP" runat="server" Text="" Visible="False"></asp:Label>
+                        <p>        
+                        <asp:GridView ID="gvLactAbuelaP" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" 
+                            CssClass="table table-hover table-striped table-bordered table-condensed dataTable" >
+                        <RowStyle HorizontalAlign="Left" CssClass="small" />
+                        <Columns>
+                            <asp:BoundField DataField="Numero" HeaderText="Núm." HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                            <asp:BoundField DataField="Dias" HeaderText="Días" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                            <asp:BoundField DataField="ProdLeche" HeaderText="Prod. Leche" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                            <asp:BoundField DataField="PorcentajeGrasa" HeaderText="%Grasa" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                            <asp:BoundField DataField="Leche305" HeaderText="Leche 305" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                            <asp:BoundField DataField="Leche365" HeaderText="Leche 365" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                        </Columns>
+                        <FooterStyle />
+                        <PagerSettings />
+                        <SelectedRowStyle />
+                        <HeaderStyle CssClass="small" />
+                        <EditRowStyle />
+                        <AlternatingRowStyle />
+                        </asp:GridView>
+                        </p>
+                    </div>
+                </asp:Panel>
+            </div>
+            <div class="row">
+                <asp:Panel ID="PanelAbueloP" runat="server" CssClass="panel panel-default" Height="200px">
+                    <div class="panel-heading">
+                        <span class="widget-title h4"><strong><asp:Label ID="AbueloP" runat="server"></asp:Label></strong>&nbsp;
+                        <asp:Label ID="lblNomAbueloP" runat="server" Visible="false"></asp:Label></span>
+                        <span class="pull-right">Abuelo paterno</span>
+                    </div>
+                    <div class="panel-body">
+                        <asp:Label ID="lblSexoAbueloP" runat="server" CssClass="badge badge-primary" Text="M" ></asp:Label>&nbsp;
+                        <asp:Label ID="titFNacAbueloP" runat="server" CssClass="label label-default arrowed-right" Text="Fecha Nac." Visible="False"></asp:Label>&nbsp;<asp:Label ID="lblFNacAbueloP" runat="server" Visible="False"></asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="titIdAbueloP" runat="server" CssClass="label label-default arrowed-right" Text="Identif." Visible="False"></asp:Label>&nbsp;<asp:Label ID="lblIdAbueloP" runat="server" Visible="False"></asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="titTrazAbueloP" runat="server" CssClass="label label-default arrowed-right" Text="MGAP" Visible="False"></asp:Label>&nbsp;<asp:Label ID="lblTrazAbueloP" runat="server" Visible="False"></asp:Label>&nbsp;&nbsp;
+                        <div class="space-4"></div>
+                        <asp:Label ID="lblEstAbueloP" Visible="False" runat="server" Text=""></asp:Label>&nbsp;&nbsp;
+                        <asp:Label ID="lblCatAbueloP" Visible="False" runat="server" Text=""></asp:Label>
+                    </div>
+                </asp:Panel>
+            </div>
+        </div>
+    </div>
 
+</asp:Panel>
 
 </asp:Content>

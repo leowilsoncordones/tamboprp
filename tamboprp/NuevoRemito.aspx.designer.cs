@@ -22,15 +22,6 @@ namespace tamboprp {
         protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
-        /// mydate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl mydate;
-        
-        /// <summary>
         /// ddlEmpresa control.
         /// </summary>
         /// <remarks>
@@ -112,15 +103,6 @@ namespace tamboprp {
         protected global::System.Web.UI.HtmlControls.HtmlTextArea fObservaciones;
         
         /// <summary>
-        /// btnSave control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSave;
-        
-        /// <summary>
         /// btnReset control.
         /// </summary>
         /// <remarks>
@@ -130,12 +112,21 @@ namespace tamboprp {
         protected global::System.Web.UI.WebControls.Button btnReset;
         
         /// <summary>
-        /// bodySaveModal control.
+        /// lblStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl bodySaveModal;
+        protected global::System.Web.UI.WebControls.Label lblStatus;
+        
+        /// <summary>
+        /// btnSave control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSave;
     }
 }

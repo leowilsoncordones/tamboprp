@@ -212,7 +212,7 @@
     <Content Include="AnalisisInseminadores.aspx" />
     <Content Include="Corporativo.aspx" />
     <Content Include="ListPersonal.aspx" />
-    <Content Include="Usuarios.aspx" />
+    <Content Include="GestionUsuarios.aspx" />
     <Content Include="Sanidad.aspx" />
     <Content Include="Cabana.aspx" />
     <Content Include="Calificaciones.aspx" />
@@ -1004,12 +1004,12 @@
     <Compile Include="ListPersonal.aspx.designer.cs">
       <DependentUpon>ListPersonal.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Usuarios.aspx.cs">
-      <DependentUpon>Usuarios.aspx</DependentUpon>
+    <Compile Include="GestionUsuarios.aspx.cs">
+      <DependentUpon>GestionUsuarios.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Usuarios.aspx.designer.cs">
-      <DependentUpon>Usuarios.aspx</DependentUpon>
+    <Compile Include="GestionUsuarios.aspx.designer.cs">
+      <DependentUpon>GestionUsuarios.aspx</DependentUpon>
     </Compile>
     <Compile Include="Sanidad.aspx.cs">
       <DependentUpon>Sanidad.aspx</DependentUpon>

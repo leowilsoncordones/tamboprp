@@ -13,6 +13,11 @@ namespace Entidades
         {
         }
 
+        public CategoriaConcurso(string nombre)
+        {
+            Nombre = nombre;
+        }
+
         public CategoriaConcurso(string nombre, int idCateg)
         {
             Nombre = nombre;

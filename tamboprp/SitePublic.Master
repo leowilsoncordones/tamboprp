@@ -70,6 +70,7 @@
                       
                    <!-- page MainContent goes here -->
                        <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
+                       <br/>
                         <!-- footer + button top area -->  
                         <!-- footer area -->
                         <div class="footer">

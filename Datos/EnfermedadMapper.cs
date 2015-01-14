@@ -82,8 +82,8 @@ namespace Datos
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Enfermedad_Insert";
-                //cmd.Parameters.Add(new SqlParameter("@ID_CATEG", _enf.Id_categ));
-                cmd.Parameters.Add(new SqlParameter("@NOMBRE", _enf.Nombre));
+                cmd.Parameters.Add(new SqlParameter("@ID_ENFERMEDAD", _enf.Id));
+                cmd.Parameters.Add(new SqlParameter("@NOMBRE", _enf.Nombre_enfermedad));
             }
             else if (opType == OperationType.UPDATE)
             {
@@ -91,7 +91,7 @@ namespace Datos
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Enfermedad_Update";
                 cmd.Parameters.Add(new SqlParameter("@ID_ENFERMEDAD", _enf.Id));
-                cmd.Parameters.Add(new SqlParameter("@NOMBRE", _enf.Nombre));
+                cmd.Parameters.Add(new SqlParameter("@NOMBRE", _enf.Nombre_enfermedad));
             }
             return cmd;
         }
@@ -105,6 +105,20 @@ namespace Datos
 
             return enf;
         }
+
+        public int GetLastIdEnfermedad()
+        {
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = "Enfermedad_LastId";
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
+
+        
+        
 
     }
 }

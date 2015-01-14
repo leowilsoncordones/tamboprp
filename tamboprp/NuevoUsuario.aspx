@@ -22,6 +22,9 @@
 
     <script src="js/js_tamboprp/PasswordStrongChecker.js"></script>
     
+    <script>
+        $('#fileInput').ace_file_input();
+    </script>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -36,7 +39,9 @@
 	    <div>
 		    <!-- #section:pages/profile.picture -->
 		    <span class="profile-picture">
-		        <img id="avatar" runat="server" class="editable img-responsive editable-click editable-empty" alt="Mi Foto" src="avatars/user_silhouette.png" style="display: block;" />
+		        <a href="#cambiarImagen" id="id-btn-ModifData" role="button" data-toggle="modal" >
+                    <img id="avatar" runat="server" class="editable img-responsive editable-click editable-empty" alt="Mi Foto" src="avatars/user_silhouette.png" style="display: block;" />
+                </a>
 		    </span>
 
 		    <!-- /section:pages/profile.picture -->
@@ -44,7 +49,7 @@
 
 		    <div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
 			    <div class="inline position-relative">
-				    <span class="white" id="fNomFoto" runat="server">Mi Foto</span>
+				    <span class="white" id="fNomFoto" runat="server">Foto</span>
 			    </div>
 		    </div>
 	    </div>
@@ -121,5 +126,29 @@
             </div>
         </div>
     </div>
+    
+    <!-- CAMBIAR IMAGEN MODAL -->
+    <div id="cambiarImagen" class="modal fade">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4><i class="ace-icon fa fa-image"></i> Cambiar imagen</h4>
+                </div>
+                <div class="modal-body">
+                    <label class="ace-file-input ace-file-multiple">
+                        <input type="file" name="file-input">
+                        <span class="ace-file-container" data-title="Click para elegir una nueva imagen">
+                            <span class="ace-file-name" data-title="No File ..."><i class=" ace-icon ace-icon fa fa-picture-o"></i></span>
+                        </span><a class="remove" href="#"><i class=" ace-icon fa fa-times"></i></a>
+                    </label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancelar</button>
+                    <asp:Button ID="btnCambiarImg" runat="server" CssClass="btn btn-sm btn-info" Text="Ok" OnClick="btn_CambiarImagen" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FINAL MODAL -->
 
 </asp:Content>

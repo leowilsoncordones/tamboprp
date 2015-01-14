@@ -42,35 +42,43 @@ namespace tamboprp
 
         protected void btn_GuardarEvento(object sender, EventArgs e)
         {
-            // pop-up el modal y mostrar mensaje resultado de guardar en la base de datos
             if (this.ActualizarUsuario())
             {
-                //this.bodySaveModal.InnerText = "El usuario se ha guardado con éxito!";
+                this.lblStatus.Text = "Los datos se han guardado con éxito";
+                var u = (VOUsuario)Session["Usuario"];
+                VOUsuario uRefresh = Fachada.Instance.GetDatosUsuario(u.Nickname);
+                HttpContext.Current.Session["Usuario"] = uRefresh;
             }
-            //else this.bodySaveModal.InnerText = "El usuario no se ha podido guardar";
+            else
+            {
+                this.lblStatus.Text = "Los datos no se han podido guardar";
+            }
+            //this.LimpiarFormulario();
+            this.CargarMiPerfilUsuario();
         }
 
 
         private bool ActualizarUsuario()
         {
-            /*var idRol = int.Parse(this.ddlRolUsuario.SelectedValue);
-            var rol = new RolUsuario
+            var u = (VOUsuario) Session["Usuario"];
+            if (u != null)
             {
-                Nivel = int.Parse(this.ddlRolUsuario.SelectedValue),
-                NombreRol = this.ddlRolUsuario.SelectedItem.ToString()
-            };*/
-            var usuario = new Usuario
-            {
-                Nombre = fNombre.Value,
-                Apellido = fApellido.Value,
-                Nickname = username.Value,
-                Password = password.Value,
-                Email = fEmail.Value,
-                //Foto = "",
-                //Rol = rol
-            };
-            //return Fachada.Instance.UpdateUsuario(usuario);
-            return true;
+                var usuario = new Usuario
+                {
+                    Nombre = this.fNombre.Value,
+                    Apellido = this.fApellido.Value,
+                    Nickname = u.Nickname,
+                    Email = this.fEmail.Value,
+                    Habilitado = u.Habilitado,
+                    Rol = u.Rol,
+                    Foto = u.Foto,
+                    //Password = ,
+                };
+                if (this.password.Value != "") usuario.Password = this.password.Value;
+                return Fachada.Instance.UpdateUsuario(usuario);
+                //return true;
+            }
+            return false;
         }
 
         private void CargarMiPerfilUsuario()
@@ -97,6 +105,10 @@ namespace tamboprp
                 }
             }
         }
-        
+
+        protected void btn_CambiarImagen(object sender, EventArgs e)
+        {
+
+        }
     }
 }

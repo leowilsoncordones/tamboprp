@@ -117,6 +117,7 @@ namespace Datos
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Empresa_Update";
+                cmd.Parameters.Add(new SqlParameter("@ID", _empresa.Id));
                 cmd.Parameters.Add(new SqlParameter("@NOMBRE", _empresa.Nombre));
                 cmd.Parameters.Add(new SqlParameter("@RAZON_SOCIAL", _empresa.RazonSocial));
                 cmd.Parameters.Add(new SqlParameter("@RUT", _empresa.Rut));

@@ -139,7 +139,7 @@
             xaxis: {
                 tickLength: 0,
                 mode: "time",
-                timeformat: "%Y/%m",
+                timeformat: "%m/%Y",
                 tickSize: [tick, "month"]
             },
             yaxis: {
@@ -170,7 +170,7 @@
         var grafLeche = $('#graficaGrasa').css({ 'height': '360px' });
 
         function imprimirGrasa(totalGrasa) {
-
+            var tick = Math.round(totalGrasa.length / 10);
             $.plot("#graficaGrasa", [
                 //{ label: "Leche", data: totalGrasa }
                 { label: "Grasa", data: totalGrasa }
@@ -185,8 +185,8 @@
                 xaxis: {
                     tickLength: 0,
                     mode: "time",
-                    timeformat: "%Y/%m",
-                    tickSize: [2, "month"]
+                    timeformat: "%m/%Y",
+                    tickSize: [tick, "month"]
                 },
                 yaxis: {
                     ticks: 10,

@@ -23,6 +23,8 @@
     <script src="/js/flot/jquery.flot.time.js"></script>
     <script src="/js/flot/jquery.flot.symbol.js"></script>
     <script src="/js/flot/jquery.flot.axislabels.js"></script>
+    <script src="/js/flot/jshashtable-3.0.js"></script>
+    <script src="/js/flot/jquery.flot.tooltip.js"></script>
 
     <script src="js/flot/jquery.flot.pie.js"></script>
     <script src="js/flot/jquery.flot.resize.js"></script>
@@ -206,6 +208,10 @@
                     borderWidth: 1,
                     borderColor: '#555',
                     hoverable: true
+                },
+                tooltip: true,
+                tooltipOpts: {
+                    content: "<h6><strong>Fecha:</strong> %x</h6><h6><strong>%s:</strong> %y lts</h6>",
                 }
             });
 

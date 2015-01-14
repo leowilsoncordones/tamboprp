@@ -14,6 +14,11 @@ namespace Entidades
             Nombre = "Enfermedad";
         }
 
+        public Enfermedad(string nomEnf)
+        {
+            Nombre_enfermedad = nomEnf;
+        }
+
         public Enfermedad(int id, string nomEnf)
         {
             Nombre_enfermedad = nomEnf;

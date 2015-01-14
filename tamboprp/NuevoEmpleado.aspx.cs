@@ -24,7 +24,6 @@ namespace tamboprp
             {
                 this.SetPageBreadcrumbs();
                 this.LimpiarFormulario();
-                //this.CargarDdlRoldeUsuario();
             }
         }
 
@@ -43,36 +42,39 @@ namespace tamboprp
 
         protected void btn_GuardarEvento(object sender, EventArgs e)
         {
-            // pop-up el modal y mostrar mensaje resultado de guardar en la base de datos
             if (this.GuardarEmpleado())
             {
-                //this.bodySaveModal.InnerText = "El usuario se ha guardado con éxito!";
+                this.lblStatus.Text = "El empleado se ha guardado con éxito";
             }
-            //else this.bodySaveModal.InnerText = "El usuario no se ha podido guardar";
+            else
+            {
+                this.lblStatus.Text = "El empleado no se ha podido guardar";
+            }
             this.LimpiarFormulario();
         }
 
 
         private bool GuardarEmpleado()
         {
-            //var idRol = int.Parse(this.ddlRolUsuario.SelectedValue);
-            //var rol = new RolUsuario
-            //{
-            //    Nivel = int.Parse(this.ddlRolUsuario.SelectedValue),
-            //    NombreRol = this.ddlRolUsuario.SelectedItem.ToString()
-            //};
-            //var usuario = new Usuario
-            //{
-            //    Nombre = fNombre.Value,
-            //    Apellido = fApellido.Value,
-            //    Nickname = username.Value,
-            //    Password = password.Value,
-            //    Email = fEmail.Value,
-            //    Foto = "",
-            //    Rol = rol
-            //};
-            //return Fachada.Instance.InsertarUsuario(usuario);
-            return true;
+            try
+            {
+                if (this.fIniciales.Value != "")
+                {
+                    var emp = new Empleado
+                    {
+                        Nombre = this.fNombre.Value,
+                        Apellido = this.fApellido.Value,
+                        Iniciales = this.fIniciales.Value,
+                        Activo = this.checkActivo.Checked
+                    };
+                    return Fachada.Instance.InsertarEmpleado(emp);
+                }
+            }
+            catch (Exception ex)
+            {
+                
+            }
+            return false;
         }
 
         protected void btn_LimpiarFormulario(object sender, EventArgs e)
@@ -84,23 +86,10 @@ namespace tamboprp
         {
             this.fNombre.Value = "";
             this.fApellido.Value = "";
-            //this.fEmail.Value = "";
-            //this.username.Value = "";
-            //this.password.Value = "";
+            this.fIniciales.Value = "";
+            this.lblStatus.Text = "";
+            this.checkActivo.Checked = true;
         }
-
-        //private void CargarDdlRoldeUsuario()
-        //{
-        //    var lst = Fachada.Instance.GetRolesDeUsuario();
-        //    this.ddlRolUsuario.DataSource = lst;
-        //    this.ddlRolUsuario.DataTextField = "NombreRol";
-        //    this.ddlRolUsuario.DataValueField = "Nivel";
-        //    this.ddlRolUsuario.DataBind();
-        //    // por defecto seleccionado el rol DIGITADOR
-        //    this.ddlRolUsuario.SelectedIndex = 1;
-        //}
-
-
         
     }
 }
