@@ -207,7 +207,7 @@ namespace Datos
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Servicio_Update";
-                cmd.Parameters.Add(new SqlParameter("@REGISTRO", _registroAnimal));
+                cmd.Parameters.Add(new SqlParameter("@REGISTRO", _servicio.Registro));
                 cmd.Parameters.Add(new SqlParameter("@EVENTO", _servicio.Id_evento));
                 cmd.Parameters.Add(new SqlParameter("@FECHA", _servicio.Fecha));
                 cmd.Parameters.Add(new SqlParameter("@COMENTARIO", _servicio.Comentarios));

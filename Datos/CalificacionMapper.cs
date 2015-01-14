@@ -143,7 +143,6 @@ namespace Datos
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Calificacion_Insert";
                 cmd.Parameters.Add(new SqlParameter("@REGISTRO", _calificacion.Registro));
-                cmd.Parameters.Add(new SqlParameter("@EVENTO", _calificacion.Id_evento));
                 cmd.Parameters.Add(new SqlParameter("@LETRAS", _calificacion.Letras));
                 cmd.Parameters.Add(new SqlParameter("@PUNTOS", _calificacion.Puntos));
                 cmd.Parameters.Add(new SqlParameter("@FECHA_CALIF", _calificacion.Fecha));

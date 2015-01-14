@@ -19,6 +19,8 @@ namespace Entidades
             return Nombre;
         }
 
+        public short? Enfermedad { get; set; }
+
     }
 }
 

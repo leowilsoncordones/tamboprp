@@ -106,13 +106,13 @@ namespace Datos
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Concurso_Insert";
-                cmd.Parameters.Add(new SqlParameter("@REGISTRO", _registroAnimal));
+                cmd.Parameters.Add(new SqlParameter("@REGISTRO", _concurso.Registro));
                 cmd.Parameters.Add(new SqlParameter("@EVENTO", _concurso.Id_evento));
-                //cmd.Parameters.Add(new SqlParameter("@NOM_CONCURSO", _concurso.));
-                //cmd.Parameters.Add(new SqlParameter("@LUGAR", _concurso.));
+                cmd.Parameters.Add(new SqlParameter("@LUGAR_CONCURSO", _concurso.NombreLugarConcurso.Id));               
                 cmd.Parameters.Add(new SqlParameter("@FECHA", _concurso.Fecha));
-                //cmd.Parameters.Add(new SqlParameter("@CATEG_CONCURSO", _concurso.));
-                //cmd.Parameters.Add(new SqlParameter("@PREMIO", _concurso.));
+                cmd.Parameters.Add(new SqlParameter("@CATEG_CONCURSO", _concurso.Categoria.Id_categ));
+                cmd.Parameters.Add(new SqlParameter("@PREMIO", _concurso.ElPremio));
+                cmd.Parameters.Add(new SqlParameter("@COMENTARIO", _concurso.Comentarios));
 
             }
             else if (opType == OperationType.UPDATE)

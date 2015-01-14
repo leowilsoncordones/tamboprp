@@ -1454,5 +1454,11 @@ namespace Negocio
             var _bajMap = new BajaMapper();
             return _bajMap.GetCantVentasViejasPorAnio(anio);
         }
+
+        public bool CheckAnimalConDiagPrenezActual(string registro)
+        {
+            var lista = _diagMapper.GetAnimalesConDiagPrenezActual();
+            return lista.Any(u => u.Registro == registro);
+        }
     }
 }

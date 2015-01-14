@@ -137,6 +137,8 @@ namespace Datos
                 cmd.Parameters.Add(new SqlParameter("@EVENTO", _venta.Id_evento));
                 cmd.Parameters.Add(new SqlParameter("@FECHA", _venta.Fecha));
                 cmd.Parameters.Add(new SqlParameter("@COMENTARIO", _venta.Comentarios));
+                cmd.Parameters.Add(new SqlParameter("@BAJAS", ""));
+                cmd.Parameters.Add(new SqlParameter("@ENFERMEDAD", _venta.Enfermedad));
             }
             else if (opType == OperationType.UPDATE)
             {

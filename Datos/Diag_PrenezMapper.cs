@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Entidades;
+using Microsoft.SqlServer.Server;
 
 namespace Datos
 {
@@ -18,6 +19,7 @@ namespace Datos
         private static string Diag_prenez_SelecByRegistro = "Diag_prenez_SelectByRegistro";
         private static string Diag_prenez_SelectByRegistroDespFecha = "Diag_prenez_SelectByRegistroDespFecha";
         private static string Diag_prenez_SelectInseminacionesExito = "Diag_prenez_SelectInseminacionesExito";
+        private static string Diag_prenez_SelectRegistrosPrenadasAhora = "Diag_prenez_SelectRegistrosPrenadasAhora";
 
 
         public Diag_PrenezMapper(Diag_Prenez diag)
@@ -192,6 +194,36 @@ namespace Datos
             return diagVo;
         }
 
+
+
+        public List<VORegDiag> GetAnimalesConDiagPrenezActual()
+        {
+            var result = new List<VORegDiag>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = Diag_prenez_SelectRegistrosPrenadasAhora;
+
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+                result.Add(loadVoRegDiag(dr));
+            dr.Close();
+            return result;
+        }
+
+        protected VORegDiag loadVoRegDiag(SqlDataReader record)
+        {
+            var diagVo = new VORegDiag();
+            diagVo.Registro = (DBNull.Value == record["REGISTRO"]) ? string.Empty : (string)record["REGISTRO"];
+            return diagVo;
+        }
+
+
+
+        public class VORegDiag
+    {
+            public string Registro { get; set; }
+    }
 
         public class VODiagnostico : IComparable
         {

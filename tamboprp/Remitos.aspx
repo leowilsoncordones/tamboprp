@@ -96,11 +96,19 @@
                         </div> 
                     </div>
                   </div>
-                    <script src="js/ace-extra.js" ></script>
-                <script src="js/date-time/moment.js"></script>
-               <script src="js/date-time/daterangepicker.js"></script>
+                    
 
-                    <link href="css/daterangepicker.css" rel="stylesheet" />
+                    
+                
+            </div> <!-- fin GRAFICA de remitos -->
+		</div>
+	</div> <!-- fin tabbable -->
+    
+    <script src="js/ace-extra.js" ></script>
+            <script src="js/date-time/moment.js"></script>
+            <script src="js/date-time/daterangepicker.js"></script>
+
+    <link href="css/daterangepicker.css" rel="stylesheet" />
                     <link href="css/bootstrap.css" rel="stylesheet" />
                     <link href="css/font-awesome.css" rel="stylesheet" />
                     <link href="css/ace-fonts.css" rel="stylesheet" />
@@ -111,117 +119,116 @@
                     <link href="css/ace-skins.css" rel="stylesheet" />
                     <link href="css/ace-rtl.css" rel="stylesheet" />
                     <link href="css/ace-ie.css" rel="stylesheet" />
-                    <script type="text/javascript">
+                    
+                    
+                    
+    <script type="text/javascript">
 
 
-                        $("#fechasGraficas").daterangepicker({
-                            locale: {
-                                applyLabel: 'Confirma',
-                                cancelLabel: 'Cancela',
-                                fromLabel: 'Desde',
-                                toLabel: 'Hasta',
-                            }
-                        });
+        $("#fechasGraficas").daterangepicker({
+            locale: {
+                applyLabel: 'Confirma',
+                cancelLabel: 'Cancela',
+                fromLabel: 'Desde',
+                toLabel: 'Hasta',
+            }
+        });
 
-                        $(document).ready(function() {
-                           // GetValoreLeche();          
-                        });
+        $(document).ready(function () {
+            // GetValoreLeche();          
+        });
 
-                        function gd1(date) {
-                            return new Date(date).getTime();
-                        }
+        function gd1(date) {
+            return new Date(date).getTime();
+        }
 
-                        function GetValoreLeche(data) {
-                            if (data == 0) PageMethods.RemitosGetAnioCorriente(OnSuccess);
-                            if (data == 1) PageMethods.RemitosGetUltimoAnio(OnSuccess);
-                        }
+        function GetValoreLeche(data) {
+            if (data == 0) PageMethods.RemitosGetAnioCorriente(OnSuccess);
+            if (data == 1) PageMethods.RemitosGetUltimoAnio(OnSuccess);
+        }
 
-                        function OnSuccess(response){
-                            var leche3 = [];
-                        var list = response;
-                            for (var i = 0; i < list.length; i++) {
-                                leche3.push([gd1(list[i].Fecha), list[i].Leche]);
-                            }
-                            imprimir(leche3);
-            
-                        }
+        function OnSuccess(response) {
+            var leche3 = [];
+            var list = response;
+            for (var i = 0; i < list.length; i++) {
+                leche3.push([gd1(list[i].Fecha), list[i].Leche]);
+            }
+            imprimir(leche3);
 
-                        var grafRemitos = $('#grafRemitos').css({
-                            'height': '360px' , 'width': '800px'  //tengo que ponerle el ancho porque queda de 83px ¿?
-                        });
-                        function imprimir(totalLeche) {
-        
-                            var tick = Math.round(totalLeche.length / 10);
-                            $.plot("#grafRemitos", [
-                            { label: "Leche", data: totalLeche }
+        }
 
-                        ], {
-                            hoverable: true,
-                            shadowSize: 0,
-                            series: {
-                                lines: { show: true },
-                                points: { show: true }
-                            },
-                            xaxis: {
-                                tickLength: 0,
-                                mode: "time",
-                                timeformat: "%Y/%m",
-                                tickSize: [tick, "month"]
-                            },
-                            yaxis: {
-                                ticks: 10,
-                                min: 0,
-                                max: 20000,
-                                tickDecimals: 0
-                            },
-                            grid: {
-                                backgroundColor: { colors: ["#fff", "#fff"] },
-                                borderWidth: 1,
-                                borderColor: '#555',
-                                hoverable: true
-                            },
-                            tooltip: true,
-                            tooltipOpts: {
-                                content: "<h6><strong>Fecha:</strong> %x</h6><h6><strong>%s:</strong> %y lts</h6>",
-                            },
-                            colors: ["#008115"]
-                        });
+        var grafRemitos = $('#grafRemitos').css({
+            'height': '360px', 'width' : '750px' //tengo que ponerle el ancho porque queda de 83px ¿?
+        });
+        function imprimir(totalLeche) {
 
-                        }
+            var tick = Math.round(totalLeche.length / 10);
+            $.plot("#grafRemitos", [
+            { label: "Leche", data: totalLeche }
 
-                        function cargarGraficas(data) {
+            ], {
+                hoverable: true,
+                shadowSize: 0,
+                series: {
+                    lines: { show: true },
+                    points: { show: true }
+                },
+                xaxis: {
+                    tickLength: 0,
+                    mode: "time",
+                    timeformat: "%Y/%m",
+                    tickSize: [tick, "month"]
+                },
+                yaxis: {
+                    ticks: 10,
+                    min: 0,
+                    max: 20000,
+                    tickDecimals: 0
+                },
+                grid: {
+                    backgroundColor: { colors: ["#fff", "#fff"] },
+                    borderWidth: 1,
+                    borderColor: '#555',
+                    hoverable: true
+                },
+                tooltip: true,
+                tooltipOpts: {
+                    content: "<h6><strong>Fecha:</strong> %x</h6><h6><strong>%s:</strong> %y lts</h6>",
+                },
+                colors: ["#008115"]
+            });
 
-                            var res = data.split(" - ");
-                            var fecha1 = formatoFecha(res[0]);
-                            var fecha2 = formatoFecha(res[1]);
-                            PageMethods.GetRemitosEntreDosFechas(fecha1, fecha2, OnSuccess);
-                        };
+        }
 
-                        function formatoFecha(fecha) {
-                            var res = fecha.split("/");
-                            var salida = "";
-                            salida = res[2] + "-" + res[0] + "-" + res[1];
-                            return salida;
-                        }
+        function cargarGraficas(data) {
+
+            var res = data.split(" - ");
+            var fecha1 = formatoFecha(res[0]);
+            var fecha2 = formatoFecha(res[1]);
+            PageMethods.GetRemitosEntreDosFechas(fecha1, fecha2, OnSuccess);
+        };
+
+        function formatoFecha(fecha) {
+            var res = fecha.split("/");
+            var salida = "";
+            salida = res[2] + "-" + res[0] + "-" + res[1];
+            return salida;
+        }
 
 
                     </script>
-                    <script src="js/html5shiv.js"></script>
-                    <script src="js/respond.js"></script>
-                    <script src="js/jquery.js"></script>
-                    <script src="js/jquery1x.js"></script>
-                    <script src="js/bootstrap.js"></script>
-                    <script src="js/excanvas.js"></script>
-                    <script src="js/flot/jquery.flot.js"></script>
-                    <script src="/js/flot/jquery.flot.time.js"></script>
-                    <script src="/js/flot/jquery.flot.symbol.js"></script>
-                    <script src="/js/flot/jquery.flot.axislabels.js"></script>
-                    <script src="/js/flot/jshashtable-3.0.js"></script>
-                    <script src="/js/flot/jquery.flot.tooltip.js"></script>
-                    
-                
-            </div> <!-- fin GRAFICA de remitos -->
-		</div>
-	</div> <!-- fin tabbable -->
+            
+            <script src="js/html5shiv.js"></script>
+            <script src="js/respond.js"></script>
+            <script src="js/jquery.js"></script>
+            <script src="js/jquery1x.js"></script>
+            <script src="js/bootstrap.js"></script>
+            <script src="js/excanvas.js"></script>
+            <script src="js/flot/jquery.flot.js"></script>
+            <script src="/js/flot/jquery.flot.time.js"></script>
+            <script src="/js/flot/jquery.flot.symbol.js"></script>
+            <script src="/js/flot/jquery.flot.axislabels.js"></script>
+            <script src="/js/flot/jshashtable-3.0.js"></script>
+            <script src="/js/flot/jquery.flot.tooltip.js"></script>
 
 </asp:Content>
