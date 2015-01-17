@@ -120,6 +120,18 @@ namespace Datos
         }
 
 
+        protected VOControlTotal loadResumen(SqlDataReader record)
+        {
+            var cp = new VOControlTotal();
+            var date = new DateTime();
+            string strDate = (DBNull.Value == record["FECHA"]) ? string.Empty : record["FECHA"].ToString();
+            if (strDate != string.Empty) date = DateTime.Parse(strDate);
+            cp.Fecha = date.ToString("yyyy/MM/dd");
+            cp.Leche = (DBNull.Value == record["LECHE"]) ? 0 : double.Parse(record["LECHE"].ToString());
+            cp.Grasa = (DBNull.Value == record["GRASA"]) ? 0 : double.Parse(record["GRASA"].ToString());
+            return cp;
+        }
+
         public List<VOControlTotal> GetControlesProduccByRegistro()
         {
             var result = new List<VOControlTotal>();
@@ -131,7 +143,7 @@ namespace Datos
 
             SqlDataReader dr = FindByCmd(cmd);
             while (dr.Read())
-                result.Add(load(dr));
+                result.Add(loadResumen(dr));
             dr.Close();
             return result;
         }
@@ -147,10 +159,11 @@ namespace Datos
 
             SqlDataReader dr = FindByCmd(cmd);
             while (dr.Read())
-                result.Add(load(dr));
+                result.Add(loadResumen(dr));
             dr.Close();
             return result;
         }
+
 
         public List<VOControlTotal> ControlestUltAnio()
         {

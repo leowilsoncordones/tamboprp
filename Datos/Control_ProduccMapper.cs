@@ -204,5 +204,6 @@ namespace Datos
         {
             return GetScalarDate("Control_producc_SelectFechaUltimoControl");
         }
+
     }
 }

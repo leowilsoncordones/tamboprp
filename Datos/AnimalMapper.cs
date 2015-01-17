@@ -296,6 +296,7 @@ namespace Datos
             var voFoto = new VOFoto();
             voFoto.Registro = (DBNull.Value == record["REGISTRO"]) ? string.Empty : (string)record["REGISTRO"];
             voFoto.Ruta = (DBNull.Value == record["FOTO"]) ? string.Empty : (string)record["FOTO"];
+            voFoto.Thumb = (DBNull.Value == record["THUMB"]) ? string.Empty : (string)record["THUMB"];
             voFoto.PieDeFoto = (DBNull.Value == record["PIE_DE_FOTO"]) ? string.Empty : (string)record["PIE_DE_FOTO"];
             voFoto.Comentario = (DBNull.Value == record["COMENTARIO"]) ? string.Empty : (string)record["COMENTARIO"];
             return voFoto;
@@ -308,17 +309,20 @@ namespace Datos
                 
             }
 
-            public VOFoto(string reg, string pie, string ruta, string comentario)
+            public VOFoto(string reg, string pie, string ruta, string thumb, string comentario)
             {
                 Registro = reg;
                 PieDeFoto = pie;
                 Ruta = ruta;
+                Thumb = thumb;
                 Comentario = comentario;
             }
 
             public string Comentario { get; set; }
 
             public string Ruta { get; set; }
+
+            public string Thumb { get; set; }
 
             public string PieDeFoto { get; set; }
 

@@ -30,7 +30,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="page-header">
-        <h1><i class="menu-icon fa fa-thumbs-o-down"></i> Información sobre muertes <small><i class="ace-icon fa fa-angle-double-right"></i> análisis sanitario y lista de muertes</asp:Label></small></h1>
+        <h1><i class="menu-icon fa fa-thumbs-o-down"></i> Información sobre muertes <small><i class="ace-icon fa fa-angle-double-right"></i> análisis sanitario y lista de muertes</small></h1>
     </div>
 
     <!-- comienza tabbable -->

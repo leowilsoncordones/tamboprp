@@ -41,12 +41,68 @@
                 <div class="form-group">
                     <asp:Button ID="btnLogin" runat="server" CssClass="btn btn-lg btn-primary btn-block btn-round" Text="Ingresar" OnClick="btnLogin_Click" />
                 </div>
-                <a href="#" class="pull-right">Me olvide la contraseña! </a><span class="clearfix"></span>
+                <a href="#meOlvide" id="id-btn-MeOlvide" role="button" data-toggle="modal" class="pull-right">Me olvide la contraseña! </a><span class="clearfix"></span>
                 <div class="form-group">
                     <asp:Label ID="lblResLogin" CssClass="bigger-110" runat="server" ></asp:Label>
                 </div>
             </div>
         </div>
     </div>
+    
+    <!-- MODIFICAR DATOS MODAL -->
+    <div id="meOlvide" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4><i class="ace-icon fa fa-pencil"></i> Notificar olvido de contraseña <asp:Label ID="lblRegistroModalModificar" CssClass="text-info" runat="server"></asp:Label></h4>
+                </div>
+                <div class="modal-body">
+                    <span id="bodyModifDataModal" class="text-warning center">
+                        <div class="center-block">
+                            Ingrese sus datos y el administrador del sitio se comunicará con usted a la brevedad.
+                        </div>
+                        <div class="hr hr-16 hr-dotted"></div>
+                        <!-- FORMULARIO -->
+                        <div id="formulario" class="form-horizontal">
+                        <!-- Usuario -->
+                        <div class="form-group">
+		                    <label class="col-sm-4 control-label no-padding-right"> Usuario </label>
+			                <div class="col-sm-5">
+			                    <input type="text" runat="server" id="fUsuario2" class="form-control col-xs-10 col-sm-5" />
+			                </div>
+		                </div>
+                        <!-- Nombre -->
+                        <div class="form-group">
+		                    <label class="col-sm-4 control-label no-padding-right"> Nombre </label>
+			                <div class="col-sm-5">
+			                    <input type="text" runat="server" id="fNombre" class="form-control col-xs-10 col-sm-5" />
+			                </div>
+		                </div>
+                        <!-- Identificacion -->
+                        <div class="form-group">
+		                    <label class="col-sm-4 control-label no-padding-right"> Apellido </label>
+			                <div class="col-sm-5">
+			                    <input type="text" runat="server" id="fApellido" class="form-control col-xs-10 col-sm-5" />
+			                </div>
+		                </div>
+                        <!-- Email -->
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label no-padding-right"> Email </label>
+                            <div class="col-sm-5">
+			                    <input type="email" runat="server" id="fEmail" placeholder="Ej. usuario@dominio.com" class="form-control col-xs-10 col-sm-5" />
+			                </div>
+                        </div>
+                        </div>
+
+                    </span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancelar</button>
+                    <asp:Button ID="btnModificar" runat="server" CssClass="btn btn-sm btn-info" Text="Enviar" OnClick="btn_MeOlvide" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FINAL MODAL -->
     
 </asp:Content>

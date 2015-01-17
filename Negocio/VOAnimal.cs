@@ -88,6 +88,10 @@ namespace Negocio
 
         public List<AnimalMapper.VOFoto> Fotos { get; set; }
 
+        public List<VOConcurso> Concursos { get; set; }
+
+        public List<Evento> Eventos { get; set; }
+
         public int IdCategoria { get; set; }
 
         public string Categoria { get; set; }
