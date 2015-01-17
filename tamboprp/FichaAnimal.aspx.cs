@@ -6,17 +6,19 @@ using System.Web;
 using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.UI.HtmlControls;
 using System.Windows.Forms;
 using Datos;
 using Negocio;
 using Entidades;
 
+
 namespace tamboprp
 {
     public partial class FichaAnimal : System.Web.UI.Page
     {
-        private Animal _animal;
-        private List<Animal> _similares = new List<Animal>();
+        private VOAnimal _animal;
+        private List<VOAnimal> _similares = new List<VOAnimal>();
         private static string _reg = "";
 
 
@@ -47,14 +49,16 @@ namespace tamboprp
                 this.lblAnimal.Text = _animal.Registro;
                 this.lblRegistroModal.Text = _animal.Registro;
                 this.lblRegistroModalFotos.Text = _animal.Registro;
+                this.lblRegistroModalModificar.Text = _animal.Registro;
                 this.lblIdentif.Text = _animal.Identificacion;
                 this.lblGen.Text = (_animal.Gen != -1) ? _animal.Gen.ToString() : "";
-                Categoria catAnimal = Fachada.Instance.GetCategoriaById(_animal.IdCategoria);
+                //Categoria catAnimal = Fachada.Instance.GetCategoriaById(_animal.IdCategoria);
+                //Categoria catAnimal = _animal.Categoria;
                 this.panelFicha.CssClass = "panel panel-default";
-                if (catAnimal != null)
+                if (_animal.Categoria != "")
                 {
                     // doy estilo a la label de categoria segun la misma
-                    switch (catAnimal.Id_categ)
+                    switch (_animal.IdCategoria)
                     {
                         case 1: // Ternera
                         {
@@ -116,7 +120,7 @@ namespace tamboprp
                     this.lblFooterPanel.Visible = true;
                     this.lblFooterPanel.Text = _animal.Registro;
                     this.lblFooterPanel.CssClass = this.lblCategoria.CssClass;
-                    this.lblCategoria.Text = catAnimal.ToString();
+                    this.lblCategoria.Text = _animal.Categoria;
                 }
                 // nombre
                 if (_animal.Nombre != "")
@@ -180,6 +184,7 @@ namespace tamboprp
                 }
                 // eventos del animal al historico
                 ProcesarEventosAnimal();
+                if (_animal.Fotos != null) this.CargarFotosAnimal(_animal.Fotos, this.ULFotos);
             }
             else this.lblAnimal.Text = "No existe :(";
         }
@@ -415,7 +420,9 @@ namespace tamboprp
             this.lblEstado.Visible = false;
             this.lblEstado.Text = "ESTADO";
             this.lblEstado.CssClass = "label label-default arrowed";
-            this.lblCantEventos.Text = "";     
+            this.lblCantEventos.Text = "";
+
+            this.ULFotos.InnerHtml = "";
        
             // reseteo grilla de eventos historial
             this.gvHistoria.DataSource = null;
@@ -481,7 +488,7 @@ namespace tamboprp
         protected void BuscarAnimal(string registro)
         {
             this.LimpiarRegistro();
-            List<Animal> animals = Fachada.Instance.GetSearchAnimal(registro);
+            List<VOAnimal> animals = Fachada.Instance.GetSearchAnimal(registro);
             if (animals.Count > 0)
             {
                 for (int i = 0; i < animals.Count; i++)
@@ -517,7 +524,7 @@ namespace tamboprp
             }
         }
 
-        private void BootstrapDropDownListLargeList(List<Animal> list)
+        private void BootstrapDropDownListLargeList(List<VOAnimal> list)
         {
             // Large button group dinámico para resultados similares
             var sb = new StringBuilder();
@@ -601,6 +608,35 @@ namespace tamboprp
             return list;
         }
 
-       
+        public void CargarFotosAnimal(List<AnimalMapper.VOFoto> lst, HtmlGenericControl ul)
+        {
+            if (lst != null && lst.Count > 0)
+            {
+                var sb = new StringBuilder();
+                // cargo list items recorriendo la lista
+                for (int i = 0; i < lst.Count; i++)
+                {
+                    sb.Append("<li>");
+                    sb.Append("<a data-rel='colorbox' title='" + lst[i].PieDeFoto + "' href='" + lst[i].Ruta + "' >");
+                    sb.Append("<img src='" + lst[i].Thumb + "' alt='150x150' /></a>");
+                    sb.Append("</li>");
+                }
+                ul.InnerHtml += sb.ToString();
+            }
+        }
+
+
+        protected void btn_ModificarAnimal(object sender, EventArgs e)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
     }
 }

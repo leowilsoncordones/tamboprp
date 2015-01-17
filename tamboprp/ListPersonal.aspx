@@ -43,10 +43,9 @@
                 HorizontalAlign="Left" CssClass="table table-hover table-striped table-bordered table-condensed dataTable" >
                 <RowStyle HorizontalAlign="Left"  />
                 <Columns>
-                    <asp:BoundField DataField="Nombre" HeaderText="Nombre" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
-                    <asp:BoundField DataField="Apellido" HeaderText="Apellido" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />    
+                    <asp:BoundField DataField="NombreCompleto" HeaderText="Nombre y Apellido" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
                     <asp:BoundField DataField="Iniciales" HeaderText="Iniciales" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />               
-                    <asp:BoundField DataField="Activo" HeaderText="Activo" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" />
+                    <asp:BoundField DataField="EstaActivo" HeaderText="Activo" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center" />
                 </Columns>
                 <FooterStyle />
                 <PagerStyle HorizontalAlign="Left" />
@@ -59,6 +58,89 @@
 
             
         </div>
-        <div class="col-md-7"></div>
+
+        <div class="col-md-3"></div>
+
+        <!-- RESUMEN EN COLUMNA DERECHA -->
+        <div class="col-md-4">
+            <div class="well">
+                <h4 class="header smaller lighter blue"><i class="menu-icon fa fa-paperclip"></i> Gestión de empleados</h4>
+                <ul class="list-unstyled spaced2">
+                    <li class="bigger-110">
+                        <a href="NuevoEmpleado.aspx" role="button" class="btn btn-white btn-default btn-sm"><i class="ace-icon fa fa-user"></i> Crear nuevo</a>
+                    </li>
+                    <li class="bigger-110">
+                        <a href="#modifData" role="button" id="id-btn-ModifData" class="btn btn-white btn-default btn-sm" data-toggle="modal"><i class="ace-icon fa fa-pencil"></i> Modificar</a>
+                    </li>
+                    <li class="bigger-110">
+                        <asp:Button ID="btnVerActivos" runat="server" CssClass="btn btn-sm btn-white btn-default" Text="Ver Activos" OnClick="btn_VerActivos" />
+                    </li>
+                    <li class="bigger-110">
+                        <asp:Button ID="btnVerTodos" runat="server" CssClass="btn btn-sm btn-white btn-default" Text="Ver Todos" OnClick="btn_VerTodos" />
+                    </li>
+                </ul>
+                <hr/>
+                <asp:Label ID="lblStatus" runat="server" Text=""></asp:Label>
+			</div>
+        </div>
+        <!-- FIN RESUMEN EN COLUMNA DERECHA -->
+        
+    <!-- MODIFICAR DATOS MODAL -->
+    <div id="modifData" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4><i class="ace-icon fa fa-pencil"></i> Modificar datos</h4>
+                </div>
+                <div class="modal-body">
+                    <span id="bodyModifDataModal" class="text-warning center">
+                        <!-- FORMULARIO -->
+                        <div id="formulario" class="form-horizontal">
+                        <!-- Empleado -->
+                        <div class="form-group">
+		                    <label class="col-sm-4 control-label no-padding-right"> Empleado </label>
+			                <div class="col-sm-5">
+			                    <asp:DropDownList ID="ddlEmpleados" CssClass="form-control col-xs-10 col-sm-5" AutoPostBack="False" runat="server" ></asp:DropDownList>
+			                </div>
+		                </div>
+                        <!-- Nombre y Apellido -->
+                        <div class="form-group">
+		                    <label class="col-sm-4 control-label no-padding-right"> Nombre </label>
+			                <div class="col-sm-5">
+			                    <input type="text" runat="server" id="fNombre" class="form-control col-xs-10 col-sm-5" />
+			                </div>
+		                </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label no-padding-right"> Apellido </label>
+			                <div class="col-sm-5">
+			                    <input type="text" runat="server" id="fApellido" class="form-control col-xs-10 col-sm-5" />
+			                </div>
+                            <div class="col-sm-12"></div>
+		                </div>
+                        <!-- Activo -->
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label no-padding-right"> Activo </label>
+					        <div class="col-sm-1">
+                            <label>
+					            <input id="checkActivo" name="switchEnable" class="ace ace-switch ace-switch-6" type="checkbox" checked runat="server"/>
+						        <span class="lbl"></span>
+					        </label>
+                            </div>
+                        </div>
+                        </div>
+
+                    </span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancelar</button>
+                    <asp:Button ID="btnModificarDatos" runat="server" CssClass="btn btn-sm btn-info" Text="Ok" OnClick="btn_ModificarDatos" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FINAL MODAL -->
+        
+
+
     </div>
 </asp:Content>

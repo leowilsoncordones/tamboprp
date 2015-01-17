@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
+using Datos;
 using Entidades;
 using Negocio;
 using Label = System.Web.UI.WebControls.Label;
@@ -14,8 +17,8 @@ namespace tamboprp
 {
     public partial class Genealogia : System.Web.UI.Page
     {
-        private Animal _animal;
-        private List<Animal> _similares = new List<Animal>();
+        private VOAnimal _animal;
+        private List<VOAnimal> _similares = new List<VOAnimal>();
         private VOAnimal voA;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -41,6 +44,7 @@ namespace tamboprp
         {
             if (voA != null)
             {
+                // REGISTRO
                 this.verResultado.Visible = true;
                 this.Animal.Text = voA.Registro;
                 this.CargarNombreAnimal(voA, this.lblNom);
@@ -56,11 +60,21 @@ namespace tamboprp
                     this.CargarLactancias(voA.Lactancias, this.gvLactancias);
                     this.CargarProdTotalLecheLactancias(voA, this.titPL, this.lblPL);
                 }
-                if (voA.esMacho())
-                {
-                    this.lblSexo.Text = "M";
-                    this.lblSexo.CssClass = "badge badge-primary";
-                }
+                this.CargarSexo(voA, this.lblSexo);
+                //if (voA.esMacho())
+                //{
+                //    this.lblSexo.Text = "M";
+                //    this.lblSexo.CssClass = "badge badge-primary";
+                //}
+                //else
+                //{
+                //    this.lblSexo.Text = "H";
+                //    this.lblSexo.CssClass = "badge badge-pink";
+                //}
+                if (voA.Concursos != null) this.CargarConcursosAnimal(voA.Concursos, this.gvConcursos);
+                if (voA.Fotos != null) this.CargarFotosAnimal(voA.Fotos, this.lblFotos, this.ULFotos);
+
+                // LINEA MATERNA
                 if (voA.Madre != null)
                 {
                     this.Madre.Text = voA.Madre.Registro;
@@ -75,6 +89,8 @@ namespace tamboprp
                         this.CargarLactancias(voA.Madre.Lactancias, this.gvLactMadre);
                         this.CargarProdTotalLecheLactancias(voA.Madre, this.titPLMadre, this.lblPLMadre);
                     }
+                    if (voA.Madre.Fotos != null) this.CargarFotosAnimal(voA.Madre.Fotos, this.lblFotosMadre, this.ULFotosMadre);
+                    // ABUELA MATERNA
                     if (voA.Madre.Madre != null)
                     {
                         this.AbuelaM.Text = voA.Madre.Madre.Registro;
@@ -90,6 +106,7 @@ namespace tamboprp
                             this.CargarProdTotalLecheLactancias(voA.Madre.Madre, this.titPLAbuelaM, this.lblPLAbuelaM);
                         }
                     }
+                    // ABUELO MATERNO
                     if (voA.Madre.Padre != null)
                     {
                         this.AbueloM.Text = voA.Madre.Padre.Registro;
@@ -101,6 +118,8 @@ namespace tamboprp
                         this.CargarCategoriaAnimal(voA.Madre.Padre, this.lblCatAbueloM);
                     }
                 }
+
+                // LINEA PATERNA
                 if (voA.Padre != null)
                 {
                     this.Padre.Text = voA.Padre.Registro;
@@ -110,6 +129,8 @@ namespace tamboprp
                     this.CargarTrazabAnimal(voA.Padre, this.titTrazPadre, this.lblTrazPadre);
                     this.CargarEstadoAnimal(voA.Padre, lblEstPadre);
                     this.CargarCategoriaAnimal(voA.Padre, this.lblCatPadre);
+                    if (voA.Padre.Fotos != null) this.CargarFotosAnimal(voA.Padre.Fotos, this.lblFotosPadre, this.ULFotosPadre);
+                    // ABUELA PATERNA
                     if (voA.Padre.Madre != null)
                     {
                         this.AbuelaP.Text = voA.Padre.Madre.Registro;
@@ -125,6 +146,7 @@ namespace tamboprp
                             this.CargarProdTotalLecheLactancias(voA.Padre.Madre, this.titPLAbuelaP, this.lblPLAbuelaP);
                         }
                     }
+                    // ABUELO PATERNO
                     if (voA.Padre.Padre != null)
                     {
                         this.AbueloP.Text = voA.Padre.Padre.Registro;
@@ -140,6 +162,20 @@ namespace tamboprp
             
         }
 
+        public void CargarSexo(VOAnimal voAnim, Label lbl)
+        {
+            if (voAnim.esMacho())
+            {
+                lbl.Text = "M";
+                lbl.CssClass = "badge badge-primary";
+            }
+            else
+            {
+                lbl.Text = "H";
+                lbl.CssClass = "badge badge-pink";
+            }
+        }
+
         public void CargarLactancias(List<VOLactancia> lst, GridView gvLact)
         {
             if (lst.Count > 0)
@@ -149,6 +185,30 @@ namespace tamboprp
                 gvLact.DataBind();
             }
         }
+
+        public void CargarConcursosAnimal(List<VOConcurso> lst, GridView gvConc)
+        {
+            if (lst.Count > 0)
+            {
+                var lstResult = new List<VOConcurso>();
+                // filtro solo los registros en los que concursó y además ganó premios
+                foreach (VOConcurso voC in lst)
+                {
+                    if (voC.ElPremio != "")
+                    {
+                        lstResult.Add(voC);
+                    }
+                }
+                if (lstResult.Count > 0)
+                {
+                    gvConc.Visible = true;
+                    gvConc.DataSource = lstResult;
+                    gvConc.DataBind();
+                    this.lblPremios.Visible = true;
+                }
+            }
+        }
+
 
         public void CargarProdTotalLecheLactancias(VOAnimal voAnim, Label titPLTotal, Label lblPLTotal)
         {
@@ -222,6 +282,37 @@ namespace tamboprp
                 lblData.Text = voAnim.Calific;
                 lblData.Visible = true;
                 lblTitulo.Visible = true;
+            }
+        }
+
+        public void CargarFotosAnimal(List<AnimalMapper.VOFoto> lst, Label lblTitulo, HtmlGenericControl ul)
+        {
+            if (lst != null && lst.Count > 0)
+            {
+                lblTitulo.Visible = true;
+
+                var sb = new StringBuilder();
+                // cargo list items recorriendo la lista
+                for (int i = 0 ; i < lst.Count; i++)
+                {
+                    sb.Append("<li>");
+                    sb.Append("<a data-rel='colorbox' title='" + lst[i].PieDeFoto + "' href='" + lst[i].Ruta + "' >");
+                    sb.Append("<img src='" + lst[i].Thumb + "' alt='150x150' /></a>");
+                    sb.Append("</li>");
+
+                    //<li>
+                    //    <a data-rel="colorbox" title="YJ3110, Expo Prado 2013" href="img_tamboprp/animales/reg_3110_expoprado2013.jpg">
+                    //    <img src="img_tamboprp/animales/animales_thumbs/reg_3110_expoprado2013_th.png" alt="150x150" />
+                    //    <!-- optional tags here -->
+                    //    <!-- optional caption here -->
+                    //    </a>
+                    //    <!-- optional tags here -->
+                    //    <!-- optional caption here -->
+                    //    <!-- optional tools -->
+                    //</li>
+
+                }
+                ul.InnerHtml += sb.ToString();
             }
         }
 
@@ -338,7 +429,7 @@ namespace tamboprp
         protected void BuscarAnimal(string registro)
         {
             this.LimpiarRegistro();
-            List<Animal> animals = Fachada.Instance.GetSearchAnimal(registro);
+            List<VOAnimal> animals = Fachada.Instance.GetSearchAnimal(registro);
             if (animals.Count > 0)
             {
                 for (int i = 0; i < animals.Count; i++)
@@ -357,6 +448,7 @@ namespace tamboprp
                 if (_similares.Count > 0)
                 {
                     //this.CargarDdlListSimilares(_similares); VER ANIMALES
+                    this.BootstrapDropDownListLargeList(_similares);
                 }
                 if (_animal != null)
                 {
@@ -369,6 +461,58 @@ namespace tamboprp
             }
         }
 
+        private void LimpiarDdlResultadosSimilares()
+        {
+            this.divContenedorDdl.InnerHtml = "";
+            this._similares.Clear();
+        }
+
+        protected void ddlSimilares_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //if (this.ddlSimilares.SelectedIndex > 0 )
+            //this.BuscarAnimal(this.ddlSimilares.SelectedValue);
+            //this.BuscarAnimal(this.ddlSimilares.SelectedItem.Value);
+            //this.BuscarAnimal(this.ddlSimilares.SelectedItem.Text);
+
+            //var btn = (LinkButton)sender;
+            //if (btn != null && btn.Text != "")
+            //{
+            //    this.BuscarAnimal(btn.Text);
+            //}
+        }
+
+        protected void btnSimilares_click(object sender, EventArgs e)
+        {
+            /*if (this.ddlSimilares.SelectedIndex > 0)
+                this.BuscarAnimal(this.ddlSimilares.SelectedValue);*/
+
+        }
+
+        private void BootstrapDropDownListLargeList(List<VOAnimal> list)
+        {
+            // Large button group dinámico para resultados similares
+            var sb = new StringBuilder();
+            sb.Append("<div class='btn-group btn-group-lg'>");
+            sb.Append("<button data-toggle='dropdown' class='btn btn-default btn-white dropdown-toggle' aria-expanded='false'>");
+            sb.Append("Resultados similares ");
+            sb.Append("<i class='ace-icon fa fa-angle-down icon-on-right'></i></button>");
+            sb.Append("</button>");
+            sb.Append("<ul class='dropdown-menu dropdown-info dropdown-menu-right'>");
+            // cargo list items recorriendo la lista
+            for (int i = 0; i < list.Count; i++)
+            {
+                sb.Append("<li class='btn-lg'><a id='item_" + i + "' href='#' onserverclick='ddlSimilares_SelectedIndexChanged();'>");
+                sb.Append(list[i].Registro.ToString());
+                sb.Append("</a></li>");
+            }
+            //sb.Append("<li class='divider'></li>");
+            // list items abajo de la línea divider
+            sb.Append("</ul>");
+            sb.Append("</div>");
+            this.divContenedorDdl.InnerHtml += sb.ToString();
+        }
+
+
         //private void CargarDdlListSimilares(List<Animal> list)
         //{
         //    // Large button group dinámico para resultados similares
@@ -378,10 +522,14 @@ namespace tamboprp
         //    this.ddlSimilares.DataBind();
         //}
 
+
         private void LimpiarRegistro()
         {
+            this.LimpiarDdlResultadosSimilares();
+
             // reseteo valores ficha de animal
             this.Animal.Text = "";
+            this.lblNom.Visible = false;
             //this.lblSexo.Visible = false;
             this.titFNac.Visible = false;
             this.lblFNac.Visible = false;
@@ -394,36 +542,122 @@ namespace tamboprp
             this.lblEst.Text = "";
             this.lblEst.Visible = false;
             this.lblCat.Visible = false;
+
             this.titPL.Visible = false;
             this.titPL.CssClass = "label label-default arrowed-right";
             this.lblPL.Visible = false;
             this.gvLactancias.Visible = false;
 
+            this.lblFotos.Visible = false;
+            this.ULFotos.InnerHtml = "";
+
+            this.gvConcursos.Visible = false;
+            this.lblPremios.Visible = false;
+            
             // madre
             this.Madre.Text = "";
+            this.titFNacMadre.Visible = false;
+            this.lblFNacMadre.Visible = false;
+            //this.titGenMadre.Visible = false;
+            //this.lblGenMadre.Visible = false;
+            this.titIdMadre.Visible = false;
+            this.lblIdMadre.Visible = false;
+            this.titTrazMadre.Visible = false;
+            this.lblTrazMadre.Visible = false;
             this.lblEstMadre.Text = "";
             this.lblEstMadre.Visible = false;
+            this.lblCatMadre.Visible = false;
+
+            this.titPLMadre.Visible = false;
+            this.titPLMadre.CssClass = "label label-default arrowed-right";
+            this.lblPLMadre.Visible = false;
+            this.gvLactMadre.Visible = false;
+
+            this.lblFotosMadre.Visible = false;
+            this.ULFotosMadre.InnerHtml = "";
 
             //padre
             this.Padre.Text = "";
+            this.titFNacPadre.Visible = false;
+            this.lblFNacPadre.Visible = false;
+            //this.titGenPadre.Visible = false;
+            //this.lblGenPadre.Visible = false;
+            this.titIdPadre.Visible = false;
+            this.lblIdPadre.Visible = false;
+            this.titTrazPadre.Visible = false;
+            this.lblTrazPadre.Visible = false;
             this.lblEstPadre.Text = "";
             this.lblEstPadre.Visible = false;
+            this.lblCatPadre.Visible = false;
+
+            this.lblFotosPadre.Visible = false;
+            this.lblFotosPadre.Visible = false;
+            this.ULFotosPadre.InnerHtml = "";
 
             //abuelos maternos
             this.AbuelaM.Text = "";
+            this.titFNacAbuelaM.Visible = false;
+            this.lblFNacAbuelaM.Visible = false;
+            //this.titGenAbuelaM.Visible = false;
+            //this.lblGenAbuelaM.Visible = false;
+            this.titIdAbuelaM.Visible = false;
+            this.lblIdAbuelaM.Visible = false;
+            this.titTrazAbuelaM.Visible = false;
+            this.lblTrazAbuelaM.Visible = false;
             this.lblEstAbuelaM.Text = "";
             this.lblEstAbuelaM.Visible = false;
+            this.lblCatAbuelaM.Visible = false;
+            
+            this.titPLAbuelaM.Visible = false;
+            this.titPLAbuelaM.CssClass = "label label-default arrowed-right";
+            this.lblPLAbuelaM.Visible = false;
+            this.gvLactAbuelaM.Visible = false;
+
+
             this.AbueloM.Text = "";
+            this.titFNacAbueloM.Visible = false;
+            this.lblFNacAbueloM.Visible = false;
+            //this.titGenAbueloM.Visible = false;
+            //this.lblGenAbueloM.Visible = false;
+            this.titIdAbueloM.Visible = false;
+            this.lblIdAbueloM.Visible = false;
+            this.titTrazAbueloM.Visible = false;
+            this.lblTrazAbueloM.Visible = false;
             this.lblEstAbueloM.Text = "";
             this.lblEstAbueloM.Visible = false;
+            this.lblCatAbueloM.Visible = false;
  
             //abuelos paternos
             this.AbuelaP.Text = "";
+            this.titFNacAbuelaP.Visible = false;
+            this.lblFNacAbuelaP.Visible = false;
+            //this.titGenAbuelaP.Visible = false;
+            //this.lblGenAbuelaP.Visible = false;
+            this.titIdAbuelaP.Visible = false;
+            this.lblIdAbuelaP.Visible = false;
+            this.titTrazAbuelaP.Visible = false;
+            this.lblTrazAbuelaP.Visible = false;
             this.lblEstAbuelaP.Text = "";
             this.lblEstAbuelaP.Visible = false;
+            this.lblCatAbuelaP.Visible = false;
+            
+            this.titPLAbuelaP.Visible = false;
+            this.titPLAbuelaP.CssClass = "label label-default arrowed-right";
+            this.lblPLAbuelaP.Visible = false;
+            this.gvLactAbuelaP.Visible = false;
+
             this.AbueloP.Text = "";
+            this.titFNacAbueloP.Visible = false;
+            this.lblFNacAbueloP.Visible = false;
+            //this.titGenAbueloP.Visible = false;
+            //this.lblGenAbueloP.Visible = false;
+            this.titIdAbueloP.Visible = false;
+            this.lblIdAbueloP.Visible = false;
+            this.titTrazAbueloP.Visible = false;
+            this.lblTrazAbueloP.Visible = false;
             this.lblEstAbueloP.Text = "";
             this.lblEstAbueloP.Visible = false;
+            this.lblCatAbueloP.Visible = false;
         }
 
     }

@@ -48,7 +48,7 @@
             <li><a href="AnalisisVentas.aspx">Ventas</a> <i class="fa fa-check text-success"></i></li>
             <li><a href="AnalisisMuertes.aspx">Muertes</a> <i class="fa fa-check text-success"></i></li>
             <li><a href="AnalisisToros.aspx">Toros utilizados y su efectividad</a> <i class="fa fa-check text-success"></i></li>
-            <li><a href="AnalisisInseminadores.aspx">Inseminadores</a></li>
+            <li><a href="AnalisisInseminadores.aspx">Ranking de inseminadores</a></li>
         </ul>
     <a href="Reportes.aspx"><i class="menu-icon fa fa-bar-chart-o"></i><span class="menu-text"> Reportes </span></a>
         <ul class="submenu">

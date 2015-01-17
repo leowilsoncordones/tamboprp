@@ -22,12 +22,16 @@ namespace tamboprp
 {
     public partial class ListPersonal : System.Web.UI.Page
     {
+        private List<VOEmpleado> _listEmpleados;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
                 this.SetPageBreadcrumbs();
-                this.CargarEmpleados();
+                this.CargarEmpleadosActivos();
+                //this.CargarEmpleados();
+                this.CargarDdlEmpleados();
             }
         }
 
@@ -46,23 +50,48 @@ namespace tamboprp
 
         public void CargarEmpleados()
         {
-            var emp = new EmpleadoMapper();
-            List<Empleado> lst = emp.GetAll();
+            //var emp = new EmpleadoMapper();
+            //List<Empleado> lst = emp.GetAll();
+            var lst = Fachada.Instance.GetAllEmpleados();
             this.gvEmpleados.DataSource = lst;
             this.gvEmpleados.DataBind();
+
+            _listEmpleados = lst;
+
         }
 
-        protected void excelExport_Click(object sender, EventArgs e)
+        public void CargarEmpleadosActivos()
         {
-            Response.Clear();
-            Response.AddHeader("content-disposition", "attachment; filename=Personal.xls");
-            Response.ContentType = "application/vnd.xls";
-            var writeItem = new StringWriter();
-            var htmlText = new HtmlTextWriter(writeItem);
-            this.gvEmpleados.RenderControl(htmlText);
-            Response.Write(writeItem.ToString());
-            Response.End();
+            var lst = Fachada.Instance.GetEmpleadosActivos();
+            this.gvEmpleados.DataSource = lst;
+            this.gvEmpleados.DataBind();
+
+            _listEmpleados = lst;
         }
+
+        protected void btn_VerActivos(object sender, EventArgs e)
+        {
+            this.CargarEmpleadosActivos();
+        }
+
+        protected void btn_VerTodos(object sender, EventArgs e)
+        {
+            this.CargarEmpleados();
+        }
+
+        protected void btn_ModificarDatos(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CargarDdlEmpleados()
+        {
+            this.ddlEmpleados.DataSource = _listEmpleados;
+            this.ddlEmpleados.DataTextField = "NombreCompletoIniciales";
+            this.ddlEmpleados.DataValueField = "Id";
+            this.ddlEmpleados.DataBind();
+        }
+
 
         public override void VerifyRenderingInServerForm(Control control) { }
 
@@ -119,6 +148,17 @@ namespace tamboprp
             sb.Append("</script>");
             ClientScript.RegisterStartupScript(this.GetType(), "GridPrint", sb.ToString());
             gvEmpleados.PagerSettings.Visible = true;
+        }
+        protected void excelExport_Click(object sender, EventArgs e)
+        {
+            Response.Clear();
+            Response.AddHeader("content-disposition", "attachment; filename=Personal.xls");
+            Response.ContentType = "application/vnd.xls";
+            var writeItem = new StringWriter();
+            var htmlText = new HtmlTextWriter(writeItem);
+            this.gvEmpleados.RenderControl(htmlText);
+            Response.Write(writeItem.ToString());
+            Response.End();
         }
     }
 }

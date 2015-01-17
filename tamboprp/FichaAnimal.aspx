@@ -61,7 +61,7 @@
                 </div>
                 <div class="col-xs-6 col-md-4 text-right">
                     <div class="btn-group" role="group" >
-                      <button type="button" class="btn btn-white btn-default btn-sm" id="btnEditar"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar</button>
+                      <a href="#modifData" role="button" class="btn btn-white btn-default btn-sm" data-toggle="modal"><span class="fa fa-pencil" aria-hidden="true"></span> Editar</a>
                       <a href="#fotosModal" role="button" class="btn btn-white btn-default btn-sm" onclick="GetFotos()" data-toggle="modal"><span class="fa fa-camera-retro" aria-hidden="true"></span> Fotos</a>
                       <a href="#grafModal" role="button" class="btn btn-white btn-default btn-sm" onclick="GetValoreLeche()" data-toggle="modal"><span class="fa fa-bar-chart-o" aria-hidden="true"></span> Producción</a>
                     </div>
@@ -227,27 +227,8 @@
                     </div>
                     <div class="modal-body">
                         <!-- GALLERY thumbnails -->
-                        <ul class="ace-thumbnails clearfix">
-                            <li>
-                             <a data-rel="colorbox" title="YJ3110, 70ª Expo Florida" href="img_tamboprp/animales/reg_3110.jpg">
-                               <img src="img_tamboprp/animales/animales_thumbs/reg_3110_th.png" alt="150x150" />
-                               <!-- optional tags here -->
-                               <!-- optional caption here -->
-                             </a>
-                             <!-- optional tags here -->
-                             <!-- optional caption here -->
-                             <!-- optional tools -->
-                            </li>
-                            <li>
-                             <a data-rel="colorbox" title="YJ3110, Expo Prado 2013" href="img_tamboprp/animales/reg_3110_expoprado2013.jpg">
-                               <img src="img_tamboprp/animales/animales_thumbs/reg_3110_expoprado2013_th.png" alt="150x150" />
-                               <!-- optional tags here -->
-                               <!-- optional caption here -->
-                             </a>
-                             <!-- optional tags here -->
-                             <!-- optional caption here -->
-                             <!-- optional tools -->
-                            </li>
+                        <ul class="ace-thumbnails clearfix" runat="server" id="ULFotos" >
+
                         </ul>
                     </div>
                     <div class="modal-footer">
@@ -261,7 +242,59 @@
         </div>    
         <!-- FIN MODAL FOTOS -->      
     
-    
+    <!-- MODIFICAR DATOS MODAL -->
+    <div id="modifData" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4><i class="ace-icon fa fa-pencil"></i> Modificar animal <asp:Label ID="lblRegistroModalModificar" CssClass="text-info" runat="server"></asp:Label></h4>
+                </div>
+                <div class="modal-body">
+                    <span id="bodyModifDataModal" class="text-warning center">
+                        
+                        <!-- FORMULARIO -->
+                        <div id="formulario" class="form-horizontal">
+                        <!-- Nombre -->
+                        <div class="form-group">
+		                    <label class="col-sm-4 control-label no-padding-right"> Nombre </label>
+			                <div class="col-sm-6">
+			                    <input type="text" runat="server" id="fNombre" class="form-control col-xs-10 col-sm-5" />
+			                </div>
+		                </div>
+                        <!-- Identificacion -->
+                        <div class="form-group">
+		                    <label class="col-sm-4 control-label no-padding-right"> Identificación </label>
+			                <div class="col-sm-3">
+			                    <input type="text" runat="server" id="fIdentif" class="form-control col-xs-10 col-sm-5" />
+			                </div>
+		                </div>
+                        <!-- Reg. Trazabilidad -->
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label no-padding-right"> Reg. Trazabilidad </label>
+			                <div class="col-sm-3">
+			                    <input type="text" runat="server" id="fTraz" class="form-control col-xs-10 col-sm-5" />
+			                </div>
+                            <div class="col-sm-12"></div>
+		                </div>
+                            <!-- Origen -->
+                            <div class="form-group">
+                            <label class="col-sm-4 control-label no-padding-right"> Origen </label>
+                            <div class="col-sm-5">
+			                    <input type="email" runat="server" id="fOrigen" placeholder="Ej. PROPIETARIO" class="form-control col-xs-10 col-sm-5" />
+			                </div>
+                        </div>
+                        </div>
+
+                    </span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancelar</button>
+                    <asp:Button ID="btnModificar" runat="server" CssClass="btn btn-sm btn-info" Text="Ok" OnClick="btn_ModificarAnimal" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FINAL MODAL -->
     
 
     <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true" /> 
@@ -311,7 +344,7 @@
             xaxis: {
                 tickLength: 0,
                 mode: "time",
-                timeformat: "%Y/%m",
+                timeformat: "%m/%Y",
                 tickSize: [2, "month"]
             },
             yaxis: {
@@ -338,6 +371,9 @@
     <script src="/js/flot/jquery.flot.axislabels.js"></script>
 
     <!-- FIN GRAFICA -->
+    
+    
+    
 
 
 </asp:Content>
