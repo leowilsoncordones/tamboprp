@@ -23,6 +23,8 @@ namespace Negocio
 
         public bool Habilitado { get; set; }
 
+        public string HabilitadoText { get; set; }
+
         public override string ToString()
         {
             return Nombre + " " + Apellido;

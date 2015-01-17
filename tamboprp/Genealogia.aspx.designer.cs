@@ -40,6 +40,15 @@ namespace tamboprp {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divContenedorDdl;
         
         /// <summary>
+        /// verResultado control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel verResultado;
+        
+        /// <summary>
         /// PanelAnimal control.
         /// </summary>
         /// <remarks>
@@ -58,13 +67,139 @@ namespace tamboprp {
         protected global::System.Web.UI.WebControls.Label Animal;
         
         /// <summary>
-        /// lblEstado control.
+        /// lblNom control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEstado;
+        protected global::System.Web.UI.WebControls.Label lblNom;
+        
+        /// <summary>
+        /// lblSexo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSexo;
+        
+        /// <summary>
+        /// titFNac control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label titFNac;
+        
+        /// <summary>
+        /// lblFNac control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFNac;
+        
+        /// <summary>
+        /// titGen control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label titGen;
+        
+        /// <summary>
+        /// lblGen control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGen;
+        
+        /// <summary>
+        /// titId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label titId;
+        
+        /// <summary>
+        /// lblId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblId;
+        
+        /// <summary>
+        /// titTraz control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label titTraz;
+        
+        /// <summary>
+        /// lblTraz control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTraz;
+        
+        /// <summary>
+        /// lblEst control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEst;
+        
+        /// <summary>
+        /// lblCat control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCat;
+        
+        /// <summary>
+        /// titPL control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label titPL;
+        
+        /// <summary>
+        /// lblPL control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPL;
+        
+        /// <summary>
+        /// gvLactancias control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvLactancias;
         
         /// <summary>
         /// PanelMadre control.
@@ -85,40 +220,121 @@ namespace tamboprp {
         protected global::System.Web.UI.WebControls.Label Madre;
         
         /// <summary>
-        /// lblEstadoMadre control.
+        /// lblNomMadre control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEstadoMadre;
+        protected global::System.Web.UI.WebControls.Label lblNomMadre;
         
         /// <summary>
-        /// PanelPadre control.
+        /// lblSexoMadre control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PanelPadre;
+        protected global::System.Web.UI.WebControls.Label lblSexoMadre;
         
         /// <summary>
-        /// Padre control.
+        /// titFNacMadre control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Padre;
+        protected global::System.Web.UI.WebControls.Label titFNacMadre;
         
         /// <summary>
-        /// lblEstadoPadre control.
+        /// lblFNacMadre control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEstadoPadre;
+        protected global::System.Web.UI.WebControls.Label lblFNacMadre;
+        
+        /// <summary>
+        /// titIdMadre control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label titIdMadre;
+        
+        /// <summary>
+        /// lblIdMadre control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIdMadre;
+        
+        /// <summary>
+        /// titTrazMadre control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label titTrazMadre;
+        
+        /// <summary>
+        /// lblTrazMadre control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTrazMadre;
+        
+        /// <summary>
+        /// lblEstMadre control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEstMadre;
+        
+        /// <summary>
+        /// lblCatMadre control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCatMadre;
+        
+        /// <summary>
+        /// titPLMadre control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label titPLMadre;
+        
+        /// <summary>
+        /// lblPLMadre control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPLMadre;
+        
+        /// <summary>
+        /// gvLactMadre control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvLactMadre;
         
         /// <summary>
         /// PanelAbuelaM control.
@@ -139,13 +355,121 @@ namespace tamboprp {
         protected global::System.Web.UI.WebControls.Label AbuelaM;
         
         /// <summary>
-        /// lblEstadoAbuelaM control.
+        /// lblNomAbuelaM control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEstadoAbuelaM;
+        protected global::System.Web.UI.WebControls.Label lblNomAbuelaM;
+        
+        /// <summary>
+        /// lblSexoAbuelaM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSexoAbuelaM;
+        
+        /// <summary>
+        /// titFNacAbuelaM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label titFNacAbuelaM;
+        
+        /// <summary>
+        /// lblFNacAbuelaM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFNacAbuelaM;
+        
+        /// <summary>
+        /// titIdAbuelaM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label titIdAbuelaM;
+        
+        /// <summary>
+        /// lblIdAbuelaM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIdAbuelaM;
+        
+        /// <summary>
+        /// titTrazAbuelaM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label titTrazAbuelaM;
+        
+        /// <summary>
+        /// lblTrazAbuelaM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTrazAbuelaM;
+        
+        /// <summary>
+        /// lblEstAbuelaM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEstAbuelaM;
+        
+        /// <summary>
+        /// lblCatAbuelaM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCatAbuelaM;
+        
+        /// <summary>
+        /// titPLAbuelaM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label titPLAbuelaM;
+        
+        /// <summary>
+        /// lblPLAbuelaM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPLAbuelaM;
+        
+        /// <summary>
+        /// gvLactAbuelaM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvLactAbuelaM;
         
         /// <summary>
         /// PanelAbueloM control.
@@ -166,13 +490,202 @@ namespace tamboprp {
         protected global::System.Web.UI.WebControls.Label AbueloM;
         
         /// <summary>
-        /// lblEstadoAbueloM control.
+        /// lblNomAbueloM control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEstadoAbueloM;
+        protected global::System.Web.UI.WebControls.Label lblNomAbueloM;
+        
+        /// <summary>
+        /// lblSexoAbueloM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSexoAbueloM;
+        
+        /// <summary>
+        /// titFNacAbueloM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label titFNacAbueloM;
+        
+        /// <summary>
+        /// lblFNacAbueloM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFNacAbueloM;
+        
+        /// <summary>
+        /// titIdAbueloM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label titIdAbueloM;
+        
+        /// <summary>
+        /// lblIdAbueloM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIdAbueloM;
+        
+        /// <summary>
+        /// titTrazAbueloM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label titTrazAbueloM;
+        
+        /// <summary>
+        /// lblTrazAbueloM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTrazAbueloM;
+        
+        /// <summary>
+        /// lblEstAbueloM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEstAbueloM;
+        
+        /// <summary>
+        /// lblCatAbueloM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCatAbueloM;
+        
+        /// <summary>
+        /// PanelPadre control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelPadre;
+        
+        /// <summary>
+        /// Padre control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Padre;
+        
+        /// <summary>
+        /// lblNomPadre control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNomPadre;
+        
+        /// <summary>
+        /// lblSexoPadre control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSexoPadre;
+        
+        /// <summary>
+        /// titFNacPadre control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label titFNacPadre;
+        
+        /// <summary>
+        /// lblFNacPadre control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFNacPadre;
+        
+        /// <summary>
+        /// titIdPadre control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label titIdPadre;
+        
+        /// <summary>
+        /// lblIdPadre control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIdPadre;
+        
+        /// <summary>
+        /// titTrazPadre control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label titTrazPadre;
+        
+        /// <summary>
+        /// lblTrazPadre control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTrazPadre;
+        
+        /// <summary>
+        /// lblEstPadre control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEstPadre;
+        
+        /// <summary>
+        /// lblCatPadre control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCatPadre;
         
         /// <summary>
         /// PanelAbuelaP control.
@@ -193,13 +706,121 @@ namespace tamboprp {
         protected global::System.Web.UI.WebControls.Label AbuelaP;
         
         /// <summary>
-        /// lblEstadoAbuelaP control.
+        /// lblNomAbuelaP control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEstadoAbuelaP;
+        protected global::System.Web.UI.WebControls.Label lblNomAbuelaP;
+        
+        /// <summary>
+        /// lblSexoAbuelaP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSexoAbuelaP;
+        
+        /// <summary>
+        /// titFNacAbuelaP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label titFNacAbuelaP;
+        
+        /// <summary>
+        /// lblFNacAbuelaP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFNacAbuelaP;
+        
+        /// <summary>
+        /// titIdAbuelaP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label titIdAbuelaP;
+        
+        /// <summary>
+        /// lblIdAbuelaP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIdAbuelaP;
+        
+        /// <summary>
+        /// titTrazAbuelaP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label titTrazAbuelaP;
+        
+        /// <summary>
+        /// lblTrazAbuelaP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTrazAbuelaP;
+        
+        /// <summary>
+        /// lblEstAbuelaP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEstAbuelaP;
+        
+        /// <summary>
+        /// lblCatAbuelaP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCatAbuelaP;
+        
+        /// <summary>
+        /// titPLAbuelaP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label titPLAbuelaP;
+        
+        /// <summary>
+        /// lblPLAbuelaP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPLAbuelaP;
+        
+        /// <summary>
+        /// gvLactAbuelaP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvLactAbuelaP;
         
         /// <summary>
         /// PanelAbueloP control.
@@ -220,12 +841,93 @@ namespace tamboprp {
         protected global::System.Web.UI.WebControls.Label AbueloP;
         
         /// <summary>
-        /// lblEstadoAbueloP control.
+        /// lblNomAbueloP control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEstadoAbueloP;
+        protected global::System.Web.UI.WebControls.Label lblNomAbueloP;
+        
+        /// <summary>
+        /// lblSexoAbueloP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSexoAbueloP;
+        
+        /// <summary>
+        /// titFNacAbueloP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label titFNacAbueloP;
+        
+        /// <summary>
+        /// lblFNacAbueloP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFNacAbueloP;
+        
+        /// <summary>
+        /// titIdAbueloP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label titIdAbueloP;
+        
+        /// <summary>
+        /// lblIdAbueloP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIdAbueloP;
+        
+        /// <summary>
+        /// titTrazAbueloP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label titTrazAbueloP;
+        
+        /// <summary>
+        /// lblTrazAbueloP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTrazAbueloP;
+        
+        /// <summary>
+        /// lblEstAbueloP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEstAbueloP;
+        
+        /// <summary>
+        /// lblCatAbueloP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCatAbueloP;
     }
 }

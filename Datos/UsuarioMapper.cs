@@ -32,7 +32,7 @@ namespace Datos
             return ConfigurationManager.ConnectionStrings["con"].ConnectionString;
         }
 
-        public Usuario GetEmpleadoById()
+        public Usuario GetUsuarioById()
         {
             SqlDataReader dr = Find(OperationType.SELECT_ID);
             dr.Read();
@@ -102,7 +102,7 @@ namespace Datos
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Usuario_Update";
                 cmd.Parameters.Add(new SqlParameter("@NICKNAME", _user.Nickname));
-                cmd.Parameters.Add(new SqlParameter("@PASSW", _user.Password));
+                //cmd.Parameters.Add(new SqlParameter("@PASSW", _user.Password));
                 cmd.Parameters.Add(new SqlParameter("@NOMBRE", _user.Nombre));
                 cmd.Parameters.Add(new SqlParameter("@APELLIDO", _user.Apellido));
                 cmd.Parameters.Add(new SqlParameter("@EMAIL", _user.Email));

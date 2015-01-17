@@ -88,7 +88,8 @@ namespace Negocio
                 {
                     if (conc.ElPremio != null && conc.Categoria != null && conc.Categoria.Id_categ != 0)
                     {
-                        CategoriaConcurso laCat = lstCategConcurso.FirstOrDefault(c => c.Id_categ == conc.Categoria.Id_categ);
+                        CategoriaConcurso laCat =
+                            lstCategConcurso.FirstOrDefault(c => c.Id_categ == conc.Categoria.Id_categ);
                         if (laCat != null) conc.Categoria.Nombre = laCat.Nombre;
 
                         var lugConc = lstLugConc.FirstOrDefault(lc => lc.Id == conc.NombreLugarConcurso.Id);
@@ -117,7 +118,7 @@ namespace Negocio
             /* Cargo baja del animal muerte */
             var bajaMap = new BajaMapper(registro);
             listTemp = bajaMap.GetBajaByRegistro(registro);
-            
+
             if (listTemp.Count > 0)
             {
                 for (int i = 0; i < listTemp.Count; i++)
@@ -130,7 +131,7 @@ namespace Negocio
                 a.Vivo = false;
                 //a.Eventos.AddRange(listTemp);
             }
-           
+
             if (a.esHembra())
             {
                 /* Cargo las calificaciones del animal, los M puede ser calificado? */
@@ -173,7 +174,8 @@ namespace Negocio
                     {
                         if (serv.Inseminador != null && serv.Inseminador.Id_empleado != 0)
                         {
-                            Empleado insCompleto = lstInseminadores.FirstOrDefault(e => e.Id_empleado == serv.Inseminador.Id_empleado);
+                            Empleado insCompleto =
+                                lstInseminadores.FirstOrDefault(e => e.Id_empleado == serv.Inseminador.Id_empleado);
                             serv.Inseminador = insCompleto;
                         }
                     }
@@ -186,7 +188,7 @@ namespace Negocio
                 if (listTemp.Count > 0) a.Eventos.AddRange(listTemp);
 
             }
-            
+
             /* Ordeno la coleccion de eventos del animal de forma descendente para mostrarlos en la ficha */
             a.Eventos.Sort();
             a.Eventos.Reverse();
@@ -229,6 +231,7 @@ namespace Negocio
             var amap = new AnimalMapper();
             return amap.GetAnimalesByCategoria(idCategoria);
         }
+
         public int GetCantOrdene()
         {
             return _animalMapper.GetCantOrdene();
@@ -248,7 +251,7 @@ namespace Negocio
         {
             return _controlProdMapper.GetFechaUltimoControl();
         }
-        
+
 
         public List<VOLactancia> GetLactanciasActuales()
         {
@@ -257,9 +260,9 @@ namespace Negocio
             for (int i = 0; i < lstLact.Count; i++)
             {
                 var tmp = lstLact[i];
-                var voLact = new VOLactancia(tmp.Registro, tmp.Numero, tmp.Dias, 
-                                             tmp.Leche305, tmp.Grasa305, tmp.Leche365, 
-                                             tmp.Grasa365, tmp.ProdLeche, tmp.ProdGrasa);
+                var voLact = new VOLactancia(tmp.Registro, tmp.Numero, tmp.Dias,
+                    tmp.Leche305, tmp.Grasa305, tmp.Leche365,
+                    tmp.Grasa365, tmp.ProdLeche, tmp.ProdGrasa);
                 lstResult.Add(voLact);
             }
             return lstResult;
@@ -272,9 +275,9 @@ namespace Negocio
             for (int i = 0; i < lstLact.Count; i++)
             {
                 var tmp = lstLact[i];
-                var voLact = new VOLactancia(tmp.Registro, tmp.Numero, tmp.Dias, 
-                                             tmp.Leche305, tmp.Grasa305, tmp.Leche365, tmp.Grasa365, 
-                                             tmp.ProdLeche, tmp.ProdGrasa);
+                var voLact = new VOLactancia(tmp.Registro, tmp.Numero, tmp.Dias,
+                    tmp.Leche305, tmp.Grasa305, tmp.Leche365, tmp.Grasa365,
+                    tmp.ProdLeche, tmp.ProdGrasa);
                 lstResult.Add(voLact);
             }
             return lstResult;
@@ -288,8 +291,8 @@ namespace Negocio
             {
                 var tmp = lstLact[i];
                 var voLact = new VOLactancia(tmp.Registro, tmp.Numero, tmp.Dias,
-                                             tmp.Leche305, tmp.Grasa305, tmp.Leche365, tmp.Grasa365,
-                                             tmp.ProdLeche, tmp.ProdGrasa);
+                    tmp.Leche305, tmp.Grasa305, tmp.Leche365, tmp.Grasa365,
+                    tmp.ProdLeche, tmp.ProdGrasa);
                 lstResult.Add(voLact);
             }
             return lstResult;
@@ -303,8 +306,8 @@ namespace Negocio
             {
                 var tmp = lstLact[i];
                 var voLact = new VOLactancia(tmp.Registro, tmp.Numero, tmp.Dias,
-                                             tmp.Leche305, tmp.Grasa305, tmp.Leche365, tmp.Grasa365,
-                                             tmp.ProdLeche, tmp.ProdGrasa);
+                    tmp.Leche305, tmp.Grasa305, tmp.Leche365, tmp.Grasa365,
+                    tmp.ProdLeche, tmp.ProdGrasa);
                 lstResult.Add(voLact);
             }
             return lstResult;
@@ -319,8 +322,8 @@ namespace Negocio
             {
                 var tmp = lstLact[i];
                 var voLact = new VOLactancia(tmp.Registro, tmp.Numero, tmp.Dias,
-                                             tmp.Leche305, tmp.Grasa305, tmp.Leche365, tmp.Grasa365,
-                                             tmp.ProdLeche, tmp.ProdGrasa);
+                    tmp.Leche305, tmp.Grasa305, tmp.Leche365, tmp.Grasa365,
+                    tmp.ProdLeche, tmp.ProdGrasa);
                 lstResult.Add(voLact);
             }
             return lstResult;
@@ -343,7 +346,7 @@ namespace Negocio
 
         public List<VOControlProd> GetControlesProduccUltimo()
         {
-            
+
             var lstResult = new List<VOControlProd>();
             List<Control_Producc> lstLact = _controlProdMapper.GetControlesProduccUltimo();
             for (int i = 0; i < lstLact.Count; i++)
@@ -358,10 +361,10 @@ namespace Negocio
                     numLact = lactUlt.Numero;
                     diasLact = lactUlt.Dias;
                 } */
-                
+
                 // Armo el value object
                 var voLact = new VOControlProd(tmp.Registro, numLact, diasLact,
-                                                     tmp.Leche, tmp.Grasa, tmp.Fecha.ToShortDateString());
+                    tmp.Leche, tmp.Grasa, tmp.Fecha.ToShortDateString());
                 voLact.FechaServicio = "-";
                 voLact.FechaProbParto = "-";
                 voLact.Diag = '-';
@@ -374,12 +377,13 @@ namespace Negocio
                     var fechaUltServicio = listServDespUltParto[cantServ - 1].Fecha;
                     voLact.FechaServicio = fechaUltServicio.ToShortDateString();
                     // traigo los diagnosticos hechos luego del ultimo servicio
-                    var listDiagDespUltServicio = _diagMapper.GetDiag_PrenezByRegistroUltDespFecha(tmp.Registro, fechaUltServicio);
+                    var listDiagDespUltServicio = _diagMapper.GetDiag_PrenezByRegistroUltDespFecha(tmp.Registro,
+                        fechaUltServicio);
                     var cantDiag = listDiagDespUltServicio.Count();
                     if (cantDiag > 0)
                     {
                         listDiagDespUltServicio.Sort();
-                        var ultDiag = (Diag_Prenez)listDiagDespUltServicio[cantDiag - 1];
+                        var ultDiag = (Diag_Prenez) listDiagDespUltServicio[cantDiag - 1];
                         voLact.Diag = ultDiag.Diagnostico;
                         // si el disg en preñada sumo 285 días para obtener la fecha probable de parto
                         if (ultDiag.Diagnostico == 'P')
@@ -387,7 +391,7 @@ namespace Negocio
                     }
 
                 }
-                
+
                 voLact.NumServicio = cantServ;
                 lstResult.Add(voLact);
             }
@@ -410,11 +414,11 @@ namespace Negocio
             voA.PrenezConfirmada = _animalMapper.GetAnimalOrdenePrenezConf();
             if (voA.CantVacasEnOrdene > 0)
             {
-                voA.PorcLactancia1 = Math.Round(voA.CantLactancia1/(double)voA.CantVacasEnOrdene*100, 1);
-                voA.PorcLactancia2 = Math.Round(voA.CantLactancia2/(double)voA.CantVacasEnOrdene*100, 1);
-                voA.PorcLactanciaMayor2 = Math.Round(voA.CantLactanciaMayor2/(double)voA.CantVacasEnOrdene*100, 1);
-                voA.PromServicioSinPrenez = Math.Round(voA.ConServicioSinPreñez / (double)voA.CantVacasEnOrdene * 100, 1);
-                voA.PromPrenezConfirmada = Math.Round(voA.PrenezConfirmada / (double)voA.CantVacasEnOrdene * 100, 1);              
+                voA.PorcLactancia1 = Math.Round(voA.CantLactancia1/(double) voA.CantVacasEnOrdene*100, 1);
+                voA.PorcLactancia2 = Math.Round(voA.CantLactancia2/(double) voA.CantVacasEnOrdene*100, 1);
+                voA.PorcLactanciaMayor2 = Math.Round(voA.CantLactanciaMayor2/(double) voA.CantVacasEnOrdene*100, 1);
+                voA.PromServicioSinPrenez = Math.Round(voA.ConServicioSinPreñez/(double) voA.CantVacasEnOrdene*100, 1);
+                voA.PromPrenezConfirmada = Math.Round(voA.PrenezConfirmada/(double) voA.CantVacasEnOrdene*100, 1);
             }
 
             voA.PromDiasLactancias = _lactMapper.GetLactanciaPromedioDiasActual();
@@ -432,9 +436,9 @@ namespace Negocio
             var lista = new List<DateTime>();
             DateTime fecha = DateTime.Now;
             lista.Add(fecha);
-            for ( int i = 0; i <= 10; i++)
+            for (int i = 0; i <= 10; i++)
             {
-                fecha = fecha.AddMonths(1); 
+                fecha = fecha.AddMonths(1);
                 lista.Add(fecha);
             }
             return lista;
@@ -451,11 +455,11 @@ namespace Negocio
             foreach (var serv in listServ)
             {
                 DateTime fechaParto = serv.Fecha.AddDays(285);
-                int cantServ = dictCantServ.ContainsKey(serv.Registro)? dictCantServ[serv.Registro] : -1 ; 
+                int cantServ = dictCantServ.ContainsKey(serv.Registro) ? dictCantServ[serv.Registro] : -1;
                 var voServ = new VOServicio01
                 {
-                    Registro = serv.Registro, 
-                    FechaServicio = serv.Fecha, 
+                    Registro = serv.Registro,
+                    FechaServicio = serv.Fecha,
                     RegistroPadre = serv.Reg_padre,
                     CantServicios = cantServ,
                     FechaParto = fechaParto
@@ -469,14 +473,15 @@ namespace Negocio
         }
 
         public Categoria GetCategoriaById(int idCateg)
-        {   
+        {
             Categoria cat = new Categoria();
             cat.Id_categ = idCateg;
             _catMapper = new CategoriaMapper(cat);
             return _catMapper.GetCategoriaById();
         }
+
         public List<VOServicio> GetServicios70SinDiagPrenezVaqEnt()
-        {           
+        {
             var listServVaqEnt = _servMapper.GetServicios70SinDiagPrenezVaqEnt();
             var listAnimVaqEnt = _animalMapper.GetAnimalesByCategoria(3);
             var dictCantServ = _servMapper.GetRegCantServDespuesPrenez();
@@ -551,7 +556,8 @@ namespace Negocio
         }
 
 
-        private List<VOServicio> CargarVOServicios(List<Servicio> listServVaqEnt, List<Animal> listAnimVaqEnt, Dictionary<string, int> dictCantServ)
+        private List<VOServicio> CargarVOServicios(List<Servicio> listServVaqEnt, List<Animal> listAnimVaqEnt,
+            Dictionary<string, int> dictCantServ)
         {
             var listaVOServ = new List<VOServicio>();
             var listemp = _empMapper.GetAll();
@@ -578,9 +584,9 @@ namespace Negocio
         public string CalcularEdad(DateTime fechaNacimiento)
         {
             TimeSpan intervalo = DateTime.Now - fechaNacimiento;
-            var intervaloAnos = (int)((double)intervalo.Days / 365.2425);
-            var intervaloMeses = (int)((double)(intervalo.Days%365.2425) / 30.436875);
-            return intervaloAnos.ToString() + " años, "+ intervaloMeses.ToString()+ " meses";
+            var intervaloAnos = (int) ((double) intervalo.Days/365.2425);
+            var intervaloMeses = (int) ((double) (intervalo.Days%365.2425)/30.436875);
+            return intervaloAnos.ToString() + " años, " + intervaloMeses.ToString() + " meses";
         }
 
         public string CalcularDiasServicio(DateTime fechaServicio)
@@ -595,7 +601,8 @@ namespace Negocio
             return controlTotal.GetAll();
         }
 
-        public List<Controles_totalesMapper.VOControlTotal> GetControlesTotalesEntreDosFechas(string fecha1, string fecha2)
+        public List<Controles_totalesMapper.VOControlTotal> GetControlesTotalesEntreDosFechas(string fecha1,
+            string fecha2)
         {
             var controlTotal = new Controles_totalesMapper();
             return controlTotal.GetControlesTotalesEntreDosFechas(fecha1, fecha2);
@@ -750,7 +757,7 @@ namespace Negocio
             var voEmp = new VOEmpresa(emp);
             return voEmp;
         }
-        
+
 
         public List<Usuario> GetUsuariosAll()
         {
@@ -762,9 +769,9 @@ namespace Negocio
         //{
         //    var list = new List<VOAnimal>();
         //    var voAnimal = new VOAnimal();
-            
+
         //    var a = new Animal(reg);
-            
+
         //    _animalMapper = new AnimalMapper(a);
         //    var anim = _animalMapper.GetAnimalById();
         //    voAnimal = this.CopiarVOAnimal(anim);
@@ -782,7 +789,7 @@ namespace Negocio
         //        {
 
         //        }
-                
+
         //    }
         //    //voPadre = this.CopiarVOAnimal(padre);
         //    //voMadre = this.CopiarVOAnimal(madre);
@@ -794,7 +801,7 @@ namespace Negocio
         //{
         //    if (vo!=null)
         //    if (vo.Registro!="M-DESCONOC") vo.Madre=GetPadresAnimal()
-            
+
         //}
 
         public VOAnimal CopiarVOAnimal(Animal anim)
@@ -804,13 +811,14 @@ namespace Negocio
             voAnim.Fecha_nacim = anim.Fecha_nacim;
             voAnim.Gen = anim.Gen;
             voAnim.IdCategoria = anim.IdCategoria;
+            voAnim.Categoria = this.GetCategoriaById(anim.IdCategoria).ToString();
             voAnim.Identificacion = anim.Identificacion;
             voAnim.Fotos = _animalMapper.GetFotosByRegistro(anim.Registro);
             voAnim.Nombre = anim.Nombre;
             voAnim.Origen = anim.Origen;
             voAnim.Reg_madre = anim.Reg_madre;
             voAnim.Reg_padre = anim.Reg_padre;
-            voAnim.Reg_trazab = anim.Origen;
+            voAnim.Reg_trazab = anim.Reg_trazab;
             voAnim.Registro = anim.Registro;
             voAnim.Sexo = anim.Sexo;
             voAnim.Vivo = anim.Vivo;
@@ -821,12 +829,12 @@ namespace Negocio
         public double[] ControlTotalLecheGetAll()
         {
             var controlTotal = new Controles_totalesMapper();
-            var lista =  controlTotal.GetAll();
+            var lista = controlTotal.GetAll();
             var listaleche = new Dictionary<string, double>();
 
             foreach (var a in lista)
             {
-                listaleche.Add(a.Fecha.ToString(),a.Leche);
+                listaleche.Add(a.Fecha.ToString(), a.Leche);
             }
 
             var resultArray = listaleche.Values.ToArray();
@@ -866,34 +874,34 @@ namespace Negocio
             switch (evento.Id_evento)
             {
                 case 0: // ABORTO
-                    var abortoMap = new AbortoMapper((Aborto)evento);
+                    var abortoMap = new AbortoMapper((Aborto) evento);
                     return abortoMap.Insert() > 1;
                 case 2: // CELO SIN SERVICIO
-                    var celoMap = new Celo_Sin_ServicioMapper((Celo_Sin_Servicio)evento);
+                    var celoMap = new Celo_Sin_ServicioMapper((Celo_Sin_Servicio) evento);
                     return celoMap.Insert() > 1;
                 case 3: // SERVICIO
-                    var servMap = new ServicioMapper((Servicio)evento);
+                    var servMap = new ServicioMapper((Servicio) evento);
                     return servMap.Insert() > 1;
                 case 4: // SECADO
-                    var secMap = new SecadoMapper((Secado)evento);
+                    var secMap = new SecadoMapper((Secado) evento);
                     return secMap.Insert() > 1;
                 case 7: // DIAGNOSTICO DE PRENEZ
-                    var diagMap = new Diag_PrenezMapper((Diag_Prenez)evento);
+                    var diagMap = new Diag_PrenezMapper((Diag_Prenez) evento);
                     return diagMap.Insert() > 1;
                 case 8: // CONTROL DE PRODUCCION
-                    var contMap = new Control_ProduccMapper((Control_Producc)evento);
+                    var contMap = new Control_ProduccMapper((Control_Producc) evento);
                     return contMap.Insert() > 1;
                 case 9: // CALIFICACION
-                    var califMap = new CalificacionMapper((Calificacion)evento);
+                    var califMap = new CalificacionMapper((Calificacion) evento);
                     return califMap.Insert() > 1;
                 case 10: // CONCURSO
-                    var concursMap = new ConcursoMapper((Concurso)evento);
+                    var concursMap = new ConcursoMapper((Concurso) evento);
                     return concursMap.Insert() > 1;
                 case 11: // BAJA POR VENTA
-                    var bajaMap = new VentaMapper((Venta)evento);
+                    var bajaMap = new VentaMapper((Venta) evento);
                     return bajaMap.Insert() > 1;
                 case 12: // BAJA POR MUERTE
-                    var muerteMap = new MuerteMapper((Muerte)evento);
+                    var muerteMap = new MuerteMapper((Muerte) evento);
                     return muerteMap.Insert() > 1;
                 default:
                     return false;
@@ -924,16 +932,16 @@ namespace Negocio
             var _userMap = new UsuarioMapper();
             return _userMap.GetRolesUsuarioAll();
         }
-        
+
 
         public List<VoListItem> GetAbortosAnimalesConServicios()
         {
-           var lista =  _abortoMapper.GetAbortosAnimalesConServicio();
+            var lista = _abortoMapper.GetAbortosAnimalesConServicio();
             var listaVO = new List<VoListItem>();
             foreach (var item in lista)
             {
-                var reg = item.Registro; 
-                var valueobj = new VoListItem{Nombre = reg};
+                var reg = item.Registro;
+                var valueobj = new VoListItem {Nombre = reg};
                 listaVO.Add(valueobj);
             }
             return listaVO;
@@ -948,6 +956,12 @@ namespace Negocio
         {
             var userMap = new UsuarioMapper(usuario);
             return userMap.Insert() > 0;
+        }
+
+        public bool UpdateUsuario(Usuario usuario)
+        {
+            var userMap = new UsuarioMapper(usuario);
+            return userMap.Update() > 0;
         }
 
         public List<Cmt> GetCmtAll()
@@ -982,7 +996,7 @@ namespace Negocio
             {
                 for (int j = 0; j < lstResult.Count; j++)
                 {
-                    double avg = ((double)lstResult[j].Cantidad / sum) * 100;
+                    double avg = ((double) lstResult[j].Cantidad/sum)*100;
                     lstResult[j].Porcentaje = Math.Round(avg, 2);
                 }
             }
@@ -1066,7 +1080,8 @@ namespace Negocio
                         if (lst[i].Diagnostico == 'P') lstToros[j].CantDiagP++;
                         if (lstToros[j].CantServicios > 0)
                         {
-                            lstToros[j].PorcEfectividad = Math.Round((double)lstToros[j].CantDiagP / lstToros[j].CantServicios * 100, 1);
+                            lstToros[j].PorcEfectividad =
+                                Math.Round((double) lstToros[j].CantDiagP/lstToros[j].CantServicios*100, 1);
                         }
                         esta = true;
                         break;
@@ -1103,7 +1118,7 @@ namespace Negocio
             {
                 vT.CantH = _animalMapper.GetCantNacimientosHPorToroByAnio(vT.Registro, anio);
                 vT.CantM = vT.CantNacim - vT.CantH;
-                vT.PorcHembras = Math.Round((double)vT.CantH / vT.CantNacim * 100, 1);
+                vT.PorcHembras = Math.Round((double) vT.CantH/vT.CantNacim*100, 1);
             }
             return lst;
         }
@@ -1132,6 +1147,32 @@ namespace Negocio
             }
             return null;
 
+        }
+
+        public VOUsuario GetDatosUsuario(string nick)
+        {
+            var u = new Usuario();
+            u.Nickname = nick;
+            _userMapper = new UsuarioMapper(u);
+            var user = _userMapper.GetUsuarioById();
+            var lstRoles = this.GetRolesDeUsuario();
+            if (user != null)
+            {
+                var nivel = 0;
+                RolUsuario elRol = lstRoles.FirstOrDefault(c => c.NombreRol == user.Rol.NombreRol);
+                var voUser = new VOUsuario
+                {
+                    Nombre = user.Nombre,
+                    Apellido = user.Apellido,
+                    Email = user.Email,
+                    Foto = user.Foto,
+                    Habilitado = user.Habilitado,
+                    Nickname = user.Nickname,
+                    Rol = elRol,
+                };
+                return voUser;
+            }
+            return null;
         }
 
         public bool Logoff(string user)
@@ -1168,7 +1209,7 @@ namespace Negocio
                     strValuesGraficaChicaVacasOrdene += lstUltXControles[i].Vacas.ToString();
                     if (i != 0) strValuesGraficaChicaVacasOrdene += ",";
                 }
-                
+
                 //if (lstUltXControles.Count > 1)
                 //{
                 //    cAnterior = lstUltXControles[lstUltXControles.Count - 1].Leche;
@@ -1185,7 +1226,7 @@ namespace Negocio
                 //indTablero.VacasEnOrdene.Porcentaje = strPre + porc.ToString() + "%";
             }
             indTablero.VacasEnOrdene.DataValue = strValuesGraficaChicaVacasOrdene;
-            
+
             // PROMEDIO LECHE EN ULTIMO CONTROL
             var promLecheUltCtl = Math.Round(GetPromLecheUltControl(), 1);
             indTablero.PromLeche = new VoListItemInd("promedio leche");
@@ -1231,7 +1272,7 @@ namespace Negocio
             // PARTOS PARA ESTE MES
             indTablero.PartosMes = new VoListItemInd("partos este mes");
             //var hoy = DateTime.Today;
-            var hoy = new DateTime(2014,09,01);  // TESTING --------------------------
+            var hoy = new DateTime(2014, 09, 01); // TESTING --------------------------
             var mesAnt = hoy.AddMonths(-1);
             var partosMes = this.GetPartosByMesAnio(hoy);
             var partosMesAnt = this.GetPartosByMesAnio(mesAnt);
@@ -1249,10 +1290,10 @@ namespace Negocio
             if (abortosAnio > abortosAnioAnt) indTablero.AbortosAnual.Status = "important";
             if (abortosAnio < abortosAnioAnt) indTablero.AbortosAnual.Status = "success";
             indTablero.AbortosAnual.Porcentaje = abortosAnioAnt.ToString();
-            
+
             // NACIMIENTOS ESTE AÑO
             indTablero.NacidosAnual = new VoListItemInd("Nacidos");
-            var nacimAnio = this.GetCantNacimientosPorAnio(2014);  // TESTING --------------------------
+            var nacimAnio = this.GetCantNacimientosPorAnio(2014); // TESTING --------------------------
             //var nacimAnio = this.GetCantNacimientosPorAnio(hoy.Year);
             indTablero.NacidosAnual.Valor = nacimAnio.ToString();
 
@@ -1266,7 +1307,7 @@ namespace Negocio
             // TORO MAS USADO
             var nomToro = "Sin insem.";
             var efect = 0.0;
-            var lst = GetTorosUtilizadosPorAnio(2014);  // TESTING --------------------------
+            var lst = GetTorosUtilizadosPorAnio(2014); // TESTING --------------------------
             //var lst = GetTorosUtilizadosPorAnio(hoy.Year);
             if (lst.Count > 0)
             {
@@ -1278,7 +1319,7 @@ namespace Negocio
             indTablero.ToroMasUsado = new VoListItemInd("% efectividad");
             indTablero.ToroMasUsado.Texto = nomToro;
             indTablero.ToroMasUsado.Valor = "efectividad";
-            indTablero.ToroMasUsado.Porcentaje = efect.ToString()+"%";
+            indTablero.ToroMasUsado.Porcentaje = efect.ToString() + "%";
 
             return indTablero;
         }
@@ -1316,10 +1357,10 @@ namespace Negocio
             alertDiag35.Link = "../DiagEcograficos.aspx";
             alertDiag35.LinkAlt = "Diagnósticos ecográficos";
             alertDiag35.Icono = "fa-bell-o";
-            var cant35 = 0;   // TESTING -----------------------------
-            /*var cant35 = this.GetServicios35SinDiagPrenezVacOrdene().Count +
-                this.GetServicios35SinDiagPrenezVacSecas().Count +
-                this.GetServicios35SinDiagPrenezVaqEnt().Count;*/
+            //var cant35 = 0;   // TESTING -----------------------------
+            var cant35 = this.GetServicios35SinDiagPrenezVacOrdene().Count +
+                         this.GetServicios35SinDiagPrenezVacSecas().Count +
+                         this.GetServicios35SinDiagPrenezVaqEnt().Count;
             alertDiag35.Valor = cant35.ToString();
             alertDiag35.Status = "success";
             if (cant35 == 0)
@@ -1343,17 +1384,17 @@ namespace Negocio
             alertDiag70.Link = "../ServiciosSinDiag.aspx";
             alertDiag70.LinkAlt = "Servicios sin diagnóstico de preñez";
             alertDiag70.Icono = "icon-animated-bell fa-bell-o";
-            var cant70 = 37;   // TESTING -----------------------------
-            /*var cant70 = this.GetServicios70SinDiagPrenezVacOrdene().Count +
-                this.GetServicios70SinDiagPrenezVacSecas().Count + 
-                this.GetServicios70SinDiagPrenezVaqEnt().Count;*/
+            //var cant70 = 37;   // TESTING -----------------------------
+            var cant70 = this.GetServicios70SinDiagPrenezVacOrdene().Count +
+                         this.GetServicios70SinDiagPrenezVacSecas().Count +
+                         this.GetServicios70SinDiagPrenezVaqEnt().Count;
             alertDiag70.Valor = cant70.ToString();
             alertDiag70.Status = "success";
             if (cant70 == 0)
             {
                 alertDiag70.Valor = "";
                 alertDiag70.Texto = "No hay vacas con 70 días de servicio sin diagnósticar!";
-                
+
             }
             else if (cant70 <= 20) alertDiag70.Status = "info";
             else if (cant70 <= 40) alertDiag70.Status = "warning";
@@ -1405,7 +1446,7 @@ namespace Negocio
             lstExtras.Add(extraSecas);
 
             //int anio = DateTime.Today.Year;
-            int anio = 2014;   // TESTING -----------------------------
+            int anio = 2014; // TESTING -----------------------------
             var extraMuertes = new VoListItemInd("Muertes");
             extraMuertes.Valor = this.GetCantMuertesPorAnio(anio).ToString();
             extraMuertes.Icono = "fa-stethoscope";
@@ -1421,7 +1462,7 @@ namespace Negocio
             extraVentas.Link = "../AnalisisVentas.aspx";
             extraVentas.LinkAlt = "Análisis de Ventas";
             lstExtras.Add(extraVentas);
-            
+
             return lstExtras;
         }
 
@@ -1453,6 +1494,138 @@ namespace Negocio
         {
             var _bajMap = new BajaMapper();
             return _bajMap.GetCantVentasViejasPorAnio(anio);
+        }
+
+        public bool UpdateDatosCorporativos(VOEmpresa voEmp)
+        {
+            var empresa = new Empresa
+            {
+                Id = voEmp.Id,
+                Nombre = voEmp.Nombre,
+                RazonSocial = voEmp.RazonSocial,
+                Rut = voEmp.Rut,
+                LetraSistema = voEmp.LetraSistema,
+                Direccion = voEmp.Direccion,
+                Ciudad = voEmp.Ciudad,
+                Telefono = voEmp.Telefono,
+                Celular = voEmp.Celular,
+                Web = voEmp.Web,
+                Cpostal = voEmp.Cpostal,
+                Logo = voEmp.Logo,
+                LogoCh = voEmp.LogoCh,
+                Actual = voEmp.Actual ? 'S' : 'N'
+            };
+
+            var empMapper = new EmpresaMapper(empresa);
+            return empMapper.Update() > 0;
+        }
+
+        public bool EnfermedadInsert(Enfermedad enfermedad)
+        {
+            var enfMapper = new EnfermedadMapper();
+            var lastId = enfMapper.GetLastIdEnfermedad();
+            enfermedad.Id = lastId + 1;
+            enfMapper = new EnfermedadMapper(enfermedad);
+            return enfMapper.Insert() > 0;
+        }
+
+        public bool CategConcursoInsert(CategoriaConcurso categ)
+        {
+            var catConcMap = new CategConcursoMapper(categ);
+            return catConcMap.Insert() > 0;
+        }
+
+        public bool InsertarEmpleado(Empleado empleado)
+        {
+            var empMap = new EmpleadoMapper(empleado);
+            return empMap.Insert() > 0;
+        }
+
+        public VOAnimal GetArbolGenealogico(Animal animal)
+        {
+            var voA = new VOAnimal();
+            if (animal != null)
+            {
+                voA = CopiarVOAnimal(animal);
+                voA.Vivo = !EstaMuertoAnimal(voA.Registro);
+                voA.Vendido = FueVendidoAnimal(voA.Registro);
+                if (voA.esHembra())
+                {
+                    _lactMapper = new LactanciaMapper(voA.Registro);
+                    voA.Lactancias = this.CopiarVOLactanciaList(_lactMapper.GetLactanciasByRegistro());
+                }
+                // ARBOL POR PARTE DE MADRE
+                if (animal.Reg_madre != "H-DESCONOC")
+                {
+                    voA.Madre = CopiarVOAnimal(GetAnimalByRegistro(animal.Reg_madre));
+                    voA.Madre.Vivo = !EstaMuertoAnimal(animal.Reg_madre);
+                    voA.Madre.Vendido = FueVendidoAnimal(animal.Reg_madre);
+                    _lactMapper = new LactanciaMapper(animal.Reg_madre);
+                    voA.Madre.Lactancias = this.CopiarVOLactanciaList(_lactMapper.GetLactanciasByRegistro());
+
+                    if (voA.Madre != null && voA.Madre.Registro != "H-DESCONOC")
+                    {
+                        string strAbuelaM = voA.Madre.Reg_madre;
+                        string strAbueloM = voA.Madre.Reg_padre;
+                        if (strAbuelaM != "H-DESCONOC")
+                        {
+                            voA.Madre.Madre = CopiarVOAnimal(GetAnimalByRegistro(strAbuelaM));
+                            voA.Madre.Madre.Vivo = !EstaMuertoAnimal(strAbuelaM);
+                            voA.Madre.Madre.Vendido = FueVendidoAnimal(strAbuelaM);
+                            _lactMapper = new LactanciaMapper(strAbuelaM);
+                            voA.Madre.Madre.Lactancias = this.CopiarVOLactanciaList(_lactMapper.GetLactanciasByRegistro());
+                        }
+                        if (strAbueloM != "M-DESCONOC")
+                        {
+                            voA.Madre.Padre = CopiarVOAnimal(GetAnimalByRegistro(strAbueloM));
+                            voA.Madre.Padre.Vivo = !EstaMuertoAnimal(strAbueloM);
+                            voA.Madre.Padre.Vendido = FueVendidoAnimal(strAbueloM);
+                        }
+                    }
+                }
+                // ARBOL POR PARTE DE PADRE
+                if (animal.Reg_padre != "M-DESCONOC")
+                {
+                    voA.Padre = CopiarVOAnimal(GetAnimalByRegistro(animal.Reg_padre));
+                    voA.Padre.Vivo = !EstaMuertoAnimal(animal.Reg_padre);
+                    voA.Padre.Vendido = FueVendidoAnimal(animal.Reg_padre);
+                    if (voA.Padre != null && voA.Padre.Registro != "M-DESCONOC")
+                    {
+                        string strAbuelaP = voA.Padre.Reg_madre;
+                        string strAbueloP = voA.Padre.Reg_padre;
+                        if (strAbuelaP != "H-DESCONOC")
+                        {
+                            voA.Padre.Madre = CopiarVOAnimal(GetAnimalByRegistro(strAbuelaP));
+                            voA.Padre.Madre.Vivo = !EstaMuertoAnimal(strAbuelaP);
+                            voA.Padre.Madre.Vendido = FueVendidoAnimal(strAbuelaP);
+                            _lactMapper = new LactanciaMapper(strAbuelaP);
+                            voA.Padre.Madre.Lactancias = this.CopiarVOLactanciaList(_lactMapper.GetLactanciasByRegistro());
+                        }
+                        if (strAbueloP != "M-DESCONOC")
+                        {
+                            voA.Padre.Padre = CopiarVOAnimal(GetAnimalByRegistro(strAbueloP));
+                            voA.Padre.Padre.Vivo = !EstaMuertoAnimal(strAbueloP);
+                            voA.Padre.Padre.Vendido = FueVendidoAnimal(strAbueloP);
+                        }
+                    }
+                }
+
+            }
+            return voA;
+        }
+
+        public List<VOLactancia> CopiarVOLactanciaList(List<Lactancia> lst)
+        {
+            var lstResult = new List<VOLactancia>();
+            for (int i = 0; i < lst.Count; i++)
+            {
+                if (lst[i] != null)
+                {
+                    var voLact = new VOLactancia(lst[i]);
+                    lstResult.Add(voLact);
+                }
+            }
+            return lstResult;
         }
 
         public bool CheckAnimalConDiagPrenezActual(string registro)

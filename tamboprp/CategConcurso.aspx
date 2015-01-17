@@ -57,7 +57,53 @@
                 <asp:Label ID="titCantEnf" runat="server" Text="Cantidad de categorías: " Visible="False"></asp:Label><asp:Label ID="lblCantEnf" runat="server" ></asp:Label><br/>
             </div>
         </div>
-        <div class="col-md-8"></div>
+        <div class="col-md-4"></div>
+        
+        <!-- RESUMEN EN COLUMNA DERECHA -->
+            <div class="col-md-4">
+                <div class="well">
+                    <h4 class="header smaller lighter blue"><i class="menu-icon fa fa-paperclip"></i> Tabla de categorías de concurso</h4>
+                    <ul class="list-unstyled spaced2">
+                        <li class="bigger-110">
+                            <a href="#newCategConc" role="button" id="id-btn-save" class="btn btn-white btn-default btn-sm" data-toggle="modal"><i class="ace-icon fa fa-pencil"></i> Agregar categoría</a>
+                        </li>
+                    </ul>
+                    <hr/>
+                    <asp:Label ID="lblStatus" runat="server" Text=""></asp:Label>
+				</div>
+            </div>
     </div>
+    
+    <!-- NUEVA CATEGORIA DE CONCURSO MODAL -->
+    
+    <div id="newCategConc" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4><i class="ace-icon fa fa-save"></i> Ingreso categoría de concurso</h4>
+                </div>
+                <div class="modal-body">
+                    <span id="bodySaveModal" class="text-warning center">
+                        <!-- FORMULARIO -->
+                        <div id="formulario" class="form-horizontal">
+                            <!-- Nombre y Apellido -->
+                            <div class="form-group">
+		                        <label class="col-sm-3 control-label no-padding-right"> Nombre </label>
+			                    <div class="col-sm-6">
+                                    <asp:TextBox ID="newCateg" CssClass="form-control col-xs-10 col-sm-5" runat="server"></asp:TextBox>
+			                    </div>
+		                    </div>
+                        </div>
+                    </span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancelar</button>
+                    <asp:Button ID="btnSave" runat="server" CssClass="btn btn-sm btn-info" Text="Ok" OnClick="btn_GuardarCategConcurso" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FINAL MODAL -->
 
 </asp:Content>

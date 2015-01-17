@@ -14,8 +14,6 @@
     <link href="css/ace-rtl.css" rel="stylesheet" />
     <link href="css/ace-ie.css" rel="stylesheet" />
     
-    
-
     <script src="js/ace/ace.searchbox-autocomplete.js"></script>
     
     <script src="js/ace-extra.js"></script>

@@ -53,29 +53,44 @@ namespace tamboprp
         protected void btn_GuardarEvento(object sender, EventArgs e)
         {
             // pop-up el modal y mostrar mensaje resultado de guardar en la base de datos
-            if (this.GuardarDatos())
+            if (this.ActualizarDatosCorporativos())
             {
-                //this.bodySaveModal.InnerText = "El usuario se ha guardado con éxito!";
+                this.lblStatus.Text = "Los datos se han guardado con éxito";
             }
-            //else this.bodySaveModal.InnerText = "El usuario no se ha podido guardar";
-            this.LimpiarFormulario();
+            else
+            {
+                this.lblStatus.Text = "Los datos no se han podido guardar";
+            }
+            //this.LimpiarFormulario();
+            this.CargarDatosCorporativos();
         }
 
 
-        private bool GuardarDatos()
+        private bool ActualizarDatosCorporativos()
         {
-            //var usuario = new Usuario
-            //{
-            //    Nombre = fNombre.Value,
-            //    Apellido = fApellido.Value,
-            //    Nickname = username.Value,
-            //    Password = password.Value,
-            //    Email = fEmail.Value,
-            //    Foto = "",
-            //    Rol = rol
-            //};
-            //return Fachada.Instance.InsertarUsuario(usuario);
-            return true;
+            var e = (VOEmpresa)Session["Corporativo"];
+            if (e != null)
+            {
+                var eTemp = new VOEmpresa
+                {
+                    Id = e.Id,
+                    Nombre = this.fNombre.Value,
+                    RazonSocial = this.fRazonSocial.Value,
+                    Rut = this.fRut.Value,
+                    LetraSistema = this.FLetraSistema.Value,
+                    Direccion = this.fDireccion.Value,
+                    Ciudad = this.fCiudad.Value,
+                    Telefono = this.fTelefono.Value,
+                    Celular = this.fCelular.Value,
+                    Web = this.fWeb.Value,
+                    Cpostal = this.fCP.Value,
+                    Logo = e.Logo,
+                    LogoCh = e.LogoCh,
+                    Actual = e.Actual
+                };
+                return Fachada.Instance.UpdateDatosCorporativos(eTemp);
+            }
+            return false;
         }
 
         protected void btn_LimpiarFormulario(object sender, EventArgs e)
@@ -93,6 +108,11 @@ namespace tamboprp
             this.fCP.Value = "";
             this.fCelular.Value = "";
             this.fTelefono.Value = "";
+        }
+
+        protected void btn_CambiarImagen(object sender, EventArgs e)
+        {
+
         }
     }
 }

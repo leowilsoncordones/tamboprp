@@ -30,7 +30,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="page-header">
-        <h1><i class="menu-icon fa fa-thumbs-o-down"></i> Información sobre muertes <small><i class="ace-icon fa fa-angle-double-right"></i> análisis sanitario y lista de muertes</asp:Label></small></h1>
+        <h1><i class="menu-icon fa fa-thumbs-o-down"></i> Información sobre muertes <small><i class="ace-icon fa fa-angle-double-right"></i> análisis sanitario y lista de muertes</small></h1>
     </div>
 
     <!-- comienza tabbable -->
@@ -46,6 +46,16 @@
 			<div id="analisisSanitario" class="tab-pane fade in active">
 			    <div class="page-header">
                     <h1><i class="menu-icon fa fa-stethoscope"></i> Análisis sanitario de muertes <small><i class="ace-icon fa fa-angle-double-right"></i> según incidencia en el rodeo</small></h1>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="pull-right">
+                            <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm" Text=" Excel" onclick="excelExport_Click"><span><i class="fa fa-file-excel-o bigger-110 green"></i></span> Excel</asp:LinkButton>
+                            <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm"  Text=" PDF" onclick="pdfExport_Click"><span><i class="fa fa-file-pdf-o bigger-110 red"></i></span> PDF</asp:LinkButton>
+                            <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm"  Text=" Print" onclick="print_Click"><span><i class="fa fa-print bigger-110 grey"></i></span> Print</asp:LinkButton>
+                        </div>
+                    </div>
+                    <div class="col-md-6"></div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">

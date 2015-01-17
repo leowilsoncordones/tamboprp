@@ -119,7 +119,7 @@
                             <!-- Botones -->
                             <div class="form-group">
                                 <div class="col-md-offset-3 col-md-9">
-                                    <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-info" Text="Enviar" OnClick="btn_EnviarFormulario" />
+                                    <a href="#sendModal" role="button" id="btnSubmit" class="btn btn-info" data-toggle="modal" OnClick="setBodyModal()">Guardar</a>
                                     &nbsp;&nbsp;&nbsp;
                                     <asp:Button ID="btnReset" runat="server" CssClass="btn btn-default" Text="Limpiar" OnClick="btn_LimpiarFormulario" />
 				                </div>
@@ -127,9 +127,40 @@
                         </div>
                      </div>
                 </div>
+                <asp:Label ID="lblStatus" runat="server" Text=""></asp:Label>
             </div> <!-- fin PESTANA 2 -->
         </div>
 	</div> <!-- fin tabbable -->
     
+    <!-- CONFIRMATION MODAL -->
+    
+    <div id="sendModal" class="modal fade">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header widget-header-small">
+                    <h4 class="smaller"><i class="ace-icon fa fa-save"></i> Confirmar</h4>
+                </div>
+                <div class="modal-body">
+                    <span id="bodySaveModal" class="text-warning">
+                        
+                    </span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancelar</button>
+                    <asp:Button ID="btnSave" runat="server" CssClass="btn btn-sm btn-info" Text="Ok" OnClick="btn_EnviarFormulario" />
+                </div>
+            </div>
+        </div>
+    </div>    
+    
+    <script>
+        function setBodyModal() {
+            var bodySaveModal = document.getElementById("bodySaveModal");
+            bodySaveModal.innerHTML = "Seguro que desea enviar un caso de soporte?";
+        }
+    </script>
 
+    <!-- FINAL MODAL -->
+    
+    
 </asp:Content>

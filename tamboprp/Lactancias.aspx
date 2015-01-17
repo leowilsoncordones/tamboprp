@@ -54,10 +54,24 @@
     </div>
 
   <div class="row">
-        <div class="col-md-9">  
-        <h3><asp:Label ID="lblTitulo" runat="server" Visible="False"></asp:Label></h3>
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3><asp:Label ID="lblTitulo" runat="server" Visible="False"></asp:Label></h3>
+                </div>
+                <div class="col-md-6">
+                    <asp:Panel runat="server" ID="panelBotonesExport">
+                        <div class="pull-right">
+                            <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm" Text=" Excel" onclick="excelExport_Click"><span><i class="fa fa-file-excel-o bigger-110 green"></i></span> Excel</asp:LinkButton>
+                            <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm"  Text=" PDF" onclick="pdfExport_Click"><span><i class="fa fa-file-pdf-o bigger-110 red"></i></span> PDF</asp:LinkButton>
+                            <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm"  Text=" Print" onclick="print_Click"><span><i class="fa fa-print bigger-110 grey"></i></span> Print</asp:LinkButton>
+                        </div>
+                    </asp:Panel>
+                </div>
+            </div>  
+        
         <p>        
-        <asp:GridView ID="gvLactancias" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" PagerStyle-CssClass="bs-pagination text-center"
+        <asp:GridView ID="gvLactancias" runat="server" AutoGenerateColumns="False" GridLines="Both" HorizontalAlign="Left" PagerStyle-CssClass="bs-pagination text-center"
             CssClass="table table-hover table-striped table-bordered table-condensed dataTable"
             AllowPaging="true" AllowSorting="true" PageSize="20" OnPageIndexChanging="GvLactancias_PageIndexChanging" >
         <RowStyle HorizontalAlign="Left"  />

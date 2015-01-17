@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Remoting.Messaging;
 using Datos;
 using Entidades;
 
@@ -65,6 +66,8 @@ namespace Negocio
 
         public bool Vivo { get; set; }
 
+        public bool Vendido { get; set; }
+
         public string Nombre { get; set; }
 
         public string Registro { get; set; }
@@ -92,7 +95,22 @@ namespace Negocio
         public double ProdVitalicia { get; set; }
 
         public int NumLact { get; set; }
-        
+
+        public List<VOLactancia> Lactancias { get; set; }
+
+        public double GetProdTotalLecheLactancias()
+        {
+            var pLTotal = 0.0;
+            if (Lactancias != null)
+            {
+                foreach (var voL in Lactancias)
+                {
+                    pLTotal += voL.ProdLeche;
+                }
+            }
+            return Math.Round(pLTotal, 2);
+        }
+
         public bool esHembra()
         {
             return Sexo != 'M';

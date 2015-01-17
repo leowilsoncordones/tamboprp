@@ -2,18 +2,29 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="page-header">
-        <h1><i class="menu-icon fa fa-times"></i> Error 403 (forbidden)</h1>
-    </div>
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <p class="bigger-110">
-                Esta prohibido el acceso a la página web o directorio solicitado.<br/>
-                Vuelva atrás o a la página <a href="../Default.aspx">HOME</a> por favor.
-            </p>
-        </div>
-        <div class="col-md-2"></div>
-    </div>
+    
+    <div class="error-container">
+		<div class="well">
+			<h1 class="grey lighter smaller"><span class="blue bigger-125"><i class="ace-icon fa fa-sitemap"></i> 403</span> forbidden</h1>
+            <hr>
+			<h3 class="lighter smaller">Esta prohibido el acceso a la página web o directorio solicitado</h3>
+            <div>
+			    <div class="space"></div>
+			    <h4 class="smaller">Intenta lo siguiente:</h4>
+
+			    <ul class="list-unstyled spaced inline bigger-110 margin-15">
+				    <li> <i class="ace-icon fa fa-hand-o-right blue"></i> Chequea la dirección de la página</li>
+                    <li><i class="ace-icon fa fa-hand-o-right blue"></i> Lee las FAQs </li>
+                    <li><i class="ace-icon fa fa-hand-o-right blue"></i> Cuéntanos que pasó, puedes crear un caso de soporte</li>
+			    </ul>
+			</div>
+            <hr>
+			<div class="space"></div>
+            <div class="center">
+				<a href="javascript:history.back()" class="btn btn-grey"><i class="ace-icon fa fa-arrow-left"></i> Ir atrás</a>
+				<a href="../Default.aspx" class="btn btn-primary"><i class="ace-icon fa fa-home"></i> Home</a>
+			</div>
+		</div>
+	</div>
 
 </asp:Content>

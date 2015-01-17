@@ -49,6 +49,15 @@ namespace tamboprp {
         protected global::System.Web.UI.HtmlControls.HtmlInputText fIniciales;
         
         /// <summary>
+        /// checkActivo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox checkActivo;
+        
+        /// <summary>
         /// btnSave control.
         /// </summary>
         /// <remarks>
@@ -65,5 +74,14 @@ namespace tamboprp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnReset;
+        
+        /// <summary>
+        /// lblStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblStatus;
     }
 }

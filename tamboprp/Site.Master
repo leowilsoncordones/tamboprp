@@ -135,7 +135,8 @@
                       
                    <!-- page MainContent goes here -->
                        <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
-                        <!-- footer + button top area -->  
+                      <br/>
+                      <!-- footer + button top area -->  
                         <!-- footer area -->
                         <div class="footer">
 				            <div class="footer-inner">

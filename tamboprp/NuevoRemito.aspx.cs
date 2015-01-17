@@ -43,18 +43,30 @@ namespace tamboprp
 
         protected void btn_GuardarEvento(object sender, EventArgs e)
         {
-            // pop-up el modal y mostrar mensaje resultado de guardar en la base de datos
-            if (this.GuardarRemito())
+            try
             {
-                this.bodySaveModal.InnerText = "El remito se ha guardado con éxito!";
+                if (this.GuardarRemito())
+                {
+                    this.lblStatus.Text = "El remito se ha guardado con éxito";
+                    this.LimpiarFormulario();
+                }
+                else
+                {
+                    this.lblStatus.Text = "El remito no se ha podido guardar";
+                }
             }
-            else this.bodySaveModal.InnerText = "El remito no se ha podido guardar";
+            catch (Exception ex)
+            {
+                
+            }
+            
         }
 
 
         private bool GuardarRemito()
         {
-            string strDate = this.mydate.Value;
+            //string strDate = this.mydate.Value;
+            string strDate = Request.Form["mydate"];
             var idEmp = int.Parse(this.ddlEmpresa.SelectedValue);
             var emp = new EmpresaRemisora(idEmp);
             var remito = new Remito

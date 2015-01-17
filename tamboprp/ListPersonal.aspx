@@ -27,20 +27,19 @@
             <!-- botones -->
             <div class="clearfix">
                 <div class="pull-right tableTools-container">
-                    <div class="btn-group btn-overlap">
-                        <div class="ColVis btn-group" title="" data-original-title="Show/hide columns">
-                            <button class="ColVis_Button ColVis_MasterButton btn btn-white btn-info btn-bold"><span><i class="fa fa-search"></i></span></button>
+                    <div class="btn-group btn-overlap">               
+                    <!-- Botones para exportar en diversos formatos -->
+                        <div class="pull-right">
+                            <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm" Text=" Excel" onclick="excelExport_Click"><span><i class="fa fa-file-excel-o bigger-110 green"></i></span> Excel</asp:LinkButton>
+                            <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm"  Text=" PDF" onclick="pdfExport_Click"><span><i class="fa fa-file-pdf-o bigger-110 red"></i></span> PDF</asp:LinkButton>
+                            <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm"  Text=" Print" onclick="print_Click"><span><i class="fa fa-print bigger-110 grey"></i></span> Print</asp:LinkButton>
                         </div>
-                        <a class="DTTT_button btn btn-white btn-primary btn-bold" id="ToolTables_dynamic-table_0" tabindex="0" aria-controls="dynamic-table"><span><i class="fa fa-copy bigger-110 pink"></i></span><div title="" style="position: absolute; left: 0px; top: 0px; width: 41px; height: 35px; z-index: 99;" data-original-title="Copy to clipboard"><embed id="ZeroClipboard_TableToolsMovie_1" src="../assets/js/dataTables/extensions/TableTools/swf/copy_csv_xls_pdf.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="41" height="35" name="ZeroClipboard_TableToolsMovie_1" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=1&amp;width=41&amp;height=35" wmode="transparent"></div></a>
-                        <a class="DTTT_button btn btn-white btn-primary  btn-bold" id="ToolTables_dynamic-table_1" tabindex="0" aria-controls="dynamic-table"><span><i class="fa fa-file-excel-o bigger-110 green"></i></span><div title="" style="position: absolute; left: 0px; top: 0px; width: 40px; height: 35px; z-index: 99;" data-original-title="Export to CSV"><embed id="ZeroClipboard_TableToolsMovie_2" src="../assets/js/dataTables/extensions/TableTools/swf/copy_csv_xls_pdf.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="40" height="35" name="ZeroClipboard_TableToolsMovie_2" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=2&amp;width=40&amp;height=35" wmode="transparent"></div></a>
-                        <a class="DTTT_button btn btn-white btn-primary  btn-bold" id="ToolTables_dynamic-table_2" tabindex="0" aria-controls="dynamic-table"><span><i class="fa fa-file-pdf-o bigger-110 red"></i></span><div title="" style="position: absolute; left: 0px; top: 0px; width: 39px; height: 35px; z-index: 99;" data-original-title="Export to PDF"><embed id="ZeroClipboard_TableToolsMovie_3" src="../assets/js/dataTables/extensions/TableTools/swf/copy_csv_xls_pdf.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="39" height="35" name="ZeroClipboard_TableToolsMovie_3" align="middle" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="id=3&amp;width=39&amp;height=35" wmode="transparent"></div></a>
-                        <a class="DTTT_button btn btn-white btn-primary  btn-bold" id="ToolTables_dynamic-table_3" title="" tabindex="0" aria-controls="dynamic-table" data-original-title="Print view"><span><i class="fa fa-print bigger-110 grey"></i></span></a>
                     </div>
                 </div>
             </div>
             <!-- grilla -->
         <asp:PlaceHolder ID="phPersonal" runat="server">
-            <asp:GridView ID="gvEmpleados" runat="server" AutoGenerateColumns="False" GridLines="None" 
+            <asp:GridView ID="gvEmpleados" runat="server" AutoGenerateColumns="False" GridLines="Both" 
                 HorizontalAlign="Left" CssClass="table table-hover table-striped table-bordered table-condensed dataTable" >
                 <RowStyle HorizontalAlign="Left"  />
                 <Columns>
@@ -58,12 +57,7 @@
             </asp:GridView>    
         </asp:PlaceHolder><!-- Fin de tabla personal -->
 
-            <!-- Botones para exportar en diversos formatos -->
-            <div class="pull-right">
-                <asp:Button runat="server" CssClass="btn btn-default btn-sm" ID="excelExport" Text=" Excel" onclick="excelExport_Click" />
-                <asp:Button runat="server" CssClass="btn btn-default btn-sm" ID="pdfExport" Text=" PDF" onclick="pdfExport_Click" />
-                <button type="button" runat="server" class="btn btn-default btn-sm" onclick="pdfExport_Click"><span class="fa fa-file-pdf-o" aria-hidden="true"></span> PDF</button>
-            </div>
+            
         </div>
         <div class="col-md-7"></div>
     </div>

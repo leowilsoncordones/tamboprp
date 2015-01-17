@@ -1,4 +1,5 @@
 ﻿using System;
+using Entidades;
 
 namespace Negocio
 {
@@ -23,6 +24,25 @@ namespace Negocio
             if (ProdLeche > 0)
             {
                 PorcentajeGrasa = (ProdGrasa/ProdLeche)*100;
+                PorcentajeGrasa = Math.Round(PorcentajeGrasa, 2);
+            }
+            else PorcentajeGrasa = 0;
+        }
+
+        public VOLactancia(Lactancia lact)
+        {
+            Registro = lact.Registro;
+            Numero = lact.Numero;
+            Dias = lact.Dias;
+            Leche305 = lact.Leche305;
+            Grasa305 = lact.Grasa305;
+            Leche365 = lact.Leche365;
+            Grasa365 = lact.Grasa365;
+            ProdLeche = lact.ProdLeche;
+            ProdGrasa = lact.ProdGrasa;
+            if (ProdLeche > 0)
+            {
+                PorcentajeGrasa = (ProdGrasa / ProdLeche) * 100;
                 PorcentajeGrasa = Math.Round(PorcentajeGrasa, 2);
             }
             else PorcentajeGrasa = 0;

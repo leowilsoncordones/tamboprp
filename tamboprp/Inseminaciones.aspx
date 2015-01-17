@@ -57,18 +57,18 @@
         <asp:Label ID="titCantAnimales" runat="server" Text="Cantidad total de animales: " Visible="True"></asp:Label><asp:Label ID="lblCantAnimales" runat="server" Visible="False"></asp:Label><br/>
         </div>
         <!-- RESUMEN EN COLUMNA DERECHA -->
-            <div class="col-md-4">
-                <div class="well">
-						<h4 class="header smaller lighter blue"><i class="menu-icon fa fa-paperclip"></i> Resumen por inseminador</h4>
-                        <ul class="list-unstyled spaced2" runat="server" id="listaInseminadores">
-                        </ul>
-                        <hr/>
-                        <ul class="list-unstyled spaced2">
-                        <li class="bigger-110"><i class="ace-icon fa fa-caret-right blue"></i><span> Total preñadas &nbsp;&nbsp;</span>
-                            <strong><asp:Label ID="lblTotal" runat="server" ></asp:Label></strong></li>                        
-                        </ul>
-					</div>
-            </div>
+        <div class="col-md-4">
+            <div class="well">
+					<h4 class="header smaller lighter blue"><i class="menu-icon fa fa-paperclip"></i> Resumen por inseminador</h4>
+                    <ul class="list-unstyled spaced2" runat="server" id="listaInseminadores">
+                    </ul>
+                    <hr/>
+                    <ul class="list-unstyled spaced2">
+                    <li class="bigger-110"><i class="ace-icon fa fa-caret-right blue"></i><span> Total preñadas &nbsp;&nbsp;</span>
+                        <strong><asp:Label ID="lblTotal" runat="server" ></asp:Label></strong></li>                        
+                    </ul>
+				</div>
+        </div>
     </div>
 
 </asp:Content>

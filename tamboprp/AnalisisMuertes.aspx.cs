@@ -121,5 +121,19 @@ namespace tamboprp
         //        //}
         //    }
         //}
+        protected void excelExport_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected void pdfExport_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected void print_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

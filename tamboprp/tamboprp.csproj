@@ -170,6 +170,17 @@
     <Content Include="AnalisisReprod.aspx" />
     <Content Include="avatars\user_silhouette.png" />
     <Content Include="ContactPublic.aspx" />
+    <Content Include="img_tamboprp\corporativo\logojpeg.jpg" />
+    <Content Include="js\dataTables\extensions\ColVis\js\dataTables.colVis.js" />
+    <Content Include="js\dataTables\extensions\ColVis\js\dataTables.colVis.min.js" />
+    <Content Include="js\dataTables\extensions\TableTools\js\dataTables.tableTools.js" />
+    <Content Include="js\dataTables\extensions\TableTools\js\dataTables.tableTools.min.js" />
+    <Content Include="js\dataTables\extensions\TableTools\swf\copy_csv_xls.swf" />
+    <Content Include="js\dataTables\extensions\TableTools\swf\copy_csv_xls_pdf.swf" />
+    <Content Include="js\dataTables\jquery.dataTables.bootstrap.js" />
+    <Content Include="js\dataTables\jquery.dataTables.bootstrap.min.js" />
+    <Content Include="js\dataTables\jquery.dataTables.js" />
+    <Content Include="js\dataTables\jquery.dataTables.min.js" />
     <Content Include="js\flot\jquery.flot.tooltip.js" />
     <Content Include="js\flot\jshashtable-3.0.js" />
     <Content Include="favicon.ico" />
@@ -212,7 +223,7 @@
     <Content Include="AnalisisInseminadores.aspx" />
     <Content Include="Corporativo.aspx" />
     <Content Include="ListPersonal.aspx" />
-    <Content Include="Usuarios.aspx" />
+    <Content Include="GestionUsuarios.aspx" />
     <Content Include="Sanidad.aspx" />
     <Content Include="Cabana.aspx" />
     <Content Include="Calificaciones.aspx" />
@@ -1004,12 +1015,12 @@
     <Compile Include="ListPersonal.aspx.designer.cs">
       <DependentUpon>ListPersonal.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Usuarios.aspx.cs">
-      <DependentUpon>Usuarios.aspx</DependentUpon>
+    <Compile Include="GestionUsuarios.aspx.cs">
+      <DependentUpon>GestionUsuarios.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Usuarios.aspx.designer.cs">
-      <DependentUpon>Usuarios.aspx</DependentUpon>
+    <Compile Include="GestionUsuarios.aspx.designer.cs">
+      <DependentUpon>GestionUsuarios.aspx</DependentUpon>
     </Compile>
     <Compile Include="Sanidad.aspx.cs">
       <DependentUpon>Sanidad.aspx</DependentUpon>

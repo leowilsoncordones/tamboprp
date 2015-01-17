@@ -82,7 +82,8 @@
                 cancelLabel: 'Cancela',
                 fromLabel: 'Desde',
                 toLabel: 'Hasta',
-            }
+            },
+            format: 'DD/MM/YYYY'
         });
 
         $(document).ready(function() {
@@ -139,7 +140,7 @@
             xaxis: {
                 tickLength: 0,
                 mode: "time",
-                timeformat: "%Y/%m",
+                timeformat: "%m/%Y",
                 tickSize: [tick, "month"]
             },
             yaxis: {
@@ -170,7 +171,7 @@
         var grafLeche = $('#graficaGrasa').css({ 'height': '360px' });
 
         function imprimirGrasa(totalGrasa) {
-
+            var tick = Math.round(totalGrasa.length / 10);
             $.plot("#graficaGrasa", [
                 //{ label: "Leche", data: totalGrasa }
                 { label: "Grasa", data: totalGrasa }
@@ -185,8 +186,8 @@
                 xaxis: {
                     tickLength: 0,
                     mode: "time",
-                    timeformat: "%Y/%m",
-                    tickSize: [2, "month"]
+                    timeformat: "%m/%Y",
+                    tickSize: [tick, "month"]
                 },
                 yaxis: {
                     ticks: 10,
@@ -220,7 +221,7 @@
         function formatoFecha(fecha) {
             var res = fecha.split("/");
             var salida = "";
-            salida = res[2] + "-" + res[0] + "-" + res[1];
+            salida = res[2] + "-" + res[1] + "-" + res[0];
             return salida;
         }
 

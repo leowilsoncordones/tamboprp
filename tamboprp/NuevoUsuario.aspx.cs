@@ -107,7 +107,10 @@ namespace tamboprp
             //var rol2 = this.ddlRolUsuario.SelectedValue;
         }
 
+        protected void btn_CambiarImagen(object sender, EventArgs e)
+        {
 
+        }
         
     }
 }

@@ -92,10 +92,14 @@ namespace tamboprp
                     //Adjunto = 
                 };
 
-                 if (Fachada.Instance.EnviarCasoSoporte(caso))
+                if (Fachada.Instance.EnviarCasoSoporte(caso))
                 {
-                     // mensaje de que fue enviado ok el caso
-                     //this.LimpiarFormulario();
+                    this.lblStatus.Text = "Los datos se han guardado con éxito";
+                    this.LimpiarFormulario();
+                }
+                else
+                {
+                    this.lblStatus.Text = "Los datos no se han podido guardar";
                 }
             }
             catch (SqlException exc)

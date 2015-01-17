@@ -19,14 +19,14 @@ namespace tamboprp
             {
                 this.SetPageBreadcrumbs();
                 this.LimpiarTabla();
-                this.GetEnfermedades();
+                this.CargarEnfermedades();
             }
         }
 
         protected void SetPageBreadcrumbs()
         {
             var list = new List<VoListItemDuplaString>();
-            list.Add(new VoListItemDuplaString("Sanidad", "SAnidad.aspx"));
+            list.Add(new VoListItemDuplaString("Sanidad", "Sanidad.aspx"));
             list.Add(new VoListItemDuplaString("Tabla de Enfermedades", ""));
             var strB = PageControl.SetBreadcrumbsPath(list);
             if (Master != null)
@@ -42,9 +42,11 @@ namespace tamboprp
             this.gvEnfermedades.DataBind();
             this.titCantEnf.Visible = false;
             this.lblCantEnf.Text = "";
+            this.lblStatus.Text = "";
+            this.newEnfermedad.Text = "";
         }
 
-        private void GetEnfermedades()
+        private void CargarEnfermedades()
         {
             _listTemp = Fachada.Instance.GetEnfermedades();
             this.gvEnfermedades.DataSource = _listTemp;
@@ -57,18 +59,42 @@ namespace tamboprp
         {
             var gv = (GridView)sender;
             gv.PageIndex = e.NewPageIndex;
-            GetEnfermedades();
-            //gv.DataSource = _listTemp;
-            //gv.DataBind();
+            CargarEnfermedades();
         }
 
-        //protected void GvEnfermedades_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        //{
-        //    var gv = (GridView)sender;
-        //    gv.PageIndex = e.NewPageIndex;
-        //    gv.DataSource = _listTemp;
-        //    gv.DataBind();
-        //}
+        protected void btn_GuardarEnfermedad(object sender, EventArgs e)
+        {
+            try
+            {
+                if (this.GuardarEnfermedad())
+                {
+                    this.lblStatus.Text = "La enfermedad se ha guardado con éxito";
+                    this.CargarEnfermedades();
+                }
+                else
+                {
+                    this.lblStatus.Text = "La enfermedad no se ha podido guardar";
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private bool GuardarEnfermedad()
+        {
+            if (this.newEnfermedad.Text != "")
+            {
+                var enf = new Enfermedad(this.newEnfermedad.Text);
+                return Fachada.Instance.EnfermedadInsert(enf);
+            }
+            else
+            {
+                this.lblStatus.Text = "Ingrese un nombre";
+            }
+            return false;
+        }
 
     }
 }
