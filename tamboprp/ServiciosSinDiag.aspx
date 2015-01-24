@@ -5,8 +5,16 @@
         <div class="page-header">
             <h1><i class="menu-icon fa fa-lightbulb-o"></i> Servicios sin diagnóstico de preñez <small><i class="ace-icon fa fa-angle-double-right"></i> Vacas con mas de 70 días de servicio y aún sin diagnóstico</small></h1>
         </div>
-        <asp:Button ID="btnPrint" runat="server" Text="Print" OnClick="Print" />
-        <asp:GridView ID="gvServicios" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" 
+        <div class="row">
+           <div class="col-md-12">
+                <div class="pull-right">
+                    <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm" Text=" Excel" onclick="excelExport_Click"><span><i class="fa fa-file-excel-o bigger-110 green"></i></span> Excel</asp:LinkButton>
+                    <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm"  Text=" PDF" onclick="pdfExport_Click"><span><i class="fa fa-file-pdf-o bigger-110 red"></i></span> PDF</asp:LinkButton>
+                    <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm"  Text=" Print" onclick="print_Click"><span><i class="fa fa-print bigger-110 grey"></i></span> Print</asp:LinkButton>
+                </div>
+            </div>
+       </div>
+        <asp:GridView ID="gvServicios" runat="server" AutoGenerateColumns="False" GridLines="Both" HorizontalAlign="Left" 
                 CssClass="table table-hover table-striped table-bordered table-condensed dataTable" OnRowCreated="gvServicios_created">
             <RowStyle HorizontalAlign="Left"  />
             <Columns>

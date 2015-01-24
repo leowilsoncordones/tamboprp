@@ -651,6 +651,12 @@ namespace Negocio
             return remMap.GetRemitoByEmpresa(idEmpresa);
         }
 
+        public List<Remito> GetRemitoByEmpresa2fechas(int idEmpresa, string fecha1, string fecha2)
+        {
+            var remMap = new RemitoMapper();
+            return remMap.GetRemitoByEmpresa2fechas(idEmpresa, fecha1, fecha2);
+        }
+
         public EmpresaRemisora GetEmpresaRemisoraById(int id)
         {
             var empRem = new EmpresaRemisora(id);
@@ -699,6 +705,18 @@ namespace Negocio
         {
             var concMap = new ConcursoMapper();
             var lst = concMap.GetAll();
+            foreach (Concurso conc in lst)
+            {
+                int id = conc.NombreLugarConcurso.Id;
+                conc.NombreLugarConcurso = Fachada.Instance.GetConcursoById(id);
+            }
+            return lst;
+        }
+
+        public List<Concurso> GetConcursosby2fechas(string fecha1, string fecha2)
+        {
+            var concMap = new ConcursoMapper();
+            var lst = concMap.Getby2fechas(fecha1, fecha2);
             foreach (Concurso conc in lst)
             {
                 int id = conc.NombreLugarConcurso.Id;
@@ -940,6 +958,18 @@ namespace Negocio
             return list;
         }
 
+        public List<Diag_PrenezMapper.VODiagnostico> GetInseminacionesExitosas2fechas(string fecha1, string fecha2)
+        {
+            var listemp = _empMapper.GetAll();
+            var list = _diagMapper.GetInseminacionesExitosas2fechas(fecha1, fecha2);
+            foreach (var diagVo in list)
+            {
+                var emp = listemp.FirstOrDefault(e => e.Id_empleado == diagVo.IdInseminador);
+                diagVo.Inseminador = emp != null ? emp.ToString() : "-";
+            }
+            return list;
+        }
+
         public List<RolUsuario> GetRolesDeUsuario()
         {
             var _userMap = new UsuarioMapper();
@@ -1016,6 +1046,23 @@ namespace Negocio
             return lstResult;
         }
 
+        public List<BajaMapper.VOEnfermedad> GetCantidadMuertesPorEnfermedadPor2fechas(string fecha1, string fecha2)
+        {
+            var bajaMap = new BajaMapper();
+            var lstResult = bajaMap.GetCantidadMuertesPorEnfermedadPor2fechas(fecha1, fecha2);
+            var sum = 0;
+            for (int i = 0; i < lstResult.Count; i++) sum += lstResult[i].Cantidad;
+            if (sum > 0)
+            {
+                for (int j = 0; j < lstResult.Count; j++)
+                {
+                    double avg = ((double)lstResult[j].Cantidad / sum) * 100;
+                    lstResult[j].Porcentaje = Math.Round(avg, 2);
+                }
+            }
+            return lstResult;
+        }
+
         public List<VOParto> GetPartosPorAnio(int anio)
         {
             var lstResult = new List<VOParto>();
@@ -1040,9 +1087,39 @@ namespace Negocio
             return lstResult;
         }
 
+
+        public List<VOParto> GetPartosPor2fechas(string fecha1, string fecha2)
+        {
+            var lstResult = new List<VOParto>();
+            var partoMap = new PartoMapper();
+            var lst = partoMap.GetPartosBy2fechas(fecha1, fecha2);
+            int cant = lst.Count;
+            for (int i = 0; i < cant; i++)
+            {
+                var voP = new VOParto();
+                voP.Comentarios = lst[i].Comentarios;
+                voP.Observaciones = lst[i].Observaciones;
+                voP.Fecha = lst[i].Fecha;
+                voP.Registro = lst[i].Registro;
+                voP.Sexo_parto = lst[i].Sexo_parto;
+                if (lst[i].Reg_hijo == "DESCONOCIDO")
+                {
+                    voP.Reg_hijo = "-";
+                }
+                else voP.Reg_hijo = lst[i].Reg_hijo;
+                lstResult.Add(voP);
+            }
+            return lstResult;
+        }
+
         public int GetCantMellizosPorAnio(int anio)
         {
             return _animalMapper.GetCantMellizosByAnio(anio);
+        }
+
+        public int GetCantMellizosPor2fechas(string fecha1, string fecha2)
+        {
+            return _animalMapper.GetCantMellizosBy2fechas(fecha1, fecha2);
         }
 
         public int GetCantTrillizosPorAnio(int anio)
@@ -1050,11 +1127,20 @@ namespace Negocio
             return _animalMapper.GetCantTrillizosByAnio(anio);
         }
 
+        public int GetCantTrillizosPor2fechas(string fecha1, string fecha2)
+        {
+            return _animalMapper.GetCantTrillizosBy2fechas(fecha1, fecha2);
+        }
+
         public int GetCantNacimientosPorAnio(int anio)
         {
             return _animalMapper.GetCantNacimientosByAnio(anio);
         }
 
+        public int GetCantNacimientosPor2fechas(string fecha1, string fecha2)
+        {
+            return _animalMapper.GetCantNacimientosBy2fechas(fecha1, fecha2);
+        }
 
         public List<RemitoMapper.VORemitoGrafica> GetRemitosGraficas()
         {
@@ -1124,6 +1210,55 @@ namespace Negocio
             return lstToros;
         }
 
+
+        public List<VOToroUtilizado> GetTorosUtilizadosPorAnio2fechas(string fecha1, string fecha2)
+        {
+            var lstToros = new List<VOToroUtilizado>();
+            var lst = _servMapper.GetServDiagPorToroUtilizado2fechas(fecha1, fecha2);
+            bool esta = false;
+            // Recorro la lista para consolidar los servicios y diag por toro
+            for (int i = 0; i < lst.Count; i++)
+            {
+                esta = false;
+                for (int j = 0; j < lstToros.Count; j++)
+                {
+                    if (lst[i].RegPadre.Equals(lstToros[j].Registro))
+                    {
+                        lstToros[j].CantServicios++;
+                        if (lst[i].Diagnostico == 'P') lstToros[j].CantDiagP++;
+                        if (lstToros[j].CantServicios > 0)
+                        {
+                            lstToros[j].PorcEfectividad =
+                                Math.Round((double)lstToros[j].CantDiagP / lstToros[j].CantServicios * 100, 1);
+                        }
+                        esta = true;
+                        break;
+                    }
+                }
+                if (!esta)
+                {
+                    Animal toro = GetAnimalByRegistro(lst[i].RegPadre);
+                    var voToro = new VOToroUtilizado
+                    {
+                        Registro = lst[i].RegPadre,
+                        Nombre = toro.Nombre,
+                        Origen = toro.Origen,
+                        CantServicios = 1,
+                        CantDiagP = lst[i].Diagnostico == 'P' ? 1 : 0,
+                        CantNacim = 0,
+                        CantH = 0,
+                        CantM = 0,
+                        //PorcHembras = 0,
+                    };
+                    voToro.PorcEfectividad = Math.Round((double)voToro.CantDiagP / voToro.CantServicios * 100, 1);
+                    lstToros.Add(voToro);
+                }
+
+            }
+            lstToros.Sort();
+            return lstToros;
+        }
+
         public List<AnimalMapper.VOToro> GetTorosNacimPorGenero(int anio)
         {
             var lst = _animalMapper.GetNacimientosPorToroByAnio(anio);
@@ -1132,6 +1267,18 @@ namespace Negocio
                 vT.CantH = _animalMapper.GetCantNacimientosHPorToroByAnio(vT.Registro, anio);
                 vT.CantM = vT.CantNacim - vT.CantH;
                 vT.PorcHembras = Math.Round((double) vT.CantH/vT.CantNacim*100, 1);
+            }
+            return lst;
+        }
+
+        public List<AnimalMapper.VOToro> GetTorosNacimPorGenero2fechas(string fecha1, string fecha2)
+        {
+            var lst = _animalMapper.GetNacimientosPorToroBy2fechas(fecha1, fecha2);
+            foreach (AnimalMapper.VOToro vT in lst)
+            {
+                vT.CantH = _animalMapper.GetCantNacimientosHPorToroBy2fechas(vT.Registro, fecha1,fecha2);
+                vT.CantM = vT.CantNacim - vT.CantH;
+                vT.PorcHembras = Math.Round((double)vT.CantH / vT.CantNacim * 100, 1);
             }
             return lst;
         }
@@ -1491,10 +1638,34 @@ namespace Negocio
             return _bajMap.GetCantVentasPorAnio(anio);
         }
 
+        public int GetCantVentasPorMes(int mes)
+        {
+            var _bajMap = new BajaMapper();
+            return _bajMap.GetCantVentasPorMes(mes);
+        }
+
+        public int GetCantVentasPor2fechas(string fecha1, string fecha2)
+        {
+            var _bajMap = new BajaMapper();
+            return _bajMap.GetCantVentasPor2fechas(fecha1, fecha2);
+        }
+
         public int GetCantVentasAFrigPorAnio(int anio)
         {
             var _bajMap = new BajaMapper();
             return _bajMap.GetCantVentasAFrigPorAnio(anio);
+        }
+
+        public int GetCantVentasAFrigPorMes(int mes)
+        {
+            var _bajMap = new BajaMapper();
+            return _bajMap.GetCantVentasAFrigPorMes(mes);
+        }
+
+        public int GetCantVentasAFrigPor2fechas(string fecha1, string fecha2)
+        {
+            var _bajMap = new BajaMapper();
+            return _bajMap.GetCantVentasAFrigPor2fechas(fecha1, fecha2);
         }
 
         public int GetCantVentasRecienNacidosPorAnio(int anio)
@@ -1503,10 +1674,34 @@ namespace Negocio
             return _bajMap.GetCantVentasRecienNacidosPorAnio(anio);
         }
 
+        public int GetCantVentasRecienNacidosPorMes(int mes)
+        {
+            var _bajMap = new BajaMapper();
+            return _bajMap.GetCantVentasRecienNacidosPorMes(mes);
+        }
+
+        public int GetCantVentasRecienNacidosPor2fechas(string fecha1, string fecha2)
+        {
+            var _bajMap = new BajaMapper();
+            return _bajMap.GetCantVentasRecienNacidosPor2fechas(fecha1, fecha2);
+        }
+
         public int GetCantVentasViejasPorAnio(int anio)
         {
             var _bajMap = new BajaMapper();
             return _bajMap.GetCantVentasViejasPorAnio(anio);
+        }
+
+        public int GetCantVentasViejasPorMes(int mes)
+        {
+            var _bajMap = new BajaMapper();
+            return _bajMap.GetCantVentasViejasPorMes(mes);
+        }
+
+        public int GetCantVentasViejasPor2fechas(string fecha1, string fecha2)
+        {
+            var _bajMap = new BajaMapper();
+            return _bajMap.GetCantVentasViejasPor2fechas(fecha1, fecha2);
         }
 
         public bool UpdateDatosCorporativos(VOEmpresa voEmp)
@@ -1730,6 +1925,62 @@ namespace Negocio
         }
 
 
+        public List<VOInseminadorRank> GetRankingInseminadores2fechas(string fecha1, string fecha2)
+        {
+            var lstResult = new List<VOInseminadorRank>();
+            var listEmp = _empMapper.GetAll();
+            var esta = false;
+
+            var lst = _diagMapper.GetTrabajoInseminadores2fechas(fecha1, fecha2);
+
+            // Recorro la lista para consolidar los resultados por inseminador
+            for (int i = 0; i < lst.Count; i++)
+            {
+                esta = false;
+                for (int j = 0; j < lstResult.Count; j++)
+                {
+                    if (lst[i].IdInseminador.Equals(lstResult[j].IdEmpleado))
+                    {
+                        lstResult[j].CantServicios++;
+                        if (lst[i].Diagnostico == 'P') lstResult[j].CantPrenadas++;
+                        if (lstResult[j].CantServicios > 0)
+                        {
+                            lstResult[j].PorcEfectividad =
+                                Math.Round((double)lstResult[j].CantPrenadas / lstResult[j].CantServicios * 100, 1);
+                        }
+                        esta = true;
+                        break;
+                    }
+                }
+                if (!esta)
+                {
+                    var emp = listEmp.FirstOrDefault(e => e.Id_empleado == lst[i].IdInseminador);
+                    if (emp != null)
+                    {
+                        var voInsem = new VOInseminadorRank()
+                        {
+                            Apellido = emp.Apellido,
+                            CantPrenadas = lst[i].CantPrenadas,
+                            CantServicios = lst[i].CantServicios,
+                            IdEmpleado = lst[i].IdInseminador,
+                            Inciales = emp.Iniciales,
+                            Nombre = emp.Nombre
+                        };
+                        voInsem.NombreCompleto = emp.Nombre + " " + emp.Apellido + " (" + emp.Iniciales + ")";
+                        if (lst[i].CantServicios > 0)
+                        {
+                            voInsem.PorcEfectividad = Math.Round((double)lst[i].CantPrenadas / lst[i].CantServicios * 100, 1);
+                        }
+                        lstResult.Add(voInsem);
+                    }
+                }
+
+            }
+            lstResult.Sort();
+            return lstResult;
+        }
+
+
         public List<DateTime> GetFechasDiagnosticoPorAnio(int anio)
         {
             return _diagMapper.GetFechasDiagnosticoPorAnio(anio);
@@ -1771,6 +2022,40 @@ namespace Negocio
         {
             var lista = _diagMapper.GetAnimalesConDiagPrenezActual();
             return lista.Any(u => u.Registro == registro);
+        }
+
+
+
+        public List<VOBaja> GetMuertesPor2fechas(string fecha1, string fecha2)
+        {
+            var bajaMap = new BajaMapper();
+            var lst = bajaMap.GetMuertesPor2fechas(fecha1, fecha2);
+            var lstEnfermedades = Fachada.Instance.GetEnfermedades();
+            var lstResult = new List<VOBaja>();
+            for (int i = 0; i < lst.Count; i++)
+            {
+                Enfermedad enf = lstEnfermedades.FirstOrDefault(e => e.Id == lst[i].Enfermedad.Id);
+                var voBaja = new VOBaja(lst[i]);
+                voBaja.Enfermedad = enf;
+                lstResult.Add(voBaja);
+            }
+            return lstResult;
+        }
+
+        public List<Concurso> GetConcursosByRegistro(string reg)
+        {
+            var concMap = new ConcursoMapper();
+            List<Concurso> listaConc = new List<Concurso>();
+            var listTemp = concMap.GetConcursosByRegistro(reg);
+            foreach (Evento e in listTemp)
+            {
+                Concurso conc = new Concurso();
+                conc = (Concurso) e;
+                int id = conc.NombreLugarConcurso.Id;
+                conc.NombreLugarConcurso = Fachada.Instance.GetConcursoById(id);
+                listaConc.Add(conc);
+            }
+            return listaConc;
         }
     }
 }

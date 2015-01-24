@@ -19,8 +19,9 @@ namespace Datos
         private static string Parto_SelecNacimByRegistro = "Parto_SelecNacimByRegistro";
         private static string Parto_SelecByAnio = "Parto_SelecByAnio";
         private static string Parto_SelecCountByMonth = "Parto_SelecCountByMonth";
+        private static string Parto_SelecBy2fechas = "Parto_SelecBy2fechas";
         
-
+        
         public PartoMapper(Parto parto)
         {
             _parto = parto;
@@ -105,6 +106,23 @@ namespace Datos
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.Add(new SqlParameter("@ANIO", anio));
             cmd.CommandText = Parto_SelecByAnio;
+
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+                result.Add(load(dr));
+            dr.Close();
+            return result;
+        }
+
+        public List<Parto> GetPartosBy2fechas(string fecha1, string fecha2)
+        {
+            var result = new List<Parto>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@FECHA1", fecha1));
+            cmd.Parameters.Add(new SqlParameter("@FECHA2", fecha2));
+            cmd.CommandText = Parto_SelecBy2fechas;
 
             SqlDataReader dr = FindByCmd(cmd);
             while (dr.Read())

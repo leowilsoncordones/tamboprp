@@ -24,8 +24,8 @@ namespace Datos
         private static string Servicio_80DiasLactanciaSinServicio = "Servicio_80DiasLactanciaSinServicio";
         private static string Servicio_SelectByRegistroDespUltParto = "Servicio_SelectByRegistroDespUltParto";
         private static string ServicioyDiag_PorTorosUtilizByAnio = "ServicioyDiag_PorTorosUtilizByAnio";
+        private static string ServicioyDiag_PorTorosUtilizBy2fechas = "ServicioyDiag_PorTorosUtilizBy2fechas";
         
-
         public ServicioMapper(Servicio servicio)
         {
             _servicio = servicio;
@@ -297,6 +297,23 @@ namespace Datos
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.Add(new SqlParameter("@ANIO", anio));
             cmd.CommandText = ServicioyDiag_PorTorosUtilizByAnio;
+
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+                result.Add(loadServDiagPorToroUtilizado(dr));
+            dr.Close();
+            return result;
+        }
+
+        public List<VOServicioDiag> GetServDiagPorToroUtilizado2fechas(string fecha1, string fecha2)
+        {
+            var result = new List<VOServicioDiag>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@FECHA1", fecha1));
+            cmd.Parameters.Add(new SqlParameter("@FECHA2", fecha2));
+            cmd.CommandText = ServicioyDiag_PorTorosUtilizBy2fechas;
 
             SqlDataReader dr = FindByCmd(cmd);
             while (dr.Read())

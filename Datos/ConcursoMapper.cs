@@ -16,6 +16,7 @@ namespace Datos
         private string _registroAnimal;
 
         private static string Concurso_SelecByRegistro = "Concurso_SelecByRegistro";
+        private static string Concurso_SelectBy2fechas = "Concurso_SelectBy2fechas";
 
         public ConcursoMapper(Concurso concurso)
         {
@@ -49,6 +50,23 @@ namespace Datos
             var ls = new List<Concurso>();
             ls = loadAll(Find(OperationType.SELECT_DEF));
             return ls;
+        }
+
+        public List<Concurso> Getby2fechas(string fecha1, string fecha2)
+        {
+            var result = new List<Concurso>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@FECHA1", fecha1));
+            cmd.Parameters.Add(new SqlParameter("@FECHA2", fecha2));
+            cmd.CommandText = Concurso_SelectBy2fechas;
+
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+                result.Add(load(dr));
+            dr.Close();
+            return result;
         }
 
 

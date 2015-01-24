@@ -88,13 +88,17 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label no-padding-right"> Letras </label>
                     <div class="col-sm-2">
-			            <asp:DropDownList ID="ddlCalificacion" CssClass="form-control col-xs-10 col-sm-5" AutoPostBack="True" OnSelectedIndexChanged="ddlCalif_SelectedIndexChanged" runat="server" ></asp:DropDownList>
+                        <select id="selectLetras" name="selectLetras" class="form-control col-xs-10 col-sm-5" onchange="cargaSelectNumeros()">
+			            </select>
+			            <!--<asp:DropDownList ID="ddlCalificacion" CssClass="form-control col-xs-10 col-sm-5" AutoPostBack="True" OnSelectedIndexChanged="ddlCalif_SelectedIndexChanged" runat="server" ></asp:DropDownList>-->
 			        </div>
                 </div>
                 <div class="form-group" id="dCalifPuntos">
                     <label class="col-sm-3 control-label no-padding-right"> Puntos </label>
                     <div class="col-sm-2">
-			            <asp:DropDownList ID="ddlCalificacionPts" CssClass="form-control col-xs-10 col-sm-5" runat="server" ></asp:DropDownList>
+                        <select id="selectNumeros" name="selectNumeros" class="form-control col-xs-10 col-sm-5">
+			            </select>
+			            <!--<asp:DropDownList ID="ddlCalificacionPts" CssClass="form-control col-xs-10 col-sm-5" runat="server" ></asp:DropDownList>-->
 			        </div>
                     <div class="col-sm-12"></div>
                 </div>
@@ -438,16 +442,74 @@
             function OnSuccessEmp(response) {               
                 var list = response;
                 for (var i = 0; i < list.length; i++) {
-
                     var emple = { nombreCompleto: list[i].Nombre +" "+ list[i].Apellido + " - " + list[i].Iniciales, idEmpleado: list[i].Id_empleado };
                     //var nombreCompleto = list[i].apellido + " - " + list[i].iniciales;
-
                     htmlText += '<option value=' + emple.idEmpleado + '>' + emple.nombreCompleto + '</option>';
                 }
                 $("#selectEmpleados").append(htmlText);
-            }
-            
+            }           
         }
+
+
+        // ------------ select LETRAS CALIFICACIONES ------------- //
+
+        function cargarSelectLetras() {
+            var htmlText = "";
+            var listaLetras = ['EX','MB','BM','B','R'];
+            for (var i = 0; i < listaLetras.length; i++) {
+                htmlText += '<option value=' + listaLetras[i] + '>' + listaLetras[i] + '</option>';
+                }
+            $("#selectLetras").append(htmlText);
+        }
+
+
+
+
+        // ------------ select NUMEROS CALIFICACIONES ------------- //
+        function cargaSelectNumeros() {
+
+            $('#selectNumeros').find('option').remove().end();
+            var htmlText = "";
+            var num;
+            var listaNumeros = [];
+            var x = document.getElementById("selectLetras").value;
+            switch (x) {
+                case 'EX':
+                    for (var i = 0; i <= 10; i++)
+                    {
+                        num = 100 - i;
+                        htmlText += '<option value=' + num + '>' + num + '</option>';
+                    }
+                    break;
+                case 'MB':
+                    for (var i = 0; i <= 5; i++) {
+                         num = 90 - i;
+                         htmlText += '<option value=' + num + '>' + num + '</option>';
+                    }
+                    break;
+                case 'BM':
+                    for (var i = 0; i <= 5; i++) {
+                        num = 85 - i;
+                        htmlText += '<option value=' + num + '>' + num + '</option>';
+                    }
+                    break;
+                case 'B':
+                    for (var i = 0; i <= 5; i++) {
+                        num = 80 - i;
+                        htmlText += '<option value=' + num + '>' + num + '</option>';
+                    }
+                    break;
+                case 'R':
+                    for (var i = 0; i <= 6; i++) {
+                        num = 76 - i;
+                        htmlText += '<option value=' + num + '>' + num + '</option>';
+                    }
+                    break;
+            }
+            $("#selectNumeros").append(htmlText);
+
+        }
+
 
     </script>
     

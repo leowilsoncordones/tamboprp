@@ -23,8 +23,17 @@ namespace Datos
         private static string Baja_VentaAFrigSelectCountByAnio = "Baja_VentaAFrigSelectCountByAnio";
         private static string Baja_VentaRecNacidoSelectCountByAnio = "Baja_VentaRecNacidoSelectCountByAnio";
         private static string Baja_VentaViejaSelectCountByAnio = "Baja_VentaViejaSelectCountByAnio";
+        private static string Baja_VentaSelectCountByMes = "Baja_VentaSelectCountByMes";
+        private static string Baja_VentaAFrigSelectCountByMes = "Baja_VentaAFrigSelectCountByMes";
+        private static string Baja_VentaRecNacidoSelectCountByMes = "Baja_VentaRecNacidoSelectCountByMes";
+        private static string Baja_VentaViejaSelectCountByMes = "Baja_VentaViejaSelectCountByMes";
+        private static string Baja_VentaSelectCountBy2fechas = "Baja_VentaSelectCountBy2fechas";
+        private static string Baja_VentaAFrigSelectCountBy2fechas = "Baja_VentaAFrigSelectCountBy2fechas";
+        private static string Baja_VentaRecNacidoSelectCountBy2fechas = "Baja_VentaRecNacidoSelectCountBy2fechas";
+        private static string Baja_VentaViejaSelectCountBy2fechas = "Baja_VentaViejaSelectCountBy2fechas";
+        private static string Baja_MuerteByAnioSelectCount2fechas = "Baja_MuerteByAnioSelectCount2fechas";
+        private static string Baja_MuerteBy2fechasSelectAll = "Baja_MuerteBy2fechasSelectAll";
         
-
         public BajaMapper(Baja baja)
         {
             _baja = baja;
@@ -127,6 +136,33 @@ namespace Datos
             return Convert.ToInt32(value);
         }
 
+        public int GetCantVentasPorMes(int mes)
+        {
+            var result = new List<Baja>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@MES", mes));
+            cmd.CommandText = Baja_VentaSelectCountByMes;
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
+
+        public int GetCantVentasPor2fechas(string fecha1, string fecha2)
+        {
+            var result = new List<Baja>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@FECHA1", fecha1));
+            cmd.Parameters.Add(new SqlParameter("@FECHA2", fecha2));
+            cmd.CommandText = Baja_VentaSelectCountBy2fechas;
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
+
         public int GetCantVentasAFrigPorAnio(int anio)
         {
             var result = new List<Baja>();
@@ -135,6 +171,33 @@ namespace Datos
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.Add(new SqlParameter("@ANIO", anio));
             cmd.CommandText = Baja_VentaAFrigSelectCountByAnio;
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
+
+        public int GetCantVentasAFrigPorMes(int mes)
+        {
+            var result = new List<Baja>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@MES", mes));
+            cmd.CommandText = Baja_VentaAFrigSelectCountByMes;
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
+
+        public int GetCantVentasAFrigPor2fechas(string fecha1, string fecha2)
+        {
+            var result = new List<Baja>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@FECHA1", fecha1));
+            cmd.Parameters.Add(new SqlParameter("@FECHA2", fecha2));
+            cmd.CommandText = Baja_VentaAFrigSelectCountBy2fechas;
 
             var value = ReturnScalarValue(cmd);
             return Convert.ToInt32(value);
@@ -153,6 +216,33 @@ namespace Datos
             return Convert.ToInt32(value);
         }
 
+        public int GetCantVentasRecienNacidosPorMes(int mes)
+        {
+            var result = new List<Baja>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@MES", mes));
+            cmd.CommandText = Baja_VentaRecNacidoSelectCountByMes;
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
+
+        public int GetCantVentasRecienNacidosPor2fechas(string fecha1, string fecha2)
+        {
+            var result = new List<Baja>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@FECHA1", fecha1));
+            cmd.Parameters.Add(new SqlParameter("@FECHA2", fecha2));
+            cmd.CommandText = Baja_VentaRecNacidoSelectCountBy2fechas;
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
+
         public int GetCantVentasViejasPorAnio(int anio)
         {
             var result = new List<Baja>();
@@ -161,6 +251,34 @@ namespace Datos
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.Add(new SqlParameter("@ANIO", anio));
             cmd.CommandText = Baja_VentaViejaSelectCountByAnio;
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
+
+
+        public int GetCantVentasViejasPorMes(int mes)
+        {
+            var result = new List<Baja>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@MES", mes));
+            cmd.CommandText = Baja_VentaViejaSelectCountByMes;
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
+
+        public int GetCantVentasViejasPor2fechas(string fecha1, string fecha2)
+        {
+            var result = new List<Baja>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@FECHA1", fecha1));
+            cmd.Parameters.Add(new SqlParameter("@FECHA2", fecha2));
+            cmd.CommandText = Baja_VentaViejaSelectCountBy2fechas;
 
             var value = ReturnScalarValue(cmd);
             return Convert.ToInt32(value);
@@ -249,6 +367,23 @@ namespace Datos
             return result;
         }
 
+        public List<VOEnfermedad> GetCantidadMuertesPorEnfermedadPor2fechas(string fecha1, string fecha2)
+        {
+            var result = new List<VOEnfermedad>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@FECHA1", fecha1));
+            cmd.Parameters.Add(new SqlParameter("@FECHA2", fecha2));
+            cmd.CommandText = Baja_MuerteByAnioSelectCount2fechas;
+
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+                result.Add(loadCantEnfermedades(dr));
+            dr.Close();
+            return result;
+        }
+
         protected VOEnfermedad loadCantEnfermedades(SqlDataReader record)
         {
             var enf = new VOEnfermedad();
@@ -283,5 +418,21 @@ namespace Datos
 
         }
 
+        public List<Baja> GetMuertesPor2fechas(string fecha1, string fecha2)
+        {
+            var result = new List<Baja>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@FECHA1", fecha1));
+            cmd.Parameters.Add(new SqlParameter("@FECHA2", fecha2));
+            cmd.CommandText = Baja_MuerteBy2fechasSelectAll;
+
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+                result.Add(load(dr));
+            dr.Close();
+            return result;
+        }
     }
 }

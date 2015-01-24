@@ -395,13 +395,15 @@ namespace tamboprp
         private bool GuardarCalificacion()
         {
             string strDate = Request.Form["mydate"];
+            string letra = Request.Form["selectLetras"];
+            string num = Request.Form["selectNumeros"];
             var calif = new Calificacion
             {
                 Id_evento = 9,
                 Registro = fRegistro.Text,
                 Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR")),
-                Letras = ddlCalificacion.SelectedValue,
-                Puntos = Int32.Parse(ddlCalificacionPts.SelectedValue)
+                Letras = letra,
+                Puntos = Int32.Parse(num)
             };
             return Fachada.Instance.InsertarEvento(calif);
         }
@@ -494,7 +496,9 @@ namespace tamboprp
 
                 case 9:
                 _listaRegistrosTypeahead = Fachada.Instance.GetAbortosAnimalesConServicios();
-                ScriptManager.RegisterStartupScript(this, GetType(), "cargarTypeaheadCategorias", "cargarTypeaheadCategorias();", true);
+                //ScriptManager.RegisterStartupScript(this, GetType(), "cargarTypeaheadCategorias", "cargarTypeaheadCategorias();", true);
+                ScriptManager.RegisterStartupScript(this, GetType(), "cargarSelectLetras", "cargarSelectLetras();", true);
+                ScriptManager.RegisterStartupScript(this, GetType(), "cargaSelectNumeros", "cargaSelectNumeros();", true);
                 break;
 
                 case 11: // BAJA POR VENTA

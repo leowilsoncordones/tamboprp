@@ -35,10 +35,19 @@
         <h1><i class="menu-icon fa fa-trophy"></i> Concursos <small><i class="ace-icon fa fa-angle-double-right"></i> de nuestros animales en exposiciones</small> </h1>
     </div>
     <div class="row">
+            <div class="col-md-8">
+                <div class="pull-right">
+                    <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm" Text=" Excel" onclick="excelExport_Click"><span><i class="fa fa-file-excel-o bigger-110 green"></i></span> Excel</asp:LinkButton>
+                    <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm"  Text=" PDF" onclick="pdfExport_Click"><span><i class="fa fa-file-pdf-o bigger-110 red"></i></span> PDF</asp:LinkButton>
+                    <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm"  Text=" Print" onclick="print_Click"><span><i class="fa fa-print bigger-110 grey"></i></span> Print</asp:LinkButton>
+                </div>
+            </div>
+            <div class="col-md-8"></div>
+        </div>
+    <div class="row">
         <div class="col-md-8">
-            <div>
-                <p>        
-                <asp:GridView ID="gvCategorias" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" 
+            <div>       
+                <asp:GridView ID="gvCategorias" runat="server" AutoGenerateColumns="False" GridLines="Both" HorizontalAlign="Left" 
                     CssClass="table table-hover table-striped table-bordered table-condensed dataTable" PagerStyle-CssClass="bs-pagination"  
                     AllowPaging="true" AllowSorting="true" PageSize="20" OnPageIndexChanging="GvConcursos_PageIndexChanging" >
                 <RowStyle HorizontalAlign="Left"  />
@@ -55,11 +64,65 @@
                 <EditRowStyle />
                 <AlternatingRowStyle />
                 </asp:GridView>
-                </p>
+                
                 <asp:Label ID="titCantEnf" runat="server" Text="Cantidad de concursos: " Visible="False"></asp:Label><asp:Label ID="lblCantEnf" runat="server" ></asp:Label><br/>
             </div>
         </div>
-        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <!-- Comienzo DDL Datepicker -->
+                <div class="row">
+                    <div class="input-group">
+                    <span class="input-group-btn">
+                        <asp:Button ID="btnListar" runat="server" Text="Mostrar" onclick="btnListar_Click" CssClass="btn btn-white btn-default" />
+                    </span>
+                    <asp:DropDownList ID="ddlFechas" cssClass="form-control" runat="server"  AutoPostBack="False"></asp:DropDownList>
+                    </div> 
+                </div>
+                <div class="row"></div>
+                <div class="row">                   
+                    <asp:Panel ID="panel01" runat="server" CssClass="input-group">
+                        <h5 class="header smaller lighter blue">Entre dos fechas</h5> 
+                            <div class="input-group">                 
+                                <span class="input-group-btn">                   
+                                <asp:Button ID="Button1" runat="server" Text="Mostrar" onclick="btnListar_Concursos" CssClass="btn btn-white btn-default" />
+                                </span>
+                                <input type="text" id="fechas" name="fechas" placeholder="Fechas" class="form-control"/>  
+                            </div>                			                         
+                    </asp:Panel>                   
+                </div>
+                <div class="row">
+                    <asp:Panel ID="panel02" runat="server" CssClass="input-group" >
+                        <h5 class="header smaller lighter blue">Por Registro</h5> 
+                            <div class="input-group">                 
+                                <span class="input-group-btn">                   
+                                <asp:Button ID="Button2" runat="server" Text="Mostrar" onclick="btnListar_PorRegistro" CssClass="btn btn-white btn-default" />
+                                </span>
+                                <asp:TextBox runat="server" CssClass="form-control" ID="txtRegistro"></asp:TextBox>  
+                            </div>
+                    </asp:Panel>
+                </div>
+                    <!-- Fin DDL Datepicker --> 
+        </div>
     </div>
+    
+    
+    <script src="js/date-time/moment.js"></script>
+    <script src="js/date-time/daterangepicker.js"></script>
+    
+    
+    <link href="css/daterangepicker.css" rel="stylesheet" />
+    
+    <script type="text/javascript">
 
+        $("#fechas").daterangepicker({
+            locale: {
+                applyLabel: 'Confirma',
+                cancelLabel: 'Cancela',
+                fromLabel: 'Desde',
+                toLabel: 'Hasta',
+            },
+            format: 'DD/MM/YYYY'
+        });
+
+    </script>
 </asp:Content>

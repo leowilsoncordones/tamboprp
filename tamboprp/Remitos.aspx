@@ -22,13 +22,27 @@
                     <h1><i class="menu-icon fa fa-list"></i> Listado de remitos a planta</h1>
                 </div>
                 <div class="row">
-                <div class="col-md-10">
-					<h4 class="smaller">
+                    <div class="col-md-5">
+                       <h4 class="smaller">
 					    <asp:Label ID="titListado" Text="Empresa: " runat="server" ></asp:Label>
                         <asp:Label ID="lblTituloListado" Text="" runat="server" ></asp:Label>
-					</h4>
+					</h4> 
+                    </div>
+                    <div class="col-md-4">
+                        <div class="pull-right">
+                            <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm" Text=" Excel" onclick="excelExport_Click"><span><i class="fa fa-file-excel-o bigger-110 green"></i></span> Excel</asp:LinkButton>
+                            <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm"  Text=" PDF" onclick="pdfExport_Click"><span><i class="fa fa-file-pdf-o bigger-110 red"></i></span> PDF</asp:LinkButton>
+                            <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm"  Text=" Print" onclick="print_Click"><span><i class="fa fa-print bigger-110 grey"></i></span> Print</asp:LinkButton>
+                        </div>
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+                <div class="row">
+                <div class="col-md-9">
+					
+
                     <!-- GRIDVIEW -->
-                    <asp:GridView ID="gvRemitos" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" 
+                    <asp:GridView ID="gvRemitos" runat="server" AutoGenerateColumns="False" GridLines="Both" HorizontalAlign="Left" 
                             CssClass="table table-hover table-striped table-bordered table-condensed dataTable" >
                         <RowStyle HorizontalAlign="Left"  />
                         <Columns>
@@ -49,7 +63,29 @@
                         <AlternatingRowStyle />
                     </asp:GridView>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
+                    <!-- Comienzo DDL Datepicker -->
+                        <div class="row">
+                           <div class="input-group">
+                            <span class="input-group-btn">
+                                <asp:Button ID="Button1" runat="server" Text="Mostrar" onclick="btnListar_Click1" CssClass="btn btn-white btn-default" />
+                            </span>
+                            <asp:DropDownList ID="ddlFechas" cssClass="form-control" runat="server"  AutoPostBack="False"></asp:DropDownList>
+                            </div> 
+                        </div>
+                        <div class="row"></div>
+                        <div class="row">                   
+                            <asp:Panel ID="panel01" runat="server" class="input-group">
+                                <h5 class="header smaller lighter blue">Entre dos fechas</h5> 
+                                <div class="input-group">                 
+                                <span class="input-group-btn">                   
+                                <asp:Button ID="Button2" runat="server" Text="Mostrar" onclick="btnListar_Remitos" CssClass="btn btn-white btn-default" />
+                                </span>
+                                <input type="text" id="fechas" name="fechas" placeholder="Fechas" class="form-control"/>  
+                                    </div>                			                         
+                            </asp:Panel>                   
+                        </div>
+                <!-- Fin DDL Datepicker -->
                 </div>
                 </div>
 			</div> <!-- fin LISTADO de remitos -->
@@ -132,6 +168,16 @@
                 fromLabel: 'Desde',
                 toLabel: 'Hasta',
             }
+        });
+
+        $("#fechas").daterangepicker({
+            locale: {
+                applyLabel: 'Confirma',
+                cancelLabel: 'Cancela',
+                fromLabel: 'Desde',
+                toLabel: 'Hasta',
+            },
+            format: 'DD/MM/YYYY'
         });
 
         $(document).ready(function () {

@@ -36,9 +36,19 @@
         <h1><i class="menu-icon fa fa-list"></i> Listado de partos </h1>
     </div>
     <div class="row">
+            <div class="col-md-8">
+                <div class="pull-right">
+                    <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm" Text=" Excel" onclick="excelExport_Click"><span><i class="fa fa-file-excel-o bigger-110 green"></i></span> Excel</asp:LinkButton>
+                    <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm"  Text=" PDF" onclick="pdfExport_Click"><span><i class="fa fa-file-pdf-o bigger-110 red"></i></span> PDF</asp:LinkButton>
+                    <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm"  Text=" Print" onclick="print_Click"><span><i class="fa fa-print bigger-110 grey"></i></span> Print</asp:LinkButton>
+                </div>
+            </div>
+            <div class="col-md-8"></div>
+        </div>
+    <div class="row">
         <div class="col-md-8">
         <asp:PlaceHolder ID="phPersonal" runat="server">
-            <asp:GridView ID="gvListPartos" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" 
+            <asp:GridView ID="gvListPartos" runat="server" AutoGenerateColumns="False" GridLines="Both" HorizontalAlign="Left" 
                     CssClass="table table-hover table-striped table-bordered table-condensed dataTable" PagerStyle-CssClass="bs-pagination text-center"  
                     AllowPaging="true" AllowSorting="true" PageSize="20" OnPageIndexChanging="GvListPartos_PageIndexChanging" >
                 <RowStyle HorizontalAlign="Left"  />
@@ -62,7 +72,8 @@
             </div>
 
         <!-- RESUMEN EN COLUMNA DERECHA -->
-            <div class="col-md-4">
+            <div class="col-md-4">                
+                <div class="row">
                 <div class="well">
 						<h4 class="header smaller lighter blue"><i class="menu-icon fa fa-paperclip"></i> Resumen de partos</h4>
                         <ul class="list-unstyled spaced2">
@@ -86,7 +97,50 @@
                             <strong><asp:Label ID="lblTotalNac" runat="server" ></asp:Label>&nbsp;&nbsp;-&nbsp;&nbsp;<small class="blue"><asp:Label ID="lblPromNac" runat="server" ></asp:Label></small></strong></li>
                         </ul>
 					</div>
+                </div>
+                <!-- Comienzo DDL Datepicker -->
+                <div class="row">
+                           <div class="input-group">
+                            <span class="input-group-btn">
+                                <asp:Button ID="btnListar" runat="server" Text="Mostrar" onclick="btnListar_Click" CssClass="btn btn-white btn-default" />
+                            </span>
+                            <asp:DropDownList ID="ddlFechas" cssClass="form-control" runat="server"  AutoPostBack="False"></asp:DropDownList>
+                            </div> 
+                        </div>
+                        <div class="row"></div>
+                        <div class="row">                   
+                            <asp:Panel ID="panel01" runat="server" class="input-group">
+                                <h5 class="header smaller lighter blue">Entre dos fechas</h5> 
+                                <div class="input-group">                 
+                                <span class="input-group-btn">                   
+                                <asp:Button ID="Button1" runat="server" Text="Mostrar" onclick="btnListar_Partos" CssClass="btn btn-white btn-default" />
+                                </span>
+                                <input type="text" id="fechas" name="fechas" placeholder="Fechas" class="form-control"/>  
+                                    </div>                			                         
+                            </asp:Panel>                   
+                </div>
+                <!-- Fin DDL Datepicker -->              
             </div>
         </div>
+
+    <script src="js/date-time/moment.js"></script>
+    <script src="js/date-time/daterangepicker.js"></script>
+    
+    
+    <link href="css/daterangepicker.css" rel="stylesheet" />
+    
+    <script type="text/javascript">
+
+        $("#fechas").daterangepicker({
+            locale: {
+                applyLabel: 'Confirma',
+                cancelLabel: 'Cancela',
+                fromLabel: 'Desde',
+                toLabel: 'Hasta',
+            },
+            format: 'DD/MM/YYYY'
+        });
+
+    </script>
 
 </asp:Content>

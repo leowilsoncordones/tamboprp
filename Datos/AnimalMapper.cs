@@ -27,8 +27,14 @@ namespace Datos
         private static string Animal_SelectCount_NacimientosByAnio = "Animal_SelectCount_NacimientosByAnio";
         private static string Animal_SelectCountNacimientosPorToroByAnio = "Animal_SelectCountNacimientosPorToroByAnio";
         private static string Animal_SelectCountNacimientosHPorToroByAnio = "Animal_SelectCountNacimientosHPorToroByAnio";
+        private static string Animal_SelectCountNacimientosHPorToroBy2fechas = "Animal_SelectCountNacimientosHPorToroBy2fechas";
+        private static string Animal_SelectCountNacimientosPorToroBy2fechas = "Animal_SelectCountNacimientosPorToroBy2fechas";
+        private static string Animal_SelectCount_NacimientosBy2fechas = "Animal_SelectCount_NacimientosBy2fechas";
+        private static string Animal_SelectCount_MellizosBy2fechas = "Animal_SelectCount_MellizosBy2fechas";
+        private static string Animal_SelectCount_TrillizosBy2fechas = "Animal_SelectCount_TrillizosBy2fechas";
         
-
+        
+        
         public AnimalMapper(Animal animal)
         {
             _animal = animal;
@@ -254,6 +260,19 @@ namespace Datos
             return Convert.ToInt32(value);
         }
 
+        public int GetCantMellizosBy2fechas(string fecha1, string fecha2)
+        {
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@FECHA1", fecha1));
+            cmd.Parameters.Add(new SqlParameter("@FECHA2", fecha2));
+            cmd.CommandText = Animal_SelectCount_MellizosBy2fechas;
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
+
         public int GetCantTrillizosByAnio(int anio)
         {
             SqlCommand cmd = null;
@@ -265,6 +284,20 @@ namespace Datos
             var value = ReturnScalarValue(cmd);
             return Convert.ToInt32(value);
         }
+
+        public int GetCantTrillizosBy2fechas(string fecha1, string fecha2)
+        {
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@FECHA1", fecha1));
+            cmd.Parameters.Add(new SqlParameter("@FECHA2", fecha2));
+            cmd.CommandText = Animal_SelectCount_TrillizosBy2fechas;
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
+
 
         public int GetCantNacimientosByAnio(int anio)
         {
@@ -278,6 +311,19 @@ namespace Datos
             return Convert.ToInt32(value);
         }
 
+        public int GetCantNacimientosBy2fechas(string fecha1, string fecha2)
+        {
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@FECHA1", fecha1));
+            cmd.Parameters.Add(new SqlParameter("@FECHA2", fecha2));
+            cmd.CommandText = Animal_SelectCount_NacimientosBy2fechas;
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
+
         public int GetCantNacimientosHPorToroByAnio(string reg, int anio)
         {
             SqlCommand cmd = null;
@@ -286,6 +332,20 @@ namespace Datos
             cmd.Parameters.Add(new SqlParameter("@REG_PADRE", reg));
             cmd.Parameters.Add(new SqlParameter("@ANIO", anio));
             cmd.CommandText = Animal_SelectCountNacimientosHPorToroByAnio;
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
+
+        public int GetCantNacimientosHPorToroBy2fechas(string reg, string fecha1, string fecha2)
+        {
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@REG_PADRE", reg));
+            cmd.Parameters.Add(new SqlParameter("@FECHA1", fecha1));
+            cmd.Parameters.Add(new SqlParameter("@FECHA2", fecha2));
+            cmd.CommandText = Animal_SelectCountNacimientosHPorToroBy2fechas;
 
             var value = ReturnScalarValue(cmd);
             return Convert.ToInt32(value);
@@ -464,6 +524,23 @@ namespace Datos
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.Add(new SqlParameter("@ANIO", anio));
             cmd.CommandText = Animal_SelectCountNacimientosPorToroByAnio;
+
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+                result.Add(loadNacimPorToroByAnio(dr));
+            dr.Close();
+            return result;
+        }
+
+        public List<VOToro> GetNacimientosPorToroBy2fechas(string fecha1, string fecha2)
+        {
+            var result = new List<VOToro>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@FECHA1", fecha1));
+            cmd.Parameters.Add(new SqlParameter("@FECHA2", fecha2));
+            cmd.CommandText = Animal_SelectCountNacimientosPorToroBy2fechas;
 
             SqlDataReader dr = FindByCmd(cmd);
             while (dr.Read())

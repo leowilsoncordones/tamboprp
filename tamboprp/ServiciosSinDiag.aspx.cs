@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using iTextSharp.text;
+using iTextSharp.text.html.simpleparser;
+using iTextSharp.text.pdf;
 using Negocio;
 
 namespace tamboprp
@@ -99,47 +104,75 @@ namespace tamboprp
 
         }
 
-        protected void Print(object sender, EventArgs e)
+        public override void VerifyRenderingInServerForm(Control control) { }
+
+        protected void pdfExport_Click(object sender, EventArgs e)
         {
-            gvServicios.UseAccessibleHeader = true;
-            gvServicios.HeaderRow.TableSection = TableRowSection.TableHeader;
-            gvServicios.FooterRow.TableSection = TableRowSection.TableFooter;
-            gvServicios.Attributes["style"] = "border-collapse:separate";
-            foreach (GridViewRow row in gvServicios.Rows)
-            {
-                if (row.RowIndex % 10 == 0 && row.RowIndex != 0)
-                {
-                    row.Attributes["style"] = "page-break-after:always;";
-                }
-            }
+
+            Response.AddHeader("content-disposition", "attachment;filename=ServSinDiagPrenez.pdf");
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter hw = new HtmlTextWriter(sw);
+
+            HtmlForm frm = new HtmlForm();
+            gvServicios.Parent.Controls.Add(frm);
+            frm.Attributes["runat"] = "server";
+            frm.Controls.Add(gvServicios);
+            frm.RenderControl(hw);
+            StringReader sr = new StringReader(sw.ToString());
+
+            Document pdfDoc = new Document(PageSize.A4, 50f, 50f, 10f, 0f);
+            HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
+            PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
+            pdfDoc.Open();
+            pdfDoc.Add(new Paragraph(40f, "Servicios sin diagnóstico de preñez", new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 14f)));
+            var pathLogo = ConfigurationManager.AppSettings["logoTamboprpJpg"];
+            //pdfDoc.Add(new Chunk(new Jpeg(new Uri("D:/ORT laptop/2014-S5-Proyecto/tamboprp-git/tamboprp/img_tamboprp/corporativo/logojpeg.jpg")),300f,-10f));
+            pdfDoc.Add(new Chunk(new Jpeg(new Uri(pathLogo)), 300f, -10f));
+            htmlparser.Parse(sr);
+            pdfDoc.Close();
+            Response.Write(pdfDoc);
+            Response.End();
+
+        }
+
+        protected void print_Click(object sender, EventArgs e)
+        {
+            gvServicios.PagerSettings.Visible = false;
             StringWriter sw = new StringWriter();
             HtmlTextWriter hw = new HtmlTextWriter(sw);
             gvServicios.RenderControl(hw);
-            string gridHTML = sw.ToString().Replace("\"", "'").Replace(System.Environment.NewLine, "");
+            string gridHTML = sw.ToString().Replace("\"", "'")
+                .Replace(System.Environment.NewLine, "");
             StringBuilder sb = new StringBuilder();
             sb.Append("<script type = 'text/javascript'>");
             sb.Append("window.onload = new function(){");
             sb.Append("var printWin = window.open('', '', 'left=0");
             sb.Append(",top=0,width=1000,height=600,status=0');");
+            sb.Append("printWin.document.write(\"<label>Servicios sin diagnóstico de preñez</label>\");");
             sb.Append("printWin.document.write(\"");
-            string style = "<style type = 'text/css'>thead {display:table-header-group;} tfoot{display:table-footer-group;}</style>";
-            sb.Append(style + gridHTML);
+            sb.Append(gridHTML);
             sb.Append("\");");
             sb.Append("printWin.document.close();");
             sb.Append("printWin.focus();");
             sb.Append("printWin.print();");
-            sb.Append("printWin.close();");
-            sb.Append("};");
+            sb.Append("printWin.close();};");
             sb.Append("</script>");
             ClientScript.RegisterStartupScript(this.GetType(), "GridPrint", sb.ToString());
-            gvServicios.DataBind();
-
-            cargarGrilla();
+            gvServicios.PagerSettings.Visible = true;
         }
-
-        public override void VerifyRenderingInServerForm(Control control)
+        protected void excelExport_Click(object sender, EventArgs e)
         {
-            /*Verifies that the control is rendered */
+            Response.Clear();
+            Response.AddHeader("content-disposition", "attachment; filename=ServSinDiagPrenez.xls");
+            Response.ContentType = "application/vnd.xls";
+            var writeItem = new StringWriter();
+            var htmlText = new HtmlTextWriter(writeItem);
+            this.gvServicios.RenderControl(htmlText);
+            Response.Write(writeItem.ToString());
+            Response.End();
         }
+
+        
     }
 }

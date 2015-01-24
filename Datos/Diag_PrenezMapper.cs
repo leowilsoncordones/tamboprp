@@ -23,6 +23,10 @@ namespace Datos
         private static string Diag_prenez_SelecFechasDiagPorAnio = "Diag_prenez_SelecFechasDiagPorAnio";
         
         private static string Diag_prenez_SelectRegistrosPrenadasAhora = "Diag_prenez_SelectRegistrosPrenadasAhora";
+        private static string Diag_prenez_SelectTrabajoInseminadores2fechas = "Diag_prenez_SelectTrabajoInseminadores2fechas";
+        private static string Diag_prenez_SelectInseminacionesExito2fechas = "Diag_prenez_SelectInseminacionesExito2fechas";
+        
+        
 
         public Diag_PrenezMapper(Diag_Prenez diag)
         {
@@ -198,6 +202,23 @@ namespace Datos
             return result;
         }
 
+        public List<VODiagnostico> GetInseminacionesExitosas2fechas(string fecha1, string fecha2)
+        {
+            var result = new List<VODiagnostico>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@FECHA1", fecha1));
+            cmd.Parameters.Add(new SqlParameter("@FECHA2", fecha2));
+            cmd.CommandText = Diag_prenez_SelectInseminacionesExito2fechas;
+
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+                result.Add(loadInseminacionesExito(dr));
+            dr.Close();
+            return result;
+        }
+
         public List<VODiagnostico> GetTrabajoInseminadores(int anio)
         {
             var result = new List<VODiagnostico>();
@@ -206,6 +227,24 @@ namespace Datos
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.Add(new SqlParameter("@ANIO", anio));
             cmd.CommandText = Diag_prenez_SelectTrabajoInseminadores;
+
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+                result.Add(loadTrabajoInseminadores(dr));
+            dr.Close();
+            return result;
+        }
+
+
+        public List<VODiagnostico> GetTrabajoInseminadores2fechas(string fecha1, string fecha2)
+        {
+            var result = new List<VODiagnostico>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@FECHA1", fecha1));
+            cmd.Parameters.Add(new SqlParameter("@FECHA2", fecha2));
+            cmd.CommandText = Diag_prenez_SelectTrabajoInseminadores2fechas;
 
             SqlDataReader dr = FindByCmd(cmd);
             while (dr.Read())
