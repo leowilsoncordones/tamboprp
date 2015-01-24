@@ -9,7 +9,7 @@ using Negocio;
 
 namespace tamboprp
 {
-    public partial class Error404 : System.Web.UI.Page
+    public partial class Error500 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -22,10 +22,11 @@ namespace tamboprp
         protected void SetPageBreadcrumbs()
         {
             var list = new List<VoListItemDuplaString>();
-            list.Add(new VoListItemDuplaString("Error 404", ""));
+            list.Add(new VoListItemDuplaString("Error 500", ""));
+            var strB = PageControl.SetBreadcrumbsPath(list);
             var sb = new StringBuilder();
             sb.Append("<ul class='breadcrumb'>");
-            sb.Append("<li><i class='ace-icon fa fa-home home-icon'></i> <a href='Default.aspx'>Home</a></li>");
+            sb.Append("<li><i class='ace-icon fa fa-home home-icon'></i> <a href='../Default.aspx'>Home</a></li>");
             for (int i = 0; i < list.Count; i++)
             {
                 if (list[i].Valor2 == "")

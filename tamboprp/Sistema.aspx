@@ -36,7 +36,7 @@
             <div class="col-md-5 jumbotron align-center lighter">
                 <a href="GestionUsuarios.aspx" class="bigger-160">
 		            <i class="ace-icon fa fa-users bigger-200"></i><br/>
-                    Usuarios del sistema
+                    Gestión de usuarios
 	            </a>
             </div>
         </div>

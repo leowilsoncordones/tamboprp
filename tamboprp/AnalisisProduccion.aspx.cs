@@ -14,22 +14,10 @@ namespace tamboprp
         {
             this.SetPageBreadcrumbs();
             this.LimpiarRegistro();
-
             // cargo tabla analitica de vacas en ordeñe
             this.CargarAnalitico();
-
             // cargo datos generales
-            this.lblAbortosEsteAno.Text = Fachada.Instance.GetCantAbortosEsteAnio().ToString();
-            this.lblCantAnUltControl.Text = Fachada.Instance.GetCantAnimalesUltControl().ToString();
-            this.lblSumLecheUltControl.Text = Fachada.Instance.GetSumLecheUltControl().ToString();
-            this.lblPromLecheUltControl.Text = Math.Round(Fachada.Instance.GetPromLecheUltControl(), 2).ToString();
-            this.lblSumGrasaUltControl.Text = Fachada.Instance.GetSumGrasaUltControl().ToString();
-            this.lblPromGrasaUltControl.Text = Math.Round(Fachada.Instance.GetPromGrasaUltControl(), 2).ToString();
-            this.lblCantOrdene.Text = Fachada.Instance.GetCantOrdene().ToString();
-            this.badgeCantOrdene.Text = this.lblCantOrdene.Text;
-            this.lblCantEntoradas.Text = Fachada.Instance.GetCantEntoradas().ToString();
-            this.lblCantSecas.Text = Fachada.Instance.GetCantSecas().ToString();
-            this.lblFechaUltControl.Text = Fachada.Instance.GetFechaUltimoControl().ToString();
+            this.CargarDatosGenerales();
         }
 
         protected void SetPageBreadcrumbs()
@@ -79,6 +67,22 @@ namespace tamboprp
             this.lblPrenezConf.Text = voAnalitico.PrenezConfirmada.ToString();
             this.lblPorcPrenezConf.Text = voAnalitico.PromPrenezConfirmada.ToString() + "%";
             this.lblPromL.Text = voAnalitico.PromDiasLactancias.ToString();
+        }
+
+        public void CargarDatosGenerales()
+        {
+            var voDatosGen = Fachada.Instance.GetDatosGenerales();
+            this.lblAbortosEsteAno.Text = voDatosGen.CantAbortosEsteAnio.ToString();
+            this.lblCantAnUltControl.Text = voDatosGen.CantAnimUltControl.ToString();
+            this.lblSumLecheUltControl.Text = Math.Round(voDatosGen.SumLecheUltControl, 1).ToString();
+            this.lblPromLecheUltControl.Text = Math.Round(voDatosGen.PromLecheUltControl, 1).ToString();
+            this.lblSumGrasaUltControl.Text = Math.Round(voDatosGen.SumGrasaUltControl, 1).ToString();
+            this.lblPromGrasaUltControl.Text = Math.Round(voDatosGen.PromGrasaUltControl, 1).ToString();
+            this.lblCantOrdene.Text = voDatosGen.CantOrdene.ToString();
+            this.badgeCantOrdene.Text = this.lblCantOrdene.Text;
+            this.lblCantEntoradas.Text = voDatosGen.CantEntoradas.ToString();
+            this.lblCantSecas.Text = voDatosGen.CantSecas.ToString();
+            this.lblFechaUltControl.Text = voDatosGen.FechaUltControl;
         }
     }
 }

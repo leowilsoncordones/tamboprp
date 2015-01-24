@@ -73,6 +73,8 @@
     <Compile Include="Empresa.cs" />
     <Compile Include="EmpresaRemisora.cs" />
     <Compile Include="Baja.cs" />
+    <Compile Include="Faq.cs" />
+    <Compile Include="Reporte.cs" />
     <Compile Include="TipoEvento.cs" />
     <Compile Include="CategoriaConcurso.cs" />
     <Compile Include="LugarConcurso.cs" />

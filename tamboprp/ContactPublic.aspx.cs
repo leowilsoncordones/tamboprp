@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -16,14 +17,13 @@ namespace tamboprp
             {
                 Response.Redirect("~/Contact.aspx", true);
             }
-            //this.SetPageBreadcrumbs();
+            this.SetPageBreadcrumbs();
         }
 
         protected void SetPageBreadcrumbs()
         {
-            var list = new List<VoListItemDuplaString>();
-            list.Add(new VoListItemDuplaString("Contacto", ""));
-            var strB = PageControl.SetBreadcrumbsPath(list);
+            var strB = new StringBuilder();
+            strB.Append("<span class='pull-right'><strong>" + "+ Producción + Reproducción + Performance = + RENTABILIDAD!" + "</strong></span>");
             if (Master != null)
             {
                 var divBreadcrumbs = Master.FindControl("breadcrumbs") as System.Web.UI.HtmlControls.HtmlGenericControl;

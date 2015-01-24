@@ -72,9 +72,8 @@ namespace tamboprp
                     Habilitado = u.Habilitado,
                     Rol = u.Rol,
                     Foto = u.Foto,
-                    //Password = ,
                 };
-                if (this.password.Value != "") usuario.Password = this.password.Value;
+                //if (this.password.Value != "") usuario.Password = this.password.Value;
                 return Fachada.Instance.UpdateUsuario(usuario);
                 //return true;
             }
@@ -109,6 +108,40 @@ namespace tamboprp
         protected void btn_CambiarImagen(object sender, EventArgs e)
         {
 
+        }
+
+        protected void btn_ResetearPassword(object sender, EventArgs e)
+        {
+            try
+            {
+                if (this.ResetearPassword())
+                {
+                    this.lblStatus.Text = "La contraseña se actualizó";
+                }
+                else
+                {
+                    this.lblStatus.Text = "La contraseña no se pudo actualizar";
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private bool ResetearPassword()
+        {
+            if (this.password.Value != "")
+            {
+                var user = (VOUsuario)Session["Usuario"];
+                var userPerfil = user.Nickname;
+                return Fachada.Instance.ResetearPassword(userPerfil, userPerfil, this.password.Value);
+            }
+            else
+            {
+                this.lblStatus.Text = "La contraseña no puede ser vacía";
+            }
+            return false;
         }
     }
 }

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Negocio;
+using Org.BouncyCastle.Asn1.X509;
 
 namespace tamboprp
 {
@@ -14,7 +16,18 @@ namespace tamboprp
         {
             //this.fUsuario.Value = "";
             //this.fContrasena.Value = "";
+            this.SetPageBreadcrumbs();
+        }
 
+        protected void SetPageBreadcrumbs()
+        {
+            var strB = new StringBuilder();
+            strB.Append("<span class='pull-right'><strong>" + "+ Producción + Reproducción + Performance = + RENTABILIDAD!" + "</strong></span>");
+            if (Master != null)
+            {
+                var divBreadcrumbs = Master.FindControl("breadcrumbs") as System.Web.UI.HtmlControls.HtmlGenericControl;
+                if (divBreadcrumbs != null) divBreadcrumbs.InnerHtml = strB.ToString();
+            }
         }
 
         protected void btnLogin_Click(object sender, EventArgs e)
@@ -55,9 +68,13 @@ namespace tamboprp
             
         }
 
-        protected void btn_MeOlvide(object sender, EventArgs e)
+        protected void btn_MeOlvidePassword(object sender, EventArgs e)
         {
-
+            var fecha = new DateTime();
+            var fechaStr = fecha.ToShortDateString() + " " + fecha.ToShortTimeString();
+            var msj = fechaStr + " " + this.fNombre + " " + this.fApellido + " (" + fUsuario2 + ") " + this.fEmail;
+            var asunto = "Me olvide de la password";
+            Fachada.Instance.EnviarMail(msj, asunto);
         }
 
     }

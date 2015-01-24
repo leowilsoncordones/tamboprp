@@ -98,7 +98,7 @@ namespace Datos
                 cmd.Parameters.Add(new SqlParameter("@ID_EMPLEADO", _empleado.Id_empleado));
                 cmd.Parameters.Add(new SqlParameter("@NOMBRE", _empleado.Nombre));
                 cmd.Parameters.Add(new SqlParameter("@APELLIDO", _empleado.Apellido));
-                cmd.Parameters.Add(new SqlParameter("@INICIALES", _empleado.Iniciales));
+                //cmd.Parameters.Add(new SqlParameter("@INICIALES", _empleado.Iniciales));
                 cmd.Parameters.Add(new SqlParameter("@ACTIVO", _empleado.Activo));
             }
             return cmd;

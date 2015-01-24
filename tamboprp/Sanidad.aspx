@@ -48,7 +48,7 @@
             <div class="col-md-5 jumbotron align-center lighter">
                 <a href="Cmt.aspx" class="bigger-160">
 		            <i class="ace-icon fa fa-history bigger-200"></i><br/>
-                    C.M.T. histórico
+                    C.M.T.
 	            </a>
             </div>
             <div class="col-md-1"></div>

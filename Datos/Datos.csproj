@@ -73,6 +73,8 @@
     <Compile Include="CasoSoporteMapper.cs" />
     <Compile Include="EmpresaMapper.cs" />
     <Compile Include="BajaMapper.cs" />
+    <Compile Include="FaqMapper.cs" />
+    <Compile Include="ReporteMapper.cs" />
     <Compile Include="UsuarioMapper.cs" />
     <Compile Include="EmpresaRemisoraMapper.cs" />
     <Compile Include="RemitoMapper.cs" />

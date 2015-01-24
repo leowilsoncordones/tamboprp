@@ -110,9 +110,5 @@ namespace tamboprp
             this.fTelefono.Value = "";
         }
 
-        protected void btn_CambiarImagen(object sender, EventArgs e)
-        {
-
-        }
     }
 }

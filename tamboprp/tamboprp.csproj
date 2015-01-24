@@ -181,6 +181,9 @@
     <Content Include="img_tamboprp\animales\goldwyn.png" />
     <Content Include="img_tamboprp\animales\manoman.jpg" />
     <Content Include="img_tamboprp\corporativo\logojpeg.jpg" />
+    <Content Include="img_public\logo_tamboprp.png" />
+    <Content Include="img_tamboprp\corporativo\tamboprp0.png" />
+    <Content Include="img_tamboprp\corporativo\tamboprp1.png" />
     <Content Include="js\dataTables\extensions\ColVis\js\dataTables.colVis.js" />
     <Content Include="js\dataTables\extensions\ColVis\js\dataTables.colVis.min.js" />
     <Content Include="js\dataTables\extensions\TableTools\js\dataTables.tableTools.js" />
@@ -195,11 +198,11 @@
     <Content Include="js\flot\jshashtable-3.0.js" />
     <Content Include="favicon.ico" />
     <Content Include="Logoff.aspx" />
-    <Content Include="ErrorPages\Error400.aspx" />
-    <Content Include="ErrorPages\Error401.aspx" />
-    <Content Include="ErrorPages\Error403.aspx" />
-    <Content Include="ErrorPages\Error500.aspx" />
-    <Content Include="ErrorPages\Error404.aspx" />
+    <Content Include="Error400.aspx" />
+    <Content Include="Error401.aspx" />
+    <Content Include="Error403.aspx" />
+    <Content Include="Error500.aspx" />
+    <Content Include="Error404.aspx" />
     <Content Include="NuevoAnimal.aspx" />
     <Content Include="FichaAnimal.aspx" />
     <Content Include="Auditoria.aspx" />
@@ -844,39 +847,39 @@
     <Compile Include="Logoff.aspx.designer.cs">
       <DependentUpon>Logoff.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ErrorPages\Error400.aspx.cs">
+    <Compile Include="Error400.aspx.cs">
       <DependentUpon>Error400.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ErrorPages\Error400.aspx.designer.cs">
+    <Compile Include="Error400.aspx.designer.cs">
       <DependentUpon>Error400.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ErrorPages\Error401.aspx.cs">
+    <Compile Include="Error401.aspx.cs">
       <DependentUpon>Error401.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ErrorPages\Error401.aspx.designer.cs">
+    <Compile Include="Error401.aspx.designer.cs">
       <DependentUpon>Error401.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ErrorPages\Error403.aspx.cs">
+    <Compile Include="Error403.aspx.cs">
       <DependentUpon>Error403.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ErrorPages\Error403.aspx.designer.cs">
+    <Compile Include="Error403.aspx.designer.cs">
       <DependentUpon>Error403.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ErrorPages\Error500.aspx.cs">
+    <Compile Include="Error500.aspx.cs">
       <DependentUpon>Error500.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ErrorPages\Error500.aspx.designer.cs">
+    <Compile Include="Error500.aspx.designer.cs">
       <DependentUpon>Error500.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ErrorPages\Error404.aspx.cs">
+    <Compile Include="Error404.aspx.cs">
       <DependentUpon>Error404.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ErrorPages\Error404.aspx.designer.cs">
+    <Compile Include="Error404.aspx.designer.cs">
       <DependentUpon>Error404.aspx</DependentUpon>
     </Compile>
     <Compile Include="NuevoAnimal.aspx.cs">

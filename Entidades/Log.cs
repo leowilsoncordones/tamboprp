@@ -42,5 +42,9 @@ namespace Negocio
             return 0;
         }
 
+        public override string ToString()
+        {
+            return Fecha.ToShortDateString() + "; " + User + "; " + Operacion + "; " + Registro + "; " + Tabla;
+        }
     }
 }

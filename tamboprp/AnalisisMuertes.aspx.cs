@@ -88,19 +88,6 @@ namespace tamboprp
             this.lblEnfDif.Text = listTemp.Count.ToString();
         }
 
-        //private void CargarResumen(List<BajaMapper.VOEnfermedad> lst)
-        //{
-        //    var sb = new StringBuilder();
-        //    int cant = lst.Count;
-        //    for (int i = 0; i < cant; i++)
-        //    {
-        //        sb.Append("<li class='bigger-110'><i class='ace-icon fa fa-caret-right blue'></i>");
-        //        sb.Append("<span> Enf_1 <small>Cant - Porcentaje</small> &nbsp;&nbsp;</span>");
-        //        sb.Append("<strong>" + "" + "</strong></li>");
-        //    }
-        //    this.listaEnfResumen.InnerHtml += sb.ToString();
-        //}
-
         protected void GvMuertes_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             var gv = (GridView)sender;
@@ -115,33 +102,6 @@ namespace tamboprp
             this.GetResumenMuertes();
         }
 
-        //private void ListaAcordeonMuertes(List<VOBaja> lst)
-        //{
-        //    var sb = new StringBuilder();
-        //    //for (int i = 0; i < lst.Count; i++)
-        //    for (int i = 0; i < 10; i++)
-        //    {
-        //        //if (lst[i].Titulo)
-        //        //{
-        //            sb.Append("<div class='panel panel-default'>");
-        //                sb.Append("<div class='panel-heading'>");
-        //                    sb.Append("<h4 class='panel-title'>");
-        //                    sb.Append("<a class='accordion-toggle collapsed' data-toggle='collapse' data-parent='#accordion' href='#collapse_" + i + "'>");
-        //                    sb.Append(lst[i].Enfermedad.ToString() + " - Cantidad: " + lst[i].Cantidad);
-        //                    sb.Append("</a>");
-        //                    sb.Append("</h4>");
-        //                sb.Append("</div>");
-        //                sb.Append("<div id='collapse_" + i + " class='panel-collapse collapse'>");
-        //                    sb.Append("<div class='panel-body'>");
-        //                    // lista de registros
-        //                    sb.Append(lst[i].Registro + " " + lst[i].Fecha);
-        //                    sb.Append("</div>");
-        //                sb.Append("</div>");
-        //            sb.Append("</div>");
-        //            this.accordion.InnerHtml += sb.ToString();
-        //        //}
-        //    }
-        //}
 
         public void CargarDdl()
         {

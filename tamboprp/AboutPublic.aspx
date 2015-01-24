@@ -5,7 +5,7 @@
         <h1><i class="menu-icon fa fa-check-square-o" ></i> Acerca de</h1>
     </div>
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-7">
             <article>
                 <p>        
                     Como lo indica su nombre, <small><span class="ace-icon fa fa-check-square-o" aria-hidden="true"></span></small><strong> tambo<span class="text-primary">prp</span></strong> 
@@ -31,8 +31,6 @@
                 <p>
                     Encontrará información acerca de preguntas frecuentes y temas de ayuda, e incluso ante cualquier consulta, 
                     comentario o sugerencia puede crear un caso de soporte que será atendido a la mayor brevedad posible. <br/>
-                    Contamos también con un <a runat="server" href="http://blog.tamboprp.uy">Blog</a> online donde consultar 
-                    nuestra base de conocimiento y conocer la experiencia de otros usuarios de la comunidad.
                 </p>
                 <br/>
                 <h4 class="widget-title blue lighter">Contáctenos!</h4>
@@ -44,11 +42,14 @@
             </article>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-5">
             <h1 class="text-center">
                 <span class="ace-icon fa fa-check-square-o" aria-hidden="true"></span>
                 <span> tambo</span><strong class="text-primary">prp</strong>
             </h1>
+            <div class="center">
+                <img src="img_tamboprp/corporativo/tamboprp0.png" />
+            </div>
         </div>
     </div>
 

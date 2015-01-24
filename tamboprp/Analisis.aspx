@@ -64,15 +64,4 @@
         <div class="col-md-1"></div>
     </div>
     
-    
-    <asp:Panel ID="pnlLinks" Visible="false" runat="server">
-        <ul>
-        <li><i class="menu-icon fa fa-cogs blue"></i><asp:HyperLink ID="hypProductivo" NavigateUrl="AnalisisProduccion.aspx" runat="server">  Análisis Productivo</asp:HyperLink></li>
-        <li><i class="menu-icon fa fa-flask blue"></i><asp:HyperLink ID="hypReproductivo" NavigateUrl="AnalisisReprod.aspx" runat="server"> Análisis Reproductivo</asp:HyperLink></li>
-        <li><i class="menu-icon fa fa-money blue"></i><asp:HyperLink ID="hypBajas" NavigateUrl="AnalisisBajas.aspx" runat="server">  Análisis de bajas y ventas</asp:HyperLink></li>
-        <li><i class="menu-icon fa fa-thumbs-o-down blue"></i><asp:HyperLink ID="hypMuertes" NavigateUrl="AnalisisMuertes.aspx" runat="server">  Análisis de Muertes</asp:HyperLink></li>
-        <li><i class="menu-icon fa fa-hand-o-right blue"></i><asp:HyperLink ID="hypAnalisisInseminadores" NavigateUrl="AnalisisInseminadores.aspx" runat="server">  Análisis de inseminadores</asp:HyperLink></li>
-        </ul>    
-    </asp:Panel>
-    
 </asp:Content>

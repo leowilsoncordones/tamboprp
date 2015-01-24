@@ -24,7 +24,7 @@
                 <div class="row">
                     <div class="col-md-5">
                        <h4 class="smaller">
-					    <asp:Label ID="titListado" Text="Empresa: " runat="server" ></asp:Label>
+					    <asp:Label ID="titListado" Text="Empresa actual: " runat="server" ></asp:Label>
                         <asp:Label ID="lblTituloListado" Text="" runat="server" ></asp:Label>
 					</h4> 
                     </div>

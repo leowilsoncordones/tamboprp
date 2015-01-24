@@ -68,7 +68,7 @@ namespace tamboprp
                 this.lblTotalEfect.Text = totalPren.ToString();
                 if (totalServ > 0)
                 {
-                    var porcEfect = Math.Round((double) totalPren/totalServ*100, 2);
+                    var porcEfect = Math.Round((double) totalPren / totalServ * 100, 2);
                     this.lblPorcEfect.Text = porcEfect.ToString() + "% efect.";
                 }
 

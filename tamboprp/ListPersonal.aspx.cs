@@ -30,8 +30,6 @@ namespace tamboprp
             {
                 this.SetPageBreadcrumbs();
                 this.CargarEmpleadosActivos();
-                //this.CargarEmpleados();
-                this.CargarDdlEmpleados();
             }
         }
 
@@ -57,7 +55,7 @@ namespace tamboprp
             this.gvEmpleados.DataBind();
 
             _listEmpleados = lst;
-
+            this.CargarDdlEmpleados();
         }
 
         public void CargarEmpleadosActivos()
@@ -67,6 +65,7 @@ namespace tamboprp
             this.gvEmpleados.DataBind();
 
             _listEmpleados = lst;
+            this.CargarDdlEmpleados();
         }
 
         protected void btn_VerActivos(object sender, EventArgs e)
@@ -81,7 +80,21 @@ namespace tamboprp
 
         protected void btn_ModificarDatos(object sender, EventArgs e)
         {
-
+            var value = Int32.Parse(this.ddlEmpleados.SelectedValue);
+            var voEmp = new VOEmpleado();
+            voEmp.Id = value;
+            voEmp.Nombre = this.fNombre.Value;
+            voEmp.Apellido = this.fApellido.Value;
+            voEmp.Activo = this.checkActivo.Checked;
+            if (Fachada.Instance.UpdateEmpleado(voEmp))
+            {
+                this.lblStatus.Text = "El empleado se actualizó con éxito";
+            }
+            else
+            {
+                this.lblStatus.Text = "No se pudo actualizar el empleado";
+            }
+            this.CargarEmpleadosActivos();
         }
 
         private void CargarDdlEmpleados()
@@ -115,8 +128,7 @@ namespace tamboprp
             PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
             pdfDoc.Open();
             pdfDoc.Add(new Paragraph(40f,"Lista de Empleados", new Font(Font.FontFamily.HELVETICA, 14f)));
-            var pathLogo = ConfigurationManager.AppSettings["logoTamboprpJpg"];
-            //pdfDoc.Add(new Chunk(new Jpeg(new Uri("D:/ORT laptop/2014-S5-Proyecto/tamboprp-git/tamboprp/img_tamboprp/corporativo/logojpeg.jpg")),300f,-10f));
+            var pathLogo = "http://localhost/img_tamboprp/corporativo/logojpeg.jpg";
             pdfDoc.Add(new Chunk(new Jpeg(new Uri(pathLogo)), 300f, -10f));
             htmlparser.Parse(sr);
             pdfDoc.Close();

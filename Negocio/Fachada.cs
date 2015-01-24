@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
+using System.Web.Profile;
 using Datos;
 using Entidades;
+using Microsoft.Ajax.Utilities;
 
 
 namespace Negocio
@@ -417,7 +420,8 @@ namespace Negocio
             //voA.CantLactanciaMayor2 = _animalMapper.GetEnOrdeneLanctanciaMayor2();
             voA.CantLactanciaMayor2 = totalEnOrdene - (lact1 + lact2);
             voA.ConServicioSinPreñez = _animalMapper.GetAnimalOrdeneServSinPrenez();
-            voA.PrenezConfirmada = _animalMapper.GetAnimalOrdenePrenezConf();
+            //voA.PrenezConfirmada = _animalMapper.GetAnimalOrdenePrenezConf();
+            voA.PrenezConfirmada = GetAnimalOrdenePrenezConf();
             if (voA.CantVacasEnOrdene > 0)
             {
                 voA.PorcLactancia1 = Math.Round(voA.CantLactancia1/(double) voA.CantVacasEnOrdene*100, 1);
@@ -428,6 +432,28 @@ namespace Negocio
             }
 
             voA.PromDiasLactancias = _lactMapper.GetLactanciaPromedioDiasActual();
+            return voA;
+        }
+
+
+        public int GetAnimalOrdenePrenezConf()
+        {
+            return _animalMapper.GetAnimalOrdenePrenezConf();
+        }
+
+        public VODatosGenerales GetDatosGenerales()
+        {
+            var voA = new VODatosGenerales();
+            voA.CantAbortosEsteAnio = this.GetCantAbortosEsteAnio();
+            voA.CantAnimUltControl = this.GetCantAnimalesUltControl();
+            voA.SumLecheUltControl = this.GetSumLecheUltControl();
+            voA.PromLecheUltControl = Math.Round(this.GetPromLecheUltControl(), 2);
+            voA.SumGrasaUltControl = this.GetSumGrasaUltControl();
+            voA.PromGrasaUltControl = Math.Round(this.GetPromGrasaUltControl(), 2);
+            voA.CantOrdene = this.GetCantOrdene();
+            voA.CantEntoradas = this.GetCantEntoradas();
+            voA.CantSecas = this.GetCantSecas();
+            voA.FechaUltControl = this.GetFechaUltimoControl().ToString();
             return voA;
         }
 
@@ -639,6 +665,12 @@ namespace Negocio
             return logMap.GetAll();
         }
 
+        public List<Log> LogGetLastXDays()
+        {
+            var logMap = new LogMapper();
+            return logMap.GetLastXDays(30);
+        }
+
         public List<Remito> RemitosGetAll()
         {
             var remMap = new RemitoMapper();
@@ -670,10 +702,74 @@ namespace Negocio
             return empRemMap.GetEmpresaRemisoraSelectActual();
         }
 
-        public List<EmpresaRemisora> GetEmpresaRemisoraAll()
+        public List<VOEmpresa> GetEmpresasRemisoras()
         {
-            var empRemMap = new EmpresaRemisoraMapper();
-            return empRemMap.GetAll();
+            var lstResult = new List<VOEmpresa>();
+            var lstRem = GetEmpresasRemisorasAll();
+            foreach (var empresaRemisora in lstRem)
+            {
+                var voE = CopiarVOEmpresaRemisora(empresaRemisora);
+                lstResult.Add(voE);
+            }
+            return lstResult;
+        }
+
+        private VOEmpresa CopiarVOEmpresaRemisora(EmpresaRemisora empresaRemisora)
+        {
+            var voE = new VOEmpresa();
+            voE.Id = empresaRemisora.Id;
+            voE.Actual = empresaRemisora.Actual == 'S';
+            voE.EsActual = empresaRemisora.Actual == 'S' ? "SI" : "NO";
+            voE.Telefono = empresaRemisora.Telefono;
+            voE.Nombre = empresaRemisora.Nombre;
+            voE.RazonSocial = empresaRemisora.RazonSocial;
+            voE.Rut = empresaRemisora.Rut;
+            voE.Direccion = empresaRemisora.Direccion;
+            return voE;
+        }
+
+        public bool GuardarEmpresaRemisora(VOEmpresa voEmp)
+        {
+            var empRem = this.CopiarEmpresaRemisoraVoEmpresa(voEmp);
+            var empMap = new EmpresaRemisoraMapper(empRem);
+            return empMap.Insert() > 0;
+        }
+
+        private EmpresaRemisora CopiarEmpresaRemisoraVoEmpresa(VOEmpresa voEmpresaRemisora)
+        {
+            var empRem = new EmpresaRemisora();
+            empRem.Id = voEmpresaRemisora.Id;
+            empRem.Actual = voEmpresaRemisora.Actual ? 'S' : 'N';
+            empRem.Telefono = voEmpresaRemisora.Telefono;
+            empRem.Nombre = voEmpresaRemisora.Nombre;
+            empRem.RazonSocial = voEmpresaRemisora.RazonSocial;
+            empRem.Rut = voEmpresaRemisora.Rut;
+            empRem.Direccion = voEmpresaRemisora.Direccion;
+            return empRem;
+        }
+
+        public bool UpdateEmpresaRemisoraActual(int id)
+        {
+            var empMap = new EmpresaRemisoraMapper();
+            return empMap.UpdateEmpresaRemisoraActual(id) == 0;
+        }
+
+        public bool UpdateEmpleado(VOEmpleado voEmp)
+        {
+            var empleado = CopiarEmpleadoVoEmpleado(voEmp);
+            _empMapper = new EmpleadoMapper(empleado);
+            return _empMapper.Update() > 0;
+        }
+
+        private Empleado CopiarEmpleadoVoEmpleado(VOEmpleado voEmpleado)
+        {
+            var empleado = new Empleado();
+            empleado.Activo = voEmpleado.Activo;
+            empleado.Apellido = voEmpleado.Apellido;
+            empleado.Id_empleado = (short)voEmpleado.Id;
+            empleado.Nombre = voEmpleado.Nombre;
+            empleado.Iniciales = voEmpleado.Iniciales;
+            return empleado;
         }
 
         public List<Calificacion> GetCalificacionesAll()
@@ -794,6 +890,17 @@ namespace Negocio
         {
             var uMap = new UsuarioMapper();
             return uMap.GetAll();
+        }
+
+        public List<Usuario> GetUsuariosConMailAll()
+        {
+            var lstResult = new List<Usuario>();
+            var lst = this.GetUsuariosAll();
+            foreach (var u in lst)
+            {
+                if (u != null && u.Email != "") lstResult.Add(u);
+            }
+            return lstResult;
         }
 
         //public List<VOAnimal> GetArbolGenealogico(string reg)
@@ -1154,11 +1261,28 @@ namespace Negocio
             return casoMap.Insert() > 0;
         }
 
-        public bool EnviarCasoSoporte(CasoSoporte caso)
+        private CasoSoporte CopiarVOCasoSoporte(VOCaso voCaso)
         {
-            //envia por mail el caso de soporte a la casilla definida para eso
+            var casoSop = new CasoSoporte();
+            casoSop.Descripcion = voCaso.Descripcion;
+            casoSop.Email = voCaso.Email;
+            casoSop.Establecimiento = voCaso.Establecimiento;
+            casoSop.Id = voCaso.Id;
+            casoSop.Nickname = voCaso.Nickname;
+            casoSop.NombreApellido = voCaso.NombreApellido;
+            casoSop.Telefono = voCaso.Telefono;
+            casoSop.Tipo = voCaso.Tipo;
+            casoSop.Titulo = voCaso.Titulo;
+            return casoSop;
+        }
 
-            // inserto en la base de datos para dejar el registro
+        public bool EnviarCasoSoporte(VOCaso voCaso)
+        {
+            var caso = CopiarVOCasoSoporte(voCaso);
+            // envia por mail el caso de soporte a la casilla definida para eso
+            // e inserta en la base de datos para dejar el registro
+            var email = new Mail();
+            email.EnviarMail(caso.ToString(), caso.Titulo);
             return InsertarCasoSoporte(caso);
         }
 
@@ -1517,10 +1641,10 @@ namespace Negocio
             alertDiag35.Link = "../DiagEcograficos.aspx";
             alertDiag35.LinkAlt = "Diagnósticos ecográficos";
             alertDiag35.Icono = "fa-bell-o";
-            //var cant35 = 0;   // TESTING -----------------------------
-            var cant35 = this.GetServicios35SinDiagPrenezVacOrdene().Count +
+            var cant35 = 0;   // TESTING -----------------------------
+            /*var cant35 = this.GetServicios35SinDiagPrenezVacOrdene().Count +
                          this.GetServicios35SinDiagPrenezVacSecas().Count +
-                         this.GetServicios35SinDiagPrenezVaqEnt().Count;
+                         this.GetServicios35SinDiagPrenezVaqEnt().Count;*/
             alertDiag35.Valor = cant35.ToString();
             alertDiag35.Status = "success";
             if (cant35 == 0)
@@ -1544,10 +1668,10 @@ namespace Negocio
             alertDiag70.Link = "../ServiciosSinDiag.aspx";
             alertDiag70.LinkAlt = "Servicios sin diagnóstico de preñez";
             alertDiag70.Icono = "icon-animated-bell fa-bell-o";
-            //var cant70 = 37;   // TESTING -----------------------------
-            var cant70 = this.GetServicios70SinDiagPrenezVacOrdene().Count +
+            var cant70 = 37;   // TESTING -----------------------------
+            /*var cant70 = this.GetServicios70SinDiagPrenezVacOrdene().Count +
                          this.GetServicios70SinDiagPrenezVacSecas().Count +
-                         this.GetServicios70SinDiagPrenezVaqEnt().Count;
+                         this.GetServicios70SinDiagPrenezVaqEnt().Count;*/
             alertDiag70.Valor = cant70.ToString();
             alertDiag70.Status = "success";
             if (cant70 == 0)
@@ -2056,6 +2180,353 @@ namespace Negocio
                 listaConc.Add(conc);
             }
             return listaConc;
+        }
+
+        public List<string> ExportarLogCompleto()
+        {
+            var lstResult = new List<string>();
+            var logMap = new LogMapper();
+            var lstLog = logMap.GetAll();
+            for (int i = 0; i < lstLog.Count; i++)
+            {
+                var linea = lstLog[i].ToString();
+                lstResult.Add(linea);
+            }
+            return lstResult;
+        }
+
+        public void EnviarMail(string msj, string asunto)
+        {
+            var email = new Mail();
+            email.EnviarMail(msj, asunto);
+        }
+
+        public List<VOFaq> GetAllFaqs()
+        {
+            var lstResult = new List<VOFaq>();
+            var faqMap = new FaqMapper();
+            var lstFaq = faqMap.GetAll();
+            foreach (var faq in lstFaq)
+            {
+                var voF = CopiarVOFaq(faq);
+                lstResult.Add(voF);
+            }
+            return lstResult;
+        }
+
+        private VOFaq CopiarVOFaq(Faq faq)
+        {
+            var voFaq = new VOFaq();
+            voFaq.Id = faq.Id;
+            voFaq.Pregunta = faq.Pregunta;
+            voFaq.Respuesta = faq.Respuesta;
+            voFaq.Icono = faq.Icono;
+            return voFaq;
+        }
+
+        public bool ResetearPassword(string admin, string user, string newPassword)
+        {
+            if (admin != "" && user != "" && newPassword != "")
+            {
+                return (_userMapper.UpdateContrasenaUsuario(admin, user, newPassword) > 0);
+            }
+            return false;
+        }
+
+        public bool EliminarUsuario(string admin, string user)
+        {
+            if (admin != "" && user != "")
+            {
+                return (_userMapper.DeleteUsuario(admin, user) > 0);
+            }
+            return false;
+        }
+
+        public List<Reporte> GetAllReportes()
+        {
+            var repoMap = new ReporteMapper();
+            return repoMap.GetAll();
+        }
+
+        public List<VOReporte> GetReportesNotificaciones()
+        {
+            var lstResult = new List<VOReporte>();
+            var repoMap = new ReporteMapper();
+            var lst = repoMap.GetAll();
+            foreach (var repo in lst)
+            {
+                var voRepo = CopiarVoReporte(repo);
+                lstResult.Add(voRepo);
+            }
+            return lstResult;
+        }
+
+        private VOReporte CopiarVoReporte(Reporte repo)
+        {
+            var voRepo = new VOReporte();
+            voRepo.Id = repo.Id;
+            voRepo.Titulo = repo.Titulo;
+            voRepo.Descripcion = repo.Descripcion;
+            voRepo.Frecuencia = repo.Frecuencia;
+            voRepo.Dia = repo.Dia;
+            var voItem = this.GetDiaDelMesYFrecuenciaEnvioReporte(repo.Dia, repo.Frecuencia);
+            var str = " ";
+            var strS = "";
+            if (voItem.Valor2 == "Todos")
+            {
+                str = " los ";
+                if (voItem.Valor1 == "sábado" || voItem.Valor1 == "domingo") strS = "s";
+            }
+            voRepo.Envio = voItem.Valor2 + str + voItem.Valor1 + strS + " del mes";
+            return voRepo;
+        }
+
+        public VOReporte ReporteSemanal()
+        {
+            VOReporte voRep = null;
+            var hoy = DateTime.Today;
+
+            var lstReportes = GetAllReportes();
+            Reporte repo = lstReportes.FirstOrDefault(r => r.Id == 2);
+            if (repo != null)
+            {
+                var voRepSem = CopiarVoReporte(repo);
+                voRepSem.CantVacasEnOrdene = new VoListItem();
+                voRepSem.CantVacasEnOrdene.Nombre = "Cantidad de vacas en ordeñe";
+                voRepSem.CantVacasEnOrdene.Id = GetCantOrdene();
+                voRepSem.PrenezConfirmada = new VoListItem();
+                voRepSem.PrenezConfirmada.Nombre = "Hembras en ordeñe con preñez confirmada";
+                voRepSem.PrenezConfirmada.Id = GetInseminacionesExitosas(hoy).Count();
+                voRepSem.SinDiag70Dias = new VoListItem();
+                voRepSem.SinDiag70Dias.Nombre = "Hembras en ordeñe con 70 días y sin diagnóstico";
+                voRepSem.SinDiag70Dias.Id = GetServicios70SinDiagPrenezVacOrdene().Count;
+                voRepSem.SinDiagEcográficos = new VoListItem();
+                voRepSem.SinDiagEcográficos.Nombre = "Hembras en ordeñe sin diagnósticos ecográficos";
+                voRepSem.SinDiagEcográficos.Id = GetServicios35SinDiagPrenezVacOrdene().Count;
+                voRepSem.EnLactSinServ80Dias = new VoListItem();
+                voRepSem.EnLactSinServ80Dias.Nombre = "Hembras con 80 o más días en lactancia y sin servicio";
+                voRepSem.EnLactSinServ80Dias.Id = GetLactanciasSinServicio80().Count;
+                voRepSem.CantAbortosAnio = new VoListItem();
+                voRepSem.CantAbortosAnio.Nombre = "Cantidad de abortos en este año";
+                voRepSem.CantAbortosAnio.Id = GetAbortosByAnio(hoy);
+                voRepSem.CantNacidosAnio = new VoListItem();
+                voRepSem.CantNacidosAnio.Nombre = "Cantidad de nacidos este año";
+                voRepSem.CantNacidosAnio.Id = GetCantNacimientosPorAnio(hoy.Year);
+                voRep = voRepSem;
+            }
+            
+            return voRep;
+        }
+
+        private string CrearMailHtmlReporte(VOReporte voRepo)
+        {
+            var strB = new StringBuilder();
+            if (voRepo != null)
+            {
+                strB = this.ReporteBodyHtml(voRepo);
+            }
+            return strB.ToString();
+        }
+
+        private VoListItemDuplaString GetDiaDelMesYFrecuenciaEnvioReporte(int dia, int frec)
+        {
+            var voItem = new VoListItemDuplaString();
+            
+            switch (dia)
+            {
+                case 1:
+                    voItem.Valor1 = "lunes";
+                    break;
+                case 2:
+                    voItem.Valor1 = "martes";
+                    break;
+                case 3:
+                    voItem.Valor1 = "miércoles";
+                    break;
+                case 4:
+                    voItem.Valor1 = "jueves";
+                    break;
+                case 5:
+                    voItem.Valor1 = "viernes";
+                    break;
+                case 6:
+                    voItem.Valor1 = "sábado";
+                    break;
+                case 7:
+                    voItem.Valor1 = "domingo";
+                    break;
+            }
+
+            switch (frec)
+            {
+                case 0:
+                    voItem.Valor2 = "Todos";
+                    break;
+                case 1:
+                    voItem.Valor2 = "Primer";
+                    break;
+                case 2:
+                    voItem.Valor2 = "Segundo";
+                    break;
+                case 3:
+                    voItem.Valor2 = "Tercero";
+                    break;
+                case 4:
+                    voItem.Valor2 = "Último";
+                    break;
+            }
+            return voItem;
+        }
+
+        public void EnviarReporteSemanal()
+        {
+            var voRepSem = ReporteSemanal();
+            var mailBodyHtml = CrearMailHtmlReporte(voRepSem);
+            var email = new Mail();
+            var lstDestinatarios = ListaDestinatariosReporte(voRepSem.Id);
+            foreach (var dest in lstDestinatarios)
+            {
+                email.EnviarMailHtml(dest.Email, voRepSem.Titulo, mailBodyHtml);
+            }
+        }
+
+        public void EnviarReporteSemanalPrueba(string dest)
+        {
+            var voRepSem = ReporteSemanal();
+            var mailBodyHtml = CrearMailHtmlReporte(voRepSem);
+            var email = new Mail();
+            email.EnviarMailHtml(dest, voRepSem.Titulo, mailBodyHtml);
+        }
+
+        public string ReporteSemanalPrueba()
+        {
+            var voRepSem = ReporteSemanal();
+            var mailBodyHtml = CrearMailHtmlReporte(voRepSem);
+            return this.ReporteBodyHtml(voRepSem).ToString();
+        }
+
+        public StringBuilder ReporteBodyHtml(VOReporte voRepo)
+        {
+            var sb = new StringBuilder();
+            sb.Append("<!-- COMIENZA CUERPO DEL MAIL -->");
+            sb.Append("<div marginwidth='0' marginheight='0' style='background-color:#ffffff'>");
+            sb.Append("<div style='margin-top:10px;padding:0px;background-color:#ffffff'>");
+            sb.Append("<img src='http://www.tamboprp.uy/img_public/logo_tamboprp.png' />");
+            sb.Append("</div>");
+            sb.Append("<div style='padding:5px;width:460px;background-color:#ffffff'>");
+            sb.Append("<h1 style='font-size:24px;font-weight:light;line-height:100%;letter-spacing:normal'>");
+            sb.Append(voRepo.Titulo);
+            sb.Append("</h1>");
+            sb.Append("<span style='font-size:14px;color:#888888;font-weight:normal;line-height:100%;letter-spacing:normal'>");
+            sb.Append(voRepo.Descripcion);
+            sb.Append("</span>");
+            sb.Append("</div>");
+            sb.Append("<hr style='width:460px;margin-left:0'/>");
+            sb.Append("<div style='padding:5px;width:460px;background-color:#ffffff'>");
+            sb.Append("<h3 style='color:#333333;display:block;font-size:18px;font-weight:normal;line-height:100%;letter-spacing:normal;margin-top:0;margin-right:0;margin-bottom:10px;margin-left:0;text-align:left'>");
+            sb.Append("Notificaciones:");
+            sb.Append("</h3>");
+            sb.Append("<br/>");
+            sb.Append("<table style='margin-top:30px;font-size:16px;margin-top:0;margin-right:0;margin-bottom:0px;margin-left:0;text-align:left'>");
+            sb.Append("<tbody runat='server' id='tablaIndicadores'>");
+            sb.Append("<tr>");
+            sb.Append("<td width='40px'><p style='color:#9abc32;font-weight:bold'>" + voRepo.CantVacasEnOrdene.Id + "</p></td>");
+            sb.Append("<td width='420px'><p style='color:#333333'>" + voRepo.CantVacasEnOrdene.Nombre + "</p></td>");
+            sb.Append("</tr>");
+            sb.Append("<tr>");
+            sb.Append("<td width='40px'><p style='color:#9abc32;font-weight:bold'>" + voRepo.PrenezConfirmada.Id + "</p></td>");
+            sb.Append("<td width='420px'><p style='color:#333333'>" + voRepo.PrenezConfirmada.Nombre + "</p></td>");
+            sb.Append("</tr>");
+            sb.Append("<tr>");
+            sb.Append("<td width='40px'><p style='color:#9abc32;font-weight:bold'>" + voRepo.SinDiagEcográficos.Id + "</p></td>");
+            sb.Append("<td width='420px'><p style='color:#333333'>" + voRepo.SinDiagEcográficos.Nombre + "</p></td>");
+            sb.Append("</tr>");
+            sb.Append("<tr>");
+            sb.Append("<td width='40px'><p style='color:#9abc32;font-weight:bold'>" + voRepo.SinDiag70Dias.Id + "</p></td>");
+            sb.Append("<td width='420px'><p style='color:#333333'>" + voRepo.SinDiag70Dias.Nombre + "</p></td>");
+            sb.Append("</tr>");
+            sb.Append("<tr>");
+            sb.Append("<td width='40px'><p style='color:#9abc32;font-weight:bold'>" + voRepo.EnLactSinServ80Dias.Id + "</p></td>");
+            sb.Append("<td width='420px'><p style='color:#333333'>" + voRepo.EnLactSinServ80Dias.Nombre + "</p></td>");
+            sb.Append("</tr>");
+            sb.Append("<tr>");
+            sb.Append("<td width='40px'><p style='color:#9abc32;font-weight:bold'>" + voRepo.CantAbortosAnio.Id + "</p></td>");
+            sb.Append("<td width='420px'><p style='color:#333333'>" + voRepo.CantAbortosAnio.Nombre + "</p></td>");
+            sb.Append("</tr>");
+            sb.Append("<tr>");
+            sb.Append("<td width='40px'><p style='color:#9abc32;font-weight:bold'>" + voRepo.CantNacidosAnio.Id + "</p></td>");
+            sb.Append("<td width='420px'><p style='color:#333333'>" + voRepo.CantNacidosAnio.Nombre + "</p></td>");
+            sb.Append("</tr>");
+            sb.Append("</tbody>");
+            sb.Append("</table>");
+            sb.Append("</div>");
+            sb.Append("<hr style='width:460px;margin-left:0'/>");
+            sb.Append("<div style='padding:5px'>");
+            sb.Append("<table style='margin-top:30px;font-size:13px;margin-top:0;margin-right:0;margin-bottom:0px;margin-left:0;text-align:left'>");
+            sb.Append("<tbody>");
+            sb.Append("<tr><td width='460px'>");
+            sb.Append("Clic aquí para <a href='http://www.tamboprp.uy' style='color:#478fca;text-decoration:none;' target='_blank'>ingresar al sistema</a> y ver más información.");
+            sb.Append("</td></tr>");
+            sb.Append("<tr><td width='460px'>");
+            sb.Append("El administrador de su establecimiento puede configurar el envío de estos ");
+            sb.Append("<a href='http://www.tamboprp.uy/Notificaciones' style='color:#478fca;text-decoration:none' target='_blank'>");
+            sb.Append("mensajes automáticos.");
+            sb.Append("</a>");
+            sb.Append("</td></tr>");
+            sb.Append("<tr><td width='460px'>");
+            sb.Append("Si Ud. recibió este mensaje por error, por favor notifique a ");
+            sb.Append("<a href='mailto:soporte@tamboprp.uy' style='color:#478fca;text-decoration:none' target='_blank'>");
+            sb.Append("soporte@tamboprp.uy");
+            sb.Append("</a> y será excluído a la brevedad. Gracias y disculpas.");
+            sb.Append("</td></tr>");
+            sb.Append("</tbody>");
+            sb.Append("</table>");
+            sb.Append("</div>");
+            sb.Append("<hr style='width:460px;margin-left:0'/>");
+            sb.Append("<div style='padding:5px;margin:0px 0px 20px 0px;background-color:#ffffff'>");
+            sb.Append("<p style='font-size:14px'>");
+            //sb.Append("<span class='ace-icon fa fa-check-square-o' aria-hidden='true'></span>");
+            var anioActual = DateTime.Now.Year;
+            sb.Append("<strong>tambo<span style='color:#478fca;text-decoration:none'>prp</span></strong> | &copy; " + anioActual.ToString() + " todos los derechos reservados");
+            sb.Append("</p>");
+            sb.Append("</div>");
+            sb.Append("</div>");
+            sb.Append("<!-- FIN CUERPO DEL MAIL -->");
+               
+            return sb;
+        }
+
+        public List<Usuario> ListaDestinatariosReporte(int id)
+        {
+            var lstTodos = _userMapper.GetAll();
+            var lstDest = new List<Usuario>();
+            var repoMap = new ReporteMapper();
+            var lst = repoMap.GetDestinatariosReporte(id);
+            foreach (var userNick in lst)
+            {
+                Usuario user = lstTodos.FirstOrDefault(u => u.Nickname == userNick);
+                if (user != null && user.Email != "")
+                {
+                    lstDest.Add(user);
+                }
+            }
+            return lstDest;
+        }
+
+        public bool ProgramarReporte(int idRepo, int dia, int frecuencia)
+        {
+            var repMap = new ReporteMapper();
+            return repMap.UpdateProgramacionReporte(idRepo, dia, frecuencia) == 0;
+        }
+
+        public void CambiarDestinatariosReporte(int idRepo, List<Usuario> destinatarios)
+        {
+            var repMap = new ReporteMapper();
+            repMap.LimpiarDestinatariosReporteById(idRepo);
+            foreach (var user in destinatarios)
+            {
+                repMap.UpdateDestinatariosReporteById(idRepo, user.Nickname);
+            }
         }
     }
 }

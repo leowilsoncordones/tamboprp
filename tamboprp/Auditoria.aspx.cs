@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -17,6 +18,8 @@ namespace tamboprp
         {
             this.SetPageBreadcrumbs();
             //this.CargarAuditoria();
+            this.contenedor_dia.InnerHtml = "";
+            this.lblStatus.Text = "";
             this.CargarLogsAuditoria();
         }
 
@@ -35,74 +38,35 @@ namespace tamboprp
 
         private void CargarLogsAuditoria()
         {
-            var list = Fachada.Instance.LogGetAll();
+            var list = Fachada.Instance.LogGetLastXDays();
             this.ListarAuditoriaPorDia(list);
         }
 
-        //private void AgregoAManoAuditoria()
-        //{
-        //    var list = new List<Log>();
-        //    var item = new Log();
-        //    item.Fecha = new DateTime(2014, 11, 18, 9, 15, 0);
-        //    item.Operacion = "login";
-        //    item.Registro = "";
-        //    item.Tabla = "";
-        //    item.User = "Luis Sela";
-        //    list.Add(item);
-        //    var item0 = new Log();
-        //    item0.Fecha = new DateTime(2014, 11, 18, 9, 18, 0);
-        //    item0.Operacion = "insert";
-        //    item0.Registro = "3554";
-        //    item0.Tabla = "partos";
-        //    item0.User = "Luis Sela";
-        //    list.Add(item0);
-        //    var item1 = new Log();
-        //    item1.Fecha = new DateTime(2014, 11, 18, 13, 16, 0);
-        //    item1.Operacion = "insert";
-        //    item1.Registro = "2214";
-        //    item1.Tabla = "celo_sin_servicio";
-        //    item1.User = "Luis Sela";
-        //    list.Add(item1);
-        //    var item2 = new Log();
-        //    item2.Fecha = new DateTime(2014, 11, 18, 13, 23, 0);
-        //    item2.Operacion = "logoff";
-        //    item2.Registro = "";
-        //    item2.Tabla = "";
-        //    item2.User = "Luis Sela";
-        //    list.Add(item2);
-        //    var item3 = new Log();
-        //    item3.Fecha = new DateTime(2014, 12, 12, 17, 15, 0);
-        //    item3.Operacion = "logoff";
-        //    item3.Registro = "";
-        //    item3.Tabla = "";
-        //    item3.User = "Martín Gurgitano";
-        //    list.Add(item3);
-        //    var item4 = new Log();
-        //    item4.Fecha = new DateTime(2014, 12, 12, 16, 35, 0);
-        //    item4.Operacion = "login";
-        //    item4.Registro = "";
-        //    item4.Tabla = "";
-        //    item4.User = "Martín Gurgitano";
-        //    list.Add(item4);
-        //    var item5 = new Log();
-        //    item5.Fecha = new DateTime(2014, 12, 12, 16, 56, 0);
-        //    item5.Operacion = "insert";
-        //    item5.Registro = "1996";
-        //    item5.Tabla = "celo_sin_servicio";
-        //    item5.User = "Martín Gurgitano";
-        //    list.Add(item5);
-        //    var item6 = new Log();
-        //    item6.Fecha = new DateTime(2014, 12, 13, 15, 02, 0);
-        //    item6.Operacion = "login";
-        //    item6.Registro = "";
-        //    item6.Tabla = "";
-        //    item6.User = "Luis Sela";
-        //    list.Add(item6);
+        protected void btn_ExportarLog(object sender, EventArgs e)
+        {
+            try
+            {
+                var listaLog = Fachada.Instance.ExportarLogCompleto();
 
-        //    list.Sort();
-        //    ListarAuditoriaPorDia(list);
-        //}
+                string path = @"C:\tamboprpLog.txt";
+                //string userPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Desktop";
+                //string path = userPath + @"\tamboprpLog.txt";
 
+                using (var file = new System.IO.StreamWriter(path))
+                {
+                    foreach (string line in listaLog)
+                    {
+                        file.WriteLine(line);
+                    }
+                }
+                this.lblStatus.Text = "Verifique el archivo en C:\\tamboprpLog.txt";
+            }
+            catch (Exception ex)
+            {
+                this.lblStatus.Text = "No se pudo exportar el archivo";
+            }
+        }
+        
         private void ListarAuditoriaPorDia(List<Log> list)
         {
             list.Sort();
@@ -181,6 +145,10 @@ namespace tamboprp
                 case "login_intento":
                     operation += " <span class='red bolder'>intentó ingresar</span> al sistema";
                     botones += "<div class='action-buttons'><i class='ace-icon fa fa-times red bigger-125'></i></div>";
+                    break;
+                case "update_password":
+                    operation += " cambió la contraseña de ";
+                    botones += "<div class='action-buttons'><i class='ace-icon fa fa-user blue bigger-125'></i></div>";
                     break;
                 default:
                     break;

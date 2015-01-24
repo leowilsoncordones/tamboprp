@@ -1,18 +1,19 @@
-﻿<%@ Page Title="tamboprp | error 500" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Error500.aspx.cs" Inherits="tamboprp.Error500" %>
+﻿<%@ Page Title="tamboprp | error 401" Language="C#" MasterPageFile="~/SitePublic.Master" AutoEventWireup="true" CodeBehind="Error401.aspx.cs" Inherits="tamboprp.Error401" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-  
+    
     <div class="error-container">
 		<div class="well">
-			<h1 class="grey lighter smaller"><span class="blue bigger-125"><i class="ace-icon fa fa-sitemap"></i> 500</span> internal server error</h1>
+			<h1 class="grey lighter smaller"><span class="blue bigger-125"><i class="ace-icon fa fa-sitemap"></i> 401</span> unauthorized</h1>
             <hr>
-			<h3 class="lighter smaller">No se ha podido completar su solicitud!</h3>
+			<h3 class="lighter smaller">No está autorizado para acceder a la página solicitada</h3>
             <div>
 			    <div class="space"></div>
 			    <h4 class="smaller">Intenta lo siguiente:</h4>
 
 			    <ul class="list-unstyled spaced inline bigger-110 margin-15">
+			        <li> <i class="ace-icon fa fa-hand-o-right blue"></i> Intenta acceder luego del login</li>
 				    <li> <i class="ace-icon fa fa-hand-o-right blue"></i> Chequea la dirección de la página</li>
                     <li><i class="ace-icon fa fa-hand-o-right blue"></i> Lee las FAQs </li>
                     <li><i class="ace-icon fa fa-hand-o-right blue"></i> Cuéntanos que pasó, puedes crear un caso de soporte</li>
@@ -26,6 +27,4 @@
 			</div>
 		</div>
 	</div>
-    
-
 </asp:Content>

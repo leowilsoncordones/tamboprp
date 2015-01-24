@@ -15,6 +15,8 @@ namespace Datos
         private EmpresaRemisora _empRem;
 
         private static string EmpresaRemisora_SelectActual = "EmpresaRemisora_SelectActual";
+        private static string EmpresaRemisora_UpdateActual = "EmpresaRemisora_UpdateActual";
+        
 
         public EmpresaRemisoraMapper(EmpresaRemisora empRem)
         {
@@ -68,7 +70,18 @@ namespace Datos
             rs.Close();
             return result;
         }
-        
+
+        public int UpdateEmpresaRemisoraActual(int idEmpRem)
+        {
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = EmpresaRemisora_UpdateActual;
+            cmd.Parameters.Add(new SqlParameter("@ID", idEmpRem));
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
 
         protected override SqlCommand GetStatement(OperationType opType)
         {
@@ -112,6 +125,7 @@ namespace Datos
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "EmpresaRemisora_Update";
+                cmd.Parameters.Add(new SqlParameter("@ID", _empRem.Id));
                 cmd.Parameters.Add(new SqlParameter("@NOMBRE", _empRem.Nombre));
                 cmd.Parameters.Add(new SqlParameter("@RAZON_SOCIAL", _empRem.RazonSocial));
                 cmd.Parameters.Add(new SqlParameter("@RUT", _empRem.Rut));

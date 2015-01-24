@@ -1,13 +1,13 @@
-﻿<%@ Page Title="tamboprp | error 404" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Error404.aspx.cs" Inherits="tamboprp.Error404" %>
+﻿<%@ Page Title="tamboprp | error 400" Language="C#" MasterPageFile="~/SitePublic.Master" AutoEventWireup="true" CodeBehind="Error400.aspx.cs" Inherits="tamboprp.Error400" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     
     <div class="error-container">
 		<div class="well">
-			<h1 class="grey lighter smaller"><span class="blue bigger-125"><i class="ace-icon fa fa-sitemap"></i> 404</span> not found</h1>
+			<h1 class="grey lighter smaller"><span class="blue bigger-125"><i class="ace-icon fa fa-sitemap"></i> 400</span> bad request</h1>
             <hr>
-			<h3 class="lighter smaller">La página que busca no existe!</h3>
+			<h3 class="lighter smaller">Ocurrió un error al tratar de acceder a la página solicitada!</h3>
             <div>
 			    <div class="space"></div>
 			    <h4 class="smaller">Intenta lo siguiente:</h4>

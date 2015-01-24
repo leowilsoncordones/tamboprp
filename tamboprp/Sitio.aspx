@@ -86,7 +86,7 @@
             <li><a href="NuevoEmpleado.aspx">Nuevo empleado</a> <i class="fa fa-check text-success"></i></li>
             <li><a href="ListPersonal.aspx">Lista de empleados</a> <i class="fa fa-check text-success"></i></li>
         </ul>
-    <a href="Notificaciones.aspx"><i class="menu-icon fa fa-bell-o"></i><span class="menu-text"> Notificaciones </span></a><br/>
+    <a href="Notificaciones.aspx"><i class="menu-icon fa fa-newspaper-o"></i><span class="menu-text"> Notificaciones </span></a><br/>
     <a href="Sistema.aspx"><i class="menu-icon fa fa-desktop"></i><span class="menu-text"> Sistema </span></a>
         <ul class="submenu">
             <li><a href="MiPerfil.aspx">Mi perfil</a> <i class="fa fa-check text-success"></i></li>

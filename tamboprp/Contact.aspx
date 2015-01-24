@@ -13,11 +13,11 @@
                 </header>
                 <p>
                     <span class="label">Principal:</span>
-                    <span>(+598) 425.555.0100</span>
+                    <span>(+598) </span>
                 </p>
                 <p>
                     <span class="label">Después de hora:</span>
-                    <span>(+598) 425.555.0199</span>
+                    <span>(+598) </span>
                 </p>
             </section>
 
@@ -35,7 +35,7 @@
                 </p>
                 <p>
                     <span class="label">General:</span>
-                    <span><a href="mailto:general@tamboprp">general@tamboprp.uy</a></span>
+                    <span><a href="mailto:general@tamboprp.uy">general@tamboprp.uy</a></span>
                 </p>
             </section>
             
