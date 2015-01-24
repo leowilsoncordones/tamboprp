@@ -121,7 +121,10 @@ namespace tamboprp
         {
             if (this.password.Value != "")
             {
-                //return Fachada.Instance.ResetearPassword(this.password.Text);
+                var uAdmin = (VOUsuario)Session["Usuario"];
+                var admin = uAdmin.Nickname;
+                var user = this.dllUsuariosChangePwd.SelectedItem.ToString();
+                return Fachada.Instance.ResetearPassword(admin, user, this.password.Value);
             }
             else
             {
@@ -129,6 +132,7 @@ namespace tamboprp
             }
             return false;
         }
+
 
         protected void btn_HabilitarUsuario(object sender, EventArgs e)
         {
@@ -147,6 +151,34 @@ namespace tamboprp
             {
 
             }
+        }
+
+        protected void btn_EliminarUsuario(object sender, EventArgs e)
+        {
+            try
+            {
+                if (this.EliminarUsuario())
+                {
+                    this.lblStatus.Text = "Se eliminó el usuario";
+                }
+                else
+                {
+                    this.lblStatus.Text = "No se pudo eliminar el usuario";
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+
+        private bool EliminarUsuario()
+        {
+            var uAdmin = (VOUsuario)Session["Usuario"];
+            var admin = uAdmin.Nickname;
+            var user = this.ddlUsuarioEliminar.SelectedItem.ToString();
+            return Fachada.Instance.EliminarUsuario(admin, user);
         }
 
         private bool HabilitarUsuario()
@@ -197,6 +229,20 @@ namespace tamboprp
             //var rol = this.ddlRolUsuario.SelectedIndex;
             //var rol1 = this.ddlRolUsuario.SelectedItem;
             //var rol2 = this.ddlRolUsuario.SelectedValue;
+        }
+
+        protected void ddlUsuariosModificar_SelectedIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            var sel = this.ddlUsuariosModificar.SelectedValue;
+            VOUsuario voU = _listUser.FirstOrDefault(u => u.Nombre.Equals(sel));
+            if (voU != null)
+            {
+                this.fNombre.Value = voU.Nombre;
+                this.fApellido.Value = voU.Apellido;
+                this.fEmail.Value = voU.Email;
+                this.ddlRolUsuario.SelectedIndex = voU.Rol.Nivel;
+            }
+
         }
     }
 }

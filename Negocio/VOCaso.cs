@@ -1,31 +1,14 @@
-﻿namespace Entidades
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Entidades;
+
+namespace Negocio
 {
-    public class CasoSoporte
+    public class VOCaso
     {
-        public CasoSoporte()
-        {
-
-        }
-
-        public CasoSoporte(int id)
-        {
-            Id = id;
-        }
-
-        public CasoSoporte(int id, string establecim, string nickname, string nomape,
-            string email, string telefono, string titulo, string tipo, string descripcion)
-        {
-            Id = id;
-            Establecimiento = establecim;
-            Nickname = nickname;
-            NombreApellido = nomape;
-            Telefono = telefono;
-            Email = email;
-            Titulo = titulo;
-            Tipo = tipo;
-            Descripcion = descripcion;
-        }
-
         public int Id { get; set; }
 
         public string Establecimiento { get; set; }
@@ -53,5 +36,6 @@
                    "Tipo: " + Tipo + "\n" +
                    "Descripción: " + Descripcion;
         }
+
     }
 }

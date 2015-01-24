@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Entidades;
+using Microsoft.SqlServer.Server;
 
 namespace Datos
 {
@@ -17,6 +18,8 @@ namespace Datos
         private static string UsuariosRoles_SelectAll = "UsuariosRoles_SelectAll";
         private static string Usuario_SelectAtLogin = "Usuario_SelectAtLogin";
         private static string Usuario_Logoff = "Usuario_Logoff";
+        private static string Usuario_UpdatePassword = "Usuario_UpdatePassword";
+        private static string Usuario_DeleteUsuario = "Usuario_DeleteUsuario";
         
         public UsuarioMapper(Usuario user)
         {
@@ -183,6 +186,33 @@ namespace Datos
             cmd = new SqlCommand();
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.CommandText = Usuario_Logoff;
+            cmd.Parameters.Add(new SqlParameter("@NICKNAME", user));
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
+
+        public int UpdateContrasenaUsuario(string admin, string user, string newPass)
+        {
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = Usuario_UpdatePassword;
+            cmd.Parameters.Add(new SqlParameter("@ADMIN", admin));
+            cmd.Parameters.Add(new SqlParameter("@NICKNAME", user));
+            cmd.Parameters.Add(new SqlParameter("@NUEVAPASS", newPass));
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
+
+        public int DeleteUsuario(string admin, string user)
+        {
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = Usuario_DeleteUsuario;
+            cmd.Parameters.Add(new SqlParameter("@ADMIN", admin));
             cmd.Parameters.Add(new SqlParameter("@NICKNAME", user));
 
             var value = ReturnScalarValue(cmd);

@@ -92,7 +92,6 @@ namespace Datos
                 cmd.Parameters.Add(new SqlParameter("@TITULO", _caso.Titulo));
                 cmd.Parameters.Add(new SqlParameter("@TIPO", _caso.Tipo));
                 cmd.Parameters.Add(new SqlParameter("@DESCRIPCION", _caso.Descripcion));
-                cmd.Parameters.Add(new SqlParameter("@ADJUNTO", _caso.Adjunto));
             }
             else if (opType == OperationType.UPDATE)
             {
@@ -108,7 +107,6 @@ namespace Datos
                 cmd.Parameters.Add(new SqlParameter("@TITULO", _caso.Titulo));
                 cmd.Parameters.Add(new SqlParameter("@TIPO", _caso.Tipo));
                 cmd.Parameters.Add(new SqlParameter("@DESCRIPCION", _caso.Descripcion));
-                cmd.Parameters.Add(new SqlParameter("@ADJUNTO", _caso.Adjunto));
 
             }
             return cmd;
@@ -126,7 +124,6 @@ namespace Datos
             caso.Titulo = (DBNull.Value == record["TITULO"]) ? string.Empty : (string)record["TITULO"];
             caso.Tipo = (DBNull.Value == record["TIPO"]) ? string.Empty : (string)record["TIPO"];
             caso.Descripcion = (DBNull.Value == record["DESCRIPCION"]) ? string.Empty : (string)record["DESCRIPCION"];
-            caso.Adjunto = (DBNull.Value == record["ADJUNTO"]) ? string.Empty : (string)record["ADJUNTO"];
             return caso;
         }
 

@@ -98,7 +98,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancelar</button>
-                    <asp:Button ID="btnModificar" runat="server" CssClass="btn btn-sm btn-info" Text="Enviar" OnClick="btn_MeOlvide" />
+                    <asp:Button ID="btnModificar" runat="server" CssClass="btn btn-sm btn-info" Text="Enviar" OnClick="btn_MeOlvidePassword" />
                 </div>
             </div>
         </div>

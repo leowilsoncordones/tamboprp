@@ -58,6 +58,8 @@ namespace Negocio
 
         public bool Actual { get; set; }
 
+        public string EsActual { get; set; }
+
         public override string ToString()
         {
             return Nombre;

@@ -26,11 +26,25 @@
     </div>
     <div id="timeline-2" class="">
 		<div class="row">
-			<div class="col-xs-12 col-sm-10 col-sm-offset-1">
-                <!-- #section:pages/timeline.style2 -->
-				<div class="timeline-container timeline-style2" id="contenedor_dia" runat="server">
-                </div><!-- /.timeline-container -->
-			</div>
+		    <div class="col-md-8">
+			    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+                    <!-- #section:pages/timeline.style2 -->
+				    <div class="timeline-container timeline-style2" id="contenedor_dia" runat="server">
+                    </div><!-- /.timeline-container -->
+			    </div>
+            </div>
+            <!-- RESUMEN EN COLUMNA DERECHA -->
+            <div class="col-md-4">
+                <div class="well">
+						<h4 class="header smaller lighter blue"><i class="menu-icon fa fa-paperclip"></i> Resumen</h4>
+                        <ul class="list-unstyled spaced2">
+                            <li class="bigger-110">
+                                <asp:Button ID="btnExport" runat="server" CssClass="btn btn-sm btn-white btn-default" Text="Exportar Log" OnClick="btn_ExportarLog" />
+                            </li>
+                        </ul>
+                    <asp:Label ID="lblStatus" runat="server" Text=""></asp:Label>
+				</div>
+             </div>
 		</div>
 	</div>
 </asp:Content>

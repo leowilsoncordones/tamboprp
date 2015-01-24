@@ -144,7 +144,7 @@
                         <div class="form-group">
 		                    <label class="col-sm-4 control-label no-padding-right"> Usuario </label>
 			                <div class="col-sm-5">
-			                    <asp:DropDownList ID="ddlUsuariosModificar" CssClass="form-control col-xs-10 col-sm-5" AutoPostBack="False" runat="server" ></asp:DropDownList>
+			                    <asp:DropDownList ID="ddlUsuariosModificar" CssClass="form-control col-xs-10 col-sm-5" AutoPostBack="False" runat="server" OnSelectedIndexChanging="ddlUsuariosModificar_SelectedIndexChanging" ></asp:DropDownList>
 			                </div>
 		                </div>
                         <!-- Nombre y Apellido -->
@@ -222,7 +222,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancelar</button>
-                    <asp:Button ID="Button2" runat="server" CssClass="btn btn-sm btn-info" Text="Ok" OnClick="btn_HabilitarUsuario" />
+                    <asp:Button ID="Button2" runat="server" CssClass="btn btn-sm btn-info" Text="Ok" OnClick="btn_EliminarUsuario" />
                 </div>
             </div>
         </div>

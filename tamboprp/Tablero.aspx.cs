@@ -164,7 +164,7 @@ namespace tamboprp
             // #section:alertas y notificaciones
             var lstAlertas = Fachada.Instance.GetAlertasYNotificacionesTablero();
             var sb = new StringBuilder();
-            sb.Append("<h4 class='smaller lighter blue'><i class='ace-icon fa icon-animated-bell fa-bell-o'></i> Alertas y notificaciones</h4>");
+            sb.Append("<h4 class='smaller lighter blue'><i class='ace-icon fa icon-animated-bell fa-bell-o'></i> Alertas</h4>");
             sb.Append("<div class='space-6'></div>");
 
             for (int i = 0; i < lstAlertas.Count; i++)

@@ -18,7 +18,8 @@ namespace Datos
         private static string Log_SelecByRegistro = "Log_SelecByRegistro";
         private static string Log_SelecByUser = "Log_SelecByUser";
         private static string Log_SelecByDate = "Log_SelecByDate";
-
+        private static string Log_SelecXDays = "Log_SelecXDays";
+        
         public LogMapper(Log log)
         {
             _log = log;
@@ -66,6 +67,23 @@ namespace Datos
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.Add(new SqlParameter("@REGISTRO", _log.Registro));
             cmd.CommandText = Log_SelecByRegistro;
+
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+                result.Add(load(dr));
+            dr.Close();
+            return result;
+        }
+
+
+        public List<Log> GetLastXDays(int days)
+        {
+            List<Log> result = new List<Log>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@DAYS", days));
+            cmd.CommandText = Log_SelecXDays;
 
             SqlDataReader dr = FindByCmd(cmd);
             while (dr.Read())

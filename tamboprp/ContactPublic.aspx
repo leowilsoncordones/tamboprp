@@ -2,21 +2,27 @@
 
 <asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="MainContent">
     <div class="page-header">
-        <h1><i class="menu-icon fa fa-envelope" ></i> Contacto</h1>
+        <h1><i class="menu-icon fa fa-envelope" ></i> Contáctenos!</h1>
     </div>
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-5">
+            <section class="contact">
+                <p>
+                    Gracias por visitar nuestro sitio, estamos a sus órdenes para recibir consultas y brindarle información 
+                    acerca de las potencialidades de nuestra aplicación.<br /><br />
+                </p>
+            </section>
             <section class="contact">
                 <header>
                     <h3>Teléfonos:</h3>
                 </header>
                 <p>
-                    <span class="label">Principal:</span>
-                    <span>(+598) 425.555.0100</span>
+                    <span class="label">Móvil:</span>
+                    <span>(+598)</span>
                 </p>
                 <p>
-                    <span class="label">Después de hora:</span>
-                    <span>(+598) 425.555.0199</span>
+                    <span class="label">Móvil:</span>
+                    <span>(+598)</span>
                 </p>
             </section>
 
@@ -34,7 +40,7 @@
                 </p>
                 <p>
                     <span class="label">General:</span>
-                    <span><a href="mailto:general@tamboprp">general@tamboprp.uy</a></span>
+                    <span><a href="mailto:general@tamboprp.uy">general@tamboprp.uy</a></span>
                 </p>
             </section>
             
@@ -48,26 +54,26 @@
                 </p>
                 <p>
                     <span class="label">Blog:</span>
-                    <span><a href="http://blog.tamboprp.uy">blog.tamboprp.uy</a></span>
+                    <span>PROXIMAMENTE!</span>
+                </p>
+                <br/>
+            </section>
+            <section class="contact">
+                <p>
+                    Comience su experiencia <small><span class="ace-icon fa fa-check-square-o" aria-hidden="true"></span></small><strong> tambo<span class="text-primary">prp</span></strong> cuanto antes!
                 </p>
             </section>
 
-            <section class="contact">
-                <header>
-                    <h3>Dirección:</h3>
-                </header>
-                <p>
-                    Calle Avenida Parlamento 314, CP 11100<br />
-                    Montevideo, UY 
-                </p>
-            </section>
     </div>
 
-        <div class="col-md-4">
+        <div class="col-md-7">
             <h1 class="text-center">
                 <span class="ace-icon fa fa-check-square-o" aria-hidden="true"></span>
-                <span> tambo</span><strong class="text-primary">prp</strong>
+                <span> tambo</span><strong class="text-primary">prp</strong>                
             </h1>
+            <div class="center">
+                <img src="img_tamboprp/corporativo/tamboprp1.png" />
+            </div>
         </div>
     </div>
 

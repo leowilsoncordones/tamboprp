@@ -68,11 +68,16 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mail.cs" />
+    <Compile Include="VOReporte.cs" />
+    <Compile Include="VODatosGenerales.cs" />
+    <Compile Include="VOFaq.cs" />
     <Compile Include="VOConcurso.cs" />
     <Compile Include="VOEmpleado.cs" />
     <Compile Include="VOIndicadores.cs" />
     <Compile Include="VOListItemInd.cs" />
     <Compile Include="VOInseminadorRank.cs" />
+    <Compile Include="VOCaso.cs" />
     <Compile Include="VOUsuario.cs" />
     <Compile Include="VOToroUtilizado1.cs" />
     <Compile Include="VOToroUtilizado.cs" />

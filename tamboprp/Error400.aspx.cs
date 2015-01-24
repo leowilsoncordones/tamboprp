@@ -27,7 +27,7 @@ namespace tamboprp
 
             var sb = new StringBuilder();
             sb.Append("<ul class='breadcrumb'>");
-            sb.Append("<li><i class='ace-icon fa fa-home home-icon'></i> <a href='Default.aspx'>Home</a></li>");
+            sb.Append("<li><i class='ace-icon fa fa-home home-icon'></i> <a href='../Default.aspx'>Home</a></li>");
             for (int i = 0; i < list.Count; i++)
             {
                 if (list[i].Valor2 == "")

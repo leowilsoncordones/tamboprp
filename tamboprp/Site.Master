@@ -111,7 +111,7 @@
 					    <span class="menu-text"> Sanidad </span></a></li>
                     <li><a href="Personal.aspx"><i class="menu-icon fa fa-male"></i>
 					    <span class="menu-text"> Personal </span></a></li>
-                    <li><a href="Notificaciones.aspx"><i class="menu-icon fa fa-bell-o"></i>
+                    <li><a href="Notificaciones.aspx"><i class="menu-icon fa fa-newspaper-o"></i>
 					    <span class="menu-text"> Notificaciones </span></a></li>
                     <li><a href="Sistema.aspx"><i class="menu-icon fa fa-desktop"></i>
 					    <span class="menu-text"> Sistema </span></a></li>

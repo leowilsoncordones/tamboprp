@@ -1,13 +1,13 @@
-﻿<%@ Page Title="tamboprp | error 403" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Error403.aspx.cs" Inherits="tamboprp.Error403" %>
+﻿<%@ Page Title="tamboprp | error 500" Language="C#" MasterPageFile="~/SitePublic.Master" AutoEventWireup="true" CodeBehind="Error500.aspx.cs" Inherits="tamboprp.Error500" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    
+  
     <div class="error-container">
 		<div class="well">
-			<h1 class="grey lighter smaller"><span class="blue bigger-125"><i class="ace-icon fa fa-sitemap"></i> 403</span> forbidden</h1>
+			<h1 class="grey lighter smaller"><span class="blue bigger-125"><i class="ace-icon fa fa-sitemap"></i> 500</span> internal server error</h1>
             <hr>
-			<h3 class="lighter smaller">Esta prohibido el acceso a la página web o directorio solicitado</h3>
+			<h3 class="lighter smaller">No se ha podido completar su solicitud!</h3>
             <div>
 			    <div class="space"></div>
 			    <h4 class="smaller">Intenta lo siguiente:</h4>
@@ -26,5 +26,6 @@
 			</div>
 		</div>
 	</div>
+    
 
 </asp:Content>
