@@ -26,33 +26,85 @@
     <div class="page-header">
         <h1><i class="menu-icon fa fa-upload"></i> Importar archivo de controles de producción </h1>
     </div>
-
+    
     <div class="row">
-        <div class="col-sm-12">
-            
+        <h3></h3>
+    </div>
+    <div class="row">
+       
             <!-- FORMULARIO -->
             <div id="formulario" class="form-horizontal">
                 <!-- Cargar foto -->
+                <div class="row"></div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label no-padding-right"> Seleccionar archivo de datos </label>
-                    <div class="col-sm-3">
-                        <label class="ace-file-input"><input type="file" id="id-input-file-2">
-                            <span class="ace-file-container" data-title="Elegir">
-                                <span class="ace-file-name" data-title="..."><i class=" ace-icon fa fa-upload"></i></span>
-                            </span><a class="remove" href="#"><i class=" ace-icon fa fa-times"></i></a></label>
+                    <label class="col-sm-3 control-label no-padding-right"></label>
+                    <div class="col-sm-4">
+                            <asp:FileUpload runat="server" ID="fupTxt"/>
                     </div>
-                    <div class="col-sm-12"></div>
+
 		         </div>
                 <!-- Botones -->
                 <div class="form-group">
                     <div class="col-md-offset-3 col-md-9">
-                        <asp:Button ID="btnSave" runat="server" CssClass="btn btn-info" Text="Importar datos" OnClick="btn_GuardarEvento" />
-                        &nbsp;&nbsp;&nbsp;
-                        <asp:Button ID="btnReset" runat="server" CssClass="btn btn-default" Text="Limpiar" OnClick="btn_LimpiarFormulario" />
+                        <asp:Button ID="btnSave" runat="server" CssClass="btn btn-info col-sm-4" Text="Importar datos" OnClick="btn_GuardarEvento" />
 				    </div>
                 </div>
             </div>
+    </div>
+    <asp:Panel runat="server" ID="panelExitosas">
+        <div class="row">
+        <div class="alert alert-info col-md-4">
+            <i class="ace-icon glyphicon glyphicon-list"></i>
+            <asp:Label runat="server" ID="lblTotales"></asp:Label>
         </div>
     </div>
+    <div class="row">
+        <div class="alert alert-success col-md-4">
+            <i class="ace-icon glyphicon glyphicon-ok"></i>
+           <asp:Label runat="server" ID="lblExitosas"></asp:Label> 
+        </div>       
+    </div>
+    </asp:Panel>
 
+    <asp:Panel runat="server" ID="panelFallidas">
+    <div class="row">
+        <div class="alert alert-danger col-md-4">
+            <i class="ace-icon glyphicon glyphicon-remove"></i>
+            <asp:Label runat="server" ID="lblFallidas"></asp:Label>
+        </div>       
+    </div>
+    <div class="row"></div>
+    <div class="row"></div>
+    
+            <div class="row">
+            <h3>Controles que no pudieron ser procesados</h3>
+            </div>
+            <div class="row">
+                <div class="col-md-9">					
+                    <!-- GRIDVIEW -->
+                    <asp:GridView ID="gvControles" runat="server" AutoGenerateColumns="False" GridLines="Both" HorizontalAlign="Left" 
+                            CssClass="table table-hover table-striped table-bordered table-condensed dataTable" >
+                        <RowStyle HorizontalAlign="Left"  />
+                        <Columns>
+                            <asp:BoundField DataField="Registro" HeaderText="Registro" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />  
+                            <asp:BoundField DataField="Fecha" HeaderText="Fecha" dataformatstring="{0:dd/MM/yyyy}" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                            <asp:BoundField DataField="Comentarios" HeaderText="Comentarios" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                            <asp:BoundField DataField="Grasa" HeaderText="Grasa" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                            <asp:BoundField DataField="Leche" HeaderText="Leche" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                        </Columns>
+                        <FooterStyle />
+                        <PagerStyle HorizontalAlign="Left" />
+                        <SelectedRowStyle />
+                        <HeaderStyle />
+                        <EditRowStyle />
+                        <AlternatingRowStyle />
+                    </asp:GridView>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+    </asp:Panel>
+
+    <div class="row">
+        <asp:Label runat="server" ID="lblStatus" CssClass="alert alert-danger col-md-6"></asp:Label>
+    </div>
 </asp:Content>

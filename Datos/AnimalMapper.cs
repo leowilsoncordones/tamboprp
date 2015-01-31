@@ -573,6 +573,11 @@ namespace Datos
         {
             return GetScalarInt("Animal_OrdenePrenezConfirmada");
         }
+
+        public bool AnimalExiste(string registro)
+        {
+            return GetScalarIntReg("Animal_Existe", registro) == 1;
+        }
     }
 }
 

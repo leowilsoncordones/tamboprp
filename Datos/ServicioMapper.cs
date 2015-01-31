@@ -25,6 +25,14 @@ namespace Datos
         private static string Servicio_SelectByRegistroDespUltParto = "Servicio_SelectByRegistroDespUltParto";
         private static string ServicioyDiag_PorTorosUtilizByAnio = "ServicioyDiag_PorTorosUtilizByAnio";
         private static string ServicioyDiag_PorTorosUtilizBy2fechas = "ServicioyDiag_PorTorosUtilizBy2fechas";
+        private static string Servicio_DiasSinDiagPrenezCount70 = "Servicio_DiasSinDiagPrenezCount70";
+        private static string Servicio_DiasSinDiagPrenezCount35 = "Servicio_DiasSinDiagPrenezCount35";
+        private static string Servicio_80DiasLactanciaSinServicioCount = "Servicio_80DiasLactanciaSinServicioCount";
+
+        
+
+        
+        
         
         public ServicioMapper(Servicio servicio)
         {
@@ -362,6 +370,43 @@ namespace Datos
 
             public char Diagnostico { get; set; }
 
+        }
+
+
+        public int GetServicio_DiasSinDiagPrenezCount70()
+        {
+            int result;
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = Servicio_DiasSinDiagPrenezCount70;
+
+            result = (int)ReturnScalarValue(cmd);
+            return result;
+        }
+
+        public int GetServicio_DiasSinDiagPrenezCount35()
+        {
+            int result;
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = Servicio_DiasSinDiagPrenezCount35;
+
+            result = (int)ReturnScalarValue(cmd);
+            return result;
+        }
+
+        public int GetServicio_80DiasLactanciaSinServicioCount()
+        {
+            int result;
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = Servicio_80DiasLactanciaSinServicioCount;
+
+            result = (int)ReturnScalarValue(cmd);
+            return result;
         }
 
     }

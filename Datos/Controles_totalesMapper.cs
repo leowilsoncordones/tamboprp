@@ -12,15 +12,21 @@ namespace Datos
 {
     public class Controles_totalesMapper : AbstractMapper
     {
-        private string _regAnimal; 
+        private Control_Total _controlTotal;
+        private string _regAnimal;
 
         public Controles_totalesMapper()
         {
         }
 
-        public Controles_totalesMapper(string registro)
+        public Controles_totalesMapper(string reg)
         {
-            _regAnimal = registro;
+            _regAnimal = reg;
+        }
+
+        public Controles_totalesMapper(Control_Total controlTotal)
+        {
+            _controlTotal = controlTotal;
         }
 
         public List<VOControlTotal> GetAll()
@@ -67,19 +73,15 @@ namespace Datos
             }
             else if (opType == OperationType.INSERT)
             {
-                /*
+                
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.CommandText = "Control_Producc_Insert";
-                cmd.Parameters.Add(new SqlParameter("@REGISTRO", _regAnimal));
-                cmd.Parameters.Add(new SqlParameter("@EVENTO", _Control_Producc.Id_evento));
-                cmd.Parameters.Add(new SqlParameter("@FECHA", _Control_Producc.Fecha));
-                //cmd.Parameters.Add(new SqlParameter("@DIAS_DEL_MES", _Control_Producc.Dias_para_control));
-                cmd.Parameters.Add(new SqlParameter("@DIAS_LACTANCIA", _Control_Producc.Dias_para_control));
-                cmd.Parameters.Add(new SqlParameter("@COMENTARIO", _Control_Producc.Comentarios));
-                cmd.Parameters.Add(new SqlParameter("@GRASA", _Control_Producc.Grasa));
-                cmd.Parameters.Add(new SqlParameter("@LECHE", _Control_Producc.Leche));
-            */
+                cmd.CommandText = "Controles_Totales_Insert";
+                cmd.Parameters.Add(new SqlParameter("@FECHA", _controlTotal.Fecha));
+                cmd.Parameters.Add(new SqlParameter("@VACAS", _controlTotal.Vacas));
+                cmd.Parameters.Add(new SqlParameter("@LECHE", _controlTotal.Leche));
+                cmd.Parameters.Add(new SqlParameter("@GRASA", _controlTotal.Grasa));
+            
             }
             else if (opType == OperationType.UPDATE)
             {

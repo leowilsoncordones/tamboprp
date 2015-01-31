@@ -161,7 +161,7 @@ namespace Datos
                 cmd.Parameters.Add(new SqlParameter("@REGISTRO", _Control_Producc.Registro));
                 cmd.Parameters.Add(new SqlParameter("@EVENTO", _Control_Producc.Id_evento));
                 cmd.Parameters.Add(new SqlParameter("@FECHA", _Control_Producc.Fecha));
-                //cmd.Parameters.Add(new SqlParameter("@DIAS_DEL_MES", _Control_Producc.Dias_para_control));
+                cmd.Parameters.Add(new SqlParameter("@DIAS_DEL_MES", _Control_Producc.Dias_para_control));
                 cmd.Parameters.Add(new SqlParameter("@DIAS_LACTANCIA", _Control_Producc.Dias_para_control));
                 cmd.Parameters.Add(new SqlParameter("@COMENTARIO", _Control_Producc.Comentarios));
                 cmd.Parameters.Add(new SqlParameter("@GRASA", _Control_Producc.Grasa));
@@ -204,6 +204,7 @@ namespace Datos
         {
             return GetScalarDate("Control_producc_SelectFechaUltimoControl");
         }
+
 
     }
 }

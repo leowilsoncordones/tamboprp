@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity.Core.Metadata.Edm;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Reflection;
@@ -24,7 +25,9 @@ namespace tamboprp
             {
                 this.SetPageBreadcrumbs();
                 this.LimpiarFormulario();
-                this.CargarDdlRoldeUsuario();
+                this.panelFallidas.Visible = false;
+                this.panelExitosas.Visible = false;
+                lblStatus.Visible = false;
             }
         }
 
@@ -44,36 +47,57 @@ namespace tamboprp
         protected void btn_GuardarEvento(object sender, EventArgs e)
         {
             // pop-up el modal y mostrar mensaje resultado de guardar en la base de datos
-            if (this.GuardarControl())
+            if (this.fupTxt.HasFile)
             {
-                //this.bodySaveModal.InnerText = "El usuario se ha guardado con éxito!";
+                try
+                {
+                    // ruta de las textos de controles en el sitio
+                    string filename = Path.GetFileName(fupTxt.FileName);
+                    var rutaSiteTxt = "~/controlesMU/" + filename;
+                    var rutaSiteTxtcheck =
+                        "D:\\ORT laptop\\2014-S5-Proyecto\\tamboprp-git\\tamboprp\\controlesMU\\"+filename;
+                    if (!File.Exists(rutaSiteTxtcheck))
+                    {
+                        fupTxt.SaveAs(Server.MapPath(rutaSiteTxt));
+                        var ruta = Server.MapPath("~/controlesMU/" + filename);
+                        var resultado = Fachada.Instance.LeerArchivoControl(ruta);
+                        lblTotales.Text = "Se procesaron un total de " + resultado.CantTotales + " controles.";
+                        this.panelExitosas.Visible = true;
+                        var cantFallidas = resultado.ControlesFallidos.Count;
+                        if (cantFallidas > 0)
+                        {
+                            lblExitosas.Text = resultado.CantExitosas + " controles se procesaron con éxito.";
+                            lblFallidas.Text = cantFallidas + " controles no pudieron ser procesados.";
+                            CargarGrillaFallidas(resultado.ControlesFallidos);
+                            this.panelFallidas.Visible = true;
+                        }
+                    }
+                    else
+                    {
+                        lblStatus.Visible = true;
+                        lblStatus.Text = "El archivo : '"+ filename +"' ya existe"; 
+                    }
+
+
+                }
+                catch (Exception)
+                {
+                    lblStatus.Visible = true;
+                    lblStatus.Text = "El archivo no se pudo procesar";                    
+                }
+
             }
-            //else this.bodySaveModal.InnerText = "El usuario no se ha podido guardar";
+
             this.LimpiarFormulario();
         }
 
 
-        private bool GuardarControl()
+        private void CargarGrillaFallidas(List<Control_Producc> lista )
         {
-            //var idRol = int.Parse(this.ddlRolUsuario.SelectedValue);
-            //var rol = new RolUsuario
-            //{
-            //    Nivel = int.Parse(this.ddlRolUsuario.SelectedValue),
-            //    NombreRol = this.ddlRolUsuario.SelectedItem.ToString()
-            //};
-            //var usuario = new Usuario
-            //{
-            //    Nombre = fNombre.Value,
-            //    Apellido = fApellido.Value,
-            //    Nickname = username.Value,
-            //    Password = password.Value,
-            //    Email = fEmail.Value,
-            //    Foto = "",
-            //    Rol = rol
-            //};
-            //return Fachada.Instance.InsertarUsuario(usuario);
-            return true;
+            this.gvControles.DataSource = lista;
+            this.gvControles.DataBind();
         }
+
 
         protected void btn_LimpiarFormulario(object sender, EventArgs e)
         {
@@ -88,27 +112,6 @@ namespace tamboprp
             //this.username.Value = "";
             //this.password.Value = "";
         }
-
-        private void CargarDdlRoldeUsuario()
-        {
-            //var lst = Fachada.Instance.GetRolesDeUsuario();
-            //this.ddlRolUsuario.DataSource = lst;
-            //this.ddlRolUsuario.DataTextField = "NombreRol";
-            //this.ddlRolUsuario.DataValueField = "Nivel";
-            //this.ddlRolUsuario.DataBind();
-            //// por defecto seleccionado el rol DIGITADOR
-            //this.ddlRolUsuario.SelectedIndex = 1;
-        }
-
-
-        protected void ddlRolUsuario_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //var rol = this.ddlRolUsuario.SelectedIndex;
-            //var rol1 = this.ddlRolUsuario.SelectedItem;
-            //var rol2 = this.ddlRolUsuario.SelectedValue;
-        }
-
-
-        
+       
     }
 }

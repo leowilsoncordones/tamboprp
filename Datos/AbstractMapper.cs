@@ -127,6 +127,10 @@ namespace Datos
             return ReturnScalarValue(cmd);
         }
 
+        public int GetScalarIntReg(string storedProcedure, string param)
+        {
+            return int.Parse(GetScalarString(storedProcedure, param));
+        }
 
 
     }

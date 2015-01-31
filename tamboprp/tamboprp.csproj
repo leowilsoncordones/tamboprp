@@ -1326,6 +1326,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="controlesMU\" />
     <Folder Include="img_tamboprp\usuarios\" />
   </ItemGroup>
   <ItemGroup>

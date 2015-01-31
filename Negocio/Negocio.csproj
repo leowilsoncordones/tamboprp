@@ -68,7 +68,9 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CsvRow.cs" />
     <Compile Include="Mail.cs" />
+    <Compile Include="VOControlProdMU.cs" />
     <Compile Include="VOReporte.cs" />
     <Compile Include="VODatosGenerales.cs" />
     <Compile Include="VOFaq.cs" />

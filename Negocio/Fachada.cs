@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
+using System.Web.ModelBinding;
 using System.Web.Profile;
 using Datos;
 using Entidades;
@@ -361,9 +362,14 @@ namespace Negocio
             for (int i = 0; i < lstLact.Count; i++)
             {
                 var tmp = lstLact[i];
+                var numLact = 0;
+                var diasLact = 0;
                 var lactMap = new LactanciaMapper(tmp.Registro);
-                var numLact = lactMap.GetMaxLactanciaByRegistro();
-                var diasLact = lactMap.GetDiasMaxLactanciaByRegistro();
+                if (lactMap.LactancialExiste()) { 
+                 numLact = lactMap.GetMaxLactanciaByRegistro();
+                 diasLact = lactMap.GetDiasMaxLactanciaByRegistro();
+                }
+
                 /* var lactUlt = lactMap.GetUltimaLactanciaByRegistro();
                 if (lactUlt != null)
                 {
@@ -1641,10 +1647,8 @@ namespace Negocio
             alertDiag35.Link = "../DiagEcograficos.aspx";
             alertDiag35.LinkAlt = "Diagnósticos ecográficos";
             alertDiag35.Icono = "fa-bell-o";
-            var cant35 = 0;   // TESTING -----------------------------
-            /*var cant35 = this.GetServicios35SinDiagPrenezVacOrdene().Count +
-                         this.GetServicios35SinDiagPrenezVacSecas().Count +
-                         this.GetServicios35SinDiagPrenezVaqEnt().Count;*/
+            //var cant35 = 0;   // TESTING -----------------------------
+            var cant35 = _servMapper.GetServicio_DiasSinDiagPrenezCount35();
             alertDiag35.Valor = cant35.ToString();
             alertDiag35.Status = "success";
             if (cant35 == 0)
@@ -1668,10 +1672,8 @@ namespace Negocio
             alertDiag70.Link = "../ServiciosSinDiag.aspx";
             alertDiag70.LinkAlt = "Servicios sin diagnóstico de preñez";
             alertDiag70.Icono = "icon-animated-bell fa-bell-o";
-            var cant70 = 37;   // TESTING -----------------------------
-            /*var cant70 = this.GetServicios70SinDiagPrenezVacOrdene().Count +
-                         this.GetServicios70SinDiagPrenezVacSecas().Count +
-                         this.GetServicios70SinDiagPrenezVaqEnt().Count;*/
+            //var cant70 = 37;   // TESTING -----------------------------
+            var cant70 = _servMapper.GetServicio_DiasSinDiagPrenezCount70();
             alertDiag70.Valor = cant70.ToString();
             alertDiag70.Status = "success";
             if (cant70 == 0)
@@ -1695,7 +1697,7 @@ namespace Negocio
             alertLact80.Link = "../LactanciasSinServ80.aspx";
             alertLact80.LinkAlt = "Animales con más de 80 días en lactancia sin servicio";
             alertLact80.Icono = "fa-bell-o";
-            var cant80 = this.GetLactanciasSinServicio80().Count;
+            var cant80 = _servMapper.GetServicio_80DiasLactanciaSinServicioCount();
             alertLact80.Valor = cant80.ToString();
             alertLact80.Status = "success";
             if (cant80 == 0)
@@ -2528,5 +2530,170 @@ namespace Negocio
                 repMap.UpdateDestinatariosReporteById(idRepo, user.Nickname);
             }
         }
+
+
+
+        public VOControlProdMU LeerArchivoControl(string archivo)
+        {
+            var listaFallida = new List<Control_Producc>();
+            var lista = new List<Control_Producc>();
+            DateTime fechaControl = new DateTime();
+
+            // recorro y leo datos de el archivo
+            using (CsvFileReader reader = new CsvFileReader(archivo))
+            {                               
+                CsvRow row = new CsvRow();
+                while (reader.ReadRow(row))
+                {
+                    double leche = 0;
+                        bool guardar = row[0] == "11";
+                        if (guardar)
+                        {
+                            var control = new Control_Producc
+                            {
+                                Comentarios = "test_tamboprp",
+                                Id_evento = 8,
+                                Grasa = 3.60,
+                                Dias_para_control = 99
+                            };
+                            for (int s = 0; s < row.Count; s++)
+                            {                                
+                                if (s == 2)
+                                {
+                                    string reg = row[s].Replace("'", "");
+                                    control.Registro = reg;
+                                }
+                                if (s == 5)
+                                {
+                                    string num = row[s].Replace('.', ',');
+                                    leche += double.Parse(num);
+                                }
+                                if (s == 6)
+                                {
+                                    string num = row[s].Replace('.', ',');
+                                    leche += double.Parse(num);
+                                    string lecheLetra = leche.ToString();
+                                    control.Leche = leche;
+                                }
+                                if (s == 17)
+                                {
+                                    string fecha = row[s].Replace("'", "");
+                                    fecha = FormatoFecha(fecha);
+                                    fechaControl = Convert.ToDateTime(fecha);
+                                    control.Fecha = Convert.ToDateTime(fecha);
+                                }                           
+                            }
+                            lista.Add(control);
+                        }                   
+                }
+            }
+            // chequeo que los registros esten, sino se guardan en otra lista fallida y no se guardan en controles
+            foreach (var control in lista)
+            {               
+                if (_animalMapper.AnimalExiste(control.Registro))
+                {
+                    var contMap = new Control_ProduccMapper(control);
+                    try
+                    {
+                        var affected = contMap.Insert();
+                    }
+                    catch (Exception)
+                    {                       
+                        throw;
+                    }                   
+                }
+                else
+                {
+                    listaFallida.Add(control);
+                }
+            }
+
+            // armo objeto para devolver a la pagina
+            var voControl = new VOControlProdMU
+            {
+                CantTotales = (short) lista.Count,
+                CantExitosas = (short)(lista.Count - listaFallida.Count),
+                ControlesFallidos = listaFallida
+            };
+
+            // armo control total para insertar en controles_totales
+            var lecheTotal = ConsolidarLeche(lista);
+            var grasaTotal = ConsolidarGrasa(lista);
+            var conTotal = new Control_Total
+            {
+                Fecha = fechaControl,
+                Vacas = voControl.CantTotales,
+                Leche = lecheTotal,
+                Grasa = grasaTotal,
+            };
+            var controlTotMap = new Controles_totalesMapper(conTotal);
+            controlTotMap.Insert();
+
+
+            return voControl;
+        }
+
+
+        public double ConsolidarLeche(List<Control_Producc> lista)
+        {
+            double lecheTotal = 0;
+            foreach (var control in lista)
+            {
+                lecheTotal += control.Leche;
+            }
+            return lecheTotal;
+        }
+
+        public double ConsolidarGrasa(List<Control_Producc> lista)
+        {
+            double grasaTotal = 0;
+            foreach (var control in lista)
+            {
+                grasaTotal += control.Grasa;
+            }
+            return grasaTotal;
+        }
+
+
+        public string DiasMes(string fecha)
+        {
+            var res = fecha.Split(Convert.ToChar("-"));
+            var mes = res[1];
+            var ano = int.Parse(res[0]);
+            if (mes == "01" || mes == "03" || mes == "05" || mes == "07" || mes == "08" || mes == "10" || mes == "12")
+            {
+                return "31";
+            }
+            else if (mes == "04" || mes == "06" || mes == "09" || mes == "11")
+            {
+                return "30";
+            }
+            else
+            {
+                if (mes == "02" && ano % 4 == 0)
+                {
+                    return "29";
+                }
+                return "28";
+            }
+        }
+
+        public string FormatoFecha(string fecha)
+        {
+            var res = fecha.Split(Convert.ToChar("/"));
+            var salida = "";
+            salida = res[2] + "-" + res[1] + "-" + res[0];
+            return salida;
+        }
+
+        public string ConvertirLeche(double leche)
+        {
+            var res = leche.ToString();
+            res = res.Replace(",", ".");
+            return res;
+        }
+
+
+
     }
 }

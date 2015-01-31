@@ -340,5 +340,10 @@ namespace Datos
         {
             return GetScalarInt("Lactancia_PromedioDiasActual");
         }
+
+        public bool LactancialExiste()
+        {
+            return GetScalarIntReg("Lactancia_Existe", _regAnimal) > 0;
+        }
     }
 }

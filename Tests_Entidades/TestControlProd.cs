@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Datos;
 using Entidades;
+using Negocio;
 using NUnit.Framework;
 
 namespace Tests_Entidades
@@ -38,5 +39,13 @@ namespace Tests_Entidades
             var list = conmap.GetControlesTotalesEntreDosFechas("2010-03-25","2015-01-03");
             Assert.IsNotEmpty(list);
         }
+
+        //[Test]
+        //public void LeerArchivo_should_read()
+        //{
+        //    var lista = Fachada.Instance.LeerArchivoControl("Doble Muestra 1_11_2014 16h 37m 21s._hy");
+        //    Assert.IsNotEmpty(lista);
+        //}
+
     }
 }
