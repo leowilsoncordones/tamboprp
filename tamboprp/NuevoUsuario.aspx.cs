@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity.Core.Metadata.Edm;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Reflection;
@@ -18,14 +19,22 @@ namespace tamboprp
 {
     public partial class NuevoUsuario : System.Web.UI.Page
     {
+        private Usuario _usuarioTemp = new Usuario();
+        private System.Drawing.Image _fotoPerfil;
+        private string _filenamePath = "";
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack)
+            if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]))
             {
-                this.SetPageBreadcrumbs();
-                this.LimpiarFormulario();
-                this.CargarDdlRoldeUsuario();
+                if (!Page.IsPostBack)
+                {
+                    this.SetPageBreadcrumbs();
+                    this.LimpiarFormulario();
+                    this.CargarDdlRoldeUsuario();
+                }
             }
+            else Response.Redirect("~/Login.aspx", true);
         }
 
         protected void SetPageBreadcrumbs()
@@ -43,35 +52,47 @@ namespace tamboprp
 
         protected void btn_GuardarEvento(object sender, EventArgs e)
         {
-            // pop-up el modal y mostrar mensaje resultado de guardar en la base de datos
             if (this.GuardarUsuario())
             {
-                //this.bodySaveModal.InnerText = "El usuario se ha guardado con éxito!";
+                lblStatus.Text = "El usuario se ha guardado con éxito!";
             }
-            //else this.bodySaveModal.InnerText = "El usuario no se ha podido guardar";
+            else lblStatus.Text = "El usuario no se ha podido guardar";
             this.LimpiarFormulario();
         }
 
 
         private bool GuardarUsuario()
         {
-            var idRol = int.Parse(this.ddlRolUsuario.SelectedValue);
-            var rol = new RolUsuario
+            if (_usuarioTemp != null && username.Value != "" && password.Value != "")
             {
-                Nivel = int.Parse(this.ddlRolUsuario.SelectedValue),
-                NombreRol = this.ddlRolUsuario.SelectedItem.ToString()
-            };
-            var usuario = new Usuario
-            {
-                Nombre = fNombre.Value,
-                Apellido = fApellido.Value,
-                Nickname = username.Value,
-                Password = password.Value,
-                Email = fEmail.Value,
-                Foto = this.avatar.Src, // VER UPLOAD
-                Rol = rol
-            };
-            return Fachada.Instance.InsertarUsuario(usuario);
+                var idRol = int.Parse(this.ddlRolUsuario.SelectedValue);
+                var rol = new RolUsuario
+                {
+                    Nivel = int.Parse(this.ddlRolUsuario.SelectedValue),
+                    NombreRol = this.ddlRolUsuario.SelectedItem.ToString()
+                };
+                _usuarioTemp.Nombre = fNombre.Value;
+                _usuarioTemp.Apellido = fApellido.Value;
+                _usuarioTemp.Nickname = username.Value;
+                _usuarioTemp.Password = password.Value;
+                _usuarioTemp.Email = fEmail.Value;
+                _usuarioTemp.Rol = rol;
+
+                var stringRutaFoto = (string)Session["FotoRuta"];
+                var FotoFile = (System.Drawing.Image)Session["FotoPerfil"];
+                var stringRutaFotoDB = (string)Session["FotoRutaBase"];
+                if (string.IsNullOrEmpty(stringRutaFotoDB)) stringRutaFotoDB = "../avatars/user_silhouette.png";
+                _usuarioTemp.Foto = stringRutaFotoDB;
+
+                if (FotoFile != null && !string.IsNullOrEmpty(stringRutaFotoDB))
+                {
+                    if (File.Exists(stringRutaFoto)) File.Delete(stringRutaFoto);
+                    FotoFile.Save(stringRutaFoto);
+                }
+                
+                return Fachada.Instance.InsertarUsuario(_usuarioTemp);
+            }
+            return false;
         }
 
         protected void btn_LimpiarFormulario(object sender, EventArgs e)
@@ -109,8 +130,54 @@ namespace tamboprp
 
         protected void btn_CambiarImagen(object sender, EventArgs e)
         {
+            if (_usuarioTemp != null && this.fupFoto.HasFile)
+            {
+                try
+                {
+                    // ruta de las imagenenes de animales en el sitio
+                    string filename = this.username.Value + "_" + Path.GetFileName(fupFoto.FileName);
+                    var carpetaAvatar = "img_tamboprp/usuarios/";
 
+                    // ruta para save as en el sitio
+                    var rutaSiteAvatar = "~/" + carpetaAvatar + filename;
+                    System.Drawing.Image image = System.Drawing.Image.FromStream(fupFoto.PostedFile.InputStream);
+
+                    // creo thumbnail
+                    float imgWidth = image.PhysicalDimension.Width;
+                    float imgHeight = image.PhysicalDimension.Height;
+                    float imgSize = imgHeight > imgWidth ? imgHeight : imgWidth;
+                    float imgResize = imgSize <= 200 ? (float)1.0 : 200 / imgSize;
+                    imgWidth *= imgResize;
+                    imgHeight *= imgResize;
+                    System.Drawing.Image thumb = image.GetThumbnailImage((int)imgWidth, (int)imgHeight, delegate() { return false; }, (IntPtr)0);
+
+                    var filenamePath = Path.Combine(
+                    Server.MapPath("~/img_tamboprp/usuarios/"),
+                    string.Format("{0}{1}",
+                    Path.GetFileNameWithoutExtension(filename),
+                    Path.GetExtension(filename)
+                    )
+                    );
+
+                    _fotoPerfil = thumb;
+                    _filenamePath = filenamePath;
+                    //if (File.Exists(filenamePath)) File.Delete(filenamePath);
+                    //thumb.Save(filenamePath);
+
+                    // ruta para la base de datos
+                    var rutaDbImg = "../" + carpetaAvatar + filename;
+                    _usuarioTemp.Foto = rutaDbImg;
+
+                    HttpContext.Current.Session["FotoPerfil"] = _fotoPerfil;
+                    HttpContext.Current.Session["FotoRuta"] = _filenamePath;
+                    HttpContext.Current.Session["FotoRutaBase"] = rutaDbImg;
+                }
+                catch (Exception ex)
+                {
+                    lblStatus.Text = "El archivo no se pudo subir";
+                }
+            }
         }
-        
+
     }
 }

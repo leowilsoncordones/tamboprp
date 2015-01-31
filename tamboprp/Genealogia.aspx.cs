@@ -23,8 +23,15 @@ namespace tamboprp
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            this.SetPageBreadcrumbs();
-            this.LimpiarRegistro();
+            if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]))
+            {
+                if (!Page.IsPostBack)
+                {
+                    this.SetPageBreadcrumbs();
+                    this.LimpiarRegistro();
+                }
+            }
+            else Response.Redirect("~/Login.aspx", true);
         }
 
         protected void SetPageBreadcrumbs()
@@ -72,7 +79,7 @@ namespace tamboprp
                 //    this.lblSexo.CssClass = "badge badge-pink";
                 //}
                 if (voA.Concursos != null) this.CargarConcursosAnimal(voA.Concursos, this.gvConcursos);
-                if (voA.Fotos != null) this.CargarFotosAnimal(voA.Fotos, this.lblFotos, this.ULFotos);
+                if (voA.Fotos != null) this.CargarFotosAnimalPrincipal(voA.Fotos, this.lblFotos, this.ULFotos);
 
                 // LINEA MATERNA
                 if (voA.Madre != null)
@@ -316,6 +323,51 @@ namespace tamboprp
             }
         }
 
+
+        public void CargarFotosAnimalPrincipal(List<AnimalMapper.VOFoto> lst, Label lblTitulo, HtmlGenericControl ul)
+        {
+            if (lst != null && lst.Count > 0)
+            {
+                lblTitulo.Visible = true;
+
+                var sb = new StringBuilder();
+                // cargo list items recorriendo la lista
+                for (int i = 0 ; i < lst.Count; i++)
+                {
+                    sb.Append("<li>");
+                    var pie = "";
+                    if (lst[i].PieDeFoto != "") pie = lst[i].PieDeFoto + ". ";
+                    var titulo = pie + lst[i].Comentario;
+                    sb.Append("<a data-rel='colorbox' title='" + titulo + "' href='" + lst[i].Ruta + "' >");
+                    // la primera en grande, las demas como thumbnails
+                    if (i == 0)
+                    {
+                        sb.Append("<img src='" + lst[i].Ruta + "' /></a>");
+                    }
+                    else
+                    {
+                        sb.Append("<img src='" + lst[i].Thumb + "' /></a>");
+                    }
+                    sb.Append("</li>");
+
+                    //<li>
+                    //    <a data-rel="colorbox" title="YJ3110, Expo Prado 2013" href="img_tamboprp/animales/reg_3110_expoprado2013.jpg">
+                    //    <img src="img_tamboprp/animales/animales_thumbs/reg_3110_expoprado2013_th.png" alt="150x150" />
+                    //    <!-- optional tags here -->
+                    //    <!-- optional caption here -->
+                    //    </a>
+                    //    <!-- optional tags here -->
+                    //    <!-- optional caption here -->
+                    //    <!-- optional tools -->
+                    //</li>
+
+                }
+                ul.InnerHtml += sb.ToString();
+            }
+        }
+
+        
+
         public void CargarEstadoAnimal(VOAnimal voAnim, Label lblEstado)
         {
             if (!voAnim.Vivo)
@@ -429,6 +481,8 @@ namespace tamboprp
         protected void BuscarAnimal(string registro)
         {
             this.LimpiarRegistro();
+            this.LimpiarDdlResultadosSimilares();
+            this.regBuscar.Value = registro;
             List<VOAnimal> animals = Fachada.Instance.GetSearchAnimal(registro);
             if (animals.Count > 0)
             {
@@ -448,7 +502,7 @@ namespace tamboprp
                 if (_similares.Count > 0)
                 {
                     //this.CargarDdlListSimilares(_similares); VER ANIMALES
-                    this.BootstrapDropDownListLargeList(_similares);
+                    this.CargarDropDownListSimilares(_similares);
                 }
                 if (_animal != null)
                 {
@@ -461,72 +515,25 @@ namespace tamboprp
             }
         }
 
-        private void LimpiarDdlResultadosSimilares()
+        private void CargarDropDownListSimilares(List<VOAnimal> list)
         {
-            this.divContenedorDdl.InnerHtml = "";
-            this._similares.Clear();
+            if (list.Count > 0)
+            {
+                this.ddlSimil.Visible = true;
+                this.ddlSimil.DataSource = list;
+                this.ddlSimil.DataBind();
+                this.ddlSimil.Items.Insert(0, new ListItem("Resultados Similares", "Resultados Similares"));
+            }
         }
 
         protected void ddlSimilares_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //if (this.ddlSimilares.SelectedIndex > 0 )
-            //this.BuscarAnimal(this.ddlSimilares.SelectedValue);
-            //this.BuscarAnimal(this.ddlSimilares.SelectedItem.Value);
-            //this.BuscarAnimal(this.ddlSimilares.SelectedItem.Text);
-
-            //var btn = (LinkButton)sender;
-            //if (btn != null && btn.Text != "")
-            //{
-            //    this.BuscarAnimal(btn.Text);
-            //}
+            if (this.ddlSimil.SelectedIndex > 0)
+                this.BuscarAnimal(this.ddlSimil.SelectedValue);
         }
-
-        protected void btnSimilares_click(object sender, EventArgs e)
-        {
-            /*if (this.ddlSimilares.SelectedIndex > 0)
-                this.BuscarAnimal(this.ddlSimilares.SelectedValue);*/
-
-        }
-
-        private void BootstrapDropDownListLargeList(List<VOAnimal> list)
-        {
-            // Large button group dinámico para resultados similares
-            var sb = new StringBuilder();
-            sb.Append("<div class='btn-group btn-group-lg'>");
-            sb.Append("<button data-toggle='dropdown' class='btn btn-default btn-white dropdown-toggle' aria-expanded='false'>");
-            sb.Append("Resultados similares ");
-            sb.Append("<i class='ace-icon fa fa-angle-down icon-on-right'></i></button>");
-            sb.Append("</button>");
-            sb.Append("<ul class='dropdown-menu dropdown-info dropdown-menu-right'>");
-            // cargo list items recorriendo la lista
-            for (int i = 0; i < list.Count; i++)
-            {
-                sb.Append("<li class='btn-lg'><a id='item_" + i + "' href='#' onserverclick='ddlSimilares_SelectedIndexChanged();'>");
-                sb.Append(list[i].Registro.ToString());
-                sb.Append("</a></li>");
-            }
-            //sb.Append("<li class='divider'></li>");
-            // list items abajo de la línea divider
-            sb.Append("</ul>");
-            sb.Append("</div>");
-            this.divContenedorDdl.InnerHtml += sb.ToString();
-        }
-
-
-        //private void CargarDdlListSimilares(List<Animal> list)
-        //{
-        //    // Large button group dinámico para resultados similares
-        //    this.ddlSimilares.DataSource = list;
-        //    this.ddlSimilares.DataTextField = "Nombre";
-        //    this.ddlSimilares.DataValueField = "Nombre";
-        //    this.ddlSimilares.DataBind();
-        //}
-
 
         private void LimpiarRegistro()
         {
-            this.LimpiarDdlResultadosSimilares();
-
             // reseteo valores ficha de animal
             this.Animal.Text = "";
             this.lblNom.Visible = false;
@@ -553,9 +560,12 @@ namespace tamboprp
 
             this.gvConcursos.Visible = false;
             this.lblPremios.Visible = false;
-            
+
+            this.LimpiarDdlResultadosSimilares();
+
             // madre
             this.Madre.Text = "";
+            this.lblNomMadre.Visible = false;
             this.titFNacMadre.Visible = false;
             this.lblFNacMadre.Visible = false;
             //this.titGenMadre.Visible = false;
@@ -578,6 +588,7 @@ namespace tamboprp
 
             //padre
             this.Padre.Text = "";
+            this.lblNomPadre.Visible = false;
             this.titFNacPadre.Visible = false;
             this.lblFNacPadre.Visible = false;
             //this.titGenPadre.Visible = false;
@@ -596,6 +607,7 @@ namespace tamboprp
 
             //abuelos maternos
             this.AbuelaM.Text = "";
+            this.lblNomAbuelaM.Visible = false;
             this.titFNacAbuelaM.Visible = false;
             this.lblFNacAbuelaM.Visible = false;
             //this.titGenAbuelaM.Visible = false;
@@ -615,6 +627,7 @@ namespace tamboprp
 
 
             this.AbueloM.Text = "";
+            this.lblNomAbueloM.Visible = false;
             this.titFNacAbueloM.Visible = false;
             this.lblFNacAbueloM.Visible = false;
             //this.titGenAbueloM.Visible = false;
@@ -629,6 +642,7 @@ namespace tamboprp
  
             //abuelos paternos
             this.AbuelaP.Text = "";
+            this.lblNomAbuelaP.Visible = false;
             this.titFNacAbuelaP.Visible = false;
             this.lblFNacAbuelaP.Visible = false;
             //this.titGenAbuelaP.Visible = false;
@@ -647,6 +661,7 @@ namespace tamboprp
             this.gvLactAbuelaP.Visible = false;
 
             this.AbueloP.Text = "";
+            this.lblNomAbueloP.Visible = false;
             this.titFNacAbueloP.Visible = false;
             this.lblFNacAbueloP.Visible = false;
             //this.titGenAbueloP.Visible = false;
@@ -658,6 +673,14 @@ namespace tamboprp
             this.lblEstAbueloP.Text = "";
             this.lblEstAbueloP.Visible = false;
             this.lblCatAbueloP.Visible = false;
+        }
+
+        private void LimpiarDdlResultadosSimilares()
+        {
+            this._similares.Clear();
+            this.ddlSimil.Visible = false;
+            this.ddlSimil.DataSource = null;
+            this.ddlSimil.DataBind();
         }
 
     }

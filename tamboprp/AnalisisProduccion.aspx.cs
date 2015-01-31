@@ -12,12 +12,19 @@ namespace tamboprp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            this.SetPageBreadcrumbs();
-            this.LimpiarRegistro();
-            // cargo tabla analitica de vacas en ordeñe
-            this.CargarAnalitico();
-            // cargo datos generales
-            this.CargarDatosGenerales();
+            if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]))
+            {
+                //if (!Page.IsPostBack)
+                //{
+                    this.SetPageBreadcrumbs();
+                    this.LimpiarRegistro();
+                    // cargo tabla analitica de vacas en ordeñe
+                    this.CargarAnalitico();
+                    // cargo datos generales
+                    this.CargarDatosGenerales();
+                //}
+            }
+            else Response.Redirect("~/Login.aspx", true);
         }
 
         protected void SetPageBreadcrumbs()

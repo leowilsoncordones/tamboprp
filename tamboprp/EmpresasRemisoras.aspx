@@ -43,8 +43,9 @@
             </div>
         </div>
     </div>
+    <div class="space-6"></div>
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-8">
             <div>
                 <asp:GridView ID="gvRemisoras" runat="server" AutoGenerateColumns="False" GridLines="Both" HorizontalAlign="Left" 
                     CssClass="table table-hover table-striped table-bordered table-condensed dataTable" PagerStyle-CssClass="bs-pagination text-center"  

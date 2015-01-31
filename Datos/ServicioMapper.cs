@@ -110,7 +110,8 @@ namespace Datos
                 var serv = new Servicio();
                 serv.Registro = (DBNull.Value == dr["REGISTRO"]) ? string.Empty : (string)dr["REGISTRO"];
                 string strDate = (DBNull.Value == dr["FECHA"]) ? string.Empty : dr["FECHA"].ToString();
-                if (strDate != string.Empty) serv.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+                //if (strDate != string.Empty) serv.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+                if (strDate != string.Empty) serv.Fecha = DateTime.Parse(strDate);
                 serv.Reg_padre = (DBNull.Value == dr["REG_PADRE"]) ? string.Empty : (string)dr["REG_PADRE"];
                 short idIns = (short)((DBNull.Value == dr["INSEMINADOR"]) ? 0 : (Int16)dr["INSEMINADOR"]);
                 var emp = new Empleado {Id_empleado = idIns};
@@ -224,7 +225,8 @@ namespace Datos
             serv.Registro = (DBNull.Value == record["REGISTRO"]) ? string.Empty : (string)record["REGISTRO"];
             serv.Id_evento = (short)((DBNull.Value == record["EVENTO"]) ? 0 : (Int16)record["EVENTO"]);
             string strDate = (DBNull.Value == record["FECHA"]) ? string.Empty : record["FECHA"].ToString();
-            if (strDate != string.Empty) serv.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+            //if (strDate != string.Empty) serv.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+            if (strDate != string.Empty) serv.Fecha = DateTime.Parse(strDate);
             serv.Comentarios = (DBNull.Value == record["COMENTARIO"]) ? string.Empty : (string)record["COMENTARIO"];
             serv.Serv_monta_natural = (DBNull.Value == record["SERV_MONTA_NATURAL"]) ? ' ' : Convert.ToChar(record["SERV_MONTA_NATURAL"]);
             serv.Reg_padre = (DBNull.Value == record["REG_PADRE"]) ? string.Empty : (string)record["REG_PADRE"];
@@ -328,7 +330,8 @@ namespace Datos
             voServDiagToro.Registro = (DBNull.Value == record["REGISTRO"]) ? string.Empty : (string)record["REGISTRO"];
             string strDate = (DBNull.Value == record["FECHA_SERV"]) ? string.Empty : record["FECHA_SERV"].ToString();
             voServDiagToro.RegPadre = (DBNull.Value == record["REG_PADRE"]) ? string.Empty : (string)record["REG_PADRE"];
-            if (strDate != string.Empty) voServDiagToro.FechaServ = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+            //if (strDate != string.Empty) voServDiagToro.FechaServ = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+            if (strDate != string.Empty) voServDiagToro.FechaServ = DateTime.Parse(strDate);
             int idInseminador = (short)((DBNull.Value == record["INSEMINADOR"]) ? 0 : (Int16)record["INSEMINADOR"]);
             if (idInseminador > 0)
             {
@@ -337,7 +340,8 @@ namespace Datos
                 voServDiagToro.Inseminador = insTemp;
             }
             string strDate2 = (DBNull.Value == record["FECHA_DIAG"]) ? string.Empty : record["FECHA_DIAG"].ToString();
-            if (strDate2 != string.Empty) voServDiagToro.FechaDiag = DateTime.Parse(strDate2, new CultureInfo("fr-FR"));
+            //if (strDate2 != string.Empty) voServDiagToro.FechaDiag = DateTime.Parse(strDate2, new CultureInfo("fr-FR"));
+            if (strDate2 != string.Empty) voServDiagToro.FechaDiag = DateTime.Parse(strDate2);
             voServDiagToro.Diagnostico = (DBNull.Value == record["DIAGNOSTIC"]) ? ' ' : Convert.ToChar(record["DIAGNOSTIC"]);
             return voServDiagToro;
         }

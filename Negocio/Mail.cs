@@ -16,41 +16,57 @@ namespace Negocio
 
         public void EnviarMail(string msj, string asunto)
         {
-            string from = "lostpassword@tamboprp.uy";
-            string to = "soporte@tamboprp.uy";
-            string message = msj;
-            string Subject = asunto;
-            string servidor = "mail.tamboprp.uy";
+            try
+            {
+                string from = "soporte@tamboprp.uy";
+                string to = "soporte@tamboprp.uy";
+                string message = msj;
+                string Subject = asunto;
+                string servidor = "smtp.tamboprp.uy";
 
-            MailMessage email;
-            email = new MailMessage(from, to, Subject, message);
-            SmtpClient smtpMail = new SmtpClient(servidor);
+                MailMessage email;
+                email = new MailMessage(from, to, Subject, message);
+                SmtpClient smtpMail = new SmtpClient(servidor);
 
-            email.IsBodyHtml = false;
-            smtpMail.UseDefaultCredentials = false;
-            smtpMail.Credentials = new System.Net.NetworkCredential("soporte", "tamboprpMAILsoporte2014*/pass");
-            smtpMail.Send(email);
+                email.IsBodyHtml = false;
+                smtpMail.UseDefaultCredentials = false;
+                smtpMail.Credentials = new System.Net.NetworkCredential("soporte", "PRPsoporte2014*");
+                smtpMail.Send(email);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
 
         }
 
         public void EnviarMailHtml(string userMail, string subject, string htmlCode)
         {
-            string from = "notificaciones@tamboprp.uy";
-            string to = userMail;
-            //string servidor = "mail.tamboprp.uy";
-            string servidor = "mail.stiler.com.uy";
+            try
+            {
+                string from = "notificaciones@tamboprp.uy";
+                string bcc = "notificaciones@tamboprp.uy";
+                string to = userMail;
+                string servidor = "smtp.tamboprp.uy";
+                
+                MailMessage email;
+                email = new MailMessage(from, to);
+                email.Subject = subject + " | tamboprp";
+                email.Bcc.Add(bcc);
+                email.IsBodyHtml = true;
+                email.Body = htmlCode;
 
-            MailMessage email;
-            email = new MailMessage(from, to);
-            email.Subject = subject + " | tamboprp";
-            email.IsBodyHtml = true;
-            email.Body = htmlCode;
-
-            SmtpClient smtpMail = new SmtpClient(servidor);
-            smtpMail.UseDefaultCredentials = false;
-            smtpMail.Credentials = new System.Net.NetworkCredential("fg16630", "Lasmisiones401212");
-            smtpMail.Send(email);
-
+                SmtpClient smtpMail = new SmtpClient(servidor);
+                //smtpMail.Port = 26;
+                smtpMail.UseDefaultCredentials = false;
+                smtpMail.Credentials = new System.Net.NetworkCredential("notificaciones", "PRPnotif2014*");
+                smtpMail.Send(email); // revisar a gmail
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            
         }
 
     }

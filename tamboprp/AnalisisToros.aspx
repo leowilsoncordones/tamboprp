@@ -58,8 +58,9 @@
                             <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm"  Text=" Print" onclick="print_Click"><span><i class="fa fa-print bigger-110 grey"></i></span> Print</asp:LinkButton>
                         </div>
                     </div>
-                    <div class="col-md-8"></div>
+                    <div class="col-md-2"></div>
                 </div>
+                <div class="space-6"></div>
                 <div class="row">
                     <div class="col-md-8">
                     <asp:PlaceHolder ID="phPersonal" runat="server">
@@ -152,6 +153,7 @@
                     </div>
                     <div class="col-md-8"></div>
                 </div>
+                <div class="space-6"></div>
                 <div class="row">
                     <div class="col-md-8">
                     <asp:PlaceHolder ID="PlaceHolder1" runat="server">

@@ -57,6 +57,7 @@
                     </div>
                     <div class="col-md-6"></div>
                 </div>
+                <div class="space-6"></div>
                 <div class="row">
                     <div class="col-md-6">
                     
@@ -135,6 +136,7 @@
                     </div>
                     <div class="col-md-8"></div>
                 </div>
+                <div class="space-6"></div>
 			    <div class="row">
                     <div class="col-md-8">
                         <asp:GridView ID="gvMuertes" runat="server" AutoGenerateColumns="False" GridLines="Both" HorizontalAlign="Left" 

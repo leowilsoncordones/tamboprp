@@ -27,7 +27,6 @@
 		<ul class="nav nav-tabs" id="myTab">
 			<li class="active"><a data-toggle="tab" href="#datosGenerales"><i class="blue ace-icon fa fa-list bigger-120"></i> Datos generales </a></li>
             <li><a data-toggle="tab" href="#tablaAnalitica"><i class="blue ace-icon fa fa-plug bigger-120"></i> Análisis de ordeñe <asp:Label ID="badgeCantOrdene" runat="server" cssClass="badge badge-success"></asp:Label></a></li>
-            <li><a data-toggle="tab" href="#indicadores"><i class="blue ace-icon fa fa-sliders bigger-120"></i> Indicadores </a></li>
 		</ul>
         <!-- comienza contenido de tabbable -->
 		<div class="tab-content">
@@ -130,43 +129,7 @@
                 </div>
             </div>
             </div> <!-- fin Tabla Analitica de vacas en ordeñe -->
-            <!-- PESTANA 3: Indicadores -->
-			<div id="indicadores" class="tab-pane fade">
-			    <div class="page-header">
-			        <h1><i class="menu-icon fa fa-sliders"></i> Indicadores</h1>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="well">
-				            <h4 class="blue smaller">Indicadores productivos <asp:Label ID="Label1" runat="server" ></asp:Label></h4>
-                            <ul class="list-unstyled spaced2">
-                            <li><h5><i class="ace-icon fa fa-caret-right blue"></i>
-                                <asp:Label ID="titMesCorriente" runat="server" Text="Mes corriente: " ></asp:Label>
-                                <strong><asp:Label ID="lblMesCorriente" CssClass="text-success" runat="server" ></asp:Label></strong></h5></li>
-                            <li><h5><i class="ace-icon fa fa-caret-right blue"></i>
-                                <asp:Label ID="titMesAnt" runat="server" Text="Mes anterior: " ></asp:Label>
-                                <strong><asp:Label ID="lblMesAnt" CssClass="text-success" runat="server" ></asp:Label></strong></h5></li>
-                            <li><h5><i class="ace-icon fa fa-caret-right blue"></i>
-                                <asp:Label ID="titAcumAnioCorriente" runat="server" Text="Acumulado año corriente: " ></asp:Label>
-                                <strong><asp:Label ID="lblAcumAnioCorriente" CssClass="text-success" runat="server" ></asp:Label></strong></h5></li>
-                            <li><h5><i class="ace-icon fa fa-caret-right blue"></i>
-                                <asp:Label ID="titAcumAnioAnt" runat="server" Text="Acumulado año anterior: " ></asp:Label>
-                                <strong><asp:Label ID="lblAcumAnioAnt" CssClass="text-success" runat="server" ></asp:Label></strong></h5></li>
-                            <li><h5><i class="ace-icon fa fa-caret-right blue"></i>
-                                <asp:Label ID="titDurPromDiasSecado" runat="server" Text="Duración promedio de los dias de secado: " ></asp:Label>
-                                <strong><asp:Label ID="lblDurPromDiasSecado" CssClass="text-success" runat="server" ></asp:Label></strong></h5></li>
-                            <li><h5><i class="ace-icon fa fa-caret-right blue"></i>
-                                <asp:Label ID="titDurPromLact" runat="server" Text="Duración promedio de las lactancias: " ></asp:Label>
-                                <strong><asp:Label ID="lblDurPromLact" CssClass="text-success" runat="server" ></asp:Label></strong></h5></li>
-                            </ul>
-			            </div>
-                    </div>
-                    <div class="col-md-6">
-                    </div>
-                </div>
-                <i class="menu-icon fa fa-bar-chart-o blue"></i><asp:HyperLink ID="hypGraficasProd" NavigateUrl="GraficasProd.aspx" runat="server"> Ver gráficas de producción</asp:HyperLink>
-            </div><!-- fin Indicadores -->
-		</div>
+        </div>
 	</div> <!-- fin tabbable -->
     
 </asp:Content>

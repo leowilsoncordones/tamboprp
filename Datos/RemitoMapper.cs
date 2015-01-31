@@ -172,7 +172,8 @@ namespace Datos
         {
             var rem = new Remito();
             string strDate = (DBNull.Value == record["FECHA"]) ? string.Empty : record["FECHA"].ToString();
-            if (strDate != string.Empty) rem.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+            //if (strDate != string.Empty) rem.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+            if (strDate != string.Empty) rem.Fecha = DateTime.Parse(strDate);
             var empRem = new EmpresaRemisora();
             empRem.Id = (short)((DBNull.Value == record["EMPRESA"]) ? 0 : Int16.Parse(record["EMPRESA"].ToString()));
             rem.Empresa = empRem;

@@ -193,7 +193,8 @@ namespace Datos
             cp.Grasa = (DBNull.Value == record["GRASA"]) ? 0 : double.Parse(record["GRASA"].ToString());
             cp.Leche = (DBNull.Value == record["LECHE"]) ? 0 : double.Parse(record["LECHE"].ToString());
             string strDate = (DBNull.Value == record["FECHA"]) ? string.Empty : record["FECHA"].ToString();
-            if (strDate != string.Empty) cp.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+            //if (strDate != string.Empty) cp.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+            if (strDate != string.Empty) cp.Fecha = DateTime.Parse(strDate);
             //cp.Dias_para_control = (DBNull.Value == record["DIAS_DEL_MES"]) ? 0 : int.Parse(record["DIAS_DEL_MES"].ToString());
             cp.Dias_para_control = (short) ((DBNull.Value == record["DIAS_LACTANCIA"]) ? 0 : Int16.Parse(record["DIAS_LACTANCIA"].ToString()));
             cp.Comentarios = (DBNull.Value == record["COMENTARIO"]) ? string.Empty : (string)record["COMENTARIO"];

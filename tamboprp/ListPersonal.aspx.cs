@@ -26,11 +26,15 @@ namespace tamboprp
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack)
+            if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]))
             {
-                this.SetPageBreadcrumbs();
-                this.CargarEmpleadosActivos();
+                if (!Page.IsPostBack)
+                {
+                    this.SetPageBreadcrumbs();
+                    this.CargarEmpleadosActivos();
+                }
             }
+            else Response.Redirect("~/Login.aspx", true);
         }
 
         protected void SetPageBreadcrumbs()
@@ -128,7 +132,7 @@ namespace tamboprp
             PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
             pdfDoc.Open();
             pdfDoc.Add(new Paragraph(40f,"Lista de Empleados", new Font(Font.FontFamily.HELVETICA, 14f)));
-            var pathLogo = "http://localhost/img_tamboprp/corporativo/logojpeg.jpg";
+            var pathLogo = "http://www.tamboprp.uy/img_tamboprp/corporativo/logojpeg.jpg";
             pdfDoc.Add(new Chunk(new Jpeg(new Uri(pathLogo)), 300f, -10f));
             htmlparser.Parse(sr);
             pdfDoc.Close();

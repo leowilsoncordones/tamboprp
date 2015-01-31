@@ -35,15 +35,16 @@
         <h1><i class="menu-icon fa fa-stethoscope"></i> Lista de enfermedades</h1>
     </div>
     <div class="row">
-            <div class="col-md-4">
-                <div class="pull-right">
-                    <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm" Text=" Excel" onclick="excelExport_Click"><span><i class="fa fa-file-excel-o bigger-110 green"></i></span> Excel</asp:LinkButton>
-                    <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm"  Text=" PDF" onclick="pdfExport_Click"><span><i class="fa fa-file-pdf-o bigger-110 red"></i></span> PDF</asp:LinkButton>
-                    <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm"  Text=" Print" onclick="print_Click"><span><i class="fa fa-print bigger-110 grey"></i></span> Print</asp:LinkButton>
-                </div>
+        <div class="col-md-4">
+            <div class="pull-right">
+                <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm" Text=" Excel" onclick="excelExport_Click"><span><i class="fa fa-file-excel-o bigger-110 green"></i></span> Excel</asp:LinkButton>
+                <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm"  Text=" PDF" onclick="pdfExport_Click"><span><i class="fa fa-file-pdf-o bigger-110 red"></i></span> PDF</asp:LinkButton>
+                <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm"  Text=" Print" onclick="print_Click"><span><i class="fa fa-print bigger-110 grey"></i></span> Print</asp:LinkButton>
             </div>
-            <div class="col-md-4"></div>
         </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4"></div>
+    </div>
     <div class="row">
         <div class="col-md-4">
             <div>
@@ -70,20 +71,19 @@
         <div class="col-md-4"></div>
         
         <!-- RESUMEN EN COLUMNA DERECHA -->
-            <div class="col-md-4">
-                <div class="well">
-                    <h4 class="header smaller lighter blue"><i class="menu-icon fa fa-paperclip"></i> Tabla de enfermedades</h4>
-                    <ul class="list-unstyled spaced2">
-                        <li class="bigger-110">
-                            <a href="#newModal" role="button" id="id-btn-save" class="btn btn-white btn-default btn-sm" data-toggle="modal"><i class="ace-icon fa fa-pencil"></i> Agregar enfermedad</a>
-                        </li>
-                    </ul>
-                    <hr/>
-                    <asp:Label ID="lblStatus" runat="server" Text=""></asp:Label>
-				</div>
-            </div>
-        
-    </div>
+        <div class="col-md-4">
+            <div class="well">
+                <h4 class="header smaller lighter blue"><i class="menu-icon fa fa-paperclip"></i> Tabla de enfermedades</h4>
+                <ul class="list-unstyled spaced2">
+                    <li class="bigger-110">
+                        <a href="#newModal" role="button" id="id-btn-save" class="btn btn-white btn-default btn-sm" data-toggle="modal"><i class="ace-icon fa fa-pencil"></i> Agregar enfermedad</a>
+                    </li>
+                </ul>
+                <hr/>
+                <asp:Label ID="lblStatus" runat="server" Text=""></asp:Label>
+			</div>
+        </div>
+   </div>
     
     
     <!-- NUEVA ENFERMEDAD MODAL -->

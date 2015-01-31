@@ -31,13 +31,13 @@ namespace tamboprp {
         protected global::System.Web.UI.HtmlControls.HtmlInputText regBuscar;
         
         /// <summary>
-        /// divContenedorDdl control.
+        /// ddlSimil control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divContenedorDdl;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSimil;
         
         /// <summary>
         /// panelFicha control.
@@ -688,6 +688,15 @@ namespace tamboprp {
         protected global::System.Web.UI.WebControls.Label lblFooterPanel;
         
         /// <summary>
+        /// lblStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblStatus;
+        
+        /// <summary>
         /// lblRegistroModal control.
         /// </summary>
         /// <remarks>
@@ -713,6 +722,51 @@ namespace tamboprp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl ULFotos;
+        
+        /// <summary>
+        /// lblRegistroModalSubirFoto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRegistroModalSubirFoto;
+        
+        /// <summary>
+        /// fupFoto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fupFoto;
+        
+        /// <summary>
+        /// fPie control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText fPie;
+        
+        /// <summary>
+        /// fComentario control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea fComentario;
+        
+        /// <summary>
+        /// btnFotoUpload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnFotoUpload;
         
         /// <summary>
         /// lblRegistroModalModificar control.
@@ -757,7 +811,7 @@ namespace tamboprp {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl fOrigen;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText fOrigen;
         
         /// <summary>
         /// btnModificar control.

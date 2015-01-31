@@ -10,13 +10,13 @@
     </div>
   <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true" />  
 
-    
+    <!-- LECHE -->
    <div class="row">
        <h4 class="widget-title blue lighter">Leche <asp:Label ID="Label1" runat="server" ></asp:Label></h4>
-        <div class="col-md-9" id="graficaLeche"></div>
-        <div class="col-md-3">
+        <div class="col-md-8" id="graficaLeche"></div>
+        <div class="col-md-4">
             <div class="well">
-                <h4 class="header smaller lighter blue"><i class="menu-icon fa fa-paperclip"></i>Fechas</h4>
+                <h4 class="header smaller lighter blue"><i class="menu-icon fa fa-paperclip"></i> Fechas</h4>
                 <div class="row">
                     <div class="input-group">
                         <span class="input-group-btn">
@@ -44,16 +44,18 @@
    </div>
     
     <hr/>
+    <!-- GRASA -->
    <div class="row">
         <h4 class="widget-title blue lighter">Grasa <asp:Label ID="Label2" runat="server" ></asp:Label></h4>
-        <div class="col-md-9" id="graficaGrasa"></div>
-        <div class="col-md-3"></div>
+        <div class="col-md-8" id="graficaGrasa"></div>
+        <div class="col-md-4"></div>
    </div>
     <hr/>
+    <!-- PORCENTAJE DE GRASA -->
    <div class="row">
-        <h4 class="widget-title blue lighter">Porcentaje de Grasa <asp:Label ID="Label3" runat="server" ></asp:Label></h4>
-        <div class="col-md-9" id="graficaPorcGrasa"></div>
-        <div class="col-md-3"></div>
+        <h4 class="widget-title blue lighter"> <asp:Label ID="Label3" runat="server" ></asp:Label></h4>
+        <div class="col-md-8" id="graficaPorcGrasa"></div>
+        <div class="col-md-4"></div>
    </div>
 
     <br/>

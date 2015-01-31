@@ -35,15 +35,16 @@
         <h1><i class="menu-icon fa fa-trophy"></i> Concursos <small><i class="ace-icon fa fa-angle-double-right"></i> de nuestros animales en exposiciones</small> </h1>
     </div>
     <div class="row">
-            <div class="col-md-8">
-                <div class="pull-right">
-                    <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm" Text=" Excel" onclick="excelExport_Click"><span><i class="fa fa-file-excel-o bigger-110 green"></i></span> Excel</asp:LinkButton>
-                    <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm"  Text=" PDF" onclick="pdfExport_Click"><span><i class="fa fa-file-pdf-o bigger-110 red"></i></span> PDF</asp:LinkButton>
-                    <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm"  Text=" Print" onclick="print_Click"><span><i class="fa fa-print bigger-110 grey"></i></span> Print</asp:LinkButton>
-                </div>
+        <div class="col-md-8">
+            <div class="pull-right">
+                <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm" Text=" Excel" onclick="excelExport_Click"><span><i class="fa fa-file-excel-o bigger-110 green"></i></span> Excel</asp:LinkButton>
+                <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm"  Text=" PDF" onclick="pdfExport_Click"><span><i class="fa fa-file-pdf-o bigger-110 red"></i></span> PDF</asp:LinkButton>
+                <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm"  Text=" Print" onclick="print_Click"><span><i class="fa fa-print bigger-110 grey"></i></span> Print</asp:LinkButton>
             </div>
-            <div class="col-md-8"></div>
         </div>
+        <div class="col-md-4"></div>
+    </div>
+    <div class="space-6"></div>
     <div class="row">
         <div class="col-md-8">
             <div>       
@@ -53,8 +54,9 @@
                 <RowStyle HorizontalAlign="Left"  />
                 <Columns>
                     <asp:BoundField DataField="Fecha" HeaderText="Fecha" dataformatstring="{0:dd/MM/yyyy}" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
-                    <asp:BoundField DataField="NombreLugarConcurso" HeaderText="Nombre y Lugar" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
                     <asp:BoundField DataField="Registro" HeaderText="Registro" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                    <asp:BoundField DataField="NombreYLugarDeConcurso" HeaderText="Expo" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                    <asp:BoundField DataField="CategConcurso" HeaderText="Categoría" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
                     <asp:BoundField DataField="ElPremio" HeaderText="Premio" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
                 </Columns>
                 <FooterStyle />
@@ -70,6 +72,8 @@
         </div>
         <div class="col-md-4">
             <!-- Comienzo DDL Datepicker -->
+            <div class="well">
+                <h4 class="header smaller lighter blue"><i class="menu-icon fa fa-paperclip"></i> Fechas</h4>
                 <div class="row">
                     <div class="input-group">
                     <span class="input-group-btn">
@@ -78,7 +82,7 @@
                     <asp:DropDownList ID="ddlFechas" cssClass="form-control" runat="server"  AutoPostBack="False"></asp:DropDownList>
                     </div> 
                 </div>
-                <div class="row"></div>
+                <div class="space-6"></div>
                 <div class="row">                   
                     <asp:Panel ID="panel01" runat="server" CssClass="input-group">
                         <h5 class="header smaller lighter blue">Entre dos fechas</h5> 
@@ -101,7 +105,8 @@
                             </div>
                     </asp:Panel>
                 </div>
-                    <!-- Fin DDL Datepicker --> 
+             </div> 
+             <!-- Fin DDL Datepicker --> 
         </div>
     </div>
     

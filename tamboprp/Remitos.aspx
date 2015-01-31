@@ -28,19 +28,18 @@
                         <asp:Label ID="lblTituloListado" Text="" runat="server" ></asp:Label>
 					</h4> 
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="pull-right">
                             <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm" Text=" Excel" onclick="excelExport_Click"><span><i class="fa fa-file-excel-o bigger-110 green"></i></span> Excel</asp:LinkButton>
                             <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm"  Text=" PDF" onclick="pdfExport_Click"><span><i class="fa fa-file-pdf-o bigger-110 red"></i></span> PDF</asp:LinkButton>
                             <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm"  Text=" Print" onclick="print_Click"><span><i class="fa fa-print bigger-110 grey"></i></span> Print</asp:LinkButton>
                         </div>
                     </div>
-                    <div class="col-md-3"></div>
+                    <div class="col-md-4"></div>
                 </div>
                 <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-8">
 					
-
                     <!-- GRIDVIEW -->
                     <asp:GridView ID="gvRemitos" runat="server" AutoGenerateColumns="False" GridLines="Both" HorizontalAlign="Left" 
                             CssClass="table table-hover table-striped table-bordered table-condensed dataTable" >
@@ -63,7 +62,7 @@
                         <AlternatingRowStyle />
                     </asp:GridView>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <!-- Comienzo DDL Datepicker -->
                         <div class="row">
                            <div class="input-group">
@@ -100,67 +99,58 @@
                 <h4 class="smaller">
                         <asp:Label ID="titGrafica" Text="Empresa: " runat="server" ></asp:Label>
                         <asp:Label ID="lblTituloGrafica" Text="" runat="server" ></asp:Label>
-                    </h4>
+                </h4>
 			    <div class="row">
 					<!-- GRAFICA -->
-                    
-                    <div class="col-md-9" id="grafRemitos"></div>
-                    <div class="col-md-3">
+                    <div class="col-md-8" id="grafRemitos">
+                        
+                    </div>
+                    <div class="col-md-4">
                         <div class="well">
-                        <h4 class="header smaller lighter blue"><i class="menu-icon fa fa-paperclip"></i>Fechas</h4>
-                        <div class="row">
-                            <div class="input-group">
-                                <span class="input-group-btn">
-                                    <asp:Button ID="btnListar" runat="server" Text="Mostrar" onclick="btnListar_Click" CssClass="btn btn-white btn-default" />
-                                </span>
-                                <asp:DropDownList ID="ddlFechasGraf" cssClass="form-control" runat="server"  AutoPostBack="False"></asp:DropDownList>
-                            </div>
+                        <h4 class="header smaller lighter blue"><i class="menu-icon fa fa-paperclip"></i> Fechas</h4>
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <asp:Button ID="btnListar" runat="server" Text="Mostrar" onclick="btnListar_Click" CssClass="btn btn-white btn-default" />
+                            </span>
+                            <asp:DropDownList ID="ddlFechasGraf" cssClass="form-control" runat="server"  AutoPostBack="False"></asp:DropDownList>
                         </div>
                         <hr/>
-                        <div class="row">
-                    
-                            <asp:Panel ID="pnlFechasGraf" runat="server" class="input-group">
-                                <h5 class="header smaller lighter blue">Entre dos fechas</h5> 
-                                <div class="input-group">                 
-                                <span class="input-group-btn">                   
-                                <input type="button" onclick="cargarGraficas(document.getElementById('fechasGraficas').value)" value="Mostrar" class="btn btn-white btn-default"/>
-                                </span>
-                                <input type="text" id="fechasGraficas" placeholder="Fechas" class="form-control"/>  
-                                    </div>                			                         
-                            </asp:Panel>                   
-                        </div> 
+                        <asp:Panel ID="pnlFechasGraf" runat="server" class="input-group">
+                            <h5 class="header smaller lighter blue">Entre dos fechas</h5> 
+                            <div class="input-group">                 
+                            <span class="input-group-btn">                   
+                            <input type="button" onclick="cargarGraficas(document.getElementById('fechasGraficas').value)" value="Mostrar" class="btn btn-white btn-default"/>
+                            </span>
+                            <input type="text" id="fechasGraficas" placeholder="Fechas" class="form-control"/>  
+                                </div>                			                         
+                        </asp:Panel>                   
                         </div> 
                     </div>
                   </div>
                     
-
-                    
-                
             </div> <!-- fin GRAFICA de remitos -->
 		</div>
 	</div> <!-- fin tabbable -->
     
     <script src="js/ace-extra.js" ></script>
-            <script src="js/date-time/moment.js"></script>
-            <script src="js/date-time/daterangepicker.js"></script>
+    <script src="js/date-time/moment.js"></script>
+    <script src="js/date-time/daterangepicker.js"></script>
 
     <link href="css/daterangepicker.css" rel="stylesheet" />
-                    <link href="css/bootstrap.css" rel="stylesheet" />
-                    <link href="css/font-awesome.css" rel="stylesheet" />
-                    <link href="css/ace-fonts.css" rel="stylesheet" />
-                    <link href="css/chosen.css" rel="stylesheet" />
-                    <link href="css/ui.jqgrid.css" rel="stylesheet" />
-                    <link href="css/ace.css" rel="stylesheet" />
-                    <link href="css/ace-part2.css" rel="stylesheet" />
-                    <link href="css/ace-skins.css" rel="stylesheet" />
-                    <link href="css/ace-rtl.css" rel="stylesheet" />
-                    <link href="css/ace-ie.css" rel="stylesheet" />
-                    
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <link href="css/font-awesome.css" rel="stylesheet" />
+    <link href="css/ace-fonts.css" rel="stylesheet" />
+    <link href="css/chosen.css" rel="stylesheet" />
+    <link href="css/ui.jqgrid.css" rel="stylesheet" />
+    <link href="css/ace.css" rel="stylesheet" />
+    <link href="css/ace-part2.css" rel="stylesheet" />
+    <link href="css/ace-skins.css" rel="stylesheet" />
+    <link href="css/ace-rtl.css" rel="stylesheet" />
+    <link href="css/ace-ie.css" rel="stylesheet" />
                     
                     
     <script type="text/javascript">
-
-
+        
         $("#fechasGraficas").daterangepicker({
             locale: {
                 applyLabel: 'Confirma',
@@ -204,7 +194,7 @@
         }
 
         var grafRemitos = $('#grafRemitos').css({
-            'height': '360px', 'width' : '750px' //tengo que ponerle el ancho porque queda de 83px ¿?
+            'height': '360px', 'width' : '680px' //tengo que ponerle el ancho porque queda de 83px ¿?
         });
         function imprimir(totalLeche) {
 
@@ -222,7 +212,7 @@
                 xaxis: {
                     tickLength: 0,
                     mode: "time",
-                    timeformat: "%Y/%m",
+                    timeformat: "%m/%Y",
                     tickSize: [tick, "month"]
                 },
                 yaxis: {
@@ -262,19 +252,19 @@
         }
 
 
-                    </script>
+        </script>
             
-            <script src="js/html5shiv.js"></script>
-            <script src="js/respond.js"></script>
-            <script src="js/jquery.js"></script>
-            <script src="js/jquery1x.js"></script>
-            <script src="js/bootstrap.js"></script>
-            <script src="js/excanvas.js"></script>
-            <script src="js/flot/jquery.flot.js"></script>
-            <script src="/js/flot/jquery.flot.time.js"></script>
-            <script src="/js/flot/jquery.flot.symbol.js"></script>
-            <script src="/js/flot/jquery.flot.axislabels.js"></script>
-            <script src="/js/flot/jshashtable-3.0.js"></script>
-            <script src="/js/flot/jquery.flot.tooltip.js"></script>
+        <script src="js/html5shiv.js"></script>
+        <script src="js/respond.js"></script>
+        <script src="js/jquery.js"></script>
+        <script src="js/jquery1x.js"></script>
+        <script src="js/bootstrap.js"></script>
+        <script src="js/excanvas.js"></script>
+        <script src="js/flot/jquery.flot.js"></script>
+        <script src="/js/flot/jquery.flot.time.js"></script>
+        <script src="/js/flot/jquery.flot.symbol.js"></script>
+        <script src="/js/flot/jquery.flot.axislabels.js"></script>
+        <script src="/js/flot/jshashtable-3.0.js"></script>
+        <script src="/js/flot/jquery.flot.tooltip.js"></script>
 
 </asp:Content>

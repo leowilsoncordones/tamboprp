@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity.Core.Metadata.Edm;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Reflection;
@@ -20,11 +21,15 @@ namespace tamboprp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack)
+            if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]))
             {
-                this.SetPageBreadcrumbs();
-                this.CargarMiPerfilUsuario();
+                if (!Page.IsPostBack)
+                {
+                    this.SetPageBreadcrumbs();
+                    this.CargarMiPerfilUsuario();
+                }
             }
+            else Response.Redirect("~/Login.aspx", true);
         }
 
         protected void SetPageBreadcrumbs()
@@ -105,10 +110,10 @@ namespace tamboprp
             }
         }
 
-        protected void btn_CambiarImagen(object sender, EventArgs e)
-        {
+        //protected void btn_CambiarImagen(object sender, EventArgs e)
+        //{
 
-        }
+        //}
 
         protected void btn_ResetearPassword(object sender, EventArgs e)
         {
@@ -143,5 +148,63 @@ namespace tamboprp
             }
             return false;
         }
+
+        
+        protected void btn_CambiarImagen(object sender, EventArgs e)
+        {
+            var u = (VOUsuario)Session["Usuario"];
+            if (this.fupFoto.HasFile && u != null)
+            {
+                try
+                {
+                    // ruta de las imagenenes de animales en el sitio
+                    string filename = u.Nickname + "_" + Path.GetFileName(fupFoto.FileName);
+                    var carpetaAvatar = "img_tamboprp/usuarios/";
+
+                    // ruta para save as en el sitio
+                    System.Drawing.Image image = System.Drawing.Image.FromStream(fupFoto.PostedFile.InputStream);
+
+                    // resize
+                    float imgWidth = image.PhysicalDimension.Width;
+                    float imgHeight = image.PhysicalDimension.Height;
+                    float imgSize = imgHeight > imgWidth ? imgHeight : imgWidth;
+                    float imgResize = imgSize <= 200 ? (float) 1.0 : 200/imgSize;
+                    imgWidth *= imgResize;
+                    imgHeight *= imgResize;
+                    System.Drawing.Image thumb = image.GetThumbnailImage((int) imgWidth, (int) imgHeight, delegate() { return false; }, (IntPtr) 0);
+
+                    var filenamePath = Path.Combine(
+                    Server.MapPath("~/img_tamboprp/usuarios/"),
+                    string.Format("{0}{1}",
+                    Path.GetFileNameWithoutExtension(filename),
+                    Path.GetExtension(filename)
+                    )
+                    );
+
+                    if (File.Exists(filenamePath)) File.Delete(filenamePath);
+                    thumb.Save(filenamePath);
+
+                    // ruta para la base de datos
+                    var rutaDbImg = "../" + carpetaAvatar + filename;
+                    var user = new Usuario();
+                    user.Nickname = u.Nickname;
+                    user.Foto = rutaDbImg;
+                    if (Fachada.Instance.SubirFotoPerfilUsuario(user))
+                    {
+                        u.Foto = user.Foto;
+                        lblStatus.Text = "Archivo subido";
+                        this.CargarMiPerfilUsuario();
+                    }
+                    
+                }
+                catch (Exception ex)
+                {
+                    lblStatus.Text = "El archivo no se pudo subir";
+                }
+            }
+        }
+
+         
+         
     }
 }

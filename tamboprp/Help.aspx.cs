@@ -17,11 +17,15 @@ namespace tamboprp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            this.SetPageBreadcrumbs();
-            this.CargarFaqs();
-            this.CargarDdlTipoProblema();
-            //this.LimpiarFormulario();
-            this.PreCargarFormulario();
+            if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]))
+            {
+                this.SetPageBreadcrumbs();
+                this.CargarFaqs();
+                this.CargarDdlTipoProblema();
+                //this.LimpiarFormulario();
+                this.PreCargarFormulario();
+            }
+            else Response.Redirect("~/Login.aspx", true);
         }
 
         protected void SetPageBreadcrumbs()

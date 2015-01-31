@@ -26,11 +26,15 @@ namespace tamboprp
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack)
+            if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]))
             {
-                this.SetPageBreadcrumbs();
-                cargarGrilla();
+                if (!Page.IsPostBack)
+                {
+                    this.SetPageBreadcrumbs();
+                    cargarGrilla();
+                }
             }
+            else Response.Redirect("~/Login.aspx", true);
         }
 
         protected void SetPageBreadcrumbs()
@@ -126,7 +130,7 @@ namespace tamboprp
             PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
             pdfDoc.Open();
             pdfDoc.Add(new Paragraph(40f, "Servicios sin diagnóstico de preñez", new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 14f)));
-            var pathLogo = ConfigurationManager.AppSettings["logoTamboprpJpg"];
+            var pathLogo = "http://www.tamboprp.uy/img_tamboprp/corporativo/logojpeg.jpg";
             //pdfDoc.Add(new Chunk(new Jpeg(new Uri("D:/ORT laptop/2014-S5-Proyecto/tamboprp-git/tamboprp/img_tamboprp/corporativo/logojpeg.jpg")),300f,-10f));
             pdfDoc.Add(new Chunk(new Jpeg(new Uri(pathLogo)), 300f, -10f));
             htmlparser.Parse(sr);

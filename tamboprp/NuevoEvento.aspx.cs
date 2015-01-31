@@ -21,23 +21,25 @@ namespace tamboprp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack)
+            if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]))
             {
-                this.SetPageBreadcrumbs();
-                this.CargarDdlTipoEvento();
-                this.CargarDdlCalificacionLetras();
-                this.CargarDdlDiagnostico();
-                this.CargarDdlMotivoSecado();
-                this.CargarDdlCategConcurso();
-                this.CargarDdlNomConcurso();
-                this.LimpiarFormulario();
-                this.PrepararFormulario();
-                //this.OcultarInputs();
-                this.lblRegistro.Visible = false;
-
+                if (!Page.IsPostBack)
+                {
+                    this.SetPageBreadcrumbs();
+                    this.CargarDdlTipoEvento();
+                    this.CargarDdlCalificacionLetras();
+                    this.CargarDdlDiagnostico();
+                    this.CargarDdlMotivoSecado();
+                    this.CargarDdlCategConcurso();
+                    this.CargarDdlNomConcurso();
+                    this.LimpiarFormulario();
+                    this.PrepararFormulario();
+                    //this.OcultarInputs();
+                    this.lblRegistro.Visible = false;
+                }
+                if (this.ddlEvento.SelectedIndex != 13) CargarListaRegistrosParaTypeahead(int.Parse(this.ddlEvento.SelectedValue));
             }
-           if(this.ddlEvento.SelectedIndex != 13) CargarListaRegistrosParaTypeahead(int.Parse(this.ddlEvento.SelectedValue));
-            
+            else Response.Redirect("~/Login.aspx", true);
         }
 
         private static string _dato="";

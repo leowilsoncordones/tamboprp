@@ -62,9 +62,11 @@
                     <input type="text" class="form-control" runat="server" id="regBuscar" placeholder="Registro"/>
                 </div>
             </div>
-            <div class="col-md-4" id="divContenedorDdl" runat="server" >
+            <div class="col-md-4 btn-group btn-group-lg">
+                <asp:DropDownList ID="ddlSimil" runat="server" style="height:46px;" CssClass="btn btn-white btn-default btn-lg col-sm-9 dropdown-toggle" OnSelectedIndexChanged="ddlSimilares_SelectedIndexChanged" AutoPostBack="True" ></asp:DropDownList>
             </div>
             <div class="col-md-4">
+                
             </div>
         </div>
         <br/>

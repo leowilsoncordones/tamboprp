@@ -179,7 +179,8 @@ namespace Datos
             var diagp = new Diag_Prenez();
             diagp.Id_evento = (short)((DBNull.Value == record["EVENTO"]) ? 0 : (Int16)record["EVENTO"]);
             string strDate = (DBNull.Value == record["FECHA"]) ? string.Empty : record["FECHA"].ToString();
-            if (strDate != string.Empty) diagp.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+            //if (strDate != string.Empty) diagp.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+            if (strDate != string.Empty) diagp.Fecha = DateTime.Parse(strDate);
             diagp.Comentarios = (DBNull.Value == record["COMENTARIO"]) ? string.Empty : (string)record["COMENTARIO"];
             diagp.Diagnostico = (DBNull.Value == record["DIAGNOSTIC"]) ? ' ' : Convert.ToChar(record["DIAGNOSTIC"]);
             return diagp;
@@ -259,10 +260,12 @@ namespace Datos
             var diagVo = new VODiagnostico();
             diagVo.Registro = (DBNull.Value == record["REGISTRO"]) ? string.Empty : (string)record["REGISTRO"];
             string strDateS = (DBNull.Value == record["FECHA_SERV"]) ? string.Empty : record["FECHA_SERV"].ToString();
-            if (strDateS != string.Empty) diagVo.FechaServicio = DateTime.Parse(strDateS, new CultureInfo("fr-FR"));
+            //if (strDateS != string.Empty) diagVo.FechaServicio = DateTime.Parse(strDateS, new CultureInfo("fr-FR"));
+            if (strDateS != string.Empty) diagVo.FechaServicio = DateTime.Parse(strDateS);
             diagVo.RegistroPadre = (DBNull.Value == record["REG_PADRE"]) ? string.Empty : (string)record["REG_PADRE"];
             string strDateD = (DBNull.Value == record["FECHA_DIAG"]) ? string.Empty : record["FECHA_DIAG"].ToString();
-            if (strDateD != string.Empty) diagVo.FechaDiagnostico = DateTime.Parse(strDateD, new CultureInfo("fr-FR"));
+            //if (strDateD != string.Empty) diagVo.FechaDiagnostico = DateTime.Parse(strDateD, new CultureInfo("fr-FR"));
+            if (strDateD != string.Empty) diagVo.FechaDiagnostico = DateTime.Parse(strDateD);
             diagVo.Diagnostico = (DBNull.Value == record["DIAGNOSTIC"]) ? ' ' : Convert.ToChar(record["DIAGNOSTIC"]);
             diagVo.Comentario = (DBNull.Value == record["COMENTARIO"]) ? string.Empty : (string)record["COMENTARIO"];
             diagVo.IdInseminador = (short)((DBNull.Value == record["INSEMINADOR"]) ? 0 : (Int16)record["INSEMINADOR"]);
@@ -275,10 +278,12 @@ namespace Datos
             var diagVo = new VODiagnostico();
             diagVo.Registro = (DBNull.Value == record["REGISTRO"]) ? string.Empty : (string)record["REGISTRO"];
             string strDateS = (DBNull.Value == record["FECHA_SERV"]) ? string.Empty : record["FECHA_SERV"].ToString();
-            if (strDateS != string.Empty) diagVo.FechaServicio = DateTime.Parse(strDateS, new CultureInfo("fr-FR"));
+            //if (strDateS != string.Empty) diagVo.FechaServicio = DateTime.Parse(strDateS, new CultureInfo("fr-FR"));
+            if (strDateS != string.Empty) diagVo.FechaServicio = DateTime.Parse(strDateS);
             diagVo.RegistroPadre = (DBNull.Value == record["REG_PADRE"]) ? string.Empty : (string)record["REG_PADRE"];
             string strDateD = (DBNull.Value == record["FECHA_DIAG"]) ? string.Empty : record["FECHA_DIAG"].ToString();
-            if (strDateD != string.Empty) diagVo.FechaDiagnostico = DateTime.Parse(strDateD, new CultureInfo("fr-FR"));
+            //if (strDateD != string.Empty) diagVo.FechaDiagnostico = DateTime.Parse(strDateD, new CultureInfo("fr-FR"));
+            if (strDateD != string.Empty) diagVo.FechaDiagnostico = DateTime.Parse(strDateD);
             diagVo.Diagnostico = (DBNull.Value == record["DIAGNOSTIC"]) ? ' ' : Convert.ToChar(record["DIAGNOSTIC"]);
             diagVo.Comentario = (DBNull.Value == record["COMENTARIO"]) ? string.Empty : (string)record["COMENTARIO"];
             diagVo.IdInseminador = (short)((DBNull.Value == record["INSEMINADOR"]) ? 0 : (Int16)record["INSEMINADOR"]);
@@ -357,7 +362,8 @@ namespace Datos
         {
             var fecha = new DateTime();
             string strDateS = (DBNull.Value == record["FECHA"]) ? string.Empty : record["FECHA"].ToString();
-            if (strDateS != string.Empty) fecha = DateTime.Parse(strDateS, new CultureInfo("fr-FR"));
+            //if (strDateS != string.Empty) fecha = DateTime.Parse(strDateS, new CultureInfo("fr-FR"));
+            if (strDateS != string.Empty) fecha = DateTime.Parse(strDateS);
             return fecha;
         }
 

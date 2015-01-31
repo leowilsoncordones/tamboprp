@@ -70,11 +70,23 @@ namespace tamboprp
 
         protected void btn_MeOlvidePassword(object sender, EventArgs e)
         {
-            var fecha = new DateTime();
-            var fechaStr = fecha.ToShortDateString() + " " + fecha.ToShortTimeString();
-            var msj = fechaStr + " " + this.fNombre + " " + this.fApellido + " (" + fUsuario2 + ") " + this.fEmail;
+            var fecha = DateTime.Now;
+            var fechaStr = fecha.ToShortDateString() + ", " + fecha.ToShortTimeString();
+            var user = this.fNombre.Value + " " + this.fApellido.Value + " (" + this.fUsuario2.Value + ") " + this.fEmail.Value;
+            
+            var sb = new StringBuilder();
+            sb.Append("Fecha y Hora: " + fechaStr + Environment.NewLine);
+            sb.Append("Usuario: " + user + Environment.NewLine);
             var asunto = "Me olvide de la password";
-            Fachada.Instance.EnviarMail(msj, asunto);
+            
+            Fachada.Instance.EnviarMail(sb.ToString(), asunto);
+
+            this.fApellido.Value = "";
+            this.fContrasena.Value = "";
+            this.fEmail.Value = "";
+            this.fNombre.Value = "";
+            this.fUsuario.Value = "";
+            this.fUsuario2.Value = "";
         }
 
     }

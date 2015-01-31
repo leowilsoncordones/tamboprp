@@ -809,16 +809,30 @@ namespace Negocio
             return lst;
         }
 
-        public List<Concurso> GetConcursosby2fechas(string fecha1, string fecha2)
+        public List<VOConcurso> GetConcursosby2fechas(string fecha1, string fecha2)
         {
+            var lstCategConc = this.GetCategoriasConcurso();
+            var lstResult = new List<VOConcurso>();
             var concMap = new ConcursoMapper();
             var lst = concMap.Getby2fechas(fecha1, fecha2);
             foreach (Concurso conc in lst)
             {
                 int id = conc.NombreLugarConcurso.Id;
-                conc.NombreLugarConcurso = Fachada.Instance.GetConcursoById(id);
+                conc.NombreLugarConcurso = this.GetConcursoById(id);
+                CategoriaConcurso laCat = lstCategConc.FirstOrDefault(c => c.Id_categ == conc.Categoria.Id_categ);
+                if (laCat != null) conc.Categoria.Nombre = laCat.Nombre;
+                var voConc = new VOConcurso();
+                voConc.Fecha = conc.Fecha.ToShortDateString();
+                voConc.CategConcurso = conc.Categoria.Nombre;
+                voConc.Comentarios = conc.Comentarios;
+                voConc.ElPremio = conc.ElPremio;
+                voConc.Lugar = conc.NombreLugarConcurso.Lugar;
+                voConc.Registro = conc.Registro;
+                voConc.NombreExpo = conc.NombreLugarConcurso.NombreExpo;
+                voConc.NombreYLugarDeConcurso = conc.NombreLugarConcurso.ToString();
+                lstResult.Add(voConc);
             }
-            return lst;
+            return lstResult;
         }
 
         public LugarConcurso GetConcursoById(int id)
@@ -963,7 +977,11 @@ namespace Negocio
             return voAnim;
         }
 
-
+        public List<AnimalMapper.VOFoto> GetFotosAnimal(string registro)
+        {
+            return _animalMapper.GetFotosByRegistro(registro);
+        }
+        
         public double[] ControlTotalLecheGetAll()
         {
             var controlTotal = new Controles_totalesMapper();
@@ -1695,7 +1713,8 @@ namespace Negocio
             alertLact80.Link = "../LactanciasSinServ80.aspx";
             alertLact80.LinkAlt = "Animales con más de 80 días en lactancia sin servicio";
             alertLact80.Icono = "fa-bell-o";
-            var cant80 = this.GetLactanciasSinServicio80().Count;
+            //var cant80 = this.GetLactanciasSinServicio80().Count;
+            var cant80 = 665;
             alertLact80.Valor = cant80.ToString();
             alertLact80.Status = "success";
             if (cant80 == 0)
@@ -2166,18 +2185,30 @@ namespace Negocio
             return lstResult;
         }
 
-        public List<Concurso> GetConcursosByRegistro(string reg)
+        public List<VOConcurso> GetConcursosByRegistro(string reg)
         {
+            var lstCategConc = this.GetCategoriasConcurso();
             var concMap = new ConcursoMapper();
-            List<Concurso> listaConc = new List<Concurso>();
+            var listaConc = new List<VOConcurso>();
             var listTemp = concMap.GetConcursosByRegistro(reg);
             foreach (Evento e in listTemp)
             {
-                Concurso conc = new Concurso();
+                var conc = new Concurso();
                 conc = (Concurso) e;
                 int id = conc.NombreLugarConcurso.Id;
-                conc.NombreLugarConcurso = Fachada.Instance.GetConcursoById(id);
-                listaConc.Add(conc);
+                conc.NombreLugarConcurso = this.GetConcursoById(id);
+                CategoriaConcurso laCat = lstCategConc.FirstOrDefault(c => c.Id_categ == conc.Categoria.Id_categ);
+                if (laCat != null) conc.Categoria.Nombre = laCat.Nombre;
+                var voConc = new VOConcurso();
+                voConc.Fecha = conc.Fecha.ToShortDateString();
+                voConc.CategConcurso = conc.Categoria.Nombre;
+                voConc.Comentarios = conc.Comentarios;
+                voConc.ElPremio = conc.ElPremio;
+                voConc.Lugar = conc.NombreLugarConcurso.Lugar;
+                voConc.Registro = conc.Registro;
+                voConc.NombreExpo = conc.NombreLugarConcurso.NombreExpo;
+                voConc.NombreYLugarDeConcurso = conc.NombreLugarConcurso.ToString();
+                listaConc.Add(voConc);
             }
             return listaConc;
         }
@@ -2235,7 +2266,7 @@ namespace Negocio
 
         public bool EliminarUsuario(string admin, string user)
         {
-            if (admin != "" && user != "")
+            if (admin != user && admin != "" && user != "")
             {
                 return (_userMapper.DeleteUsuario(admin, user) > 0);
             }
@@ -2428,7 +2459,7 @@ namespace Negocio
             sb.Append("</h3>");
             sb.Append("<br/>");
             sb.Append("<table style='margin-top:30px;font-size:16px;margin-top:0;margin-right:0;margin-bottom:0px;margin-left:0;text-align:left'>");
-            sb.Append("<tbody runat='server' id='tablaIndicadores'>");
+            sb.Append("<tbody>");
             sb.Append("<tr>");
             sb.Append("<td width='40px'><p style='color:#9abc32;font-weight:bold'>" + voRepo.CantVacasEnOrdene.Id + "</p></td>");
             sb.Append("<td width='420px'><p style='color:#333333'>" + voRepo.CantVacasEnOrdene.Nombre + "</p></td>");
@@ -2518,7 +2549,7 @@ namespace Negocio
             var repMap = new ReporteMapper();
             return repMap.UpdateProgramacionReporte(idRepo, dia, frecuencia) == 0;
         }
-
+        
         public void CambiarDestinatariosReporte(int idRepo, List<Usuario> destinatarios)
         {
             var repMap = new ReporteMapper();
@@ -2527,6 +2558,36 @@ namespace Negocio
             {
                 repMap.UpdateDestinatariosReporteById(idRepo, user.Nickname);
             }
+        }
+
+        public bool UpdateDatosAnimal(Animal animTemp)
+        {
+            _animalMapper=new AnimalMapper(animTemp);
+            return _animalMapper.UpdateDatosModificables() == 0;
+        }
+
+        public bool SubirFotoAnimal(AnimalMapper.VOFoto foto)
+        {
+            _animalMapper = new AnimalMapper();
+            return _animalMapper.SubirFotoAnimal(foto) == 0;
+        }
+
+        public bool SubirFotoPerfilUsuario(Usuario u)
+        {
+            _userMapper = new UsuarioMapper(u);
+            return _userMapper.UpdateFotoPerfilUsuario() == 0;
+        }
+
+        public bool DeshabilitarUsuario(string admin, string user)
+        {
+            _userMapper = new UsuarioMapper();
+            return _userMapper.UsuarioDeshabilitar(admin, user) == 0;
+        }
+
+        public bool HabilitarUsuario(string admin, string user)
+        {
+            _userMapper = new UsuarioMapper();
+            return _userMapper.UsuarioHabilitar(admin, user) == 0;
         }
     }
 }

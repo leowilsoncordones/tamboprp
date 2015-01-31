@@ -33,16 +33,17 @@
     <div class="page-header">
         <h1><i class="menu-icon fa fa-bullhorn"></i> Animales con más de 80 días en lactancia sin servicio </h1>
     </div>
-        <div class="row">
-            <div class="col-md-8">
-                <div class="pull-right">
-                    <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm" Text=" Excel" onclick="excelExport_Click"><span><i class="fa fa-file-excel-o bigger-110 green"></i></span> Excel</asp:LinkButton>
-                    <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm"  Text=" PDF" onclick="pdfExport_Click"><span><i class="fa fa-file-pdf-o bigger-110 red"></i></span> PDF</asp:LinkButton>
-                    <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm"  Text=" Print" onclick="print_Click"><span><i class="fa fa-print bigger-110 grey"></i></span> Print</asp:LinkButton>
-                </div>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="pull-right">
+                <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm" Text=" Excel" onclick="excelExport_Click"><span><i class="fa fa-file-excel-o bigger-110 green"></i></span> Excel</asp:LinkButton>
+                <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm"  Text=" PDF" onclick="pdfExport_Click"><span><i class="fa fa-file-pdf-o bigger-110 red"></i></span> PDF</asp:LinkButton>
+                <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm"  Text=" Print" onclick="print_Click"><span><i class="fa fa-print bigger-110 grey"></i></span> Print</asp:LinkButton>
             </div>
-            <div class="col-md-8"></div>
         </div>
+        <div class="col-md-8"></div>
+    </div>
+    <div class="space-6"></div>
     <div class="row">
         <div class="col-md-8">
         <asp:GridView ID="gvServicios" runat="server" AutoGenerateColumns="False" GridLines="Both" HorizontalAlign="Left" 

@@ -45,6 +45,7 @@
         </div>
         <div class="col-md-3"></div>
         </div>  
+        <div class="space-6"></div>
         <div class="row">         
         <div class="col-md-9">
             <asp:GridView ID="gvControlProdUltimo" runat="server" AutoGenerateColumns="False" GridLines="Both" HorizontalAlign="Left" 

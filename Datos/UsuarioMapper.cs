@@ -20,7 +20,11 @@ namespace Datos
         private static string Usuario_Logoff = "Usuario_Logoff";
         private static string Usuario_UpdatePassword = "Usuario_UpdatePassword";
         private static string Usuario_DeleteUsuario = "Usuario_DeleteUsuario";
+        private static string Usuario_FotoPerfilUsuario = "Usuario_FotoPerfilUsuario";
+        private static string Usuario_Deshabilitar = "Usuario_Deshabilitar";
+        private static string Usuario_Habilitar = "Usuario_Habilitar";
         
+
         public UsuarioMapper(Usuario user)
         {
             _user = user;
@@ -218,6 +222,44 @@ namespace Datos
             var value = ReturnScalarValue(cmd);
             return Convert.ToInt32(value);
         }
-        
+
+        public int UpdateFotoPerfilUsuario()
+        {
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = Usuario_FotoPerfilUsuario;
+            cmd.Parameters.Add(new SqlParameter("@NICKNAME", _user.Nickname));
+            cmd.Parameters.Add(new SqlParameter("@FOTO", _user.Foto));
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
+
+        public int UsuarioDeshabilitar(string admin, string user)
+        {
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = Usuario_Deshabilitar;
+            cmd.Parameters.Add(new SqlParameter("@NICKNAME", user));
+            cmd.Parameters.Add(new SqlParameter("@ADMIN", admin));
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
+
+        public int UsuarioHabilitar(string admin, string user)
+        {
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = Usuario_Habilitar;
+            cmd.Parameters.Add(new SqlParameter("@NICKNAME", user));
+            cmd.Parameters.Add(new SqlParameter("@ADMIN", admin));
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
     }
 }

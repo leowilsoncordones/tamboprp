@@ -15,9 +15,9 @@ namespace tamboprp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]) &&
-              // (Session["EsAdmin"] != null && (bool)Session["EsAdmin"]))
-            //{
+            if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]) &&
+               (Session["EsAdmin"] != null && (bool)Session["EsAdmin"]))
+            {
                 if (!Page.IsPostBack)
                 {
                     this.SetPageBreadcrumbs();
@@ -25,8 +25,8 @@ namespace tamboprp
                     this.SetAlertasYNotificacionesTablero();
                     this.SetExtrasGraficaCategorías();
                 }
-            //}
-            //else Response.Redirect("~/Login.aspx", true);
+            }
+            else Response.Redirect("~/Login.aspx", true);
         }
 
         protected void SetPageBreadcrumbs()

@@ -29,13 +29,13 @@
                 <div class="form-group">
                     <div class="input-group">
 						<span class="input-group-addon"><i class="ace-icon fa fa-user fa-lg"></i></span>
-                        <input type="text" class="form-control input-lg" placeholder="Usuario" id="fUsuario" required runat="server" />
+                        <input type="text" class="form-control input-lg" placeholder="Usuario" id="fUsuario" runat="server" />
 					</div>
                 </div>
                 <div class="form-group">
                     <div class="input-group">
 						<span class="input-group-addon"><i class="ace-icon fa fa-lock fa-lg"></i></span>
-                        <input type="password" class="form-control input-lg" placeholder="Contraseña" id="fContrasena" required runat="server" />
+                        <input type="password" class="form-control input-lg" placeholder="Contraseña" id="fContrasena" runat="server" />
 					</div>
                 </div>
                 <div class="form-group">

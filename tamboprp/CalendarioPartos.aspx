@@ -39,7 +39,7 @@
         </div>
     </div> 
     </asp:Panel>
-    
+    <div class="space-6"></div>
     <div class="row">
         <div class="col-md-8">
             <asp:GridView ID="gvPartos" runat="server" AutoGenerateColumns="False" GridLines="Both" HorizontalAlign="Left" 
