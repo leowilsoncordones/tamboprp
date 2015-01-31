@@ -159,7 +159,8 @@ namespace Datos
             lugConc.Id = idLugConc;
             conc.NombreLugarConcurso = lugConc;
             string strDate = (DBNull.Value == record["FECHA"]) ? string.Empty : record["FECHA"].ToString();
-            if (strDate != string.Empty) conc.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+            //if (strDate != string.Empty) conc.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+            if (strDate != string.Empty) conc.Fecha = DateTime.Parse(strDate);
 
             var cat = new CategoriaConcurso();
             cat.Id_categ = (short)((DBNull.Value == record["CATEG_CONCURSO"]) ? 0 : (Int16)record["CATEG_CONCURSO"]);

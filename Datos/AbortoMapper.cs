@@ -159,7 +159,8 @@ namespace Datos
             var aborto = new Aborto();
             aborto.Id_evento = (short)((DBNull.Value == record["EVENTO"]) ? 0 : (Int16)record["EVENTO"]);
             string strDate = (DBNull.Value == record["FECHA"]) ? string.Empty : record["FECHA"].ToString();
-            if (strDate != string.Empty) aborto.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+            //if (strDate != string.Empty) aborto.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+            if (strDate != string.Empty) aborto.Fecha = DateTime.Parse(strDate);
             aborto.Comentarios = (DBNull.Value == record["COMENTARIO"]) ? string.Empty : (string)record["COMENTARIO"];
             aborto.Reg_padre = (DBNull.Value == record["REG_SERV"]) ? string.Empty : (string)record["REG_SERV"];
 

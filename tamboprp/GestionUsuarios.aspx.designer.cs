@@ -58,13 +58,13 @@ namespace tamboprp {
         protected global::System.Web.UI.WebControls.Button btnSave;
         
         /// <summary>
-        /// ddlUsuariosModificar control.
+        /// ddlUsuarioSelecc control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlUsuariosModificar;
+        protected global::System.Web.UI.WebControls.DropDownList ddlUsuarioSelecc;
         
         /// <summary>
         /// fNombre control.
@@ -103,22 +103,13 @@ namespace tamboprp {
         protected global::System.Web.UI.WebControls.DropDownList ddlRolUsuario;
         
         /// <summary>
-        /// checkHabilitabo control.
+        /// btnModificar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox checkHabilitabo;
-        
-        /// <summary>
-        /// Button3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button3;
+        protected global::System.Web.UI.WebControls.Button btnModificar;
         
         /// <summary>
         /// ddlUsuarioEliminar control.
@@ -137,5 +128,32 @@ namespace tamboprp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button2;
+        
+        /// <summary>
+        /// ddlUsuariosModificar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlUsuariosModificar;
+        
+        /// <summary>
+        /// checkHabilitabo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox checkHabilitabo;
+        
+        /// <summary>
+        /// btnHabilitar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnHabilitar;
     }
 }

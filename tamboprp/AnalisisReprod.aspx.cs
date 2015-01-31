@@ -12,9 +12,16 @@ namespace tamboprp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            this.SetPageBreadcrumbs();
-            this.LimpiarRegistro();
-            this.CargarAnalisisReproductivo();
+            if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]))
+            {
+                if (!Page.IsPostBack)
+                {
+                    this.SetPageBreadcrumbs();
+                    this.LimpiarRegistro();
+                    this.CargarAnalisisReproductivo();
+                }
+            }
+            else Response.Redirect("~/Login.aspx", true);
         }
 
         protected void SetPageBreadcrumbs()

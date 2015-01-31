@@ -205,7 +205,8 @@ namespace Datos
             parto.Registro = (DBNull.Value == record["REGISTRO"]) ? string.Empty : (string)record["REGISTRO"];
             parto.Id_evento = (short)((DBNull.Value == record["EVENTO"]) ? 0 : (Int16)record["EVENTO"]);
             string strDate = (DBNull.Value == record["FECHA_PARTO"]) ? string.Empty : record["FECHA_PARTO"].ToString();
-            if (strDate != string.Empty) parto.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+            //if (strDate != string.Empty) parto.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+            if (strDate != string.Empty) parto.Fecha = DateTime.Parse(strDate);
             //strDate = (DBNull.Value == record["FECHA_SERV"]) ? string.Empty : record["FECHA_SERV"].ToString();
             //if (strDate != string.Empty) parto.Fecha_serv = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
             parto.Comentarios = (DBNull.Value == record["COMENTARIO"]) ? string.Empty : (string)record["COMENTARIO"];

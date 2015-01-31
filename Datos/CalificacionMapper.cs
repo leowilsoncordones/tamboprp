@@ -170,7 +170,8 @@ namespace Datos
             calif.Puntos = (short)((DBNull.Value == record["PUNTOS"]) ? 0 : (Int16)record["PUNTOS"]);
             calif.Letras = (DBNull.Value == record["LETRAS"]) ? string.Empty : (string)record["LETRAS"];
             string strDate = (DBNull.Value == record["FECHA_CALIF"]) ? string.Empty : record["FECHA_CALIF"].ToString();
-            if (strDate != string.Empty) calif.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+            //if (strDate != string.Empty) calif.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+            if (strDate != string.Empty) calif.Fecha = DateTime.Parse(strDate);
             return calif;
         }
 

@@ -35,15 +35,17 @@
         <h1><i class="menu-icon fa fa-tags"></i> Lista de categorías de concurso <small><i class="ace-icon fa fa-angle-double-right"></i> actuales e históricas</small></h1>
     </div>
     <div class="row">
-            <div class="col-md-4">
-                <div class="pull-right">
-                    <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm" Text=" Excel" onclick="excelExport_Click"><span><i class="fa fa-file-excel-o bigger-110 green"></i></span> Excel</asp:LinkButton>
-                    <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm"  Text=" PDF" onclick="pdfExport_Click"><span><i class="fa fa-file-pdf-o bigger-110 red"></i></span> PDF</asp:LinkButton>
-                    <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm"  Text=" Print" onclick="print_Click"><span><i class="fa fa-print bigger-110 grey"></i></span> Print</asp:LinkButton>
-                </div>
+        <div class="col-md-4">
+            <div class="pull-right">
+                <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm" Text=" Excel" onclick="excelExport_Click"><span><i class="fa fa-file-excel-o bigger-110 green"></i></span> Excel</asp:LinkButton>
+                <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm"  Text=" PDF" onclick="pdfExport_Click"><span><i class="fa fa-file-pdf-o bigger-110 red"></i></span> PDF</asp:LinkButton>
+                <asp:LinkButton runat="server" CssClass="btn btn-white btn-default btn-sm"  Text=" Print" onclick="print_Click"><span><i class="fa fa-print bigger-110 grey"></i></span> Print</asp:LinkButton>
             </div>
-            <div class="col-md-4"></div>
         </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4"></div>
+    </div>
+    <div class="space-6"></div> 
     <div class="row">
         <div class="col-md-4">
             <div>
@@ -70,18 +72,18 @@
         <div class="col-md-4"></div>
         
         <!-- RESUMEN EN COLUMNA DERECHA -->
-            <div class="col-md-4">
-                <div class="well">
-                    <h4 class="header smaller lighter blue"><i class="menu-icon fa fa-paperclip"></i> Tabla de categorías de concurso</h4>
-                    <ul class="list-unstyled spaced2">
-                        <li class="bigger-110">
-                            <a href="#newCategConc" role="button" id="id-btn-save" class="btn btn-white btn-default btn-sm" data-toggle="modal"><i class="ace-icon fa fa-pencil"></i> Agregar categoría</a>
-                        </li>
-                    </ul>
-                    <hr/>
-                    <asp:Label ID="lblStatus" runat="server" Text=""></asp:Label>
-				</div>
-            </div>
+        <div class="col-md-4">
+            <div class="well">
+                <h4 class="header smaller lighter blue"><i class="menu-icon fa fa-paperclip"></i> Tabla de categorías de concurso</h4>
+                <ul class="list-unstyled spaced2">
+                    <li class="bigger-110">
+                        <a href="#newCategConc" role="button" id="id-btn-save" class="btn btn-white btn-default btn-sm" data-toggle="modal"><i class="ace-icon fa fa-pencil"></i> Agregar categoría</a>
+                    </li>
+                </ul>
+                <hr/>
+                <asp:Label ID="lblStatus" runat="server" Text=""></asp:Label>
+			</div>
+        </div>
     </div>
     
     <!-- NUEVA CATEGORIA DE CONCURSO MODAL -->

@@ -6,24 +6,30 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
+using Entidades;
 using Negocio;
 
 namespace tamboprp
 {
     public partial class GestionUsuarios : System.Web.UI.Page
     {
-        private List<VOUsuario> _listUser;
+        //private List<VOUsuario> _listVo;
+        private List<Usuario> _lst = Fachada.Instance.GetUsuariosAll();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack)
+            if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]))
             {
-                this.SetPageBreadcrumbs();
-                this.LimpiarTabla();
-                this.CargarUsuarios();
-                this.CargarDdlRoldeUsuario();
-                this.CargarDdlUsuarios();
+                if (!Page.IsPostBack)
+                {
+                    this.SetPageBreadcrumbs();
+                    this.LimpiarTabla();
+                    this.CargarUsuarios();
+                    this.CargarDdlRoldeUsuario();
+                    //this.CargarDdlUsuarios();
+                }
             }
+            else Response.Redirect("~/Login.aspx", true);
         }
 
         protected void SetPageBreadcrumbs()
@@ -46,41 +52,57 @@ namespace tamboprp
             this.lblStatus.Text = "";
         }
 
+        private void RecargarUsuarios()
+        {
+            _lst = Fachada.Instance.GetUsuariosAll();
+            this.CargarUsuarios();
+        }
+
         private void CargarUsuarios()
         {
-            var lst = Fachada.Instance.GetUsuariosAll();
-            
-            //this.gvUsuario.DataSource = lst;
-            //this.gvUsuario.DataBind();
+            //_lst = Fachada.Instance.GetUsuariosAll();
 
-            //var sbHabilitado = new StringBuilder();
-            //sbHabilitado.Append("<span class='label label-sm label-success'>Habilitado</span>");
-            //var sbDeshabilitado = new StringBuilder();
-            //sbDeshabilitado.Append("<span class='label label-sm label-inverse'>Deshabilitado</span>");
+            var listVo = this.CargarVoUsuarios();
+            this.gvUsuario.DataSource = listVo;
+            this.gvUsuario.DataBind();
 
-            //var sbEdit = new StringBuilder();
-            //sbEdit.Append("<div class='hidden-sm hidden-xs action-buttons'>");
-            //sbEdit.Append("<a class='blue' href='#modificarUsuario'><i class='ace-icon fa fa-search-plus bigger-130'></i></a>");
-            //sbEdit.Append("<a class='green' href='#editarUsuario'><i class='ace-icon fa fa-pencil bigger-130'></i></a>");
-            //sbEdit.Append("<a class='red' href='#eliminarUsuario'><i class='ace-icon fa fa-trash-o bigger-130'></i></a>");
-            //sbEdit.Append("</div>");
+            this.ddlUsuariosModificar.DataSource = listVo;
+            this.ddlUsuariosModificar.DataTextField = "Nickname";
+            this.ddlUsuariosModificar.DataValueField = "Nickname";
+            this.ddlUsuariosModificar.DataBind();
 
-            _listUser = new List<VOUsuario>();
-            for (int i = 0; i < lst.Count; i++)
+            this.dllUsuariosChangePwd.DataSource = listVo;
+            this.dllUsuariosChangePwd.DataTextField = "Nickname";
+            this.dllUsuariosChangePwd.DataValueField = "Nickname";
+            this.dllUsuariosChangePwd.DataBind();
+
+            this.ddlUsuarioEliminar.DataSource = listVo;
+            this.ddlUsuarioEliminar.DataTextField = "Nickname";
+            this.ddlUsuarioEliminar.DataValueField = "Nickname";
+            this.ddlUsuarioEliminar.DataBind();
+
+            this.ddlUsuarioSelecc.DataSource = listVo;
+            this.ddlUsuarioSelecc.DataTextField = "Nickname";
+            this.ddlUsuarioSelecc.DataValueField = "Nickname";
+            this.ddlUsuarioSelecc.DataBind();
+        }
+
+        private List<VOUsuario> CargarVoUsuarios()
+        {
+            var listVo = new List<VOUsuario>();
+            for (int i = 0; i < _lst.Count; i++)
             {
                 var uItem = new VOUsuario()
                 {
-                    Nombre = lst[i].Nombre + " " + lst[i].Apellido,
-                    Nickname = lst[i].Nickname,
-                    Email = lst[i].Email,
-                    Rol = lst[i].Rol,
-                    HabilitadoText = lst[i].Habilitado ? "Si" : "No"
+                    Nombre = _lst[i].Nombre + " " + _lst[i].Apellido,
+                    Nickname = _lst[i].Nickname,
+                    Email = _lst[i].Email,
+                    Rol = _lst[i].Rol,
+                    HabilitadoText = _lst[i].Habilitado ? "Si" : "No"
                 };
-                _listUser.Add(uItem);
+                listVo.Add(uItem);
             }
-            this.gvUsuario.DataSource = _listUser;
-            this.gvUsuario.DataBind();
-            
+            return listVo;
         }
 
         protected void GvUsuarios_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -89,14 +111,6 @@ namespace tamboprp
             gv.PageIndex = e.NewPageIndex;
             this.CargarUsuarios();
         }
-
-        //protected void GvUsuarios_SelectedIndexChanging(object sender, GridViewPageEventArgs e)
-        //{
-        //    var gv = (GridView)sender;
-        //    //gv.SelectedIndex = e.NewPageIndex;
-        //    //this.GetUsuarios();
-        //    this.lblStatus.Text = "Seleccion";
-        //}
 
         protected void btn_ResetearPassword(object sender, EventArgs e)
         {
@@ -119,12 +133,13 @@ namespace tamboprp
 
         private bool ResetearPassword()
         {
-            if (this.password.Value != "")
+            Usuario voU = null;
+            var uAdmin = (VOUsuario)Session["Usuario"];
+            var sel = this.dllUsuariosChangePwd.SelectedValue;
+            if (_lst != null) voU = _lst.FirstOrDefault(u => u.Nickname.Equals(sel));
+            if (uAdmin != null && voU != null && this.password.Value != "")
             {
-                var uAdmin = (VOUsuario)Session["Usuario"];
-                var admin = uAdmin.Nickname;
-                var user = this.dllUsuariosChangePwd.SelectedItem.ToString();
-                return Fachada.Instance.ResetearPassword(admin, user, this.password.Value);
+                return Fachada.Instance.ResetearPassword(uAdmin.Nickname, voU.Nickname, this.password.Value);
             }
             else
             {
@@ -134,23 +149,51 @@ namespace tamboprp
         }
 
 
-        protected void btn_HabilitarUsuario(object sender, EventArgs e)
+        protected void btn_ModificarUsuario(object sender, EventArgs e)
         {
             try
             {
-                if (this.HabilitarUsuario())
+                if (this.ModificarUsuario())
                 {
-                    this.lblStatus.Text = "La contraseña se actualizó";
+                    this.lblStatus.Text = "El usuario se modificó";
                 }
                 else
                 {
-                    this.lblStatus.Text = "La contraseña no se pudo actualizar";
+                    this.lblStatus.Text = "El usuario no se pudo modificar";
                 }
             }
             catch (Exception ex)
             {
 
             }
+        }
+
+        private bool ModificarUsuario()
+        {
+            bool ret = false;
+            Usuario voU = null;
+            var sel = this.ddlUsuarioSelecc.SelectedValue;
+            if (_lst != null) voU = _lst.FirstOrDefault(u => u.Nickname.Equals(sel));
+            var admin = (VOUsuario)Session["Usuario"];
+
+            var rol = new RolUsuario();
+            //var rolSel = this.ddlRolUsuario.SelectedIndex;
+            var rolSel = this.ddlRolUsuario.SelectedItem.ToString();
+            var listRol = Fachada.Instance.GetRolesDeUsuario();
+            //if (listRol != null) rol = listRol.FirstOrDefault(u => u.Nivel == rolSel);
+            if (listRol != null) rol = listRol.FirstOrDefault(u => u.NombreRol == rolSel);
+            
+            if (voU != null && admin != null && rol != null)
+            {
+                voU.Nombre = this.fNombre.Value;
+                voU.Apellido = this.fApellido.Value;
+                voU.Email = this.fEmail.Value;
+                voU.Rol = rol;
+                ret = Fachada.Instance.UpdateUsuario(voU);
+                
+                this.CargarUsuarios();
+            }
+            return ret;
         }
 
         protected void btn_EliminarUsuario(object sender, EventArgs e)
@@ -175,23 +218,16 @@ namespace tamboprp
 
         private bool EliminarUsuario()
         {
+            bool ret = false;
             var uAdmin = (VOUsuario)Session["Usuario"];
             var admin = uAdmin.Nickname;
             var user = this.ddlUsuarioEliminar.SelectedItem.ToString();
-            return Fachada.Instance.EliminarUsuario(admin, user);
-        }
-
-        private bool HabilitarUsuario()
-        {
-            //if (this.oldPwd.Text != null && this.newPwd.Text != "")
-            //{
-            //    //return Fachada.Instance.ResetearPassword(this.oldPwd.Text, this.newPwd.Text);
-            //}
-            //else
-            //{
-            //    this.lblStatus.Text = "La contraseña no puede ser vacía";
-            //}
-            return false;
+            if (uAdmin != null)
+            {
+                ret = Fachada.Instance.EliminarUsuario(admin, user);
+            }
+            this.RecargarUsuarios();
+            return ret;
         }
 
         private void CargarDdlRoldeUsuario()
@@ -205,44 +241,40 @@ namespace tamboprp
             this.ddlRolUsuario.SelectedIndex = 1;
         }
 
-        private void CargarDdlUsuarios()
+        protected void btn_HabilitarUsuario(object sender, EventArgs e)
         {
-            this.ddlUsuariosModificar.DataSource = _listUser;
-            this.ddlUsuariosModificar.DataTextField = "Nickname";
-            this.ddlUsuariosModificar.DataValueField = "Nickname";
-            this.ddlUsuariosModificar.DataBind();
-
-            this.dllUsuariosChangePwd.DataSource = _listUser;
-            this.dllUsuariosChangePwd.DataTextField = "Nickname";
-            this.dllUsuariosChangePwd.DataValueField = "Nickname";
-            this.dllUsuariosChangePwd.DataBind();
-
-            this.ddlUsuarioEliminar.DataSource = _listUser;
-            this.ddlUsuarioEliminar.DataTextField = "Nickname";
-            this.ddlUsuarioEliminar.DataValueField = "Nickname";
-            this.ddlUsuarioEliminar.DataBind();
-        }
-
-
-        protected void ddlRolUsuario_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //var rol = this.ddlRolUsuario.SelectedIndex;
-            //var rol1 = this.ddlRolUsuario.SelectedItem;
-            //var rol2 = this.ddlRolUsuario.SelectedValue;
-        }
-
-        protected void ddlUsuariosModificar_SelectedIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            var sel = this.ddlUsuariosModificar.SelectedValue;
-            VOUsuario voU = _listUser.FirstOrDefault(u => u.Nombre.Equals(sel));
-            if (voU != null)
+            if (this.HabilitarUsuario())
             {
-                this.fNombre.Value = voU.Nombre;
-                this.fApellido.Value = voU.Apellido;
-                this.fEmail.Value = voU.Email;
-                this.ddlRolUsuario.SelectedIndex = voU.Rol.Nivel;
+                this.lblStatus.Text = "Cambio hecho";
             }
-
+            else
+            {
+                this.lblStatus.Text = "No se pudo hacer el cambio";
+            }
         }
+
+        private bool HabilitarUsuario()
+        {
+            bool ret = false;
+            Usuario voU = null;
+            var sel = this.ddlUsuariosModificar.SelectedValue;
+            if (_lst != null) voU = _lst.FirstOrDefault(u => u.Nickname.Equals(sel));
+            var admin = (VOUsuario)Session["Usuario"];
+            if (voU != null && admin != null)
+            {
+                if (!this.checkHabilitabo.Checked)
+                {
+                    ret = Fachada.Instance.DeshabilitarUsuario(admin.Nickname, voU.Nickname);
+                }
+                else if (this.checkHabilitabo.Checked)
+                {
+                    ret = Fachada.Instance.HabilitarUsuario(admin.Nickname, voU.Nickname);
+                }
+                this.RecargarUsuarios();
+            }
+            return ret;
+        }
+
+
     }
 }

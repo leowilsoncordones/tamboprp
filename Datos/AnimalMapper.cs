@@ -32,9 +32,11 @@ namespace Datos
         private static string Animal_SelectCount_NacimientosBy2fechas = "Animal_SelectCount_NacimientosBy2fechas";
         private static string Animal_SelectCount_MellizosBy2fechas = "Animal_SelectCount_MellizosBy2fechas";
         private static string Animal_SelectCount_TrillizosBy2fechas = "Animal_SelectCount_TrillizosBy2fechas";
+        private static string Animal_UpdateDatosModificables = "Animal_UpdateDatosModificables";
+        private static string Animal_SubirFotoByRegistro = "Animal_SubirFotoByRegistro";
+        private static string Animal_InsertFotoByRegistro = "Animal_InsertFotoByRegistro";
         
-        
-        
+               
         public AnimalMapper(Animal animal)
         {
             _animal = animal;
@@ -198,7 +200,8 @@ namespace Datos
             anim.Sexo = (DBNull.Value == record["SEXO"]) ? 'X' : Convert.ToChar(record["SEXO"]);
 
             string strDate = (DBNull.Value == record["FECHA_NACIM"]) ? string.Empty : record["FECHA_NACIM"].ToString();
-            if (strDate != string.Empty) anim.Fecha_nacim = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+            //if (strDate != string.Empty) anim.Fecha_nacim = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+            if (strDate != string.Empty) anim.Fecha_nacim = DateTime.Parse(strDate);
             
             anim.Origen = (DBNull.Value == record["ORIGEN"]) ? string.Empty : (string)record["ORIGEN"];
             anim.Reg_padre = (DBNull.Value == record["REG_PADRE"]) ? string.Empty : (string)record["REG_PADRE"];
@@ -400,7 +403,8 @@ namespace Datos
             anim.Reg_trazab = (DBNull.Value == record["REG_TRAZAB"]) ? string.Empty : (string)record["REG_TRAZAB"];
             //anim.Sexo = (DBNull.Value == record["SEXO"]) ? 'X' : Convert.ToChar(record["SEXO"]);
             string strDate = (DBNull.Value == record["FECHA_NACIM"]) ? string.Empty : record["FECHA_NACIM"].ToString();
-            if (strDate != string.Empty) anim.Fecha_nacim = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+            //if (strDate != string.Empty) anim.Fecha_nacim = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+            if (strDate != string.Empty) anim.Fecha_nacim = DateTime.Parse(strDate);
             //anim.Origen = (DBNull.Value == record["ORIGEN"]) ? string.Empty : (string)record["ORIGEN"];
             anim.Reg_padre = (DBNull.Value == record["REG_PADRE"]) ? string.Empty : (string)record["REG_PADRE"];
             anim.Reg_madre = (DBNull.Value == record["REG_MADRE"]) ? string.Empty : (string)record["REG_MADRE"];
@@ -578,6 +582,39 @@ namespace Datos
         {
             return GetScalarIntReg("Animal_Existe", registro) == 1;
         }
+
+        public int UpdateDatosModificables()
+        {
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@REGISTRO", _animal.Registro));
+            cmd.Parameters.Add(new SqlParameter("@IDENTIFICACION", _animal.Identificacion));
+            cmd.Parameters.Add(new SqlParameter("@NOMBRE", _animal.Nombre));
+            cmd.Parameters.Add(new SqlParameter("@REG_TRAZAB", _animal.Reg_trazab));
+            cmd.Parameters.Add(new SqlParameter("@ORIGEN", _animal.Origen));
+            cmd.CommandText = Animal_UpdateDatosModificables;
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
+
+        public int SubirFotoAnimal(VOFoto foto)
+        {
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@REGISTRO", foto.Registro));
+            cmd.Parameters.Add(new SqlParameter("@FOTO", foto.Ruta));
+            cmd.Parameters.Add(new SqlParameter("@THUMB", foto.Thumb));
+            cmd.Parameters.Add(new SqlParameter("@PIE_DE_FOTO", foto.PieDeFoto));
+            cmd.Parameters.Add(new SqlParameter("@COMENTARIO", foto.Comentario));
+            cmd.CommandText = "Foto_Insert";
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
+        
     }
 }
 

@@ -38,9 +38,11 @@
                     <input type="text" class="form-control" runat="server" id="regBuscar" placeholder="Registro"/>
                 </div>
             </div>
-            <div class="col-md-4" id="divContenedorDdl" runat="server" >
+            <div class="col-md-4 btn-group btn-group-lg">
+                <asp:DropDownList ID="ddlSimil" runat="server" style="height:46px;" CssClass="btn btn-white btn-default btn-lg col-sm-9 dropdown-toggle" OnSelectedIndexChanged="ddlSimilares_SelectedIndexChanged" AutoPostBack="True" ></asp:DropDownList>
             </div>
             <div class="col-md-4">
+                
             </div>
         </div>
         <br/>
@@ -147,7 +149,7 @@
                    <h4 class="panel-title">
                      <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordionHist" href="#accordionHistorico">
                        <i data-icon-show="ace-icon fa fa-angle-right" data-icon-hide="ace-icon fa fa-angle-down" class="bigger-110 ace-icon fa fa-angle-right"></i>
-                        <asp:Label ID="titCantEventos" runat="server" Text="Historial de eventos "> </asp:Label><asp:Label ID="lblCantEventos" runat="server" CssClass="badge" ></asp:Label>
+                        <asp:Label ID="titCantEventos" runat="server" Text="Historial de eventos "> </asp:Label><asp:Label ID="lblCantEventos" runat="server" CssClass="badge badge-grey" ></asp:Label>
                      </a>
                    </h4>
                   </div>
@@ -160,7 +162,7 @@
                             <div class="row">
                                   <div class="col-md-4"></div>
                                   <div class="col-md-8 text-right text-info">
-                                      <asp:CheckBox ID="cboxControles" CssClass="ace" Text=" Mostrar Controles" Checked="False" OnCheckedChanged="cBoxControles_CheckedChanged" runat="server" />
+                                      <asp:CheckBox ID="cboxControles" Text="  Filtrar Controles" AutoPostBack="True" OnCheckedChanging="cBoxControles_CheckedChanging" runat="server" />
                                   </div>
                             </div>
                             <asp:GridView ID="gvHistoria" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" 
@@ -191,6 +193,9 @@
           <div class="panel-footer">
             <asp:Label ID="titFooterPanel" Text="Ficha de animal" runat="server"></asp:Label>&nbsp;&nbsp;
             <asp:Label ID="lblFooterPanel" Visible="False" runat="server"></asp:Label>
+            <span class='pull-right'>
+                <asp:Label ID="lblStatus" Text="" runat="server"></asp:Label>
+            </span>
           </div><!-- Fin panel footer -->
         </asp:Panel>
     
@@ -219,7 +224,7 @@
         
       <!-- MODAL FOTOS -->
           <div id="fotosModal" class="modal fade">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -232,16 +237,66 @@
                         </ul>
                     </div>
                     <div class="modal-footer">
-                        <!-- File upload -->
-                        <button type="button" class="btn btn-default btn-sm"><i class=" ace-icon fa fa-upload"></i> Subir Foto</button>
                         <!-- boton cerrar -->
                         <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cerrar</button>
+                        <a href="#nuevaFoto" role="button" class="btn btn-default btn-info btn-sm" data-toggle="modal"><span class="fa fa-upload" aria-hidden="true"></span> Subir foto</a>
                     </div>
                 </div>
             </div>
         </div>    
         <!-- FIN MODAL FOTOS -->      
+
     
+    <!-- SUBIR FOTO NUEVA MODAL -->
+    <div id="nuevaFoto" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4><i class="ace-icon fa fa-image"></i> Subir nueva foto para <asp:Label ID="lblRegistroModalSubirFoto" CssClass="text-info" runat="server"></asp:Label></h4>
+                </div>
+                <div class="modal-body">
+                    <span id="bodyModifNuevFotoModal" class="text-warning center">
+                        <!-- FORMULARIO -->
+                        <div id="formulario1" class="form-horizontal">
+                        <!-- Subir foto -->
+                        <div class="form-group">
+		                    <label class="col-sm-3 control-label no-padding-right"> Buscar </label>
+			                <div class="col-sm-7">
+			                    <!-- File upload -->
+                                <div class="input-group input-group-lg">
+                                    <asp:FileUpload ID="fupFoto" runat="server" />
+                                </div>
+			                </div>
+		                </div>
+                        <!-- Pie de foto -->
+                        <div class="form-group">
+		                    <label class="col-sm-3 control-label no-padding-right"> Pie de Foto </label>
+			                <div class="col-sm-7">
+			                    <input type="text" runat="server" id="fPie" placeholder="Ej. Campeón Expo Prado 2012" class="form-control col-xs-10 col-sm-5" />
+			                </div>
+		                </div>
+                        <!-- Comentario -->
+                        <div class="form-group">
+			                <label class="col-sm-3 control-label no-padding-right"> Comentario </label>
+			                <div class="col-sm-7">
+			                    <textarea class="form-control" id="fComentario" rows="4" runat="server"></textarea>
+			                </div>
+                            <div class="col-sm-12"></div>
+		                </div>
+                        </div>
+                    </span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancelar</button>
+                    <asp:Button ID="btnFotoUpload" runat="server" Text="Guardar" CssClass="btn btn-default btn-info btn-sm" OnClick="UploadButton_Click" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FINAL SUBIR FOTO NUEVA MODAL -->    
+    
+    
+
     <!-- MODIFICAR DATOS MODAL -->
     <div id="modifData" class="modal fade">
         <div class="modal-dialog">
@@ -276,11 +331,11 @@
 			                </div>
                             <div class="col-sm-12"></div>
 		                </div>
-                            <!-- Origen -->
-                            <div class="form-group">
+                        <!-- Origen -->
+                        <div class="form-group">
                             <label class="col-sm-4 control-label no-padding-right"> Origen </label>
                             <div class="col-sm-5">
-			                    <input type="email" runat="server" id="fOrigen" placeholder="Ej. PROPIETARIO" class="form-control col-xs-10 col-sm-5" />
+			                    <input type="text" runat="server" id="fOrigen" placeholder="Ej. PROPIETARIO" class="form-control col-xs-10 col-sm-5" />
 			                </div>
                         </div>
                         </div>
@@ -289,7 +344,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancelar</button>
-                    <asp:Button ID="btnModificar" runat="server" CssClass="btn btn-sm btn-info" Text="Ok" OnClick="btn_ModificarAnimal" />
+                    <asp:Button ID="btnModificar" runat="server" CssClass="btn btn-sm btn-info" Text="Modificar" OnClick="btn_ModificarAnimal" />
                 </div>
             </div>
         </div>

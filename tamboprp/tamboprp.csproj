@@ -169,11 +169,10 @@
     <Content Include="AnalisisVentas.aspx" />
     <Content Include="AnalisisReprod.aspx" />
     <Content Include="avatars\user_silhouette.png" />
+    <Content Include="Proximamente.aspx" />
     <Content Include="ContactPublic.aspx" />
-    <Content Include="img_tamboprp\animales\3110.jpg" />
     <Content Include="img_tamboprp\animales\3110a.jpg" />
     <Content Include="img_tamboprp\animales\animales_thumbs\3110a_th.png" />
-    <Content Include="img_tamboprp\animales\animales_thumbs\3110_th.png" />
     <Content Include="img_tamboprp\animales\animales_thumbs\digger_th.png" />
     <Content Include="img_tamboprp\animales\animales_thumbs\goldwyn_th.png" />
     <Content Include="img_tamboprp\animales\animales_thumbs\manoman_th.jpg" />
@@ -739,6 +738,7 @@
     <Content Include="font\DXI1ORHCpsQm3Vp6mXoaTXhCUOGz7vYGh680lGh-uXM.woff" />
     <Content Include="font\readme" />
     <None Include="Properties\PublishProfiles\publicar_IIS.pubxml" />
+    <None Include="Properties\PublishProfiles\publicar_WWW.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Personal.aspx" />
     <Content Include="Produccion.aspx" />
@@ -832,6 +832,13 @@
     </Compile>
     <Compile Include="AnalisisReprod.aspx.designer.cs">
       <DependentUpon>AnalisisReprod.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Proximamente.aspx.cs">
+      <DependentUpon>Proximamente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Proximamente.aspx.designer.cs">
+      <DependentUpon>Proximamente.aspx</DependentUpon>
     </Compile>
     <Compile Include="ContactPublic.aspx.cs">
       <DependentUpon>ContactPublic.aspx</DependentUpon>

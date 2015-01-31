@@ -5,7 +5,7 @@
         <h1><i class="menu-icon fa fa-envelope" ></i> Contacto</h1>
     </div>
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-5">
 
             <section class="contact">
                 <header>
@@ -58,18 +58,21 @@
                     <h3>Dirección:</h3>
                 </header>
                 <p>
-                    Calle Avenida Parlamento 314, CP 11100<br />
+                    Calle Rivera, CP 11300<br />
                     Montevideo, UY 
                 </p>
             </section>
             
     </div>
 
-        <div class="col-md-4">
+        <div class="col-md-7">
             <h1 class="text-center">
                 <span class="ace-icon fa fa-check-square-o" aria-hidden="true"></span>
-                <span> tambo</span><strong class="text-primary">prp</strong>
+                <span> tambo</span><strong class="text-primary">prp</strong>                
             </h1>
+            <div class="center">
+                <img src="img_tamboprp/corporativo/tamboprp1.png" />
+            </div>
         </div>
     </div>
 

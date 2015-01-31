@@ -69,6 +69,9 @@
                         <a href="NuevoUsuario.aspx" role="button" class="btn btn-white btn-default btn-sm"><i class="ace-icon fa fa-user"></i> Crear nuevo</a>
                     </li>
                     <li class="bigger-110">
+                        <a href="#habilitar" role="button" id="id-btn-Habilitar" class="btn btn-white btn-default btn-sm" data-toggle="modal"><i class="ace-icon fa fa-lock"></i> Habilitar / Deshabilitar</a>
+                    </li>
+                    <li class="bigger-110">
                         <a href="#modifData" role="button" id="id-btn-ModifData" class="btn btn-white btn-default btn-sm" data-toggle="modal"><i class="ace-icon fa fa-pencil"></i> Modificar</a>
                     </li>
                     <li class="bigger-110">
@@ -140,13 +143,12 @@
                         
                         <!-- FORMULARIO -->
                         <div id="formulario" class="form-horizontal">
-                        <!-- Usuario -->
-                        <div class="form-group">
+                         <div class="form-group">
 		                    <label class="col-sm-4 control-label no-padding-right"> Usuario </label>
 			                <div class="col-sm-5">
-			                    <asp:DropDownList ID="ddlUsuariosModificar" CssClass="form-control col-xs-10 col-sm-5" AutoPostBack="False" runat="server" OnSelectedIndexChanging="ddlUsuariosModificar_SelectedIndexChanging" ></asp:DropDownList>
+			                    <asp:DropDownList ID="ddlUsuarioSelecc" CssClass="form-control col-xs-10 col-sm-5" AutoPostBack="False" runat="server" ></asp:DropDownList>
 			                </div>
-		                </div>
+		                </div>   
                         <!-- Nombre y Apellido -->
                         <div class="form-group">
 		                    <label class="col-sm-4 control-label no-padding-right"> Nombre </label>
@@ -172,26 +174,17 @@
                         <div class="form-group">
 		                    <label class="col-sm-4 control-label no-padding-right"> Rol de usuario </label>
 			                <div class="col-sm-5">
-			                    <asp:DropDownList ID="ddlRolUsuario" CssClass="form-control col-xs-10 col-sm-5" AutoPostBack="True" OnSelectedIndexChanged="ddlRolUsuario_SelectedIndexChanged" runat="server" ></asp:DropDownList>
+			                    <asp:DropDownList ID="ddlRolUsuario" CssClass="form-control col-xs-10 col-sm-5" runat="server" ></asp:DropDownList>
 			                </div>
                             <div class="col-sm-12"></div>
 		                </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label no-padding-right"> Habilitado </label>
-					        <div class="col-sm-1">
-                            <label>
-					            <input id="checkHabilitabo" name="switchEnable" class="ace ace-switch ace-switch-6" type="checkbox" checked runat="server"/>
-						        <span class="lbl"></span>
-					        </label>
-                            </div>
-                        </div>
                         </div>
 
                     </span>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancelar</button>
-                    <asp:Button ID="Button3" runat="server" CssClass="btn btn-sm btn-info" Text="Ok" OnClick="btn_HabilitarUsuario" />
+                    <asp:Button ID="btnModificar" runat="server" CssClass="btn btn-sm btn-info" Text="Ok" OnClick="btn_ModificarUsuario" />
                 </div>
             </div>
         </div>
@@ -229,6 +222,41 @@
     </div>
     <!-- FINAL MODAL -->
 
-    
+    <!-- SELECCIONAR MODAL -->
+    <div id="habilitar" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4><i class="ace-icon fa fa-lock"></i> Habilitar /deshabilitar usuario</h4>
+                </div>
+                <div class="modal-body">
+                <span id="bodySelecModal" class="text-warning center">
+                    <div id="formularioSelec" class="form-horizontal">
+                        <div class="form-group">
+		                    <label class="col-sm-4 control-label no-padding-right"> Usuario </label>
+			                <div class="col-sm-5">
+			                    <asp:DropDownList ID="ddlUsuariosModificar" CssClass="form-control col-xs-10 col-sm-5" runat="server" OnSelectedIndexChanging="ddlUsuariosModificar_SelectedIndexChanging" ></asp:DropDownList>
+			                </div>
+		                </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label no-padding-right"> Habilitado </label>
+					        <div class="col-sm-1">
+                            <label>
+					            <input id="checkHabilitabo" name="switchEnable" class="ace ace-switch ace-switch-6" type="checkbox" checked runat="server"/>
+						        <span class="lbl"></span>
+					        </label>
+                            </div>
+                        </div>
+                    </div>
+                </span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancelar</button>
+                    <asp:Button ID="btnHabilitar" runat="server" CssClass="btn btn-sm btn-info" Text="Ok" OnClick="btn_HabilitarUsuario" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- SELECCIONAR MODAL -->
 
 </asp:Content>

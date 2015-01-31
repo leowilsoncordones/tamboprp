@@ -129,7 +129,8 @@
                 </div>
                 <div class="modal-body">
                     <label class="ace-file-input ace-file-multiple">
-                        <input type="file" name="file-input" runat="server" />
+                        
+                        <asp:FileUpload ID="fupFoto" runat="server" />
                         <span class="ace-file-container" data-title="Click para elegir una nueva imagen">
                             <span class="ace-file-name" data-title="No File ..."><i class=" ace-icon ace-icon fa fa-picture-o"></i></span>
                         </span><a class="remove" href="#"><i class=" ace-icon fa fa-times"></i></a>

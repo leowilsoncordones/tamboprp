@@ -112,6 +112,24 @@ namespace tamboprp {
         protected global::System.Web.UI.WebControls.Button btnReset;
         
         /// <summary>
+        /// lblStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblStatus;
+        
+        /// <summary>
+        /// fupFoto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fupFoto;
+        
+        /// <summary>
         /// btnCambiarImg control.
         /// </summary>
         /// <remarks>

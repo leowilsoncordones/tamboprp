@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -24,8 +25,15 @@ namespace tamboprp
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            this.SetPageBreadcrumbs();
-            this.LimpiarRegistro();
+            if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]))
+            {
+                if (!Page.IsPostBack)
+                {
+                    this.SetPageBreadcrumbs();
+                    this.LimpiarRegistro();
+                }
+            }
+            else Response.Redirect("~/Login.aspx", true);
         }
 
         protected void SetPageBreadcrumbs()
@@ -50,6 +58,7 @@ namespace tamboprp
                 this.lblRegistroModal.Text = _animal.Registro;
                 this.lblRegistroModalFotos.Text = _animal.Registro;
                 this.lblRegistroModalModificar.Text = _animal.Registro;
+                this.lblRegistroModalSubirFoto.Text = _animal.Registro;
                 this.lblIdentif.Text = _animal.Identificacion;
                 this.lblGen.Text = (_animal.Gen != -1) ? _animal.Gen.ToString() : "";
                 //Categoria catAnimal = Fachada.Instance.GetCategoriaById(_animal.IdCategoria);
@@ -180,13 +189,30 @@ namespace tamboprp
                 // si es hembra cargo la ficha correspondiente a hembras
                 if (_animal.esHembra())
                 {
+                    this.cboxControles.Enabled = true;
                     this.CargarFichaHembra();
                 }
                 // eventos del animal al historico
                 ProcesarEventosAnimal();
-                if (_animal.Fotos != null) this.CargarFotosAnimal(_animal.Fotos, this.ULFotos);
+                //if (_animal.Fotos != null) this.CargarFotosAnimal(_animal.Fotos, this.ULFotos);
+                this.CargarFotosDelAnimal();
             }
             else this.lblAnimal.Text = "No existe :(";
+        }
+
+        private void CargarFotosDelAnimal()
+        {
+            if (_animal.Fotos != null) 
+                this.CargarFotosAnimal(_animal.Fotos, this.ULFotos);
+        }
+
+        private void ReCargarFotosDelAnimal()
+        {
+            if (_animal != null)
+            {
+                _animal.Fotos = Fachada.Instance.GetFotosAnimal(_animal.Registro);
+                this.CargarFotosDelAnimal();
+            }
         }
 
         public void CargarFichaHembra()
@@ -371,8 +397,11 @@ namespace tamboprp
                 {
                     if (lst_lact[j].Numero > maxLact)
                     {
-                        maxLact = lst_lact[j].Numero;
-                        maxInd = j;
+                        if (lst_lact[j].Dias > 0 && lst_lact[j].ProdLeche > 0)
+                        {
+                            maxLact = lst_lact[j].Numero;
+                            maxInd = j;
+                        }
                     }
                 }
                 this.lblDiasLact.Text = lst_lact[maxInd].Dias.ToString();
@@ -393,7 +422,10 @@ namespace tamboprp
 
         protected void btnBuscarAnimal_Click(object sender, EventArgs e)
         {
-            this.BuscarAnimal(this.regBuscar.Value);
+            if (this.regBuscar.Value != "")
+            {
+                this.BuscarAnimal(this.regBuscar.Value);
+            }
         }
 
         private void LimpiarRegistro()
@@ -407,6 +439,9 @@ namespace tamboprp
             this.lblNombre.Text = "";
             this.lblNombre.Visible = false;
             this.lblRegistroModal.Text = "";
+            this.lblRegistroModalFotos.Text = "";
+            this.lblRegistroModalModificar.Text = "";
+            this.lblRegistroModalSubirFoto.Text = "";
             this.lblTraz.Visible = false;
             this.lblTraz.Text = "";
             this.lblSexo.Text = "";
@@ -421,7 +456,14 @@ namespace tamboprp
             this.lblEstado.Text = "ESTADO";
             this.lblEstado.CssClass = "label label-default arrowed";
             this.lblCantEventos.Text = "";
-
+            
+            this.fNombre.Value = "";
+            this.fComentario.Value = "";
+            this.fIdentif.Value = "";
+            this.fOrigen.Value = "";
+            this.fPie.Value = "";
+            this.fTraz.Value = "";
+            
             this.ULFotos.InnerHtml = "";
        
             // reseteo grilla de eventos historial
@@ -431,6 +473,8 @@ namespace tamboprp
             this.phFichaHembra.Visible = false;
             this.phHistorial.Visible = false;
             this.LimpiarDdlResultadosSimilares();
+
+            this.cboxControles.Enabled = false;
 
             // reseteo valores de ficha de hembras
             this.lblServicios.Text = "";
@@ -456,38 +500,37 @@ namespace tamboprp
 
             //this.titFooterPanel.Visible = false;
             this.lblFooterPanel.Visible = false;
+
+            // modal modificar ------------------------------ SE TRANCA LUEGO LA BUSQUEDA PORQ SON RUNAT SERVER
+            this.fNombre.Value = "";
+            this.fIdentif.Value = "";
+            this.fTraz.Value = "";
+            this.fOrigen.Value = "";
+
+            _reg = "";
+            _animal = null;
         }
 
         private void LimpiarDdlResultadosSimilares()
         {
-            this.divContenedorDdl.InnerHtml = "";
             this._similares.Clear();
+            this.ddlSimil.Visible = false;
+            this.ddlSimil.DataSource = null;
+            this.ddlSimil.DataBind();
         }
 
         protected void ddlSimilares_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //if (this.ddlSimilares.SelectedIndex > 0 )
-                //this.BuscarAnimal(this.ddlSimilares.SelectedValue);
-                //this.BuscarAnimal(this.ddlSimilares.SelectedItem.Value);
-                //this.BuscarAnimal(this.ddlSimilares.SelectedItem.Text);
-
-            //var btn = (LinkButton)sender;
-            //if (btn != null && btn.Text != "")
-            //{
-            //    this.BuscarAnimal(btn.Text);
-            //}
-        }
-        
-        protected void btnSimilares_click(object sender, EventArgs e)
-        {
-            /*if (this.ddlSimilares.SelectedIndex > 0)
-                this.BuscarAnimal(this.ddlSimilares.SelectedValue);*/
+            if (this.ddlSimil.SelectedIndex > 0)
+                this.BuscarAnimal(this.ddlSimil.SelectedValue);
                 
         }
         
         protected void BuscarAnimal(string registro)
         {
             this.LimpiarRegistro();
+            this.LimpiarDdlResultadosSimilares();
+            this.regBuscar.Value = registro;
             List<VOAnimal> animals = Fachada.Instance.GetSearchAnimal(registro);
             if (animals.Count > 0)
             {
@@ -506,7 +549,7 @@ namespace tamboprp
                 // hay resultados similares y se presentan en el ddl como ayuda
                 if (_similares.Count > 0)
                 {
-                    this.BootstrapDropDownListLargeList(_similares);
+                    this.CargarDropDownListSimilares(_similares);
                 }
                 if (_animal != null)
                 {
@@ -515,6 +558,12 @@ namespace tamboprp
                     animalTemp.Sexo = _animal.Sexo;
                     _animal.Eventos = Fachada.Instance.GetEventosAnimal(animalTemp);
                     this.CargarFichaAnimal();
+                    
+                    // cargo datos del modal
+                    this.fNombre.Value = _animal.Nombre;
+                    this.fIdentif.Value = _animal.Identificacion;
+                    this.fTraz.Value = _animal.Reg_trazab;
+                    this.fOrigen.Value = _animal.Origen;
                 }
             }
             else
@@ -524,28 +573,15 @@ namespace tamboprp
             }
         }
 
-        private void BootstrapDropDownListLargeList(List<VOAnimal> list)
+        private void CargarDropDownListSimilares(List<VOAnimal> list)
         {
-            // Large button group dinámico para resultados similares
-            var sb = new StringBuilder();
-            sb.Append("<div class='btn-group btn-group-lg'>");
-            sb.Append("<button data-toggle='dropdown' class='btn btn-default btn-white dropdown-toggle' aria-expanded='false'>");
-            sb.Append("Resultados similares ");
-            sb.Append("<i class='ace-icon fa fa-angle-down icon-on-right'></i></button>");
-            sb.Append("</button>");
-            sb.Append("<ul class='dropdown-menu dropdown-info dropdown-menu-right'>");
-            // cargo list items recorriendo la lista
-            for (int i = 0 ; i < list.Count; i++)
+            if (list.Count > 0)
             {
-                sb.Append("<li class='btn-lg'><a id='item_" + i + "' href='#' onserverclick='ddlSimilares_SelectedIndexChanged();'>");
-                sb.Append(list[i].Registro.ToString());
-                sb.Append("</a></li>");
+                this.ddlSimil.Visible = true;
+                this.ddlSimil.DataSource = list;
+                this.ddlSimil.DataBind();
+                this.ddlSimil.Items.Insert(0, new ListItem("Resultados Similares", "Resultados Similares"));
             }
-            //sb.Append("<li class='divider'></li>");
-            // list items abajo de la línea divider
-            sb.Append("</ul>");
-            sb.Append("</div>");
-            this.divContenedorDdl.InnerHtml += sb.ToString();
         }
 
         //protected void btn_update_Click(object sender, EventArgs e)
@@ -561,25 +597,27 @@ namespace tamboprp
         //    }
         //}
 
-        public void cBoxControles_CheckedChanged(Object sender, EventArgs e)
+        protected void cBoxControles_CheckedChanging(object sender, EventArgs e)
         {
-            //var list = new List<VOEvento>();
-            //for (int i = 0; i < _animal.Eventos.Count; i++)
-            //{
-            //    if (_animal.Eventos[i].Id_evento != 8)
-            //    {
-            //        var voEv = new VOEvento();
-            //        voEv.Fecha = _animal.Eventos[i].Fecha.ToShortDateString();
-            //        voEv.NombreEvento = _animal.Eventos[i].Nombre;
-            //        voEv.Observaciones = _animal.Eventos[i].ToString();
-            //        voEv.Comentarios = _animal.Eventos[i].Comentarios;
-            //        list.Add(voEv);
-            //    }
-            //}
-            //this.BindearEventosAnimalGridView(list);
-
-
-
+            if (this.cboxControles.Checked)
+            {
+                var list = new List<VOEvento>();
+                for (int i = 0; i < _animal.Eventos.Count; i++)
+                {
+                    if (_animal.Eventos[i].Id_evento != 8)
+                    {
+                        var voEv = new VOEvento();
+                        voEv.Fecha = _animal.Eventos[i].Fecha.ToShortDateString();
+                        voEv.NombreEvento = _animal.Eventos[i].Nombre;
+                        voEv.Observaciones = _animal.Eventos[i].ToString();
+                        voEv.Comentarios = _animal.Eventos[i].Comentarios;
+                        list.Add(voEv);
+                    }
+                }
+                this.BindearEventosAnimalGridView(list);
+                this.lblCantEventos.Text = list.Count.ToString();
+            }
+            else this.ProcesarEventosAnimal();
 
             //foreach (GridViewRow rw in gvHistoria.Rows)
             //{
@@ -589,7 +627,7 @@ namespace tamboprp
 
         }
 
-        public void gvHistoria_RowDataBound(Object sender, GridViewRowEventArgs e)
+        protected void gvHistoria_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             //OnRowDataBound="gvHistoria_RowDataBound" en aspx
 
@@ -603,7 +641,6 @@ namespace tamboprp
         [WebMethod]
         public static List<Controles_totalesMapper.VOControlTotal> GetControlesByRegistro()
         {
-            //var list = Fachada.Instance.ControlesByRegistroGetAll(_reg);
             var list = Fachada.Instance.ControlesByRegistroGetUltAnio(_reg);
             return list;
         }
@@ -617,8 +654,19 @@ namespace tamboprp
                 for (int i = 0; i < lst.Count; i++)
                 {
                     sb.Append("<li>");
-                    sb.Append("<a data-rel='colorbox' title='" + lst[i].PieDeFoto + "' href='" + lst[i].Ruta + "' >");
-                    sb.Append("<img src='" + lst[i].Thumb + "' alt='150x150' /></a>");
+                    var pie = "";
+                    if (lst[i].PieDeFoto != "") pie = lst[i].PieDeFoto + ". ";
+                    var titulo = pie + lst[i].Comentario;
+                    sb.Append("<a data-rel='colorbox' title='" + titulo + "' href='" + lst[i].Ruta + "' >");
+                    // la primera en grande, las demas como thumbnails
+                    if (i == 0)
+                    {
+                        sb.Append("<img src='" + lst[i].Ruta + "' /></a>");
+                    }
+                    else
+                    {
+                        sb.Append("<img src='" + lst[i].Thumb + "' /></a>");
+                    }
                     sb.Append("</li>");
                 }
                 ul.InnerHtml += sb.ToString();
@@ -628,15 +676,111 @@ namespace tamboprp
 
         protected void btn_ModificarAnimal(object sender, EventArgs e)
         {
-            try
+            if (ActualizarAnimal())
             {
-
-            }
-            catch (Exception ex)
-            {
-
+                if (this.regBuscar.Value != "") this.BuscarAnimal(this.regBuscar.Value);
             }
         }
 
+        protected bool ActualizarAnimal()
+        {
+            if (this.regBuscar.Value != "")
+            {
+                var nom = this.fNombre.Value;
+                var id = this.fIdentif.Value;
+                var traz = this.fTraz.Value;
+                var orig = this.fOrigen.Value;
+                var animTemp = new Animal();
+                animTemp.Registro = this.regBuscar.Value;
+                animTemp.Nombre = nom;
+                animTemp.Identificacion = id;
+                animTemp.Reg_trazab = traz;
+                animTemp.Origen = orig;
+                return Fachada.Instance.UpdateDatosAnimal(animTemp);
+            }
+            return false;
+        }
+
+        protected void btnFotoUpload_Click(object sender, EventArgs e)
+        {
+            var foto = this.btnFotoUpload.Text;
+        }
+
+        protected void UploadButton_Click(object sender, EventArgs e)
+        {
+            if (this.fupFoto.HasFile)
+            {
+                try
+                {
+                    // ruta de las imagenenes de animales en el sitio
+                    string filename = this.regBuscar.Value + "_" + Path.GetFileName(fupFoto.FileName);
+                    var img_tamboprp = "img_tamboprp/animales/";
+                    var img_tamboprp_thumb = "img_tamboprp/animales/animales_thumbs/";
+
+                    // ruta para save as en el sitio
+                    var rutaSiteImg = "~/" + img_tamboprp + filename;
+                    
+                    System.Drawing.Image image = System.Drawing.Image.FromStream(fupFoto.PostedFile.InputStream);
+
+                    // seteo máximo de 420px de ancho para imagen subida
+                    //float imgWidth0 = image.PhysicalDimension.Width;
+                    //float imgHeight0 = image.PhysicalDimension.Height;
+                    //float imgSize0 = imgHeight0 > imgWidth0 ? imgHeight0 : imgWidth0;
+                    //float imgResize0 = imgSize0 <= 420 ? (float)1.0 : 420 / imgSize0;
+                    //imgWidth0 *= imgResize0; imgHeight0 *= imgResize0;
+                    //System.Drawing.Image imageResized = image.GetThumbnailImage((int)imgWidth0, (int)imgHeight0, delegate() { return false; }, (IntPtr)0);
+
+
+                    // creo thumbnail
+                    float imgWidth = image.PhysicalDimension.Width;
+                    float imgHeight = image.PhysicalDimension.Height;
+                    float imgSize = imgHeight > imgWidth ? imgHeight : imgWidth;
+                    float imgResize = imgSize <= 150 ? (float)1.0 : 150 / imgSize;
+                    imgWidth *= imgResize; imgHeight *= imgResize;
+                    System.Drawing.Image thumb = image.GetThumbnailImage((int)imgWidth, (int)imgHeight, delegate() { return false; }, (IntPtr)0);
+                    //System.Drawing.Image thumb = image.GetThumbnailImage(150, 150, null, IntPtr.Zero);
+
+
+                    var filenameth = Path.Combine(
+                    Server.MapPath("~/img_tamboprp/animales/animales_thumbs/"),
+                    string.Format("{0}_th{1}",
+                    Path.GetFileNameWithoutExtension(filename),
+                    Path.GetExtension(filename)
+                    )
+                    );
+
+                    // guardo imagen thumbnail
+                    if (File.Exists(filenameth)) File.Delete(filenameth);
+                    thumb.Save(filenameth);
+
+                    // ruta para la base de datos
+                    var rutaDbImg = "../" + img_tamboprp + filename;
+                    var rutaDbThu = "../" + img_tamboprp_thumb + Path.GetFileNameWithoutExtension(filenameth) + Path.GetExtension(filename);
+                    
+                    // guardo en el sitio web
+                    fupFoto.SaveAs(Server.MapPath(rutaSiteImg));
+                    //if (File.Exists(rutaSiteImg)) File.Delete(rutaSiteImg);
+                    //imageResized.Save(rutaSiteImg);
+
+                    // creo objeto VOFoto y lo guardo en la base de datos (rutas a ambos archivos)
+                    var foto = new AnimalMapper.VOFoto();
+                    foto.Registro = this.regBuscar.Value;
+                    foto.Ruta = rutaDbImg;
+                    foto.Thumb = rutaDbThu;
+                    foto.PieDeFoto = this.fPie.Value;
+                    foto.Comentario = this.fComentario.Value;
+
+                    Fachada.Instance.SubirFotoAnimal(foto);
+                    lblStatus.Text = "Archivo subido";
+
+                    this.ReCargarFotosDelAnimal();
+                }
+                catch (Exception ex)
+                {
+                    lblStatus.Text = "El archivo no se pudo subir";
+                }
+            }
+        }
+        
     }
 }

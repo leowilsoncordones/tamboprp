@@ -180,7 +180,8 @@ namespace Datos
             log.Registro = (DBNull.Value == record["REGISTRO"]) ? string.Empty : (string)record["REGISTRO"];
             log.User = (DBNull.Value == record["USUARIO"]) ? string.Empty : (string)record["USUARIO"];
             string strDate = (DBNull.Value == record["FECHA"]) ? string.Empty : record["FECHA"].ToString();
-            if (strDate != string.Empty) log.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+            //if (strDate != string.Empty) log.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+            if (strDate != string.Empty) log.Fecha = DateTime.Parse(strDate);
             log.Tabla = (DBNull.Value == record["TABLA"]) ? string.Empty : (string)record["TABLA"];
             log.Operacion = (DBNull.Value == record["OPERACION"]) ? string.Empty : (string)record["OPERACION"];
             return log;

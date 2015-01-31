@@ -5,7 +5,7 @@
         <h1><i class="menu-icon fa fa-check-square-o" ></i> Acerca de</h1>
     </div>
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-7">
             <article>
                 <p>        
                     Como lo indica su nombre, <small><span class="ace-icon fa fa-check-square-o" aria-hidden="true"></span></small><strong> tambo<span class="text-primary">prp</span></strong> 
@@ -50,11 +50,14 @@
             </article>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-5">
             <h1 class="text-center">
                 <span class="ace-icon fa fa-check-square-o" aria-hidden="true"></span>
                 <span> tambo</span><strong class="text-primary">prp</strong>
             </h1>
+            <div class="center">
+                <img src="img_tamboprp/corporativo/tamboprp0.png" />
+            </div>
         </div>
     </div>
 

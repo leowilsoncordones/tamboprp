@@ -18,6 +18,7 @@ namespace Negocio
             NombreExpo = nombreExpo;
             ElPremio = premio;
             Comentarios = comentario;
+            NombreYLugarDeConcurso = NombreExpo + ", " + Lugar;
         }
 
         public string Registro { get; set; }
@@ -29,6 +30,8 @@ namespace Negocio
         public string NombreExpo { get; set; }
 
         public string CategConcurso { get; set; }
+
+        public string NombreYLugarDeConcurso { get; set; }
 
         public string ElPremio { get; set; }
 

@@ -86,7 +86,7 @@
                 <div class="form-group">
 		            <label class="col-sm-2 control-label no-padding-right"> Rol de usuario </label>
 			        <div class="col-sm-4">
-			            <asp:DropDownList ID="ddlRolUsuario" CssClass="form-control col-xs-10 col-sm-5" AutoPostBack="True" OnSelectedIndexChanged="ddlRolUsuario_SelectedIndexChanged" runat="server" ></asp:DropDownList>
+			            <asp:DropDownList ID="ddlRolUsuario" CssClass="form-control col-xs-10 col-sm-5" OnSelectedIndexChanged="ddlRolUsuario_SelectedIndexChanged" runat="server" ></asp:DropDownList>
 			        </div>
                     <div class="col-sm-12"></div>
 		        </div>
@@ -94,13 +94,13 @@
                 <div class="form-group">
 		            <label class="col-sm-2 control-label no-padding-right"> Usuario </label>
 			        <div class="col-sm-4">
-			            <input type="text" runat="server" id="username" class="form-control col-xs-10 col-sm-5" />
+			            <input type="text" runat="server" id="username" required class="form-control col-xs-10 col-sm-5" />
 			        </div>
 		        </div>
                 <div class="form-group">
 		            <label class="col-sm-2 control-label no-padding-right"> Contraseña </label>
                     <div class="col-sm-4">
-			            <input type="password" runat="server" id="password" class="form-control col-xs-10 col-sm-5" />
+			            <input type="password" runat="server" id="password" required class="form-control col-xs-10 col-sm-5" />
 			        </div>
                     <!-- Chequeo de fortaleza de password-->
                     <div id="messages" class="col-sm-3">
@@ -126,7 +126,8 @@
             </div>
         </div>
     </div>
-    
+    <asp:Label ID="lblStatus" runat="server" Text=""></asp:Label>
+
     <!-- CAMBIAR IMAGEN MODAL -->
     <div id="cambiarImagen" class="modal fade">
         <div class="modal-dialog modal-sm">
@@ -136,7 +137,7 @@
                 </div>
                 <div class="modal-body">
                     <label class="ace-file-input ace-file-multiple">
-                        <input type="file" name="file-input">
+                        <asp:FileUpload ID="fupFoto" runat="server" />
                         <span class="ace-file-container" data-title="Click para elegir una nueva imagen">
                             <span class="ace-file-name" data-title="No File ..."><i class=" ace-icon ace-icon fa fa-picture-o"></i></span>
                         </span><a class="remove" href="#"><i class=" ace-icon fa fa-times"></i></a>

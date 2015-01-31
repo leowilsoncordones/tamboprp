@@ -26,9 +26,12 @@
                 </ul>
 			</div>
         </div>
-        
+        <div class="col-md-2"></div>
+
         <div class="col-md-4">
-            <div class="row">
+            <div class="well">
+                <h4 class="header smaller lighter blue"><i class="menu-icon fa fa-paperclip"></i> Fechas</h4>
+                <div class="row">
                     <div class="input-group">
                         <span class="input-group-btn">
                             <asp:Button ID="btnListar" runat="server" Text="Mostrar" onclick="btnListar_Click" CssClass="btn btn-white btn-default" />
@@ -44,15 +47,14 @@
                         <div class="input-group">                 
                         <span class="input-group-btn">                   
                         <input type="button" onclick="cargarDatos(document.getElementById('fechasVentas').value)" value="Mostrar" class="btn btn-white btn-default"/>
-                            
                         </span>
                         <input type="text" id="fechasVentas" name="fechasVentas" placeholder="Fechas" class="form-control"/>  
                             </div>                			                         
                     </asp:Panel>
                     
-                </div>
+                </div> 
+            </div>      
         </div>
-        <div class="col-md-2"></div>
     </div>
     
     

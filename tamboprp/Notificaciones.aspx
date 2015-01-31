@@ -30,8 +30,8 @@
                 <RowStyle HorizontalAlign="Left"  />
                 <Columns>
                     <asp:BoundField DataField="Titulo" HeaderText="Titulo" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                    <asp:BoundField DataField="Envio" HeaderText="Programación de envío" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
                     <asp:BoundField DataField="Descripcion" HeaderText="Descripción" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
-                    <asp:BoundField DataField="Envio" HeaderText="Envío" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
                 </Columns>
                 <FooterStyle />
                 <PagerSettings />

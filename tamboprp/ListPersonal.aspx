@@ -23,7 +23,7 @@
         <h1><i class="menu-icon fa fa-male"></i> Personal</h1>
     </div>
     <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-4">
             <!-- botones -->
             <div class="clearfix">
                 <div class="pull-right tableTools-container">
@@ -55,11 +55,10 @@
                 <AlternatingRowStyle />
             </asp:GridView>    
         </asp:PlaceHolder><!-- Fin de tabla personal -->
-
             
         </div>
 
-        <div class="col-md-3"></div>
+        <div class="col-md-4"></div>
 
         <!-- RESUMEN EN COLUMNA DERECHA -->
         <div class="col-md-4">

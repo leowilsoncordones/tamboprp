@@ -14,14 +14,17 @@ namespace tamboprp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack)
+            if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]))
             {
-                this.SetPageBreadcrumbs();
-                CargarDdl();
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "GetValoreLeche", "GetValoreLeche(0)", true);
-                this.pnlFechasGraf.Visible = false;
+                if (!Page.IsPostBack)
+                {
+                    this.SetPageBreadcrumbs();
+                    CargarDdl();
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "GetValoreLeche", "GetValoreLeche(0)", true);
+                    this.pnlFechasGraf.Visible = false;
+                }
             }
-            
+            else Response.Redirect("~/Login.aspx", true);
         }
 
         protected void SetPageBreadcrumbs()
