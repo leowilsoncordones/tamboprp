@@ -10,186 +10,159 @@
 namespace tamboprp {
     
     
-    public partial class AnalisisMuertes {
+    public partial class NuevoAnimalParto {
         
         /// <summary>
-        /// pest1 control.
+        /// fRegistro control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pest1;
+        protected global::System.Web.UI.WebControls.TextBox fRegistro;
         
         /// <summary>
-        /// pest2 control.
+        /// fComentario control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pest2;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea fComentario;
         
         /// <summary>
-        /// listaM control.
+        /// fRegPadre control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor listaM;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText fRegPadre;
         
         /// <summary>
-        /// badgeCantOrdene control.
+        /// mydateServ control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label badgeCantOrdene;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText mydateServ;
         
         /// <summary>
-        /// gvMuertesResumen control.
+        /// btnReset control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvMuertesResumen;
+        protected global::System.Web.UI.WebControls.Button btnReset;
         
         /// <summary>
-        /// titTotalMuertes control.
+        /// panelCriasIngresadas control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label titTotalMuertes;
+        protected global::System.Web.UI.WebControls.Panel panelCriasIngresadas;
         
         /// <summary>
-        /// lblTotalMuertes control.
+        /// gvAnimales control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTotalMuertes;
+        protected global::System.Web.UI.WebControls.GridView gvAnimales;
         
         /// <summary>
-        /// titEnfDif control.
+        /// checkVivo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label titEnfDif;
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox checkVivo;
         
         /// <summary>
-        /// lblEnfDif control.
+        /// checkSexo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEnfDif;
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox checkSexo;
         
         /// <summary>
-        /// btnListar control.
+        /// pnlServicio control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnListar;
+        protected global::System.Web.UI.WebControls.Panel pnlServicio;
         
         /// <summary>
-        /// ddlFechas control.
+        /// fRegCria control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlFechas;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText fRegCria;
         
         /// <summary>
-        /// pnlFechasGraf control.
+        /// fNombre control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlFechasGraf;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText fNombre;
         
         /// <summary>
-        /// Button1 control.
+        /// fOrigen control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText fOrigen;
         
         /// <summary>
-        /// gvMuertes control.
+        /// fTraz control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvMuertes;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText fTraz;
         
         /// <summary>
-        /// titCantAnimales control.
+        /// fGen control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label titCantAnimales;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText fGen;
         
         /// <summary>
-        /// lblCantAnimales control.
+        /// fIdentif control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCantAnimales;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText fIdentif;
         
         /// <summary>
-        /// btnListar1 control.
+        /// btnModificar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnListar1;
-        
-        /// <summary>
-        /// ddlFechas1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlFechas1;
-        
-        /// <summary>
-        /// Panel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel1;
-        
-        /// <summary>
-        /// Button3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button3;
+        protected global::System.Web.UI.WebControls.Button btnModificar;
     }
 }

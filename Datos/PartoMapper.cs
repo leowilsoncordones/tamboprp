@@ -20,6 +20,8 @@ namespace Datos
         private static string Parto_SelecByAnio = "Parto_SelecByAnio";
         private static string Parto_SelecCountByMonth = "Parto_SelecCountByMonth";
         private static string Parto_SelecBy2fechas = "Parto_SelecBy2fechas";
+        private static string Parto_SelectExisteParto = "Parto_SelectExisteParto";
+        private static string Parto_SelecUltimoByRegistro = "Parto_SelecUltimoByRegistro";
         
         
         public PartoMapper(Parto parto)
@@ -82,6 +84,19 @@ namespace Datos
             return result;
         }
 
+        public Parto GetUltimoPartoByRegistro()
+        {
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@REGISTRO", _registroAnimal));
+            cmd.CommandText = Parto_SelecUltimoByRegistro;
+
+            SqlDataReader dr = FindByCmd(cmd);
+            if (dr.Read()) return (Parto)load(dr);
+            else return null;
+        }
+        
         public List<Evento> GetNacimientoByRegistro(string regAnimal)
         {
             var result = new List<Evento>();
@@ -142,8 +157,21 @@ namespace Datos
             var value = ReturnScalarValue(cmd);
             return Convert.ToInt32(value);
         }
-        
 
+        public bool ExisteParto()
+        {
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@REGISTRO", _parto.Registro));
+            cmd.Parameters.Add(new SqlParameter("@FECHA_PARTO", _parto.Fecha));
+            cmd.CommandText = Parto_SelectExisteParto;
+            
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value) > 0;
+        }
+        
+        
         protected override SqlCommand GetStatement(OperationType opType)
         {
             SqlCommand cmd = null;
@@ -173,10 +201,9 @@ namespace Datos
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Parto_Insert";
-                cmd.Parameters.Add(new SqlParameter("@REGISTRO", _registroAnimal));
+                cmd.Parameters.Add(new SqlParameter("@REGISTRO", _parto.Registro));
                 cmd.Parameters.Add(new SqlParameter("@EVENTO", _parto.Id_evento));
                 cmd.Parameters.Add(new SqlParameter("@FECHA_PARTO", _parto.Fecha));
-                //cmd.Parameters.Add(new SqlParameter("@FECHA_SERV", _parto.Fecha_serv));
                 cmd.Parameters.Add(new SqlParameter("@COMENTARIO", _parto.Comentarios));
                 cmd.Parameters.Add(new SqlParameter("@OBSERVACIONES", _parto.Observaciones));
                 cmd.Parameters.Add(new SqlParameter("@SEXO_PARTO", _parto.Sexo_parto));
@@ -187,10 +214,9 @@ namespace Datos
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Parto_Update";
-                cmd.Parameters.Add(new SqlParameter("@REGISTRO", _registroAnimal));
+                cmd.Parameters.Add(new SqlParameter("@REGISTRO", _parto.Registro));
                 cmd.Parameters.Add(new SqlParameter("@EVENTO", _parto.Id_evento));
                 cmd.Parameters.Add(new SqlParameter("@FECHA_PARTO", _parto.Fecha));
-                //cmd.Parameters.Add(new SqlParameter("@FECHA_SERV", _parto.Fecha_serv));
                 cmd.Parameters.Add(new SqlParameter("@COMENTARIO", _parto.Comentarios));
                 cmd.Parameters.Add(new SqlParameter("@OBSERVACIONES", _parto.Observaciones));
                 cmd.Parameters.Add(new SqlParameter("@SEXO_PARTO", _parto.Sexo_parto));

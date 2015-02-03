@@ -35,6 +35,7 @@ namespace Datos
         private static string Animal_UpdateDatosModificables = "Animal_UpdateDatosModificables";
         private static string Animal_SubirFotoByRegistro = "Animal_SubirFotoByRegistro";
         private static string Animal_InsertFotoByRegistro = "Animal_InsertFotoByRegistro";
+        private static string Animal_SelectCriasByParto = "Animal_SelectCriasByParto";
         
                
         public AnimalMapper(Animal animal)
@@ -111,6 +112,23 @@ namespace Datos
             return result;
         }
 
+        public List<Animal> GetCriasIngresadasParto(string regMadre, DateTime fecha)
+        {
+            var result = new List<Animal>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@REG_MADRE", regMadre));
+            cmd.Parameters.Add(new SqlParameter("@FECHA_PARTO", fecha));
+            cmd.CommandText = Animal_SelectCriasByParto;
+
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+                result.Add(load(dr));
+            dr.Close();
+            return result;
+        }
+
         public List<VOFoto> GetFotosByRegistro(string reg)
         {
             var result = new List<VOFoto>();
@@ -171,9 +189,16 @@ namespace Datos
                 cmd.Parameters.Add(new SqlParameter("@REGISTRO", _animal.Registro));
                 cmd.Parameters.Add(new SqlParameter("@REG_PADRE", _animal.Reg_padre));
                 cmd.Parameters.Add(new SqlParameter("@REG_MADRE", _animal.Reg_madre)); 
-                cmd.Parameters.Add(new SqlParameter("@REG_TRAZAB", _animal.Reg_trazab)); 
-                cmd.Parameters.Add(new SqlParameter("@VIVO", _animal.Vivo));
-
+                cmd.Parameters.Add(new SqlParameter("@REG_TRAZAB", _animal.Reg_trazab));
+                cmd.Parameters.Add(new SqlParameter("@GEN", _animal.Gen));
+                cmd.Parameters.Add(new SqlParameter("@IDENTIFICACION", _animal.Identificacion));
+                cmd.Parameters.Add(new SqlParameter("@SEXO", _animal.Sexo));
+                cmd.Parameters.Add(new SqlParameter("@FECHA_NACIM", _animal.Fecha_nacim));
+                cmd.Parameters.Add(new SqlParameter("@ORIGEN", _animal.Origen));
+                cmd.Parameters.Add(new SqlParameter("@NOMBRE", _animal.Nombre));
+                // al insertar el nuevo animal, tambien inserto la categoria 
+                // en la tabla animales_categ, como una transaccion conjunta
+                cmd.Parameters.Add(new SqlParameter("@CATEGORIA", _animal.IdCategoria)); 
             }
             else if (opType == OperationType.UPDATE)
             {
@@ -181,8 +206,17 @@ namespace Datos
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Animal_Update";
                 cmd.Parameters.Add(new SqlParameter("@REGISTRO", _animal.Registro));
-                cmd.Parameters.Add(new SqlParameter("@REG_TRAZAB", _animal.Reg_padre));
-                cmd.Parameters.Add(new SqlParameter("@VIVO", _animal.Vivo));
+                cmd.Parameters.Add(new SqlParameter("@REG_PADRE", _animal.Reg_padre));
+                cmd.Parameters.Add(new SqlParameter("@REG_MADRE", _animal.Reg_madre));
+                cmd.Parameters.Add(new SqlParameter("@REG_TRAZAB", _animal.Reg_trazab));
+                cmd.Parameters.Add(new SqlParameter("@GEN", _animal.Gen));
+                cmd.Parameters.Add(new SqlParameter("@IDENTIFICACION", _animal.Identificacion));
+                cmd.Parameters.Add(new SqlParameter("@SEXO", _animal.Sexo));
+                cmd.Parameters.Add(new SqlParameter("@FECHA_NACIM", _animal.Fecha_nacim));
+                cmd.Parameters.Add(new SqlParameter("@ORIGEN", _animal.Origen));
+                cmd.Parameters.Add(new SqlParameter("@NOMBRE", _animal.Nombre));
+
+                //cmd.Parameters.Add(new SqlParameter("@CATEGORIA", _animal.IdCategoria)); 
             }
             return cmd;
         }
@@ -194,7 +228,7 @@ namespace Datos
             anim.Identificacion = (DBNull.Value == record["IDENTIFICACION"]) ? string.Empty : (string)record["IDENTIFICACION"];
             //string strGen = (DBNull.Value == record["GEN"]) ? string.Empty : record["GEN"].ToString();
             anim.Gen = (DBNull.Value == record["GEN"]) ? -1 : int.Parse(record["GEN"].ToString());
-            anim.IdCategoria = (short)((DBNull.Value == record["CATEGORIA"]) ? 0 : (Int16)record["CATEGORIA"]);
+            //anim.IdCategoria = (short)((DBNull.Value == record["CATEGORIA"]) ? 0 : (Int16)record["CATEGORIA"]);
             anim.Nombre = (DBNull.Value == record["NOMBRE"]) ? string.Empty : (string)record["NOMBRE"];
             anim.Reg_trazab = (DBNull.Value == record["REG_TRAZAB"]) ? string.Empty : (string)record["REG_TRAZAB"];
             anim.Sexo = (DBNull.Value == record["SEXO"]) ? 'X' : Convert.ToChar(record["SEXO"]);
@@ -614,7 +648,18 @@ namespace Datos
             var value = ReturnScalarValue(cmd);
             return Convert.ToInt32(value);
         }
-        
+
+        public int CambioCategoriaAnimales()
+        {
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = "Animales_Categoria_Actualizar";
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value);
+        }
+
     }
 }
 

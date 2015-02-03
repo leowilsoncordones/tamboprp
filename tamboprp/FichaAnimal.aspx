@@ -14,8 +14,6 @@
     <link href="css/ace-rtl.css" rel="stylesheet" />
     <link href="css/ace-ie.css" rel="stylesheet" />
     
-    <script src="js/jquery.colorbox.js"></script>
-
     <script src="js/ace-extra.js"></script>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.js"></script>
@@ -23,9 +21,48 @@
     <script src="js/jquery1x.js"></script>
     <script src="js/excanvas.js"></script>
     
-
 </asp:Content>
 <asp:Content ID="ContentAnimal" ContentPlaceHolderID="MainContent" runat="server">
+    
+    
+    <script src="js/jquery.colorbox.js"></script>
+
+    <!------------- Script image gallery --------------->
+	<script type="text/javascript">
+
+		$(function () {
+		    var colorbox_params = {
+		        reposition: true,
+		        scalePhotos: true,
+		        scrolling: false,
+		        previous: '<i class="icon-arrow-left"></i>',
+		        next: '<i class="icon-arrow-right"></i>',
+		        close: '&times;',
+		        current: '{current} of {total}',
+		        maxWidth: '100%',
+		        maxHeight: '100%',
+		        onOpen: function () {
+		            document.body.style.overflow = 'hidden';
+		        },
+		        onClosed: function () {
+		            document.body.style.overflow = 'auto';
+		        },
+		        onComplete: function () {
+		            $.colorbox.resize();
+		        }
+		    };
+		    $('.ace-thumbnails [data-rel="colorbox"]').colorbox(colorbox_params);
+		    $("#cboxLoadingGraphic").append("<i class='icon-spinner orange'></i>");//let's add a custom loading icon
+		    $(window).on('resize.colorbox', function () {
+		        try {
+		            $.fn.colorbox.load();//to redraw the current frame
+		        } catch (e) { }
+		    });
+		})
+
+	</script>
+    
+
     <div class="page-header">
         <h1><i class="menu-icon fa fa-github-alt"></i> Ficha de animal <small><i class="ace-icon fa fa-angle-double-right"></i> y sus eventos históricos</small></h1>
     </div>
@@ -64,7 +101,7 @@
                 <div class="col-xs-6 col-md-4 text-right">
                     <div class="btn-group" role="group" >
                       <a href="#modifData" role="button" class="btn btn-white btn-default btn-sm" data-toggle="modal"><span class="fa fa-pencil" aria-hidden="true"></span> Editar</a>
-                      <a href="#fotosModal" role="button" class="btn btn-white btn-default btn-sm" onclick="GetFotos()" data-toggle="modal"><span class="fa fa-camera-retro" aria-hidden="true"></span> Fotos</a>
+                      <a href="#fotosModal" role="button" class="btn btn-white btn-default btn-sm" data-toggle="modal"><span class="fa fa-camera-retro" aria-hidden="true"></span> Fotos</a>
                       <a href="#grafModal" role="button" class="btn btn-white btn-default btn-sm" onclick="GetValoreLeche()" data-toggle="modal"><span class="fa fa-bar-chart-o" aria-hidden="true"></span> Producción</a>
                     </div>
                 </div>
@@ -233,7 +270,7 @@
                     <div class="modal-body">
                         <!-- GALLERY thumbnails -->
                         <ul class="ace-thumbnails clearfix" runat="server" id="ULFotos" >
-
+                            
                         </ul>
                     </div>
                     <div class="modal-footer">
@@ -429,6 +466,5 @@
     
     
     
-
 
 </asp:Content>

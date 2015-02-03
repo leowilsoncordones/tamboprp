@@ -56,7 +56,7 @@ namespace tamboprp
                         Response.Redirect("~/Tablero.aspx", true);
                     }
                     else if ((bool)Session["EsDigitador"]) Response.Redirect("~/NuevoEvento.aspx", true);
-                    else if ((bool)Session["EsLector"]) Response.Redirect("~/Animales.aspx", true);
+                    else if ((bool)Session["EsLector"]) Response.Redirect("~/FichaAnimal.aspx", true);
                     //else Response.Redirect("~/Login.aspx", true);
                 }
                 else

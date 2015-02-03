@@ -21,7 +21,8 @@ namespace tamboprp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]))
+            if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]) &&
+               (Session["EsLector"] != null && !(bool)Session["EsLector"]))
             {
                 if (!Page.IsPostBack)
                 {
@@ -32,7 +33,7 @@ namespace tamboprp
                 	lblStatus.Visible = false;
                 }
             }
-            else Response.Redirect("~/Login.aspx", true);
+            else Response.Redirect("~/Default.aspx", true);
         }
 
         protected void SetPageBreadcrumbs()
@@ -60,9 +61,9 @@ namespace tamboprp
                     // ruta de las textos de controles en el sitio
                     string filename = Path.GetFileName(fupTxt.FileName);
                     var rutaSiteTxt = "~/controlesMU/" + filename;
-                    var rutaSiteTxtcheck =
-                        "D:\\ORT laptop\\2014-S5-Proyecto\\tamboprp-git\\tamboprp\\controlesMU\\"+filename;
-                    if (!File.Exists(rutaSiteTxtcheck))
+                    //var rutaSiteTxtcheck = "http://www.tamboprp.uy/controlesMU/" + filename;
+                    var websiteLocalPath = "d:\\DZHosts\\LocalUser\\tamboprp_admin\\www.tamboprp.somee.com\\controlesMU\\" + filename;
+                    if (!File.Exists(websiteLocalPath))
                     {
                         var usu = (VOUsuario)Session["Usuario"];
                         fupTxt.SaveAs(Server.MapPath(rutaSiteTxt));
@@ -82,7 +83,7 @@ namespace tamboprp
                     else
                     {
                         lblStatus.Visible = true;
-                        lblStatus.Text = "El archivo : '"+ filename +"' ya existe"; 
+                        lblStatus.Text = "El archivo : '"+ filename +"' ya fue cargado"; 
                     }
 
                 }

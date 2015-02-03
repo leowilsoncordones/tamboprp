@@ -36,8 +36,8 @@
     <!-- comienza tabbable -->
     <div class="tabbable">
 		<ul class="nav nav-tabs" id="myTab">
-			<li class="active"><a data-toggle="tab" href="#analisisSanitario"><i class="blue ace-icon fa fa-stethoscope bigger-120"></i> Análisis sanitario de muertes </a></li>
-            <li><a data-toggle="tab" href="#listaMuertes"><i class="blue ace-icon fa fa-list bigger-120"></i> Lista de muertes <asp:Label ID="badgeCantOrdene" runat="server" cssClass="badge badge-success"></asp:Label></a></li>
+			<li class="active" runat="server" id="pest1"><a data-toggle="tab" href="#analisisSanitario"><i class="blue ace-icon fa fa-stethoscope bigger-120"></i> Análisis sanitario de muertes </a></li>
+            <li runat="server" id="pest2"><a data-toggle="tab" href="#listaMuertes" runat="server" id="listaM" ><i class="blue ace-icon fa fa-list bigger-120"></i> Lista de muertes <asp:Label ID="badgeCantOrdene" runat="server" cssClass="badge badge-success"></asp:Label></a></li>
 		</ul>
         <!-- comienza contenido de tabbable -->
 		<div class="tab-content">

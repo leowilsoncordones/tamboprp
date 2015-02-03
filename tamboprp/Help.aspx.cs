@@ -19,13 +19,16 @@ namespace tamboprp
         {
             if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]))
             {
-                this.SetPageBreadcrumbs();
-                this.CargarFaqs();
-                this.CargarDdlTipoProblema();
-                //this.LimpiarFormulario();
-                this.PreCargarFormulario();
+                if (!Page.IsPostBack)
+                {
+                    this.SetPageBreadcrumbs();
+                    this.CargarFaqs();
+                    this.CargarDdlTipoProblema();
+                    //this.LimpiarFormulario();
+                    this.PreCargarFormulario();
+                }
             }
-            else Response.Redirect("~/Login.aspx", true);
+            else Response.Redirect("~/Default.aspx", true);
         }
 
         protected void SetPageBreadcrumbs()
@@ -98,7 +101,8 @@ namespace tamboprp
             caso.Telefono = this.fTelef.Value;
             caso.Email = this.fEmail.Value;
             caso.Titulo = this.fTitulo.Value;
-            caso.Tipo = this.ddlTipo.SelectedValue.ToString();
+            //caso.Tipo = this.ddlTipo.SelectedValue.ToString();
+            caso.Tipo = this.ddlTipo.SelectedItem.ToString();
             caso.Descripcion = this.fComentario.Value;
 
             if (Fachada.Instance.EnviarCasoSoporte(caso))

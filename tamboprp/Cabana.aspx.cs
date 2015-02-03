@@ -16,7 +16,7 @@ namespace tamboprp
             {
                 this.SetPageBreadcrumbs();
             }
-            else Response.Redirect("~/Login.aspx", true);
+            else Response.Redirect("~/Default.aspx", true);
         }
 
         protected void SetPageBreadcrumbs()

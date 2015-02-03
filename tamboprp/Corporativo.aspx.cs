@@ -12,7 +12,8 @@ namespace tamboprp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]))
+            if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]) &&
+               (Session["EsAdmin"] != null && (bool)Session["EsAdmin"]))
             {
                 if (!Page.IsPostBack)
                 {
@@ -20,7 +21,7 @@ namespace tamboprp
                     this.CargarDatosCorporativos();
                 }
             }
-            else Response.Redirect("~/Login.aspx", true);
+            else Response.Redirect("~/Default.aspx", true);
         }
 
         protected void SetPageBreadcrumbs()

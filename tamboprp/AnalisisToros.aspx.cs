@@ -21,7 +21,8 @@ namespace tamboprp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]))
+            if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]) &&
+               (Session["EsLector"] != null && !(bool)Session["EsLector"]))
             {
                 if (!Page.IsPostBack)
                 {
@@ -35,7 +36,7 @@ namespace tamboprp
                     CargarDdl1();
                 }
             }
-            else Response.Redirect("~/Login.aspx", true);
+            else Response.Redirect("~/Default.aspx", true);
         }
 
         protected void SetPageBreadcrumbs()

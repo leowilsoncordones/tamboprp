@@ -26,9 +26,8 @@ namespace Datos
         private static string Diag_prenez_SelectRegistrosPrenadasAhora = "Diag_prenez_SelectRegistrosPrenadasAhora";
         private static string Diag_prenez_SelectTrabajoInseminadores2fechas = "Diag_prenez_SelectTrabajoInseminadores2fechas";
         private static string Diag_prenez_SelectInseminacionesExito2fechas = "Diag_prenez_SelectInseminacionesExito2fechas";
+        private static string Diag_prenez_SelectUltimoDespFechaByRegistro = "Diag_prenez_SelectUltimoDespFechaByRegistro";
         
-        
-
         public Diag_PrenezMapper(Diag_Prenez diag)
         {
             _diag = diag;
@@ -59,6 +58,20 @@ namespace Datos
             SqlDataReader dr = Find(OperationType.SELECT_ID);
             dr.Read();
             return (Diag_Prenez)load(dr);
+        }
+
+        public Diag_Prenez GetUltimoDiagnosticoDespFechaByRegistro(DateTime fecha)
+        {
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@REGISTRO", _registroAnimal));
+            cmd.Parameters.Add(new SqlParameter("@FECHA", fecha));
+            cmd.CommandText = Diag_prenez_SelectUltimoDespFechaByRegistro;
+
+            SqlDataReader dr = FindByCmd(cmd);
+            if (dr.Read()) return (Diag_Prenez)load(dr);
+            else return null;
         }
 
 
@@ -127,10 +140,6 @@ namespace Datos
             dr.Close();
             return result;
         }
-
-        
-        
-
 
         protected override SqlCommand GetStatement(OperationType opType)
         {

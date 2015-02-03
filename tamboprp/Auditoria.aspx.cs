@@ -16,7 +16,8 @@ namespace tamboprp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]))
+            if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]) &&
+               (Session["EsAdmin"] != null && (bool)Session["EsAdmin"]))
             {
                 this.SetPageBreadcrumbs();
                 //this.CargarAuditoria();
@@ -24,7 +25,7 @@ namespace tamboprp
                 this.lblStatus.Text = "";
                 this.CargarLogsAuditoria();
             }
-            else Response.Redirect("~/Login.aspx", true);
+            else Response.Redirect("~/Default.aspx", true);
         }
 
         protected void SetPageBreadcrumbs()
@@ -51,19 +52,34 @@ namespace tamboprp
             try
             {
                 var listaLog = Fachada.Instance.ExportarLogCompleto();
+                //string path = @"C:\tamboprpLog.txt";
+                //using (var file = new System.IO.StreamWriter(path))
+                //{
+                //    foreach (string line in listaLog)
+                //    {
+                //        file.WriteLine(line);
+                //    }
+                //}
+                //this.lblStatus.Text = "Verifique el archivo en C:\\tamboprpLog.txt";
 
-                string path = @"C:\tamboprpLog.txt";
-                //string userPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Desktop";
-                //string path = userPath + @"\tamboprpLog.txt";
 
-                using (var file = new System.IO.StreamWriter(path))
+                var ms = new MemoryStream();
+                TextWriter tw = new StreamWriter(ms);
+                foreach (string line in listaLog)
                 {
-                    foreach (string line in listaLog)
-                    {
-                        file.WriteLine(line);
-                    }
+                    tw.WriteLine(line);
                 }
-                this.lblStatus.Text = "Verifique el archivo en C:\\tamboprpLog.txt";
+                tw.Flush();
+                byte[] bytes = ms.ToArray();
+                ms.Close();
+
+                Response.Clear();
+                Response.ContentType = "application/force-download";
+                //Response.ContentType = "text/plain";
+                Response.AddHeader("Content-Disposition", "attachment; filename=tamboprpLog.txt");
+                Response.BinaryWrite(bytes);
+                Response.End(); 
+                
             }
             catch (Exception ex)
             {

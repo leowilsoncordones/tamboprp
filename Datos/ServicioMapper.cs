@@ -29,6 +29,7 @@ namespace Datos
         private static string Servicio_DiasSinDiagPrenezCount70 = "Servicio_DiasSinDiagPrenezCount70";
         private static string Servicio_DiasSinDiagPrenezCount35 = "Servicio_DiasSinDiagPrenezCount35";
         private static string Servicio_80DiasLactanciaSinServicioCount = "Servicio_80DiasLactanciaSinServicioCount";
+        private static string Servicio_SelectUltimoDespFechaByRegistro = "Servicio_SelectUltimoDespFechaByRegistro";
         private string _nickName;
 
 
@@ -62,6 +63,20 @@ namespace Datos
             SqlDataReader dr = Find(OperationType.SELECT_ID);
             dr.Read();
             return (Servicio)load(dr);
+        }
+
+        public Servicio GetUltimoServicioDespFechaByRegistro(DateTime fecha)
+        {
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@REGISTRO", _registroAnimal));
+            cmd.Parameters.Add(new SqlParameter("@FECHA", fecha));
+            cmd.CommandText = Servicio_SelectUltimoDespFechaByRegistro;
+
+            SqlDataReader dr = FindByCmd(cmd);
+            if (dr.Read()) return (Servicio) load(dr);
+            else return null;
         }
 
 
@@ -161,6 +176,7 @@ namespace Datos
             return result;
         }
 
+        
         public List<Evento> GetServiciosByRegistroDespUltParto(string regAnimal)
         {
             var result = new List<Evento>();

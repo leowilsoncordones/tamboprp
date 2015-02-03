@@ -16,7 +16,8 @@ namespace tamboprp
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]))
+            if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]) &&
+               (Session["EsAdmin"] != null && (bool)Session["EsAdmin"]))
             {
                 this.CargarReportes();
                 if (!Page.IsPostBack)
@@ -29,7 +30,7 @@ namespace tamboprp
                     this.CargarCheckBoxUsuarios();
                 }
             }
-            else Response.Redirect("~/Login.aspx", true);
+            else Response.Redirect("~/Default.aspx", true);
         }
 
         protected void SetPageBreadcrumbs()
@@ -206,19 +207,19 @@ namespace tamboprp
         public void CargarDdlDias()
         {
             var lst = new List<VoListItem>();
+            var item0 = new VoListItem { Id = 0, Nombre = "DOMINGO" }; lst.Add(item0);
             var item1 = new VoListItem { Id = 1, Nombre = "LUNES" }; lst.Add(item1);
             var item2 = new VoListItem { Id = 2, Nombre = "MARTES" }; lst.Add(item2);
             var item3 = new VoListItem { Id = 3, Nombre = "MIERCOLES" }; lst.Add(item3);
             var item4 = new VoListItem { Id = 4, Nombre = "JUEVES" }; lst.Add(item4);
             var item5 = new VoListItem { Id = 5, Nombre = "VIERNES" }; lst.Add(item5);
             var item6 = new VoListItem { Id = 6, Nombre = "SABADO" }; lst.Add(item6);
-            var item7 = new VoListItem { Id = 7, Nombre = "DOMINGO" }; lst.Add(item7);
-
+            
             this.ddlDias.DataSource = lst;
             this.ddlDias.DataTextField = "Nombre";
             this.ddlDias.DataValueField = "Id";
             this.ddlDias.DataBind();
-            this.ddlDias.SelectedIndex = 4;
+            this.ddlDias.SelectedIndex = 5;
         }
 
         public void CargarDdlFrecuencia()

@@ -26,7 +26,7 @@ namespace tamboprp
                     this.SetExtrasGraficaCategorías();
                 }
             }
-            else Response.Redirect("~/Login.aspx", true);
+            else Response.Redirect("~/Default.aspx", true);
         }
 
         protected void SetPageBreadcrumbs()
@@ -182,7 +182,7 @@ namespace tamboprp
         public void SetExtrasGraficaCategorías()
         {
             // #section:custom/extra.grid 
-            var lstExtras = Fachada.Instance.GetExtrasGraficaCategorías(); ;
+            var lstExtras = Fachada.Instance.GetExtrasGraficaCategorias(); ;
             var sb = new StringBuilder();
 
             for (int i = 0; i < lstExtras.Count; i++)

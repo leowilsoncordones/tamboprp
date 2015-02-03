@@ -60,7 +60,7 @@ namespace Negocio
                 //smtpMail.Port = 26;
                 smtpMail.UseDefaultCredentials = false;
                 smtpMail.Credentials = new System.Net.NetworkCredential("notificaciones", "PRPnotif2014*");
-                smtpMail.Send(email); // revisar a gmail
+                smtpMail.Send(email); // revisar a gmail y hotmail no hace relay
             }
             catch (Exception)
             {

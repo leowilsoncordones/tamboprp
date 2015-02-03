@@ -12,19 +12,6 @@
                     acerca de las potencialidades de nuestra aplicación.<br /><br />
                 </p>
             </section>
-            <section class="contact">
-                <header>
-                    <h3>Teléfonos:</h3>
-                </header>
-                <p>
-                    <span class="label">Móvil:</span>
-                    <span>(+598)</span>
-                </p>
-                <p>
-                    <span class="label">Móvil:</span>
-                    <span>(+598)</span>
-                </p>
-            </section>
 
             <section class="contact">
                 <header>
