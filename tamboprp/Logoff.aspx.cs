@@ -27,7 +27,7 @@ namespace tamboprp
                 Session["Usuario"] = null;
                 Session.Abandon();
             }
-            Response.Redirect("~/Login.aspx", true);
+            Response.Redirect("~/Default.aspx", true);
         }
     }
 }

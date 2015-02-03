@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -33,7 +34,7 @@ namespace tamboprp
                     this.LimpiarRegistro();
                 }
             }
-            else Response.Redirect("~/Login.aspx", true);
+            else Response.Redirect("~/Default.aspx", true);
         }
 
         protected void SetPageBreadcrumbs()
@@ -154,9 +155,10 @@ namespace tamboprp
                 this.lblFechaNac.Text = _animal.Fecha_nacim.ToShortDateString();
                 if (_animal.Fecha_nacim != DateTime.MinValue)
                 {
-                    int y = DateTime.Now.Year - _animal.Fecha_nacim.Year;
-                    int m = Math.Abs(DateTime.Now.Month - _animal.Fecha_nacim.Month);
-                    string output = y + "a " + m + "m"; 
+                    int[] age = Fachada.Instance.CalcularEdadYMD(_animal.Fecha_nacim);
+                    //int y = DateTime.Now.Year - _animal.Fecha_nacim.Year;
+                    //int m = Math.Abs(DateTime.Now.Month - _animal.Fecha_nacim.Month);
+                    string output = age[0] + "a " + age[1] + "m"; 
                     this.lblEdad.Text = output;
                 }
                 // origen, registro de padre y madre
@@ -200,6 +202,7 @@ namespace tamboprp
             else this.lblAnimal.Text = "No existe :(";
         }
 
+        
         private void CargarFotosDelAnimal()
         {
             if (_animal.Fotos != null) 
@@ -287,6 +290,8 @@ namespace tamboprp
                         if (pa.Sexo_parto == 'M') partosM++;
                         else partosH++;
                         varFechaUltParto = pa.Fecha.ToShortDateString();
+                        //string strDate = pa.Fecha.ToShortDateString();
+                        //if (strDate != string.Empty) varFechaUltParto = DateTime.Parse(strDate, new CultureInfo("fr-FR")).ToShortDateString();
                         break;
                     }
                     case 2: // celos sin servicio
@@ -300,15 +305,18 @@ namespace tamboprp
                         var sv = (Servicio)list[i];
                         varRegUltimoServicio = sv.Reg_padre;
                         varFechaUltServicio = sv.Fecha.ToShortDateString();
+                        //string strDate = sv.Fecha.ToShortDateString();
+                        //if (strDate != string.Empty) varFechaUltServicio = DateTime.Parse(strDate, new CultureInfo("fr-FR")).ToShortDateString();
                         break;
                     }
                     case 4: // secados
                     {
                         var sec = (Secado)list[i];
                         // traigo el nombre del motivo de secado con id dado
-                        //varMotivoUltSecado = sec.Motivos_secado.ToString();
                         varMotivoUltSecado = ((Motivos_Secado)sec.Motivos_secado).ToString();
                         varFechaUltSecado = sec.Fecha.ToShortDateString();
+                        //string strDate = sec.Fecha.ToShortDateString();
+                        //if (strDate != string.Empty) varFechaUltSecado = DateTime.Parse(strDate, new CultureInfo("fr-FR")).ToShortDateString();
                         break;
                     }
                     case 7: // diagnosticos
@@ -656,6 +664,7 @@ namespace tamboprp
                     sb.Append("<li>");
                     var pie = "";
                     if (lst[i].PieDeFoto != "") pie = lst[i].PieDeFoto + ". ";
+                    else pie = lst[i].Registro;
                     var titulo = pie + lst[i].Comentario;
                     sb.Append("<a data-rel='colorbox' title='" + titulo + "' href='" + lst[i].Ruta + "' >");
                     // la primera en grande, las demas como thumbnails

@@ -25,12 +25,13 @@ namespace tamboprp
         private List<VOServicio> _listSec = Fachada.Instance.GetServicios35SinDiagPrenezVacSecas();
         protected void Page_Load(object sender, EventArgs e)
         {
-            if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]))
+            if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]) &&
+               (Session["EsLector"] != null && !(bool)Session["EsLector"]))
             {
                 this.SetPageBreadcrumbs();
                 cargarGrilla();
             }
-            else Response.Redirect("~/Login.aspx", true);
+            else Response.Redirect("~/Default.aspx", true);
         }
 
         protected void SetPageBreadcrumbs()

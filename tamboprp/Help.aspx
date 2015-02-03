@@ -134,7 +134,7 @@
     <!-- CONFIRMATION MODAL -->
     
     <div id="sendModal" class="modal fade">
-        <div class="modal-dialog modal-sm">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header widget-header-small">
                     <h4 class="smaller"><i class="ace-icon fa fa-save"></i> Confirmar</h4>

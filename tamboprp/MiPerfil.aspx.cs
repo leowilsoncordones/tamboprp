@@ -29,7 +29,7 @@ namespace tamboprp
                     this.CargarMiPerfilUsuario();
                 }
             }
-            else Response.Redirect("~/Login.aspx", true);
+            else Response.Redirect("~/Default.aspx", true);
         }
 
         protected void SetPageBreadcrumbs()

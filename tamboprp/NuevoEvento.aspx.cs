@@ -21,7 +21,8 @@ namespace tamboprp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]))
+            if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]) &&
+               (Session["EsLector"] != null && !(bool)Session["EsLector"]))
             {
                 if (!Page.IsPostBack)
                 {
@@ -39,7 +40,7 @@ namespace tamboprp
                 }
                 if (this.ddlEvento.SelectedIndex != 13) CargarListaRegistrosParaTypeahead(int.Parse(this.ddlEvento.SelectedValue));
             }
-            else Response.Redirect("~/Login.aspx", true);
+            else Response.Redirect("~/Default.aspx", true);
         }
 
         private static string _dato="";

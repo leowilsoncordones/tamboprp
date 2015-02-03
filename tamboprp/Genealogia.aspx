@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="tamboprp | genealogía" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Genealogia.aspx.cs" Inherits="tamboprp.Genealogia" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     
+    <link href="css/colorbox.css" rel="stylesheet" />
+
     <link href="css/bootstrap.css" rel="stylesheet" />
     <link href="css/font-awesome.css" rel="stylesheet" />
     <link href="css/ace-fonts.css" rel="stylesheet" />
@@ -12,43 +14,49 @@
     <link href="css/ace-rtl.css" rel="stylesheet" />
     <link href="css/ace-ie.css" rel="stylesheet" />
     
-    <link href="css/colorbox.css" rel="stylesheet" />
-
-    <script src="js/jquery.colorbox.js"></script>
-
-    <script src="js/ace-extra.js"></script>
-    <script src="js/html5shiv.js"></script>
-    <script src="js/respond.js"></script>
-    <script src="js/jquery.js"></script>
-    <script src="js/jquery1x.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <script src="js/excanvas.js"></script>
-
-    <script type="text/javascript">
-        var colorbox_params = {
-            rel: 'colorbox',
-            reposition: true,
-            scalePhotos: true,
-            scrolling: false,
-            previous: '<i class="ace-icon fa fa-arrow-left"></i>',
-            next: '<i class="ace-icon fa fa-arrow-right"></i>',
-            close: '&times;',
-            current: '{current} of {total}',
-            maxWidth: '100%',
-            maxHeight: '100%',
-            onComplete: function () {
-                $.colorbox.resize();
-            }
-        }
-
-        $('[data-rel="colorbox"]').colorbox(colorbox_params);
-        $('#cboxLoadingGraphic').append("<i class='ace-icon fa fa-spinner orange'></i>");
-    </script>    
-
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     
+    
+    <script src="js/jquery.colorbox.js"></script>
+
+    <!------------- Script image gallery --------------->
+	<script type="text/javascript">
+
+	    $(function () {
+	        var colorbox_params = {
+	            reposition: true,
+	            scalePhotos: true,
+	            scrolling: false,
+	            previous: '<i class="icon-arrow-left"></i>',
+	            next: '<i class="icon-arrow-right"></i>',
+	            close: '&times;',
+	            current: '{current} of {total}',
+	            maxWidth: '100%',
+	            maxHeight: '100%',
+	            onOpen: function () {
+	                document.body.style.overflow = 'hidden';
+	            },
+	            onClosed: function () {
+	                document.body.style.overflow = 'auto';
+	            },
+	            onComplete: function () {
+	                $.colorbox.resize();
+	            }
+	        };
+	        $('.ace-thumbnails [data-rel="colorbox"]').colorbox(colorbox_params);
+	        $("#cboxLoadingGraphic").append("<i class='icon-spinner orange'></i>");//let's add a custom loading icon
+	        $(window).on('resize.colorbox', function () {
+	            try {
+	                $.fn.colorbox.load();//to redraw the current frame
+	            } catch (e) { }
+	        });
+	    })
+
+	</script>
+    
+
     <div class="page-header">
         <h1><i class="menu-icon fa fa-puzzle-piece"></i> Genealogía</h1>
     </div>

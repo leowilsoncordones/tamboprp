@@ -35,7 +35,7 @@
         <h1><i class="menu-icon fa fa-tags"></i> Lista de categorías de animal </h1>
     </div>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div>
                 <p>        
                 <asp:GridView ID="gvCategorias" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" 
@@ -45,7 +45,6 @@
                 <Columns>
                     <asp:BoundField DataField="Id_categ" HeaderText="Id" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
                     <asp:BoundField DataField="Nombre" HeaderText="Nombre" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
-                    <asp:BoundField DataField="Observacion" HeaderText="Observación" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
                 </Columns>
                 <FooterStyle />
                 <PagerSettings mode="Numeric" pagebuttoncount="5" />
@@ -58,7 +57,7 @@
                 <asp:Label ID="titCantEnf" runat="server" Text="Cantidad de categorías: " Visible="False"></asp:Label><asp:Label ID="lblCantEnf" runat="server" ></asp:Label><br/>
             </div>
         </div>
-        <div class="col-md-6"></div>
+        <div class="col-md-8"></div>
     </div>
 
 </asp:Content>

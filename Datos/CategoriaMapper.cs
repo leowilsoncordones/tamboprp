@@ -14,6 +14,9 @@ namespace Datos
     {
         private Categoria _categ;
 
+        private static string Categoria_SelectByRegistro = "Categoria_SelectByRegistro";
+        
+
         public CategoriaMapper()
         {
         }
@@ -35,6 +38,20 @@ namespace Datos
             return (Categoria)load(dr);
         }
 
+
+        public Categoria GetCategoriaByRegistro(string reg)
+        {
+            var result = new Categoria();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@REGISTRO", reg));
+            cmd.CommandText = Categoria_SelectByRegistro;
+
+            SqlDataReader dr = FindByCmd(cmd);
+            dr.Read();
+            return (Categoria)load(dr);
+        }
 
         public List<Categoria> GetAll()
         {

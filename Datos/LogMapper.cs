@@ -19,6 +19,14 @@ namespace Datos
         private static string Log_SelecByUser = "Log_SelecByUser";
         private static string Log_SelecByDate = "Log_SelecByDate";
         private static string Log_SelecXDays = "Log_SelecXDays";
+
+        private static string TareaProg_CorrioCambioCategoria = "TareaProg_CorrioCambioCategoria";
+        private static string TareaProg_CorrioReporteSemanal = "TareaProg_CorrioReporteSemanal";
+        private static string TareaProg_CorrioReporteCierreMes = "TareaProg_CorrioReporteCierreMes";
+        private static string TareaProg_ReporteSemanal = "TareaProg_ReporteSemanal";
+        private static string TareaProg_ReporteCierreMes = "TareaProg_ReporteCierreMes";
+        
+        
         
         public LogMapper(Log log)
         {
@@ -187,5 +195,75 @@ namespace Datos
             return log;
         }
 
+
+        public bool CorrioTareaProgCambioCategoria()
+        {
+            var hoy = new DateTime();
+            hoy = DateTime.Today;
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = TareaProg_CorrioCambioCategoria;
+            cmd.Parameters.Add(new SqlParameter("@DATE", hoy));
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value) > 0;
+        }
+
+        public bool CorrioTareaProgReporteSemanal()
+        {
+            var hoy = new DateTime();
+            hoy = DateTime.Today;
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = TareaProg_CorrioReporteSemanal;
+            cmd.Parameters.Add(new SqlParameter("@DATE", hoy));
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value) > 0;
+        }
+
+        public bool CorrioTareaProgReporteCierreMes()
+        {
+            var hoy = new DateTime();
+            hoy = DateTime.Today;
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = TareaProg_CorrioReporteCierreMes;
+            cmd.Parameters.Add(new SqlParameter("@DATE", hoy));
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value) > 0;
+        }
+
+        public bool TareaProgReporteSemanal()
+        {
+            var hoy = new DateTime();
+            hoy = DateTime.Today;
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = TareaProg_ReporteSemanal;
+            
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value) > 0;
+        }
+
+        public bool TareaProgReporteCierreMes()
+        {
+            var hoy = new DateTime();
+            hoy = DateTime.Today;
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = TareaProg_ReporteCierreMes;
+
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToInt32(value) > 0;
+        }
+
+        
     }
 }

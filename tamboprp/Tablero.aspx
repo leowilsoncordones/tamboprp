@@ -180,6 +180,7 @@
         var sales_charts = $('#sales-charts').css({ 'height': '260px' });
         function imprimir(totalLeche) {
 
+            //var tick = Math.round(totalLeche.length / 10);
             $.plot("#sales-charts", [
                 { label: "Leche", data: totalLeche }
                 //{ label: "Grasa", data: grasa }
@@ -190,12 +191,17 @@
                 series: {
                     lines: { show: true },
                     points: { show: true }
+                    /*points: {
+                        show: true,
+                        fill: true
+                    }*/
                 },
                 xaxis: {
                     tickLength: 0,
                     mode: "time",
                     timeformat: "%m/%Y",
                     tickSize: [1, "month"]
+                    //tickSize: [tick, "month"]
                 },
                 yaxis: {
                     ticks: 10,

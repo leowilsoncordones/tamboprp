@@ -96,6 +96,10 @@ namespace Negocio
                 var lstLugConc = _lugConcMapper.GetAll();
                 foreach (Concurso conc in listTemp)
                 {
+                    // paso fecha a formato español
+                    //string strDate = conc.Fecha.ToString();
+                    //if (strDate != string.Empty) conc.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+
                     if (conc.ElPremio != null && conc.Categoria != null && conc.Categoria.Id_categ != 0)
                     {
                         CategoriaConcurso laCat =
@@ -133,6 +137,10 @@ namespace Negocio
             {
                 for (int i = 0; i < listTemp.Count; i++)
                 {
+                    // paso fecha a formato español
+                    //string strDate = listTemp[i].Fecha.ToString();
+                    //if (strDate != string.Empty) listTemp[i].Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+
                     var baja = (Baja) listTemp[i];
                     Enfermedad enf = lstEnfermedades.FirstOrDefault(e => e.Id == baja.Enfermedad.Id);
                     baja.Enfermedad = enf;
@@ -346,6 +354,7 @@ namespace Negocio
             for (int i = 0; i < lstResult.Count; i++)
             {
                 var tmp = lstResult[i];
+                //Categoria catTemp = this.GetCategoriaByRegistro(tmp.Registro);
                 Categoria categ = lstCateg.FirstOrDefault(c => c.Id_categ == tmp.IdCategoria);
                 if (categ != null)
                     tmp.Categoria = categ.ToString();
@@ -516,6 +525,12 @@ namespace Negocio
             cat.Id_categ = idCateg;
             _catMapper = new CategoriaMapper(cat);
             return _catMapper.GetCategoriaById();
+        }
+
+        public Categoria GetCategoriaByRegistro(string registro)
+        {
+            _catMapper = new CategoriaMapper();
+            return _catMapper.GetCategoriaByRegistro(registro);
         }
 
         public List<VOServicio> GetServicios70SinDiagPrenezVaqEnt()
@@ -967,9 +982,16 @@ namespace Negocio
             var voAnim = new VOAnimal();
             voAnim.Calific = anim.Calific;
             voAnim.Fecha_nacim = anim.Fecha_nacim;
+
+            //string strDate = anim.Fecha_nacim.ToShortDateString();
+            //if (strDate != string.Empty) voAnim.Fecha_nacim = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+            
             voAnim.Gen = anim.Gen;
-            voAnim.IdCategoria = anim.IdCategoria;
-            voAnim.Categoria = this.GetCategoriaById(anim.IdCategoria).ToString();
+            //voAnim.IdCategoria = anim.IdCategoria;
+            //voAnim.Categoria = this.GetCategoriaById(anim.IdCategoria).ToString();
+            Categoria catAnimal = GetCategoriaByRegistro(anim.Registro);
+            voAnim.Categoria = catAnimal.ToString();
+            voAnim.IdCategoria = catAnimal.Id_categ;
             voAnim.Identificacion = anim.Identificacion;
             voAnim.Fotos = _animalMapper.GetFotosByRegistro(anim.Registro);
             voAnim.Nombre = anim.Nombre;
@@ -1736,7 +1758,7 @@ namespace Negocio
             return lstAlertas;
         }
 
-        public List<VoListItemInd> GetExtrasGraficaCategorías()
+        public List<VoListItemInd> GetExtrasGraficaCategorias()
         {
             var lstExtras = new List<VoListItemInd>();
 
@@ -2366,6 +2388,9 @@ namespace Negocio
             
             switch (dia)
             {
+                case 0:
+                    voItem.Valor1 = "domingo";
+                    break;
                 case 1:
                     voItem.Valor1 = "lunes";
                     break;
@@ -2383,9 +2408,6 @@ namespace Negocio
                     break;
                 case 6:
                     voItem.Valor1 = "sábado";
-                    break;
-                case 7:
-                    voItem.Valor1 = "domingo";
                     break;
             }
 
@@ -2420,6 +2442,18 @@ namespace Negocio
             {
                 email.EnviarMailHtml(dest.Email, voRepSem.Titulo, mailBodyHtml);
             }
+        }
+
+        public void EnviarReporteCierreMes()
+        {
+            //var voRepCierreMes = ReporteCierreMes();
+            //var mailBodyHtml = CrearMailHtmlReporte(voRepCierreMes);
+            //var email = new Mail();
+            //var lstDestinatarios = ListaDestinatariosReporte(voRepCierreMes.Id);
+            //foreach (var dest in lstDestinatarios)
+            //{
+            //    email.EnviarMailHtml(dest.Email, voRepCierreMes.Titulo, mailBodyHtml);
+            //}
         }
 
         public void EnviarReporteSemanalPrueba(string dest)
@@ -2625,12 +2659,14 @@ namespace Negocio
                                 }
                                 if (s == 5)
                                 {
-                                    string num = row[s].Replace('.', ',');
+                                    string num = row[s];
+                                    //string num = row[s].Replace('.', ',');
                                     leche += double.Parse(num);
                                 }
                                 if (s == 6)
                                 {
-                                    string num = row[s].Replace('.', ',');
+                                    string num = row[s];
+                                    //string num = row[s].Replace('.', ',');
                                     leche += double.Parse(num);
                                     string lecheLetra = leche.ToString();
                                     control.Leche = leche;
@@ -2753,7 +2789,201 @@ namespace Negocio
             return res;
         }
 
+        //public int DayNumber(DayOfWeek day)
+        //{
+        //    var hoyNumber = 0;
+        //    switch (day)
+        //    {
+        //        case DayOfWeek.Monday:
+        //            hoyNumber = 1;
+        //            break;
+        //        case DayOfWeek.Monday:
+        //            hoyNumber = 1;
+        //            break;
+        //        case DayOfWeek.Monday:
+        //            hoyNumber = 1;
+        //            break;
+        //        case DayOfWeek.Monday:
+        //            hoyNumber = 1;
+        //            break;
+        //    }
+        //}
+
+        public void CorrerTareaProgramadas()
+        {
+            var hoy = new DayOfWeek();
+            hoy = DateTime.Today.DayOfWeek;
+
+            var diaParaRepSem = false;
+            var diaParaRepCierreMes = false;
+
+            // veo los reportes programados, si corresponde el envio ahora
+            var _repMap = new ReporteMapper();
+            var lstRepo = _repMap.GetAll();
+
+            foreach (var reporte in lstRepo)
+            {
+                // es el dia para correr el semanal?
+                if (reporte.Frecuencia == 0 && reporte.Dia == (int) hoy)
+                {
+                    diaParaRepSem = true;
+                }
+                // es el dia para correr el cierre de mes?
+                //if (reporte.Frecuencia == 4 && reporte.Dia == (int) hoy)
+                //{
+                //    diaParaRepCierreMes = true;
+                //}
+            }
+            
+            // pregunto si las tareas programadas ya corrieron hoy y sino las lanzo
+            // cambio de categoria de terneros y terneras
+            if (!this.CorrioTareaProgCambioCategoria())
+            {
+                _animalMapper = new AnimalMapper();
+                var cant = _animalMapper.CambioCategoriaAnimales();
+            }
+            // reporte semanal
+            if (diaParaRepSem && !this.CorrioTareaProgReporteSemanal())
+            {
+                this.EnviarReporteSemanal();
+                var _logMap = new LogMapper();
+                var cant = _logMap.TareaProgReporteSemanal();
+            }
+            // reporte cierre de mes
+            if (diaParaRepCierreMes && !this.CorrioTareaProgReporteCierreMes())
+            {
+                this.EnviarReporteCierreMes();
+                var _logMap = new LogMapper();
+                var cant = _logMap.TareaProgReporteCierreMes();
+            }
+        }
+
+        private bool CorrioTareaProgCambioCategoria()
+        {
+            var _logMap = new LogMapper();
+            return _logMap.CorrioTareaProgCambioCategoria();
+        }
+
+        private bool CorrioTareaProgReporteSemanal()
+        {
+            var _logMap = new LogMapper();
+            return _logMap.CorrioTareaProgReporteSemanal();
+        }
+
+        private bool CorrioTareaProgReporteCierreMes()
+        {
+            var _logMap = new LogMapper();
+            return _logMap.CorrioTareaProgReporteCierreMes();
+        }
+
+        public bool AnimalInsert(VOAnimal voA)
+        {
+            if (voA == null || voA.Registro == null || voA.Registro == "") return false;
+            var a = new Animal
+            {
+                Registro = voA.Registro,
+                Reg_madre = voA.Reg_madre,
+                Reg_padre = voA.Reg_padre,
+                Reg_trazab = voA.Reg_trazab,
+                Gen = voA.Gen,
+                Fecha_nacim = voA.Fecha_nacim,
+                IdCategoria = voA.IdCategoria,
+                Identificacion = voA.Identificacion,
+                Sexo = voA.Sexo,
+                Origen = voA.Origen,
+                Nombre = voA.Nombre
+            };
+            
+            _animalMapper=new AnimalMapper(a);
+            return _animalMapper.Insert() > 0;
+        }
+
+        public bool PartoInsert(VOParto voP)
+        {
+            var p = new Parto
+            {
+                Id_evento = 1,
+                Registro = voP.Registro,
+                Fecha = voP.Fecha,
+                Comentarios = voP.Comentarios,
+                Observaciones = voP.Observaciones,
+                Sexo_parto = voP.Sexo_parto,
+                Reg_hijo = voP.Reg_hijo
+            };
+
+            var _partoMapper = new PartoMapper(p);
+            return _partoMapper.Insert() > 0;
+        }
+
+        public bool ExisteParto(VOParto voP)
+        {
+            var p = new Parto
+            {
+                Id_evento = 1,
+                Registro = voP.Registro,
+                Fecha = voP.Fecha,
+                Comentarios = voP.Comentarios,
+                Observaciones = voP.Observaciones,
+                Sexo_parto = voP.Sexo_parto,
+                Reg_hijo = voP.Reg_hijo
+            };
+
+            var _partoMapper = new PartoMapper(p);
+            return _partoMapper.ExisteParto();
+        }
+
+        public List<Animal> GetCriasIngresadasParto(VOParto voP)
+        {
+            if (this.ExisteParto(voP))
+            {
+                _animalMapper = new AnimalMapper();
+                return _animalMapper.GetCriasIngresadasParto(voP.Registro, voP.Fecha);
+            }
+            return null;
+        }
 
 
+        public int[] CalcularEdadYMD(DateTime dateOfBirth)
+        {
+            DateTime currentDate = DateTime.Now;
+            TimeSpan difference = currentDate.Subtract(dateOfBirth);
+            // This is to convert the timespan to datetime object
+            DateTime age = DateTime.MinValue + difference;
+            // Min value is 01/01/0001
+            // Actual age is say 24 yrs, 9 months and 3 days represented as timespan
+            // Min Valye + actual age = 25 yrs , 10 months and 4 days.
+            // subtract our addition or 1 on all components to get the actual date.
+            int ageInYears = age.Year - 1;
+            int ageInMonths = age.Month - 1;
+            int ageInDays = age.Day - 1;
+
+            int[] result = { ageInYears, ageInMonths, ageInDays };
+            return result;
+        }
+
+
+        public Servicio GetUltimoServicio(string registro)
+        {
+            var _partoMapper = new PartoMapper(registro);
+            var ultParto = _partoMapper.GetUltimoPartoByRegistro();
+
+            var fecha = new DateTime(1900, 1, 1);
+            if (ultParto != null) fecha = ultParto.Fecha;
+
+            _servMapper = new ServicioMapper(registro);
+            return _servMapper.GetUltimoServicioDespFechaByRegistro(fecha);    
+        }
+
+        public Diag_Prenez GetUltimoDiagnostico(string registro)
+        {
+            var _partoMapper = new PartoMapper(registro);
+            var ultParto = _partoMapper.GetUltimoPartoByRegistro();
+
+            var fecha = new DateTime(1900, 1, 1);
+            if (ultParto != null) fecha = ultParto.Fecha;
+
+            _diagMapper = new Diag_PrenezMapper(registro);
+            return _diagMapper.GetUltimoDiagnosticoDespFechaByRegistro(fecha);
+        }
     }
 }
