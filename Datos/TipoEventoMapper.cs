@@ -44,6 +44,22 @@ namespace Datos
         }
 
 
+        public List<TipoEvento> GetEventosEnUso()
+        {
+            var result = new List<TipoEvento>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = "TipoEvento_SelectEnUso";
+
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+                result.Add(load(dr));
+            dr.Close();
+            return result;
+        }
+
+
         protected List<TipoEvento> loadAll(SqlDataReader rs)
         {
             var result = new List<TipoEvento>();

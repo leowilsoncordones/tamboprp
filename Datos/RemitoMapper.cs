@@ -13,6 +13,7 @@ namespace Datos
     public class RemitoMapper: AbstractMapper
     {
         private Remito _remito;
+        private string _nickName;
 
         private static string Remito_SelectByFecha = "Remito_SelectByFecha";
         private static string Remito_SelectByEmpresa = "Remito_SelectByEmpresa";
@@ -23,6 +24,12 @@ namespace Datos
         public RemitoMapper(Remito remito)
         {
             _remito = remito;
+        }
+
+        public RemitoMapper(Remito remito, string nickName)
+        {
+            _remito = remito;
+            _nickName = nickName;
         }
 
         public RemitoMapper()
@@ -139,6 +146,7 @@ namespace Datos
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Remito_Insert";
+                cmd.Parameters.Add(new SqlParameter("@NICKNAME", _nickName));
                 cmd.Parameters.Add(new SqlParameter("@FECHA", _remito.Fecha));
                 cmd.Parameters.Add(new SqlParameter("@EMPRESA", _remito.Empresa.Id));
                 cmd.Parameters.Add(new SqlParameter("@FACTURA", _remito.Factura));

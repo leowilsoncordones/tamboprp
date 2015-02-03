@@ -97,8 +97,9 @@ namespace tamboprp
         {
             if (this.newEnfermedad.Text != "")
             {
+                var usu = (VOUsuario)Session["Usuario"];
                 var enf = new Enfermedad(this.newEnfermedad.Text);
-                return Fachada.Instance.EnfermedadInsert(enf);
+                return Fachada.Instance.EnfermedadInsert(enf, usu.Nickname);
             }
             else
             {

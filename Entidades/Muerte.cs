@@ -19,7 +19,7 @@ namespace Entidades
             Enfermedad = enfermedad;
         }
 
-        public short Enfermedad { get; set; }
+        public short? Enfermedad { get; set; }
 
         public override string ToString()
         {

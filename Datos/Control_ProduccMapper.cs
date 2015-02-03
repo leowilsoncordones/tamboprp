@@ -14,6 +14,7 @@ namespace Datos
     {
         private Control_Producc _Control_Producc;
         private string _regAnimal;
+        private string _nickName;
 
         //private static string Control_Producc_BusqByID = "Control_Producc_BusqByID";
         private static string Control_producc_SelectByRegistro = "Control_producc_SelectByRegistro";
@@ -29,6 +30,13 @@ namespace Datos
         {
             _Control_Producc = controlProducc;
             _regAnimal = regAnimal;
+        }
+
+        public Control_ProduccMapper(Control_Producc controlProducc, string regAnimal, string nickName)
+        {
+            _Control_Producc = controlProducc;
+            _regAnimal = regAnimal;
+            _nickName = nickName;
         }
 
         public Control_ProduccMapper(string regAnimal)
@@ -158,6 +166,7 @@ namespace Datos
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Control_Producc_Insert";
+                cmd.Parameters.Add(new SqlParameter("@NICKNAME", _nickName));
                 cmd.Parameters.Add(new SqlParameter("@REGISTRO", _Control_Producc.Registro));
                 cmd.Parameters.Add(new SqlParameter("@EVENTO", _Control_Producc.Id_evento));
                 cmd.Parameters.Add(new SqlParameter("@FECHA", _Control_Producc.Fecha));

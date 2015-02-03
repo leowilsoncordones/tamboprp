@@ -13,6 +13,7 @@ namespace Datos
     public class EmpresaRemisoraMapper: AbstractMapper
     {
         private EmpresaRemisora _empRem;
+        private string _nickName;
 
         private static string EmpresaRemisora_SelectActual = "EmpresaRemisora_SelectActual";
         private static string EmpresaRemisora_UpdateActual = "EmpresaRemisora_UpdateActual";
@@ -21,6 +22,12 @@ namespace Datos
         public EmpresaRemisoraMapper(EmpresaRemisora empRem)
         {
             _empRem = empRem;
+        }
+
+        public EmpresaRemisoraMapper(EmpresaRemisora empRem, string nickName)
+        {
+            _empRem = empRem;
+            _nickName = nickName;
         }
 
         public EmpresaRemisoraMapper()
@@ -113,6 +120,7 @@ namespace Datos
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "EmpresaRemisora_Insert";
+                cmd.Parameters.Add(new SqlParameter("@NICKNAME", _nickName));
                 cmd.Parameters.Add(new SqlParameter("@NOMBRE", _empRem.Nombre));
                 cmd.Parameters.Add(new SqlParameter("@RAZON_SOCIAL", _empRem.RazonSocial));
                 cmd.Parameters.Add(new SqlParameter("@RUT", _empRem.Rut));

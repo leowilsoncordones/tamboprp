@@ -80,6 +80,7 @@
     <Compile Include="VOListItemInd.cs" />
     <Compile Include="VOInseminadorRank.cs" />
     <Compile Include="VOCaso.cs" />
+    <Compile Include="VOResultado.cs" />
     <Compile Include="VOUsuario.cs" />
     <Compile Include="VOToroUtilizado1.cs" />
     <Compile Include="VOToroUtilizado.cs" />

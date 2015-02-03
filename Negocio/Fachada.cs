@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
+using System.Threading;
 using System.Web.ModelBinding;
 using System.Web.Profile;
 using Datos;
@@ -734,10 +735,10 @@ namespace Negocio
             return voE;
         }
 
-        public bool GuardarEmpresaRemisora(VOEmpresa voEmp)
+        public bool GuardarEmpresaRemisora(VOEmpresa voEmp, string nickName)
         {
             var empRem = this.CopiarEmpresaRemisoraVoEmpresa(voEmp);
-            var empMap = new EmpresaRemisoraMapper(empRem);
+            var empMap = new EmpresaRemisoraMapper(empRem , nickName);
             return empMap.Insert() > 0;
         }
 
@@ -1016,6 +1017,11 @@ namespace Negocio
             return _tevMapper.GetAll();
         }
 
+        public List<TipoEvento> GetTipoEventosEnUso()
+        {
+            return _tevMapper.GetEventosEnUso();
+        }
+
         public List<CategoriaConcurso> GetCategoriasConcurso()
         {
             return _catConcMapper.GetAll();
@@ -1031,39 +1037,39 @@ namespace Negocio
             return _lugConcMapper.GetAll();
         }
 
-        public bool InsertarEvento(Evento evento)
+        public bool InsertarEvento(Evento evento, string nickName)
         {
             switch (evento.Id_evento)
             {
                 case 0: // ABORTO
-                    var abortoMap = new AbortoMapper((Aborto) evento);
+                    var abortoMap = new AbortoMapper((Aborto) evento, nickName);
                     return abortoMap.Insert() > 1;
                 case 2: // CELO SIN SERVICIO
-                    var celoMap = new Celo_Sin_ServicioMapper((Celo_Sin_Servicio) evento);
+                    var celoMap = new Celo_Sin_ServicioMapper((Celo_Sin_Servicio) evento, nickName);
                     return celoMap.Insert() > 1;
                 case 3: // SERVICIO
-                    var servMap = new ServicioMapper((Servicio) evento);
+                    var servMap = new ServicioMapper((Servicio)evento, nickName);
                     return servMap.Insert() > 1;
                 case 4: // SECADO
-                    var secMap = new SecadoMapper((Secado) evento);
+                    var secMap = new SecadoMapper((Secado)evento, nickName);
                     return secMap.Insert() > 1;
                 case 7: // DIAGNOSTICO DE PRENEZ
-                    var diagMap = new Diag_PrenezMapper((Diag_Prenez) evento);
+                    var diagMap = new Diag_PrenezMapper((Diag_Prenez)evento, nickName);
                     return diagMap.Insert() > 1;
                 case 8: // CONTROL DE PRODUCCION
-                    var contMap = new Control_ProduccMapper((Control_Producc) evento);
+                    var contMap = new Control_ProduccMapper((Control_Producc)evento, evento.Registro, nickName);
                     return contMap.Insert() > 1;
                 case 9: // CALIFICACION
-                    var califMap = new CalificacionMapper((Calificacion) evento);
+                    var califMap = new CalificacionMapper((Calificacion)evento, nickName);
                     return califMap.Insert() > 1;
                 case 10: // CONCURSO
-                    var concursMap = new ConcursoMapper((Concurso) evento);
+                    var concursMap = new ConcursoMapper((Concurso)evento, nickName);
                     return concursMap.Insert() > 1;
                 case 11: // BAJA POR VENTA
-                    var bajaMap = new VentaMapper((Venta) evento);
+                    var bajaMap = new VentaMapper((Venta)evento, nickName);
                     return bajaMap.Insert() > 1;
                 case 12: // BAJA POR MUERTE
-                    var muerteMap = new MuerteMapper((Muerte) evento);
+                    var muerteMap = new MuerteMapper((Muerte)evento, nickName);
                     return muerteMap.Insert() > 1;
                 default:
                     return false;
@@ -1071,9 +1077,9 @@ namespace Negocio
 
         }
 
-        public bool InsertarRemito(Remito remito)
+        public bool InsertarRemito(Remito remito, string nickName)
         {
-            var remitoMap = new RemitoMapper(remito);
+            var remitoMap = new RemitoMapper(remito, nickName);
             return remitoMap.Insert() > 0;
         }
 
@@ -1518,20 +1524,6 @@ namespace Negocio
                     if (i != 0) strValuesGraficaChicaVacasOrdene += ",";
                 }
 
-                //if (lstUltXControles.Count > 1)
-                //{
-                //    cAnterior = lstUltXControles[lstUltXControles.Count - 1].Leche;
-                //    cActual = lstUltXControles[lstUltXControles.Count - 2].Leche;
-                //    porc = Math.Round(cActual * 100 / cAnterior, 1);
-                //}
-                //var strPre = "-";
-                //indTablero.VacasEnOrdene.Status = "important";
-                //if (porc > 0)
-                //{
-                //    strPre = "+";
-                //    indTablero.VacasEnOrdene.Status = "success";
-                //}
-                //indTablero.VacasEnOrdene.Porcentaje = strPre + porc.ToString() + "%";
             }
             indTablero.VacasEnOrdene.DataValue = strValuesGraficaChicaVacasOrdene;
 
@@ -1546,31 +1538,7 @@ namespace Negocio
             {
                 indTablero.LecheUltControl.Valor = Math.Truncate(lstUltXControles[0].Leche).ToString();
             }
-            // Valores de la gráfica pequeña
-            //var strValuesGraficaChica = "";
-            //var ctlAnterior = 0.0;
-            //var ctlActual = 0.0;
-            //var porc = 0.0;
-            //if (lstUltXControles.Count > 0)
-            //{
-            //    indTablero.LecheUltControl.Valor = Math.Truncate(lstUltXControles[0].Leche).ToString();
-            //    for (int i = lstUltXControles.Count - 1; i >= 0; i--)
-            //    {
-            //        var valorTrunc = Math.Truncate(lstUltXControles[i].Leche);
-            //        strValuesGraficaChica += valorTrunc.ToString();
-            //        if (i != 0) strValuesGraficaChica += ",";
-            //    }
-            //    //if (lstUltXControles.Count > 1)
-            //    //{
-            //    //    ctlAnterior = lstUltXControles[lstUltXControles.Count - 1].Leche;
-            //    //    ctlActual = lstUltXControles[lstUltXControles.Count - 2].Leche;
-            //    //    porc = Math.Round(ctlActual * 100 / ctlAnterior, 1);
-            //    //}
-            //}
-            //indTablero.LecheUltControl.Porcentaje = porc.ToString();
-            //if (porc > 0) indTablero.LecheUltControl.Status = "success";
-            //else indTablero.LecheUltControl.Status = "important";
-            //indTablero.LecheUltControl.DataValue = strValuesGraficaChica;
+
 
             // PROMEDIO DE DIAS DE LACTANCIA
             var promDiasLactancias = _lactMapper.GetLactanciaPromedioDiasActual();
@@ -1872,12 +1840,12 @@ namespace Negocio
             return empMapper.Update() > 0;
         }
 
-        public bool EnfermedadInsert(Enfermedad enfermedad)
+        public bool EnfermedadInsert(Enfermedad enfermedad, string nickName)
         {
             var enfMapper = new EnfermedadMapper();
             var lastId = enfMapper.GetLastIdEnfermedad();
             enfermedad.Id = lastId + 1;
-            enfMapper = new EnfermedadMapper(enfermedad);
+            enfMapper = new EnfermedadMapper(enfermedad, nickName);
             return enfMapper.Insert() > 0;
         }
 
@@ -1887,9 +1855,9 @@ namespace Negocio
             return catConcMap.Insert() > 0;
         }
 
-        public bool InsertarEmpleado(Empleado empleado)
+        public bool InsertarEmpleado(Empleado empleado, string nickName)
         {
-            var empMap = new EmpleadoMapper(empleado);
+            var empMap = new EmpleadoMapper(empleado, nickName);
             return empMap.Insert() > 0;
         }
 
@@ -2593,7 +2561,7 @@ namespace Negocio
 
 
 
-        public VOControlProdMU LeerArchivoControl(string archivo)
+        public VOControlProdMU LeerArchivoControl(string archivo, string nickName)
         {
             var listaFallida = new List<Control_Producc>();
             var lista = new List<Control_Producc>();
@@ -2625,12 +2593,18 @@ namespace Negocio
                                 }
                                 if (s == 5)
                                 {
-                                    string num = row[s].Replace('.', ',');
+                                    CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
+                                    string num = row[s];
+                                    if (currentCulture.Name == "es-UY")
+                                     num = row[s].Replace('.', ',');
                                     leche += double.Parse(num);
                                 }
                                 if (s == 6)
                                 {
-                                    string num = row[s].Replace('.', ',');
+                                    CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
+                                    string num = row[s];
+                                    if (currentCulture.Name == "es-UY")
+                                    num = row[s].Replace('.', ',');
                                     leche += double.Parse(num);
                                     string lecheLetra = leche.ToString();
                                     control.Leche = leche;
@@ -2652,7 +2626,7 @@ namespace Negocio
             {               
                 if (_animalMapper.AnimalExiste(control.Registro))
                 {
-                    var contMap = new Control_ProduccMapper(control);
+                    var contMap = new Control_ProduccMapper(control, control.Registro, nickName);
                     try
                     {
                         var affected = contMap.Insert();
@@ -2686,7 +2660,7 @@ namespace Negocio
                 Leche = lecheTotal,
                 Grasa = grasaTotal,
             };
-            var controlTotMap = new Controles_totalesMapper(conTotal);
+            var controlTotMap = new Controles_totalesMapper(conTotal, nickName);
             controlTotMap.Insert();
 
 
@@ -2753,7 +2727,16 @@ namespace Negocio
             return res;
         }
 
+        public bool AnimalExiste(string registro)
+        {
+            return _animalMapper.AnimalExiste(registro);
+        }
 
+        public bool BajaExiste(string registro)
+        {
+            var mumap = new MuerteMapper();
+            return mumap.BajaExiste(registro);
+        }
 
     }
 }

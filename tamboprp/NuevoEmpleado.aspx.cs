@@ -64,6 +64,7 @@ namespace tamboprp
             {
                 if (this.fIniciales.Value != "")
                 {
+                    var usu = (VOUsuario)Session["Usuario"];
                     var emp = new Empleado
                     {
                         Nombre = this.fNombre.Value,
@@ -71,7 +72,7 @@ namespace tamboprp
                         Iniciales = this.fIniciales.Value,
                         Activo = this.checkActivo.Checked
                     };
-                    return Fachada.Instance.InsertarEmpleado(emp);
+                    return Fachada.Instance.InsertarEmpleado(emp, usu.Nickname);
                 }
             }
             catch (Exception ex)

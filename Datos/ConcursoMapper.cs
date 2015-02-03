@@ -14,6 +14,7 @@ namespace Datos
     {
         private Concurso _concurso;
         private string _registroAnimal;
+        private string _nickName;
 
         private static string Concurso_SelecByRegistro = "Concurso_SelecByRegistro";
         private static string Concurso_SelectBy2fechas = "Concurso_SelectBy2fechas";
@@ -21,6 +22,12 @@ namespace Datos
         public ConcursoMapper(Concurso concurso)
         {
             _concurso = concurso;
+        }
+
+        public ConcursoMapper(Concurso concurso, string nickName)
+        {
+            _concurso = concurso;
+            _nickName = nickName;
         }
 
         public ConcursoMapper(string  registroAnimal)
@@ -124,6 +131,7 @@ namespace Datos
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Concurso_Insert";
+                cmd.Parameters.Add(new SqlParameter("@NICKNAME", _nickName));
                 cmd.Parameters.Add(new SqlParameter("@REGISTRO", _concurso.Registro));
                 cmd.Parameters.Add(new SqlParameter("@EVENTO", _concurso.Id_evento));
                 cmd.Parameters.Add(new SqlParameter("@LUGAR_CONCURSO", _concurso.NombreLugarConcurso.Id));               

@@ -15,6 +15,7 @@ namespace Datos
     {
         private Diag_Prenez _diag;
         private string _registroAnimal;
+        private string _nickName;
 
         private static string Diag_prenez_SelecByRegistro = "Diag_prenez_SelectByRegistro";
         private static string Diag_prenez_SelectByRegistroDespFecha = "Diag_prenez_SelectByRegistroDespFecha";
@@ -31,6 +32,12 @@ namespace Datos
         public Diag_PrenezMapper(Diag_Prenez diag)
         {
             _diag = diag;
+        }
+
+        public Diag_PrenezMapper(Diag_Prenez diag, string nickName)
+        {
+            _diag = diag;
+            _nickName = nickName;
         }
 
         public Diag_PrenezMapper(string  registroAnimal)
@@ -154,6 +161,7 @@ namespace Datos
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Diag_prenez_Insert";
+                cmd.Parameters.Add(new SqlParameter("@NICKNAME", _nickName));
                 cmd.Parameters.Add(new SqlParameter("@REGISTRO", _diag.Registro));
                 cmd.Parameters.Add(new SqlParameter("@EVENTO", _diag.Id_evento));
                 cmd.Parameters.Add(new SqlParameter("@FECHA", _diag.Fecha));

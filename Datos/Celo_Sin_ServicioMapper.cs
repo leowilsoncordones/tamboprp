@@ -15,12 +15,19 @@ namespace Datos
     {
         private Celo_Sin_Servicio _celo;
         private string _registroAnimal;
+        private string _nickName;
 
         private static string Celo_Sin_Servicio_SelecByRegistro = "Celo_Sin_Servicio_SelecByRegistro";
 
         public Celo_Sin_ServicioMapper(Celo_Sin_Servicio CeloSS)
         {
             _celo = CeloSS;
+        }
+
+        public Celo_Sin_ServicioMapper(Celo_Sin_Servicio CeloSS, string nickName)
+        {
+            _celo = CeloSS;
+            _nickName = nickName;
         }
 
         public Celo_Sin_ServicioMapper(string  registroAnimal)
@@ -107,6 +114,7 @@ namespace Datos
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Celo_Sin_Servicio_Insert";
+                cmd.Parameters.Add(new SqlParameter("@NICKNAME", _nickName));
                 cmd.Parameters.Add(new SqlParameter("@REGISTRO", _celo.Registro));
                 cmd.Parameters.Add(new SqlParameter("@EVENTO", _celo.Id_evento));
                 cmd.Parameters.Add(new SqlParameter("@FECHA", _celo.Fecha));

@@ -14,6 +14,7 @@ namespace Datos
     {
         private Aborto _aborto;
         private string _registroAnimal;
+        private string _nickName;
 
         private static string Aborto_SelecByRegistro = "Aborto_SelecByRegistro";
         private string Aborto_SelectCountEsteAnio = "Aborto_SelectCountEsteAnio";
@@ -24,6 +25,13 @@ namespace Datos
         public AbortoMapper(Aborto aborto)
         {
             _aborto = aborto;
+        }
+
+
+        public AbortoMapper(Aborto aborto, string nickName)
+        {
+            _aborto = aborto;
+            _nickName = nickName;
         }
 
         public AbortoMapper(string  registroAnimal)
@@ -134,6 +142,7 @@ namespace Datos
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Aborto_Insert";
+                cmd.Parameters.Add(new SqlParameter("@NICKNAME", _nickName));
                 cmd.Parameters.Add(new SqlParameter("@REGISTRO", _aborto.Registro));
                 cmd.Parameters.Add(new SqlParameter("@EVENTO", _aborto.Id_evento));
                 cmd.Parameters.Add(new SqlParameter("@FECHA", _aborto.Fecha));

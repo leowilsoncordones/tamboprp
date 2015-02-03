@@ -14,12 +14,19 @@ namespace Datos
     {
         private Calificacion _calificacion;
         private string _registroAnimal;
+        private string _nickName;
 
         private static string Calificacion_SelecByRegistro = "Calificacion_SelecByRegistro";
 
         public CalificacionMapper(Calificacion Calificacion)
         {
             _calificacion = Calificacion;
+        }
+
+        public CalificacionMapper(Calificacion Calificacion, string nickName)
+        {
+            _calificacion = Calificacion;
+            _nickName = nickName;
         }
 
         public CalificacionMapper(string  registroAnimal)
@@ -142,6 +149,7 @@ namespace Datos
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Calificacion_Insert";
+                cmd.Parameters.Add(new SqlParameter("@NICKNAME", _nickName));
                 cmd.Parameters.Add(new SqlParameter("@REGISTRO", _calificacion.Registro));
                 cmd.Parameters.Add(new SqlParameter("@LETRAS", _calificacion.Letras));
                 cmd.Parameters.Add(new SqlParameter("@PUNTOS", _calificacion.Puntos));

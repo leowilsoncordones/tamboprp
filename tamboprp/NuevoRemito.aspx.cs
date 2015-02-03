@@ -69,6 +69,7 @@ namespace tamboprp
 
         private bool GuardarRemito()
         {
+            var usu = (VOUsuario)Session["Usuario"];
             //string strDate = this.mydate.Value;
             string strDate = Request.Form["mydate"];
             var idEmp = int.Parse(this.ddlEmpresa.SelectedValue);
@@ -85,7 +86,7 @@ namespace tamboprp
                 Temp_2 = Double.Parse(fTemp2.Value),
                 Observaciones = fObservaciones.Value,
             };
-            return Fachada.Instance.InsertarRemito(remito);
+            return Fachada.Instance.InsertarRemito(remito, usu.Nickname);
         }
 
         protected void btn_LimpiarFormulario(object sender, EventArgs e)

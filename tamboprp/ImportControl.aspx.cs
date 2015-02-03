@@ -50,6 +50,8 @@ namespace tamboprp
 
         protected void btn_GuardarEvento(object sender, EventArgs e)
         {
+            LimpiarFormulario();
+            
             // pop-up el modal y mostrar mensaje resultado de guardar en la base de datos
             if (this.fupTxt.HasFile)
             {
@@ -62,9 +64,10 @@ namespace tamboprp
                         "D:\\ORT laptop\\2014-S5-Proyecto\\tamboprp-git\\tamboprp\\controlesMU\\"+filename;
                     if (!File.Exists(rutaSiteTxtcheck))
                     {
+                        var usu = (VOUsuario)Session["Usuario"];
                         fupTxt.SaveAs(Server.MapPath(rutaSiteTxt));
                         var ruta = Server.MapPath("~/controlesMU/" + filename);
-                        var resultado = Fachada.Instance.LeerArchivoControl(ruta);
+                        var resultado = Fachada.Instance.LeerArchivoControl(ruta , usu.Nickname);
                         lblTotales.Text = "Se procesaron un total de " + resultado.CantTotales + " controles.";
                         this.panelExitosas.Visible = true;
                         var cantFallidas = resultado.ControlesFallidos.Count;
@@ -82,7 +85,6 @@ namespace tamboprp
                         lblStatus.Text = "El archivo : '"+ filename +"' ya existe"; 
                     }
 
-
                 }
                 catch (Exception)
                 {
@@ -92,7 +94,7 @@ namespace tamboprp
 
             }
 
-            this.LimpiarFormulario();
+            
         }
 
 
@@ -103,13 +105,11 @@ namespace tamboprp
         }
 
 
-        protected void btn_LimpiarFormulario(object sender, EventArgs e)
-        {
-            this.LimpiarFormulario();
-        }
-
         private void LimpiarFormulario()
         {
+            lblStatus.Visible = false;
+            panelExitosas.Visible = false;
+            panelFallidas.Visible = false;
             //this.fNombre.Value = "";
             //this.fApellido.Value = "";
             //this.fEmail.Value = "";

@@ -52,7 +52,7 @@
 		            <label class="col-sm-3 control-label no-padding-right"> Registro </label>
 			        <div class="col-sm-2">
 			            <%--<input type="text" runat="server" id="fRegistro" placeholder="Registro" class="form-control col-xs-10 col-sm-5" />--%>
-                        <asp:TextBox runat="server" id="fRegistro" class="form-control col-xs-10 col-sm-5"  OnTextChanged="EventosRegistro" AutoPostBack="True"/>                                            
+                        <asp:TextBox runat="server" id="fRegistro" name="fRegistro" class="form-control col-xs-10 col-sm-5"  OnTextChanged="EventosRegistro" AutoPostBack="True"/>                                            
 			        </div>
                     <label runat="server" id="lblRegistro" class="col-sm-3 control-label text-warning" ></label>
                     <div class="col-sm-12"></div>
@@ -108,14 +108,18 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label no-padding-right"> Leche </label>
                     <div class="col-sm-2">
-			            <input type="text" runat="server" id="fControl" placeholder="Leche en kilos" class="form-control col-xs-10 col-sm-5" />
+			            <%--<input type="text" runat="server" id="fControl" placeholder="Leche en kilos" class="form-control col-xs-10 col-sm-5" />--%>
+                        <asp:TextBox runat="server" id="fLecheControl" class="form-control col-xs-10 col-sm-5"  OnTextChanged="EventosRegistro" AutoPostBack="True"/>
 			        </div>
+                    <label runat="server" id="lblLecheControl" class="col-sm-3 control-label text-warning" ></label>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 control-label no-padding-right"> Porcentaje de Grasa </label>
                     <div class="col-sm-2">
-			            <input type="text" runat="server" id="fGrasa" placeholder="% Grasa" class="form-control col-xs-10 col-sm-5" />
+			            <%--<input type="text" runat="server" id="fGrasa" placeholder="% Grasa" class="form-control col-xs-10 col-sm-5" />--%>
+                        <asp:TextBox runat="server" id="fGrasaControl" class="form-control col-xs-10 col-sm-5"  OnTextChanged="EventosRegistro" AutoPostBack="True"/>
 			        </div>
+                    <label runat="server" id="lblGrasaControl" class="col-sm-3 control-label text-warning" ></label>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 control-label no-padding-right"> Días Lactancia </label>
@@ -173,6 +177,7 @@
 			        <div class="col-sm-2">
 			            <input type="text" runat="server" id="fRegPadre" placeholder="Registro padre" class="form-control col-xs-10 col-sm-5" />
 			        </div>
+                    <label runat="server" id="lblRegPadre" class="col-sm-3 control-label text-warning" ></label>
                     <div class="col-sm-12"></div>
                 </div>
                 <div class="form-group">
@@ -218,15 +223,179 @@
                 <!-- Botones -->
                 <div class="form-group">
                     <div class="col-md-offset-3 col-md-9">
-                        <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-info" Text="Guardar" OnClick="btn_GuardarEvento" />
+                        <%--<asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-info" Text="Guardar" OnClick="btn_GuardarEvento" />--%>
+                        <a href="#modalGuardar" class="btn btn-info" id="btnGuardar" data-toggle="modal">Guardar</a>
                         &nbsp;&nbsp;&nbsp;
                         <asp:Button ID="btnReset" runat="server" CssClass="btn btn-default" Text="Limpiar" OnClick="btn_LimpiarFormulario" />
 				    </div>
+                    <%--<a href="#modalGuardar" role="button" id="id-btn-VerMensual" class="btn btn-white btn-default btn-sm" data-toggle="modal"><i class="ace-icon fa fa-newspaper-o"></i> TEST</a>--%>
                 </div>
             </div>
         </div>
     </div>
     
+    
+    <!-- EJEMPLO GUARDAR MODAL -->
+    <div id="modalGuardar" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4><i class="ace-icon fa fa-pencil"></i> Ingresar evento</h4>
+                    <h6>Confirme si desea guardar los siguientes datos</h6>
+                </div>
+                <div class="modal-body" id="bodyModal" runat="server">
+                    <div class="form-horizontal">
+                        
+                    <div class="form-group">
+                        <label id="lblModalEvento" class="col-sm-4 control-label no-padding-right">Evento: </label>
+                        <div class="col-sm-5">
+                            <label id="txtModalEvento" class="control-label no-padding-left"></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="lblModalRegistro" class="col-sm-4 control-label no-padding-right">Registro: </label>
+                        <div class="col-sm-5">
+                            <label id="txtModalRegistro" class="control-label no-padding-left"></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="lblModalFecha" class="col-sm-4 control-label no-padding-right">Fecha: </label>
+                        <div class="col-sm-5">
+                            <label id="txtModalFecha" class="control-label no-padding-left"></label>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="form-group" id="lblModalSecadoMotivo">
+                        <label class="col-sm-4 control-label no-padding-right">Motivo secado: </label>
+                        <div class="col-sm-5">
+                            <label id="txtModalSecadoMotivo" class="control-label no-padding-left"></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="lblModalEnfermedad">
+                        <label class="col-sm-4 control-label no-padding-right">Enfermedad: </label>
+                        <div class="col-sm-5">
+                            <label id="txtModalEnfermedad" class="control-label no-padding-left"></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="lblModalRegServ">
+                        <label class="col-sm-4 control-label no-padding-right">Registro servicio: </label>
+                        <div class="col-sm-5">
+                            <label id="txtModalRegServ" class="control-label no-padding-left"></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="lblModalCalifLetras">
+                        <label class="col-sm-4 control-label no-padding-right">Letras: </label>
+                        <div class="col-sm-5">
+                            <label id="txtModalCalifLetras" class="control-label no-padding-left"></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="lblModalCalifPuntos">
+                        <label class="col-sm-4 control-label no-padding-right">Puntos: </label>
+                        <div class="col-sm-5">
+                            <label id="txtModalCalifPuntos" class="control-label no-padding-left"></label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" id="lblModalConcNombre">
+                        <label class="col-sm-4 control-label no-padding-right">Nombre Concurso: </label>
+                        <div class="col-sm-5">
+                            <label id="txtModalConcNombre" class="control-label no-padding-left"></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="lblModalConcCateg">
+                        <label class="col-sm-4 control-label no-padding-right">Categoria: </label>
+                        <div class="col-sm-5">
+                            <label id="txtModalConcCateg" class="control-label no-padding-left"></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="lblModalConcPremio">
+                        <label class="col-sm-4 control-label no-padding-right">Premio: </label>
+                        <div class="col-sm-5">
+                            <label id="txtModalConcPremio" class="control-label no-padding-left"></label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" id="lblModalContProdLeche">
+                        <label class="col-sm-4 control-label no-padding-right">Leche: </label>
+                        <div class="col-sm-5">
+                            <label id="txtModalContProdLeche" class="control-label no-padding-left"></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="lblModalContProdGrasa">
+                        <label class="col-sm-4 control-label no-padding-right">Grasa: </label>
+                        <div class="col-sm-5">
+                            <label id="txtModalContProdGrasa" class="control-label no-padding-left"></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="lblModalContProdDias">
+                        <label class="col-sm-4 control-label no-padding-right">Dias: </label>
+                        <div class="col-sm-5">
+                            <label id="txtModalContProdDias" class="control-label no-padding-left"></label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" id="lblModalDiagPrenezDiag">
+                        <label class="col-sm-4 control-label no-padding-right">Diagnostico: </label>
+                        <div class="col-sm-5">
+                            <label id="txtModalDiagPrenezDiag" class="control-label no-padding-left"></label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" id="lblModalServMonta">
+                        <label class="col-sm-4 control-label no-padding-right">Monta natural: </label>
+                        <div class="col-sm-5">
+                            <label id="txtModalServMonta" class="control-label no-padding-left"></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="lblModalServRegPadre">
+                        <label class="col-sm-4 control-label no-padding-right">Registro padre: </label>
+                        <div class="col-sm-5">
+                            <label id="txtModalServRegPadre" class="control-label no-padding-left"></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="lblModalServInsem">
+                        <label class="col-sm-4 control-label no-padding-right">Inseminador: </label>
+                        <div class="col-sm-5">
+                            <label id="txtModalServInsem" class="control-label no-padding-left"></label>
+                        </div>
+                    </div>
+                    
+                    
+
+                    <div class="form-group">
+                        <label id="lblModalComentarios" class="col-sm-4 control-label no-padding-right">Comentarios: </label>
+                        <div class="col-sm-5">
+                            <label id="txtModalComentarios" class="control-label no-padding-left"></label>
+                        </div>
+                    </div>
+
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancelar</button>
+                    <asp:Button ID="btnPrueba" runat="server" CssClass="btn btn-sm btn-info" Text="Confirmar" OnClick="btn_GuardarEvento" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FINAL MODAL -->
+    
+
+
     <script src="js/bloodhound.js"></script>
     <script src="js/date-time/bootstrap-datepicker.js"></script>
     <script src="js/typeahead.jquery.js"></script>
@@ -234,16 +403,126 @@
     
     <script text="javascript">
         
-        //   ---------ABORTO chequear registro----------   //
+        //
+        $(document).on("click", "#btnGuardar", function () {
+            var myBookId = $("#fRegistro").val();
+            var ddlReport = document.getElementById("<%=ddlEvento.ClientID%>");
+            var valorEvento = ddlReport.options[ddlReport.selectedIndex].value;
 
+            document.getElementById('txtModalEvento').innerHTML = ddlReport.options[ddlReport.selectedIndex].text;
+            document.getElementById('txtModalRegistro').innerHTML = document.getElementById('<%=fRegistro.ClientID%>').value;
+            document.getElementById('txtModalFecha').innerHTML = document.getElementById('mydate').value;
+            document.getElementById('txtModalComentarios').innerHTML = document.getElementById('<%=fComentario.ClientID%>').value;
 
-        //function CheckDatosRegAborto() {
-        //    PageMethods.CheckDatosRegAborto();
-        //}
+            document.getElementById("lblModalSecadoMotivo").style.display = "none";
+            document.getElementById("lblModalEnfermedad").style.display = "none";
+            document.getElementById("lblModalRegServ").style.display = "none";
+            document.getElementById("lblModalCalifLetras").style.display = "none";
+            document.getElementById("lblModalCalifPuntos").style.display = "none";
+            document.getElementById("lblModalConcNombre").style.display = "none";
+            document.getElementById("lblModalConcCateg").style.display = "none";
+            document.getElementById("lblModalConcPremio").style.display = "none";
+            document.getElementById("lblModalContProdLeche").style.display = "none";
+            document.getElementById("lblModalContProdGrasa").style.display = "none";
+            document.getElementById("lblModalContProdDias").style.display = "none";
+            document.getElementById("lblModalDiagPrenezDiag").style.display = "none";
+            document.getElementById("lblModalServMonta").style.display = "none";
+            document.getElementById("lblModalServRegPadre").style.display = "none";
+            document.getElementById("lblModalServInsem").style.display = "none";
+            
 
-        //function OcultarLabelRegistro() {
-        //    PageMethods.OcultarLabelRegistro();
-        //}
+            //ABORTO 0
+            if (valorEvento == 0) {
+                document.getElementById("lblModalRegServ").style.display = "block";
+                document.getElementById('txtModalRegServ').innerHTML = document.getElementById('<%=fRegistroServ.ClientID%>').value;
+            }
+            // CELO SIN SERV 2
+            if (valorEvento == 2) {
+
+            }
+
+            //SERVICIO 3
+            if (valorEvento == 3) {
+                document.getElementById("lblModalServMonta").style.display = "block";
+                document.getElementById("lblModalServRegPadre").style.display = "block";
+                document.getElementById("lblModalServInsem").style.display = "block";
+                document.getElementById('txtModalServMonta').innerHTML = document.getElementById('<%=checkMontaNat.ClientID%>').checked ? 'S' : 'N';
+                document.getElementById('txtModalServRegPadre').innerHTML = document.getElementById('<%=fRegPadre.ClientID%>').value;
+                var e = document.getElementById('selectEmpleados');
+                var strUser = e.options[e.selectedIndex].text;
+                document.getElementById('txtModalServInsem').innerHTML = strUser;
+            }
+
+            //SECADO 4
+            if (valorEvento == 4) {
+                document.getElementById("lblModalSecadoMotivo").style.display = "block";
+                document.getElementById("lblModalEnfermedad").style.display = "block";
+                document.getElementById('txtModalEnfermedad').innerHTML = enfermedadTest;
+                var ddlm = document.getElementById("<%=ddlMotivoSec.ClientID%>");
+                var valorSec = ddlm.options[ddlm.selectedIndex].text;
+                document.getElementById('txtModalSecadoMotivo').innerHTML = valorSec;
+            }
+
+            //DIAG PRENEZ 7
+            if (valorEvento == 7) {
+                document.getElementById("lblModalDiagPrenezDiag").style.display = "block";
+                var ddlDiag = document.getElementById("<%=ddlDiagnostico.ClientID%>");
+                var valorDiag = ddlDiag.options[ddlDiag.selectedIndex].value;
+                document.getElementById('txtModalDiagPrenezDiag').innerHTML = valorDiag;
+            }
+
+            //CONTROL PROD 8
+            if (valorEvento == 8) {
+                document.getElementById("lblModalContProdLeche").style.display = "block";
+                document.getElementById("lblModalContProdGrasa").style.display = "block";
+                document.getElementById("lblModalContProdDias").style.display = "block";
+                document.getElementById('txtModalContProdLeche').innerHTML = document.getElementById('<%=fLecheControl.ClientID%>').value;
+                document.getElementById('txtModalContProdGrasa').innerHTML = document.getElementById('<%=fGrasaControl.ClientID%>').value;
+                document.getElementById('txtModalContProdDias').innerHTML = document.getElementById('<%=fLeche.ClientID%>').value;
+            }
+
+            // CALIFICACION 9
+            if (valorEvento == 9) {
+                document.getElementById("lblModalCalifLetras").style.display = "block";
+                document.getElementById("lblModalCalifPuntos").style.display = "block";
+                var letr = document.getElementById('selectLetras');
+                var lert1 = letr.options[letr.selectedIndex].value;
+                document.getElementById('txtModalCalifLetras').innerHTML = lert1;
+
+                var punt = document.getElementById('selectNumeros');
+                var punt1 = punt.options[punt.selectedIndex].value;
+                document.getElementById('txtModalCalifPuntos').innerHTML = punt1;
+            }
+
+            //CONCURSO 10
+            if (valorEvento == 10) {
+                document.getElementById("lblModalConcNombre").style.display = "block";
+                document.getElementById("lblModalConcCateg").style.display = "block";
+                document.getElementById("lblModalConcPremio").style.display = "block";
+
+                var ddlNom = document.getElementById("<%=ddlNomConcurso.ClientID%>");
+                var valorNom = ddlNom.options[ddlNom.selectedIndex].text;
+                document.getElementById('txtModalConcNombre').innerHTML = valorNom;
+
+                var ddlCatConc = document.getElementById("<%=ddlCategConcurso.ClientID%>");
+                var valorCatConc = ddlCatConc.options[ddlCatConc.selectedIndex].text;
+                document.getElementById('txtModalConcCateg').innerHTML = valorCatConc;
+
+                document.getElementById('txtModalConcPremio').innerHTML = document.getElementById('<%=fPremio.ClientID%>').value;
+            }
+
+            // BAJA 11 12
+            if (valorEvento == 11 || valorEvento == 12) {
+                document.getElementById("lblModalEnfermedad").style.display = "block";
+                 document.getElementById('txtModalEnfermedad').innerHTML = enfermedadTest != undefined? enfermedadTest.replace(/"/g,'') : '-';
+            }
+
+            //document.getElementById("TestLeo").style.display = "none";
+            //document.getElementById("idOfElement").style.display = "block";
+        });
+
+        var enfermedadTest;
+
 
 
 //   ---------DATEPICKER----------   //
@@ -303,12 +582,13 @@
 
             var enfermedadSeleccionada = function (eventObject, suggestionObject, suggestionDataset) {
                 var dato = JSON.stringify(suggestionObject.Id);
+                enfermedadTest = JSON.stringify(suggestionObject.Nombre_enfermedad);
                 pasarDatos(dato);
             };
             $("#inputEnf.typeahead").on('typeahead:selected', enfermedadSeleccionada);
 
             function pasarDatos(dato) {
-                PageMethods.RecibirDato(dato, function (response) { console.write(response); }, function (response) { console.write(response); });
+                PageMethods.RecibirDato(dato, function (response) {  }, function (response) {});
             }
 
         }
@@ -458,7 +738,7 @@
             var listaLetras = ['EX','MB','BM','B','R'];
             for (var i = 0; i < listaLetras.length; i++) {
                 htmlText += '<option value=' + listaLetras[i] + '>' + listaLetras[i] + '</option>';
-                }
+            }
             $("#selectLetras").append(htmlText);
         }
 
@@ -474,37 +754,37 @@
             var listaNumeros = [];
             var x = document.getElementById("selectLetras").value;
             switch (x) {
-                case 'EX':
-                    for (var i = 0; i <= 10; i++)
-                    {
-                        num = 100 - i;
-                        htmlText += '<option value=' + num + '>' + num + '</option>';
-                    }
-                    break;
-                case 'MB':
-                    for (var i = 0; i <= 5; i++) {
-                         num = 90 - i;
-                         htmlText += '<option value=' + num + '>' + num + '</option>';
-                    }
-                    break;
-                case 'BM':
-                    for (var i = 0; i <= 5; i++) {
-                        num = 85 - i;
-                        htmlText += '<option value=' + num + '>' + num + '</option>';
-                    }
-                    break;
-                case 'B':
-                    for (var i = 0; i <= 5; i++) {
-                        num = 80 - i;
-                        htmlText += '<option value=' + num + '>' + num + '</option>';
-                    }
-                    break;
-                case 'R':
-                    for (var i = 0; i <= 6; i++) {
-                        num = 76 - i;
-                        htmlText += '<option value=' + num + '>' + num + '</option>';
-                    }
-                    break;
+            case 'EX':
+                for (var i = 0; i <= 10; i++)
+                {
+                    num = 100 - i;
+                    htmlText += '<option value=' + num + '>' + num + '</option>';
+                }
+                break;
+            case 'MB':
+                for (var i = 0; i <= 5; i++) {
+                    num = 90 - i;
+                    htmlText += '<option value=' + num + '>' + num + '</option>';
+                }
+                break;
+            case 'BM':
+                for (var i = 0; i <= 5; i++) {
+                    num = 85 - i;
+                    htmlText += '<option value=' + num + '>' + num + '</option>';
+                }
+                break;
+            case 'B':
+                for (var i = 0; i <= 5; i++) {
+                    num = 80 - i;
+                    htmlText += '<option value=' + num + '>' + num + '</option>';
+                }
+                break;
+            case 'R':
+                for (var i = 0; i <= 6; i++) {
+                    num = 76 - i;
+                    htmlText += '<option value=' + num + '>' + num + '</option>';
+                }
+                break;
             }
             $("#selectNumeros").append(htmlText);
 
@@ -515,5 +795,10 @@
     
 
     <asp:Label ID="lblVer" runat="server" Text="Label" Visible="False"></asp:Label>
-<asp:Label ID="lblStatus" runat="server" Text=""></asp:Label>
+    <div class="row"><asp:Label ID="lblStatusOk" runat="server" Text="" CssClass="alert alert-success col-md-4">Evento ingresado correctamente</asp:Label></div>
+    <div class="row"><asp:Label ID="lblStatusError" runat="server" Text="" CssClass="alert alert-danger col-md-4">No se pudo ingresar el evento</asp:Label></div>
+    <div class="row"><asp:Label ID="lblStatusAviso" runat="server" Text="" CssClass="alert alert-info col-md-4">Debe seleccionar un evento para ingresar</asp:Label></div>
+    
+    
+    
 </asp:Content>

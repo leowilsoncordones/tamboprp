@@ -14,6 +14,7 @@ namespace Datos
     {
         private Control_Total _controlTotal;
         private string _regAnimal;
+        private string _nickName;
 
         public Controles_totalesMapper()
         {
@@ -27,6 +28,12 @@ namespace Datos
         public Controles_totalesMapper(Control_Total controlTotal)
         {
             _controlTotal = controlTotal;
+        }
+
+        public Controles_totalesMapper(Control_Total controlTotal, string nickName)
+        {
+            _controlTotal = controlTotal;
+            _nickName = nickName;
         }
 
         public List<VOControlTotal> GetAll()
@@ -77,6 +84,7 @@ namespace Datos
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Controles_Totales_Insert";
+                cmd.Parameters.Add(new SqlParameter("@NICKNAME", _nickName));
                 cmd.Parameters.Add(new SqlParameter("@FECHA", _controlTotal.Fecha));
                 cmd.Parameters.Add(new SqlParameter("@VACAS", _controlTotal.Vacas));
                 cmd.Parameters.Add(new SqlParameter("@LECHE", _controlTotal.Leche));

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.IO;
@@ -28,15 +29,18 @@ namespace Datos
         private static string Servicio_DiasSinDiagPrenezCount70 = "Servicio_DiasSinDiagPrenezCount70";
         private static string Servicio_DiasSinDiagPrenezCount35 = "Servicio_DiasSinDiagPrenezCount35";
         private static string Servicio_80DiasLactanciaSinServicioCount = "Servicio_80DiasLactanciaSinServicioCount";
+        private string _nickName;
 
-        
 
-        
-        
-        
         public ServicioMapper(Servicio servicio)
         {
             _servicio = servicio;
+        }
+
+        public ServicioMapper(Servicio servicio, string nickName)
+        {
+            _servicio = servicio;
+            _nickName = nickName;
         }
 
         public ServicioMapper(string  registroAnimal)
@@ -203,6 +207,7 @@ namespace Datos
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Servicio_Insert";
+                cmd.Parameters.Add(new SqlParameter("@NICKNAME", _nickName));
                 cmd.Parameters.Add(new SqlParameter("@REGISTRO", _servicio.Registro));
                 cmd.Parameters.Add(new SqlParameter("@EVENTO", _servicio.Id_evento));
                 cmd.Parameters.Add(new SqlParameter("@FECHA", _servicio.Fecha));

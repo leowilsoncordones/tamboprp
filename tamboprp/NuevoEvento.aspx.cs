@@ -36,6 +36,12 @@ namespace tamboprp
                     this.PrepararFormulario();
                     //this.OcultarInputs();
                     this.lblRegistro.Visible = false;
+                    //panel aborto. seleccionado por defecto
+                    this.pnlAborto.Visible = true;
+                    CargarListaRegistrosParaTypeahead(0);
+                    lblStatusOk.Visible = false;
+                    lblStatusError.Visible = false;
+                    lblStatusAviso.Visible = false;
                 }
                 if (this.ddlEvento.SelectedIndex != 13) CargarListaRegistrosParaTypeahead(int.Parse(this.ddlEvento.SelectedValue));
             }
@@ -97,25 +103,38 @@ namespace tamboprp
 
         protected void btn_GuardarEvento(object sender, EventArgs e)
         {
+            if (fRegistro.Text == "")
+            {
+                lblRegistro.InnerText = "Debe ingresar un registro";
+                this.lblRegistro.Visible = true;
+                lblStatusError.Visible = true;
+            }
+            else
+            {
+                lblRegistro.InnerText = "";
+                this.lblRegistro.Visible = false;
+                lblStatusError.Visible = false;
+
             var guardarEvento = GuardarEvento();
             if (guardarEvento != null)
             {
                 if ((bool) guardarEvento)
                 {
-                    this.lblStatus.Text = "Evento ingresado correctamente";
-                    this.lblStatus.Visible = true;
+                    this.lblStatusOk.Visible = true;
+                    LimpiarFormulario();
                 }
                 else
                 {
-                    this.lblStatus.Text = "No se pudo ingresar el evento";
-                    this.lblStatus.Visible = true;
+                    this.lblStatusError.Visible = true;
                 }
             }
             else
             {
-                this.lblStatus.Text = "Debe seleccionar un evento para ingresar";
-                this.lblStatus.Visible = true;
+                this.lblStatusAviso.Visible = true;
             }
+
+            }
+
         }
 
 
@@ -235,6 +254,7 @@ namespace tamboprp
             {
                 lblRegistro.InnerText = "Este registro no tiene preñez confirmada";
                 this.lblRegistro.Visible = true;
+                fRegistroServ.Value = "";
             }
             else
             {
@@ -245,8 +265,214 @@ namespace tamboprp
         }
 
 
+        private VOResultado CheckAnimalExiste(string reg)
+        {
+            var voRes = new VOResultado();
+            if (Fachada.Instance.AnimalExiste(reg))
+            {
+                voRes.Resultado = true;
+                voRes.Mensaje = "";
+            }
+            else
+            {
+                voRes.Resultado = false;
+                voRes.Mensaje = "Este registro no existe";
+            }
+            return voRes;
+        }
+
+        private VOResultado CheckAnimalExisteBajaExiste(string reg)
+        {
+            var voRes = new VOResultado();
+            voRes.Resultado = true;
+            voRes.Mensaje = "";
+            if (Fachada.Instance.AnimalExiste(reg))
+            {
+                if (Fachada.Instance.BajaExiste(reg))
+                {
+                    voRes.Resultado = false;
+                    voRes.Mensaje = "Este registro ya fue dado de baja";
+                }
+                else
+                {
+                    voRes.Resultado = true;
+                    voRes.Mensaje = "";
+                }
+            }
+            else
+            {
+                voRes.Resultado = false;
+                voRes.Mensaje = "Este registro no existe";
+            }
+            return voRes;
+        }
+
+
+        private VOResultado CheckAnimalExisteViveHembra(string reg)
+        {
+            var voRes = new VOResultado();
+
+            if (Fachada.Instance.AnimalExiste(reg))
+            {
+                if (!Fachada.Instance.EstaMuertoAnimal(reg))
+                {
+                    var anim = Fachada.Instance.GetAnimalByRegistro(reg);
+                    if (anim.Sexo == 'H')
+                    {
+                        voRes.Resultado = true;
+                        voRes.Mensaje = "";
+                    }
+                    else
+                    {
+                        voRes.Resultado = false;
+                        voRes.Mensaje = "Este animal es macho";
+                    }
+                }
+                else
+                {
+                    voRes.Resultado = false;
+                    voRes.Mensaje = "Este animal esta dado de baja";
+                }
+            }
+            else
+            {
+                voRes.Resultado = false;
+                voRes.Mensaje = "Este registro no existe";
+            }
+            return voRes;
+        }
+
+        private void CheckDatosRegCeloSinServicio()
+        {
+            var voRes = CheckAnimalExisteViveHembra(fRegistro.Text);
+                lblRegistro.InnerText = voRes.Mensaje;
+                this.lblRegistro.Visible = true;
+            
+        }
+
+
+        private VOResultado CheckServPadre(string regSevPadre)
+        {
+            var voRes = new VOResultado();
+            if (regSevPadre != "")
+            {
+                if (Fachada.Instance.AnimalExiste(regSevPadre))
+                {
+                    var anim = Fachada.Instance.GetAnimalByRegistro(regSevPadre);
+                    if (anim.Sexo == 'M')
+                    {
+                        voRes.Resultado = true;
+                        voRes.Mensaje = "";
+                    }
+                    else
+                    {
+                        voRes.Resultado = false;
+                        voRes.Mensaje = "Este animal es hembra";
+                    }
+                }
+                else
+                {
+                    voRes.Resultado = true;
+                    voRes.Mensaje = "";
+                }
+            }
+            else
+            {
+                voRes.Resultado = true;
+                voRes.Mensaje = "";
+            }
+            return voRes;
+        }
+
+        private VOResultado CheckNumero(string valor)
+        {
+            var voRes = new VOResultado();
+            voRes.Resultado = true;
+            voRes.Mensaje = "";
+            if (valor != "")
+            {            
+            double numero;
+                if (Double.TryParse(valor, out numero))
+                {
+                    voRes.Resultado = true;
+                    voRes.Mensaje = "";
+                }
+                else
+                {
+                    voRes.Resultado = false;
+                    voRes.Mensaje = "Debe ser un numero";
+                }
+            }
+            return voRes;
+        }
+
+        private void CheckDatosServ()
+        {
+            var voRes1 = CheckAnimalExisteViveHembra(fRegistro.Text);
+            lblRegistro.InnerText = voRes1.Mensaje;
+            this.lblRegistro.Visible = true;
+
+            var voRes2 = CheckServPadre(fRegPadre.Value);
+            lblRegPadre.InnerText = voRes2.Mensaje;
+            this.lblRegPadre.Visible = true;
+        }
+
+        private void CheckDatosSecado()
+        {
+            var voRes1 = CheckAnimalExisteViveHembra(fRegistro.Text);
+            lblRegistro.InnerText = voRes1.Mensaje;
+            this.lblRegistro.Visible = true;
+        }
+
+        private void CheckDatosDiagPrenez()
+        {
+            var voRes1 = CheckAnimalExisteViveHembra(fRegistro.Text);
+            lblRegistro.InnerText = voRes1.Mensaje;
+            this.lblRegistro.Visible = true;
+        }
+
+        private void CheckDatosControlProd()
+        {
+            var voRes1 = CheckAnimalExisteViveHembra(fRegistro.Text);
+            lblRegistro.InnerText = voRes1.Mensaje;
+            this.lblRegistro.Visible = true;
+
+            var voRes2 = CheckNumero(fLecheControl.Text);
+            lblLecheControl.InnerText = voRes2.Mensaje;
+            this.lblLecheControl.Visible = true;
+
+            var voRes3 = CheckNumero(fGrasaControl.Text);
+            lblGrasaControl.InnerText = voRes3.Mensaje;
+            this.lblGrasaControl.Visible = true;
+
+        }
+
+        private void CheckDatosCalificacion()
+        {
+            var voRes1 = CheckAnimalExisteViveHembra(fRegistro.Text);
+            lblRegistro.InnerText = voRes1.Mensaje;
+            this.lblRegistro.Visible = true;
+        }
+
+        private void CheckDatosConcurso()
+        {
+            var voRes = CheckAnimalExiste(fRegistro.Text);
+            lblRegistro.InnerText = voRes.Mensaje;
+            this.lblRegistro.Visible = true;
+        }
+
+        private void CheckDatosBaja()
+        {
+            var voRes = CheckAnimalExisteBajaExiste(fRegistro.Text);
+            lblRegistro.InnerText = voRes.Mensaje;
+            this.lblRegistro.Visible = true;
+        }
+
         protected void EventosRegistro(object sender, EventArgs e)
         {
+            this.lblStatusOk.Visible = false;
+            this.lblStatusError.Visible = false; 
+            this.lblStatusAviso.Visible = false;
             if (ddlEvento.SelectedIndex != 13)
             {                
             switch (int.Parse(this.ddlEvento.SelectedValue))
@@ -257,26 +483,35 @@ namespace tamboprp
                 case 1: // PARTO
                     break;
                 case 2: // CELO SIN SERVICIO
+                    CheckDatosRegCeloSinServicio();
                     break;
                 case 3: // SERVICIO
+                    CheckDatosServ();
                     break;
                 case 4: // SECADO
+                    CheckDatosSecado();
                     break;
                 case 5: // CONTROL SANITARIO (YA NO SE USA)
                     break;
                 case 6: // C.M.T. (YA NO SE USA)
                     break;
                 case 7: // DIAGNOSTICO DE PRENEZ
+                    CheckDatosDiagPrenez();
                     break;
                 case 8: // CONTROL DE PRODUCCION
+                    CheckDatosControlProd();
                     break;
                 case 9: // CALIFICACION
+                    CheckDatosCalificacion();
                     break;
                 case 10: // CONCURSO
+                    CheckDatosConcurso();
                     break;
                 case 11: // BAJA POR VENTA
+                    CheckDatosBaja();
                     break;
                 case 12: // BAJA POR MUERTE
+                    CheckDatosBaja();
                     break;
                 default:
                     break;
@@ -298,17 +533,25 @@ namespace tamboprp
 
         private bool GuardarAborto()
         {
-            string strDate = Request.Form["mydate"];
-            var fecha = DateTime.Parse(strDate, new CultureInfo("en-US"));
-            var aborto = new Aborto
+            if (CheckAnimalConDiagPrenezActual(fRegistro.Text))
             {
-                Id_evento = 0,
-                Registro = fRegistro.Text,
-                Fecha = fecha,
-                Comentarios = fComentario.Value,
-                Reg_padre = fRegistroServ.Value
-            };
-            return Fachada.Instance.InsertarEvento(aborto);
+                var usu = (VOUsuario) Session["Usuario"];
+                string strDate = Request.Form["mydate"];
+                var fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+                var aborto = new Aborto
+                {
+                    Id_evento = 0,
+                    Registro = fRegistro.Text,
+                    Fecha = fecha,
+                    Comentarios = fComentario.Value,
+                    Reg_padre = fRegistroServ.Value
+                };
+                return Fachada.Instance.InsertarEvento(aborto, usu.Nickname);
+            }
+            else
+            {
+                return false;
+            }
         }
 
 
@@ -317,154 +560,249 @@ namespace tamboprp
 
         private bool GuardarCeloSinServicio()
         {
-            string strDate = Request.Form["mydate"];
-            var celoSinServ = new Celo_Sin_Servicio
+            var voRes = CheckAnimalExisteViveHembra(fRegistro.Text);
+            if (voRes.Resultado)
             {
-                Id_evento = 2,
-                Registro = fRegistro.Text,
-                Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR")),
-                Comentarios = fComentario.Value,
-            };
-            return Fachada.Instance.InsertarEvento(celoSinServ);
+                var usu = (VOUsuario) Session["Usuario"];
+                string strDate = Request.Form["mydate"];
+                var celoSinServ = new Celo_Sin_Servicio
+                {
+                    Id_evento = 2,
+                    Registro = fRegistro.Text,
+                    Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR")),
+                    Comentarios = fComentario.Value,
+                };
+                return Fachada.Instance.InsertarEvento(celoSinServ, usu.Nickname);
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private bool GuardarServicio()
         {
-            string strDate = Request.Form["mydate"];
-            var idEmple = Request.Form["selectEmpleados"];
-            var insemin = new Empleado { Id_empleado = Int16.Parse(idEmple) };
-            var monta = checkMontaNat.Checked ? 'S' : 'N';
-            var serv = new Servicio
+            var voRes1 = CheckAnimalExisteViveHembra(fRegistro.Text);
+            var voRes2 = CheckServPadre(fRegPadre.Value);
+
+            if (voRes1.Resultado && voRes2.Resultado)
             {
-                Id_evento = 3,
-                Registro = fRegistro.Text,
-                Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR")),
-                Comentarios = fComentario.Value,
-                Serv_monta_natural = monta,
-                Reg_padre = fRegPadre.Value,
-                Inseminador = insemin
-            };
-            return Fachada.Instance.InsertarEvento(serv);
+                var usu = (VOUsuario) Session["Usuario"];
+                string strDate = Request.Form["mydate"];
+                var idEmple = Request.Form["selectEmpleados"];
+                var insemin = new Empleado {Id_empleado = Int16.Parse(idEmple)};
+                var monta = checkMontaNat.Checked ? 'S' : 'N';
+                var serv = new Servicio
+                {
+                    Id_evento = 3,
+                    Registro = fRegistro.Text,
+                    Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR")),
+                    Comentarios = fComentario.Value,
+                    Serv_monta_natural = monta,
+                    Reg_padre = fRegPadre.Value.ToUpper(),
+                    Inseminador = insemin
+                };
+                return Fachada.Instance.InsertarEvento(serv, usu.Nickname);
+            }
+            else
+            {
+                return false;
+            }
+
         }
 
         private bool GuardarSecado()
         {
-            string strDate = Request.Form["mydate"];
-            string enf = _dato;
-
-            var sec = new Secado
+            var voRes = CheckAnimalExisteViveHembra(fRegistro.Text);
+            if (voRes.Resultado)
             {
-                Id_evento = 4,
-                Registro = fRegistro.Text,
-                Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR")),
-                Comentarios = fComentario.Value,
-                Motivos_secado =  Int16.Parse(ddlMotivoSec.SelectedValue),
-                Enfermedad = enf == "" ? (short?) null: Int16.Parse(enf) 
-            };
-            _dato = "";
-            return Fachada.Instance.InsertarEvento(sec);
+                var usu = (VOUsuario) Session["Usuario"];
+                string strDate = Request.Form["mydate"];
+                string enf = _dato;
+
+                var sec = new Secado
+                {
+                    Id_evento = 4,
+                    Registro = fRegistro.Text,
+                    Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR")),
+                    Comentarios = fComentario.Value,
+                    Motivos_secado = Int16.Parse(ddlMotivoSec.SelectedValue),
+                    Enfermedad = enf == "" ? (short?) null : Int16.Parse(enf)
+                };
+                _dato = "";
+                return Fachada.Instance.InsertarEvento(sec, usu.Nickname);
+            }
+            else
+            {
+                _dato = "";
+                return false;
+            }
+
         }
 
         private bool GuardarDiagPrenez()
         {
-            string strDate = Request.Form["mydate"];
-            var diagp = new Diag_Prenez
+            var voRes = CheckAnimalExisteViveHembra(fRegistro.Text);
+            if (voRes.Resultado)
             {
-                Id_evento = 7,
-                Registro = fRegistro.Text,
-                Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR")),
-                Comentarios = fComentario.Value,
-                Diagnostico = ConvertirDiagnostico(int.Parse(ddlDiagnostico.SelectedValue))
-            };
-            return Fachada.Instance.InsertarEvento(diagp);
+                var usu = (VOUsuario) Session["Usuario"];
+                string strDate = Request.Form["mydate"];
+                var diagp = new Diag_Prenez
+                {
+                    Id_evento = 7,
+                    Registro = fRegistro.Text,
+                    Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR")),
+                    Comentarios = fComentario.Value,
+                    Diagnostico = ConvertirDiagnostico(int.Parse(ddlDiagnostico.SelectedValue))
+                };
+                return Fachada.Instance.InsertarEvento(diagp, usu.Nickname);
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private bool GuardarControlProduccion()
         {
-            string strDate = Request.Form["mydate"];
-            var control = new Control_Producc
+
+            var voRes = CheckAnimalExisteViveHembra(fRegistro.Text);
+            var voRes1 = CheckNumero(fLecheControl.Text);
+            var voRes2 = CheckNumero(fGrasaControl.Text);
+            if (voRes.Resultado && voRes1.Resultado && voRes2.Resultado)
             {
-                Id_evento = 8,
-                Registro = fRegistro.Text,
-                Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR")),
-                Comentarios = fComentario.Value,
-                Leche = double.Parse(fLeche.Value),
-                Grasa = double.Parse(fGrasa.Value),
-            };
-            return Fachada.Instance.InsertarEvento(control);
+                var usu = (VOUsuario) Session["Usuario"];
+                string strDate = Request.Form["mydate"];
+                var control = new Control_Producc
+                {
+                    Id_evento = 8,
+                    Registro = fRegistro.Text,
+                    Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR")),
+                    Comentarios = fComentario.Value,
+                    Leche = double.Parse(fLecheControl.Text),
+                    Grasa = double.Parse(fGrasaControl.Text),
+                };
+                return Fachada.Instance.InsertarEvento(control, usu.Nickname);
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private bool GuardarCalificacion()
         {
-            string strDate = Request.Form["mydate"];
-            string letra = Request.Form["selectLetras"];
-            string num = Request.Form["selectNumeros"];
-            var calif = new Calificacion
+            var voRes = CheckAnimalExisteViveHembra(fRegistro.Text);
+            if (voRes.Resultado)
             {
-                Id_evento = 9,
-                Registro = fRegistro.Text,
-                Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR")),
-                Letras = letra,
-                Puntos = Int32.Parse(num)
-            };
-            return Fachada.Instance.InsertarEvento(calif);
+                var usu = (VOUsuario)Session["Usuario"];
+                string strDate = Request.Form["mydate"];
+                string letra = Request.Form["selectLetras"];
+                string num = Request.Form["selectNumeros"];
+                var calif = new Calificacion
+                {
+                    Id_evento = 9,
+                    Registro = fRegistro.Text,
+                    Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR")),
+                    Letras = letra,
+                    Puntos = Int32.Parse(num)
+                };
+                return Fachada.Instance.InsertarEvento(calif, usu.Nickname);
+            }
+            else
+            {
+                return false;
+            }           
         }
 
         private bool GuardarConcurso()
         {
-            string strDate = Request.Form["mydate"];
-            var cat = new CategoriaConcurso {Id_categ = Int16.Parse(ddlCategConcurso.SelectedValue)};
-            var lugconc = new LugarConcurso {Id = int.Parse(ddlNomConcurso.SelectedValue)};
-            var concurso = new Concurso
+            var voRes = CheckAnimalExiste(fRegistro.Text);
+            if (voRes.Resultado)
             {
-                Id_evento = 10,
-                Registro = fRegistro.Text,
-                Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR")),
-                Comentarios = fComentario.Value,
-                ElPremio = fPremio.Value,
-                NombreLugarConcurso = lugconc,
-                Categoria = cat
-            };
-            return Fachada.Instance.InsertarEvento(concurso);
+                var usu = (VOUsuario) Session["Usuario"];
+                string strDate = Request.Form["mydate"];
+                var cat = new CategoriaConcurso {Id_categ = Int16.Parse(ddlCategConcurso.SelectedValue)};
+                var lugconc = new LugarConcurso {Id = int.Parse(ddlNomConcurso.SelectedValue)};
+                var concurso = new Concurso
+                {
+                    Id_evento = 10,
+                    Registro = fRegistro.Text,
+                    Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR")),
+                    Comentarios = fComentario.Value,
+                    ElPremio = fPremio.Value,
+                    NombreLugarConcurso = lugconc,
+                    Categoria = cat
+                };
+                return Fachada.Instance.InsertarEvento(concurso, usu.Nickname);
+            }
+            else
+            {
+                return false;
+            }
+
         }
 
         private bool GuardarVenta()
         {
-            string strDate = Request.Form["mydate"];
-            string enf = _dato == "" ? null : _dato;
-
-            var venta = new Venta
+            var voRes = CheckAnimalExisteBajaExiste(fRegistro.Text);
+            if (voRes.Resultado)
             {
-                Id_evento = 11,
-                Registro = fRegistro.Text,
-                Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR")),
-                Comentarios = fComentario.Value,
-                Enfermedad = enf != null ? Int16.Parse(enf) : (short?) null
+                var usu = (VOUsuario) Session["Usuario"];
+                string strDate = Request.Form["mydate"];
+                string enf = _dato == "" ? null : _dato;
 
-            };
-            _dato = "";
-            return Fachada.Instance.InsertarEvento(venta);
+                var venta = new Venta
+                {
+                    Id_evento = 11,
+                    Registro = fRegistro.Text,
+                    Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR")),
+                    Comentarios = fComentario.Value,
+                    Enfermedad = enf != null ? Int16.Parse(enf) : (short?) null
+
+                };
+                _dato = "";
+                return Fachada.Instance.InsertarEvento(venta, usu.Nickname);
+            }
+            else
+            {
+                _dato = "";
+                return false;
+            }
         }
 
         private bool GuardarMuerte()
         {
-            string strDate = Request.Form["mydate"];
-            string enf = _dato;
-            var muerte = new Muerte
+            var voRes = CheckAnimalExisteBajaExiste(fRegistro.Text);
+            if (voRes.Resultado)
             {
-                Id_evento = 12,
-                Registro = fRegistro.Text,
-                Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR")),
-                Comentarios = fComentario.Value,
-                Enfermedad = Int16.Parse(enf)
-            };
-            _dato = "";
-            return Fachada.Instance.InsertarEvento(muerte);
+                var usu = (VOUsuario) Session["Usuario"];
+                string strDate = Request.Form["mydate"];
+                string enf = _dato == "" ? null : _dato;
+                var muerte = new Muerte
+                {
+                    Id_evento = 12,
+                    Registro = fRegistro.Text,
+                    Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR")),
+                    Comentarios = fComentario.Value,
+                    Enfermedad = enf != null ? Int16.Parse(enf) : (short?)null
+                };
+                _dato = "";
+                return Fachada.Instance.InsertarEvento(muerte, usu.Nickname);
+            }
+            else
+            {
+                _dato = "";
+                return false;
+            }
         }
 
         protected void btn_LimpiarFormulario(object sender, EventArgs e)
         {
             this.LimpiarFormulario();
+            this.lblStatusAviso.Visible = false;
+            this.lblStatusError.Visible = false;
+            this.lblStatusOk.Visible = false;
         }
 
         //private void OcultarInputs()
@@ -519,8 +857,8 @@ namespace tamboprp
             //this.mydate.Value = "";
             this.fComentario.Value = "";
             this.fRegistroServ.Value = "";
-            this.fControl.Value = "";
-            this.fGrasa.Value = "";
+            //this.fControl.Value = "";
+            //this.fGrasa.Value = "";
             this.fLeche.Value = "";
             //this.fEnfermedad.Value = "";
             this.fRegPadre.Value = "";
@@ -530,21 +868,22 @@ namespace tamboprp
             //this.mydate.Attributes.Remove("disabled");
             this.fComentario.Attributes.Remove("disabled");
            // this.fEnfermedad.Attributes.Remove("disabled");
-            this.lblStatus.Text = "";
+            //this.lblStatus.Text = "";
             this.lblVer.Text = "";
+            this.lblRegPadre.InnerText = "";
+            this.fLecheControl.Text = "";
+            this.fGrasaControl.Text = "";
         }
 
         private void CargarDdlTipoEvento()
         {
             var lst = new List<TipoEvento>();
-            lst = Fachada.Instance.GetTipoEventosAnimal();
+            lst = Fachada.Instance.GetTipoEventosEnUso();
             this.ddlEvento.DataSource = lst;
             this.ddlEvento.DataTextField = "Nombre";
             this.ddlEvento.DataValueField = "Id";
             this.ddlEvento.DataBind();
-            int iCount = this.ddlEvento.Items.Count;
-            this.ddlEvento.Items.Add("Seleccione");
-            this.ddlEvento.SelectedIndex = iCount;
+
         }
         private void CargarDdlCalificacionLetras()
         {
@@ -698,6 +1037,9 @@ namespace tamboprp
 
         protected void ddlEvento_SelectedIndexChanged(object sender, EventArgs e)
         {
+            this.lblStatusOk.Visible = false;
+            this.lblStatusError.Visible = false; 
+            this.lblStatusAviso.Visible = false;
             this.LimpiarFormulario();
             this.pnlAborto.Visible = false;
             this.pnlBajas.Visible = false;
@@ -734,13 +1076,9 @@ namespace tamboprp
                     this.pnlBajas.Visible = true;
                     break;
                 case 5: // CONTROL SANITARIO (YA NO SE USA)
-                   // this.fRegistro.Attributes.Add("disabled", "disabled");
-                    //this.mydate.Attributes.Add("disabled", "disabled");
                     this.fComentario.Attributes.Add("disabled", "disabled");
                     break;
                 case 6: // C.M.T. (YA NO SE USA)
-                    //this.fRegistro.Attributes.Add("disabled", "disabled");
-                    //this.mydate.Attributes.Add("disabled", "disabled");
                     this.fComentario.Attributes.Add("disabled", "disabled");
                     break;
                 case 7: // DIAGNOSTICO DE PRENEZ
@@ -791,20 +1129,6 @@ namespace tamboprp
             return Fachada.Instance.GetInseminadores();
         }
 
-        //[WebMethod]
-        //public static List<VoListItem> GetAbortosAnimalesConServicios()
-        //{
-        //    return _listaRegistrosTypeahead;
-        //}
-
-        //[WebMethod]
-        //public static string RecibirDatoAbortoRegistro(dynamic dato)
-        //{         
-        //    _datoAbortoRegistro = dato.Replace("\"", "");
-        //    var padre = Fachada.Instance.GetAbortoServicioPadre(_datoAbortoRegistro);
-        //    _datoAbortoRegistroPadre = padre;
-        //    return padre;
-        //}
 
 
     }

@@ -14,6 +14,7 @@ namespace Datos
     {
         private Venta _venta;
         private string _registroAnimal;
+        private string _nickName;
 
         private static string Venta_SelecByRegistro = "Venta_SelecByRegistro";
         private string Venta_SelectCountEsteAnio = "Venta_SelectCountEsteAnio";
@@ -22,6 +23,12 @@ namespace Datos
         public VentaMapper(Venta venta)
         {
             _venta = venta;
+        }
+
+        public VentaMapper(Venta venta, string nickName)
+        {
+            _venta = venta;
+            _nickName = nickName;
         }
 
         public VentaMapper(string  registroAnimal)
@@ -133,6 +140,7 @@ namespace Datos
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Baja_Insert";
+                cmd.Parameters.Add(new SqlParameter("@NICKNAME", _nickName));
                 cmd.Parameters.Add(new SqlParameter("@REGISTRO", _venta.Registro));
                 cmd.Parameters.Add(new SqlParameter("@EVENTO", _venta.Id_evento));
                 cmd.Parameters.Add(new SqlParameter("@FECHA", _venta.Fecha));

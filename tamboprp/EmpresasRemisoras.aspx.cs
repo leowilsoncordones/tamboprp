@@ -83,13 +83,14 @@ namespace tamboprp
         {
             if (this.fNombre.Text != "")
             {
+                var usu = (VOUsuario)Session["Usuario"];
                 var nuevaRemisora = new VOEmpresa();
                 nuevaRemisora.Nombre = this.fNombre.Text;
                 nuevaRemisora.RazonSocial = this.fRazonSocial.Text;
                 nuevaRemisora.Rut = this.fRut.Text;
                 nuevaRemisora.Telefono = this.fTelefono.Text;
                 nuevaRemisora.Direccion = this.fDireccion.Text;
-                if (Fachada.Instance.GuardarEmpresaRemisora(nuevaRemisora))
+                if (Fachada.Instance.GuardarEmpresaRemisora(nuevaRemisora, usu.Nickname))
                 {
                     this.lblStatus.Text = "La empresa se guardó con éxito";
                     this.CargarEmpresasRemisoras();

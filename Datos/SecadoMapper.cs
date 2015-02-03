@@ -14,12 +14,19 @@ namespace Datos
     {
         private Secado _secado;
         private string _registroAnimal;
+        private string _nickName;
 
         private static string Secado_SelecByRegistro = "Secado_SelecByRegistro";
 
         public SecadoMapper(Secado secado)
         {
             _secado = secado;
+        }
+
+        public SecadoMapper(Secado secado, string nickName)
+        {
+            _secado = secado;
+            _nickName = nickName;
         }
 
         public SecadoMapper(string  registroAnimal)
@@ -107,6 +114,7 @@ namespace Datos
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Secado_Insert";
+                cmd.Parameters.Add(new SqlParameter("@NICKNAME", _nickName));
                 cmd.Parameters.Add(new SqlParameter("@REGISTRO", _secado.Registro));
                 cmd.Parameters.Add(new SqlParameter("@EVENTO", _secado.Id_evento));
                 cmd.Parameters.Add(new SqlParameter("@FECHA", _secado.Fecha));

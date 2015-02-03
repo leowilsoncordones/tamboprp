@@ -14,6 +14,7 @@ namespace Datos
     {
         private Muerte _muerte;
         private string _registroAnimal;
+        private string _nickName;
 
         private static string Muerte_SelecByRegistro = "Muerte_SelecByRegistro";
         private string Muerte_SelectCountEsteAnio = "Muerte_SelectCountEsteAnio";
@@ -22,6 +23,12 @@ namespace Datos
         public MuerteMapper(Muerte muerte)
         {
             _muerte = muerte;
+        }
+
+        public MuerteMapper(Muerte muerte, string nickName)
+        {
+            _muerte = muerte;
+            _nickName = nickName;
         }
 
         public MuerteMapper(string  registroAnimal)
@@ -133,6 +140,7 @@ namespace Datos
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Baja_Insert";
+                cmd.Parameters.Add(new SqlParameter("@NICKNAME", _nickName));
                 cmd.Parameters.Add(new SqlParameter("@REGISTRO", _muerte.Registro));
                 cmd.Parameters.Add(new SqlParameter("@EVENTO", _muerte.Id_evento));
                 cmd.Parameters.Add(new SqlParameter("@FECHA", _muerte.Fecha));
@@ -167,6 +175,11 @@ namespace Datos
             //enf.Id = (short)((DBNull.Value == record["ENFERMEDAD"]) ? 0 : (Int16)record["ENFERMEDAD"]);
             //muerte.Enfermedad = enf;
             return muerte;
+        }
+
+        public bool BajaExiste(string registro)
+        {
+            return GetScalarIntReg("Baja_Existe", registro) > 0;
         }
 
     }

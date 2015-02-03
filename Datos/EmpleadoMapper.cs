@@ -13,10 +13,17 @@ namespace Datos
     public class EmpleadoMapper: AbstractMapper
     {
         private Empleado _empleado;
+        private string _nickName;
 
         public EmpleadoMapper(Empleado empleado)
         {
             _empleado = empleado;
+        }
+
+        public EmpleadoMapper(Empleado empleado, string nickName)
+        {
+            _empleado = empleado;
+            _nickName = nickName;
         }
 
         public EmpleadoMapper()
@@ -83,7 +90,7 @@ namespace Datos
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Empleado_Insert";
-                //cmd.Parameters.Add(new SqlParameter("@ID_EMPLEADO", _empleado.Id_empleado));
+                cmd.Parameters.Add(new SqlParameter("@NICKNAME", _nickName));
                 cmd.Parameters.Add(new SqlParameter("@NOMBRE", _empleado.Nombre));
                 cmd.Parameters.Add(new SqlParameter("@APELLIDO", _empleado.Apellido));
                 cmd.Parameters.Add(new SqlParameter("@INICIALES", _empleado.Iniciales));

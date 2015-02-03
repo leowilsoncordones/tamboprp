@@ -103,22 +103,40 @@ namespace tamboprp {
         protected global::System.Web.UI.WebControls.Panel pnlControles;
         
         /// <summary>
-        /// fControl control.
+        /// fLecheControl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText fControl;
+        protected global::System.Web.UI.WebControls.TextBox fLecheControl;
         
         /// <summary>
-        /// fGrasa control.
+        /// lblLecheControl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText fGrasa;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblLecheControl;
+        
+        /// <summary>
+        /// fGrasaControl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox fGrasaControl;
+        
+        /// <summary>
+        /// lblGrasaControl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblGrasaControl;
         
         /// <summary>
         /// fLeche control.
@@ -202,6 +220,15 @@ namespace tamboprp {
         protected global::System.Web.UI.HtmlControls.HtmlInputText fRegPadre;
         
         /// <summary>
+        /// lblRegPadre control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblRegPadre;
+        
+        /// <summary>
         /// pnlConcurso control.
         /// </summary>
         /// <remarks>
@@ -247,15 +274,6 @@ namespace tamboprp {
         protected global::System.Web.UI.HtmlControls.HtmlTextArea fComentario;
         
         /// <summary>
-        /// btnSubmit control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSubmit;
-        
-        /// <summary>
         /// btnReset control.
         /// </summary>
         /// <remarks>
@@ -263,6 +281,24 @@ namespace tamboprp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnReset;
+        
+        /// <summary>
+        /// bodyModal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl bodyModal;
+        
+        /// <summary>
+        /// btnPrueba control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPrueba;
         
         /// <summary>
         /// lblVer control.
@@ -274,12 +310,30 @@ namespace tamboprp {
         protected global::System.Web.UI.WebControls.Label lblVer;
         
         /// <summary>
-        /// lblStatus control.
+        /// lblStatusOk control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblStatus;
+        protected global::System.Web.UI.WebControls.Label lblStatusOk;
+        
+        /// <summary>
+        /// lblStatusError control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblStatusError;
+        
+        /// <summary>
+        /// lblStatusAviso control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblStatusAviso;
     }
 }

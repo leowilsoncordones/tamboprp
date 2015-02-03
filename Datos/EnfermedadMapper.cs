@@ -13,6 +13,7 @@ namespace Datos
     public class EnfermedadMapper : AbstractMapper
     {
         private Enfermedad _enf;
+        private string _nickName;
 
         public EnfermedadMapper()
         {
@@ -21,6 +22,12 @@ namespace Datos
         public EnfermedadMapper(Enfermedad enf)
         {
             _enf = enf;
+        }
+
+        public EnfermedadMapper(Enfermedad enf, string nickName)
+        {
+            _enf = enf;
+            _nickName = nickName;
         }
 
         protected override string GetConnectionString()
@@ -82,6 +89,7 @@ namespace Datos
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Enfermedad_Insert";
+                cmd.Parameters.Add(new SqlParameter("@NICKNAME", _nickName));
                 cmd.Parameters.Add(new SqlParameter("@ID_ENFERMEDAD", _enf.Id));
                 cmd.Parameters.Add(new SqlParameter("@NOMBRE", _enf.Nombre_enfermedad));
             }
