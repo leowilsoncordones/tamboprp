@@ -29,5 +29,14 @@ namespace Tests_Entidades
             Assert.IsNotNull(anim);
         }
 
+
+        [Test]
+
+        public void consolidarLactanciaTest()
+        {
+            var result = Fachada.Instance.ConsolidarLactancia("3451");
+            Assert.IsTrue(result.Registro == "3451");
+        }
+
     }
 }

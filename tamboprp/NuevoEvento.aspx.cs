@@ -112,8 +112,6 @@ namespace tamboprp
             }
             else
             {
-                lblRegistro.InnerText = "";
-                this.lblRegistro.Visible = false;
                 lblStatusError.Visible = false;
 
             var guardarEvento = GuardarEvento();
@@ -309,6 +307,34 @@ namespace tamboprp
         }
 
 
+
+        private VOResultado CheckAnimalExisteEnOrdene(string reg)
+        {
+            var voRes = new VOResultado();
+            voRes.Resultado = true;
+            voRes.Mensaje = "";
+            if (Fachada.Instance.AnimalExiste(reg))
+            {
+                if (Fachada.Instance.AnimalEstaEnOrdene(reg))
+                {
+                    voRes.Resultado = true;
+                    voRes.Mensaje = "";
+                }
+                else
+                {
+                    voRes.Resultado = false;
+                    voRes.Mensaje = "Este animal no esta en ordeñe";
+                }
+            }
+            else
+            {
+                voRes.Resultado = false;
+                voRes.Mensaje = "Este registro no existe";
+            }
+            return voRes;
+        }
+
+
         private VOResultado CheckAnimalExisteViveHembra(string reg)
         {
             var voRes = new VOResultado();
@@ -420,7 +446,7 @@ namespace tamboprp
 
         private void CheckDatosSecado()
         {
-            var voRes1 = CheckAnimalExisteViveHembra(fRegistro.Text);
+            var voRes1 = CheckAnimalExisteEnOrdene(fRegistro.Text);
             lblRegistro.InnerText = voRes1.Mensaje;
             this.lblRegistro.Visible = true;
         }
@@ -614,7 +640,7 @@ namespace tamboprp
 
         private bool GuardarSecado()
         {
-            var voRes = CheckAnimalExisteViveHembra(fRegistro.Text);
+            var voRes = CheckAnimalExisteEnOrdene(fRegistro.Text);
             if (voRes.Resultado)
             {
                 var usu = (VOUsuario) Session["Usuario"];
@@ -874,6 +900,9 @@ namespace tamboprp
             this.lblRegPadre.InnerText = "";
             this.fLecheControl.Text = "";
             this.fGrasaControl.Text = "";
+            this.lblRegistro.InnerText = "";
+            this.lblLecheControl.InnerText = "";
+            this.lblGrasaControl.InnerText = "";
         }
 
         private void CargarDdlTipoEvento()

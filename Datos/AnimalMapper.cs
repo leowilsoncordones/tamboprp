@@ -36,6 +36,7 @@ namespace Datos
         private static string Animal_SubirFotoByRegistro = "Animal_SubirFotoByRegistro";
         private static string Animal_InsertFotoByRegistro = "Animal_InsertFotoByRegistro";
         private static string Animal_SelectCriasByParto = "Animal_SelectCriasByParto";
+        private static string Animales_Categoria_SelectAllOrdene = "Animales_Categoria_SelectAllOrdene";
         
                
         public AnimalMapper(Animal animal)
@@ -658,6 +659,34 @@ namespace Datos
 
             var value = ReturnScalarValue(cmd);
             return Convert.ToInt32(value);
+        }
+
+
+        public bool AnimalEstaEnOrdene(string registro)
+        {
+            return GetScalarIntReg("Animal_OrdeneExiste", registro) > 0;
+        }
+
+        public List<string> AnimalCategGetRegistrosAllOrdene()
+        {
+            var result = new List<string>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = Animales_Categoria_SelectAllOrdene;
+
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+                result.Add(loadRegOrdene(dr));
+            dr.Close();
+            return result;
+        }
+
+
+        protected string loadRegOrdene(SqlDataReader record)
+        {
+            string reg = (DBNull.Value == record["REGISTRO"]) ? string.Empty : (string)record["REGISTRO"];
+            return reg;
         }
 
     }

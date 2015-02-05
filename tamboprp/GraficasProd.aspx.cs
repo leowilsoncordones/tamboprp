@@ -21,7 +21,7 @@ namespace tamboprp
                 {
                     this.SetPageBreadcrumbs();
                     CargarDdl();
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "GetValoreLeche", "GetValoreLeche(0)", true);
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "GetValoreLeche", "GetValoreLeche(1)", true);
                     this.pnlFechasGraf.Visible = false;
                 }
             }
@@ -46,6 +46,7 @@ namespace tamboprp
             this.ddlFechasGraf.Items.Add(new ListItem("Este año", "0"));
             this.ddlFechasGraf.Items.Add(new ListItem("Último año", "1"));
             this.ddlFechasGraf.Items.Add(new ListItem("Seleccionar fechas", "2"));
+            this.ddlFechasGraf.SelectedValue = "1";
         }
 
 

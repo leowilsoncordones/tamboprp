@@ -30,7 +30,7 @@ namespace tamboprp
                     this.LimpiarRegistro();
                     this.CargarRemitos();
                     this.CargarDdl();
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "GetValoreLeche", "GetValoreLeche(0)", true);
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "GetValoreLeche", "GetValoreLeche(1)", true);
                     this.pnlFechasGraf.Visible = false;
 
                     CargarDdl1();
@@ -138,6 +138,7 @@ namespace tamboprp
             this.ddlFechasGraf.Items.Add(new ListItem("Este año", "0"));
             this.ddlFechasGraf.Items.Add(new ListItem("Último año", "1"));
             this.ddlFechasGraf.Items.Add(new ListItem("Seleccionar fechas", "2"));
+            this.ddlFechasGraf.SelectedValue = "1";
         }
 
         #region Export y print

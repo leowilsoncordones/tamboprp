@@ -17,7 +17,7 @@ using Negocio;
 namespace tamboprp
 {
     public partial class Lactancias : System.Web.UI.Page
-    {
+    { 
         protected void Page_Load(object sender, EventArgs e)
         {
             if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]) &&
@@ -92,6 +92,7 @@ namespace tamboprp
         private void GetLactanciasActuales()
         {
             var listTemp = Fachada.Instance.GetLactanciasActuales();
+            Session["LactanciasGetActuales"] = listTemp;
             this.gvLactancias.DataSource = listTemp;
             this.gvLactancias.DataBind();
             this.gvLactancias.Columns[1].Visible = true;
@@ -166,7 +167,7 @@ namespace tamboprp
             this.LimpiarTabla();
             switch (this.ddlTipoListado.SelectedValue)
             {
-                case "1": 
+                case "1":
                     this.GetLactanciasActuales();
                     break;
                 case "2":
@@ -220,7 +221,18 @@ namespace tamboprp
             switch (this.ddlTipoListado.SelectedValue)
             {
                 case "1":
-                    this.GetLactanciasActuales();
+                    var lactActTemp = (List<VOLactancia>) Session["LactanciasGetActuales"];
+                    this.gvLactancias.DataSource = lactActTemp;
+                    this.gvLactancias.DataBind();
+                    this.gvLactancias.Columns[1].Visible = true;
+                    this.gvLactancias.Columns[2].Visible = true;
+                    this.gvLactancias.Columns[3].Visible = true;
+                    this.gvLactancias.Columns[4].Visible = true;
+                    this.gvLactancias.Columns[5].Visible = true;
+                    this.gvLactancias.Columns[6].Visible = true;
+                    this.gvLactancias.Columns[7].Visible = false;
+                    this.gvLactancias.Columns[8].Visible = false;
+                    this.lblCantAnimales.Text = lactActTemp.Count.ToString();                   
                     break;
                 case "2":
                     this.GetLactanciasHistoricas();
@@ -237,6 +249,7 @@ namespace tamboprp
             }
         }
 
+        #region Export y Print
 
         private void CargarGridParaExportar()
         {
@@ -344,6 +357,8 @@ namespace tamboprp
             ClientScript.RegisterStartupScript(this.GetType(), "GridPrint", sb.ToString());
             gvLactancias.PagerSettings.Visible = true;
         }
+
+        #endregion
 
     }
 }

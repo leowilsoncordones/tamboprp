@@ -26,7 +26,8 @@ namespace Datos
         private static string Lactancia_SelectMaxByRegistro = "Lactancia_SelectMaxByRegistro";
         private static string Lactancia_SelectUltimaByRegistro = "Lactancia_SelectUltimaByRegistro";
         private static string Lactancia_SelectDiasMaxByRegistro = "Lactancia_SelectDiasMaxByRegistro";
-      
+        //private static string Lactancia_SelectMaxByRegistro2 = "Lactancia_SelectMaxByRegistro2";
+        
         
         public LactanciaMapper(Lactancia lact)
         {
@@ -183,8 +184,22 @@ namespace Datos
             cmd.Parameters.Add(new SqlParameter("@REGISTRO", _regAnimal));
 
             var value = ReturnScalarValue(cmd);
+            if (value == DBNull.Value) value = 0;
             return Convert.ToInt32(value);
         }
+
+        //public int GetMaxLactanciaByRegistro2()
+        //{
+        //    SqlCommand cmd = null;
+        //    cmd = new SqlCommand();
+        //    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+        //    cmd.CommandText = Lactancia_SelectMaxByRegistro2;
+        //    cmd.Parameters.Add(new SqlParameter("@REGISTRO", _regAnimal));
+
+        //    var value = ReturnScalarValue(cmd);
+        //    if (value == DBNull.Value) value = 0;
+        //    return Convert.ToInt32(value);
+        //}
 
         public int GetDiasMaxLactanciaByRegistro()
         {
@@ -251,7 +266,7 @@ namespace Datos
                 cmd = new SqlCommand();
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.CommandText = "Lactancia_Insert";
-                cmd.Parameters.Add(new SqlParameter("@REGISTRO", _regAnimal));
+                cmd.Parameters.Add(new SqlParameter("@REGISTRO", _lactancia.Registro));
                 cmd.Parameters.Add(new SqlParameter("@LACTANCIAS", _lactancia.Numero));
                 cmd.Parameters.Add(new SqlParameter("@DIAS", _lactancia.Dias));
                 cmd.Parameters.Add(new SqlParameter("@LECHE305", _lactancia.Leche305));
@@ -345,5 +360,8 @@ namespace Datos
         {
             return GetScalarIntReg("Lactancia_Existe", _regAnimal) > 0;
         }
+
+
+
     }
 }

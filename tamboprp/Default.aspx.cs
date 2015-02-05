@@ -29,7 +29,7 @@ namespace tamboprp
             //    }
             //}
             //else Response.Redirect("~/Login.aspx", true);
-            Response.Redirect("~/Proximamente.aspx", true);
+            Response.Redirect("~/Login.aspx", true);
         }
     }
 }

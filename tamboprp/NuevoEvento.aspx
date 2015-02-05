@@ -457,7 +457,7 @@
             if (valorEvento == 4) {
                 document.getElementById("lblModalSecadoMotivo").style.display = "block";
                 document.getElementById("lblModalEnfermedad").style.display = "block";
-                document.getElementById('txtModalEnfermedad').innerHTML = enfermedadTest;
+                document.getElementById('txtModalEnfermedad').innerHTML = enfermedadTest != undefined ? enfermedadTest.replace(/"/g, '') : '-';
                 var ddlm = document.getElementById("<%=ddlMotivoSec.ClientID%>");
                 var valorSec = ddlm.options[ddlm.selectedIndex].text;
                 document.getElementById('txtModalSecadoMotivo').innerHTML = valorSec;
@@ -467,7 +467,7 @@
             if (valorEvento == 7) {
                 document.getElementById("lblModalDiagPrenezDiag").style.display = "block";
                 var ddlDiag = document.getElementById("<%=ddlDiagnostico.ClientID%>");
-                var valorDiag = ddlDiag.options[ddlDiag.selectedIndex].value;
+                var valorDiag = ddlDiag.options[ddlDiag.selectedIndex].text;
                 document.getElementById('txtModalDiagPrenezDiag').innerHTML = valorDiag;
             }
 
