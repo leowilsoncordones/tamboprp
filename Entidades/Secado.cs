@@ -27,6 +27,8 @@ namespace Entidades
 
         public virtual short Motivos_secado { get; set; }
 
+        public Motivos_Secado Motivo { get; set; }
+
         public short? Enfermedad { get; set; }
 
         public override string ToString()
@@ -34,7 +36,7 @@ namespace Entidades
             string str = "";
             if (Motivos_secado == 2 && Enfermedad != null) 
                 str = ". " + Enfermedad.ToString();
-            return "Motivo del secado: " + Motivos_secado.ToString() + str;
+            return "Motivo del secado: " + Motivo.ToString() + str;
         }
 
     }

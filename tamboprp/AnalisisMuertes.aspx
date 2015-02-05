@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="tamboprp | muertes" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AnalisisMuertes.aspx.cs" Inherits="tamboprp.AnalisisMuertes" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
+    
     <link href="css/bootstrap.css" rel="stylesheet" />
     <link href="css/font-awesome.css" rel="stylesheet" />
     <link href="css/ace-fonts.css" rel="stylesheet" />
@@ -27,6 +28,7 @@
             });
         }
     </script>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="page-header">
@@ -36,8 +38,8 @@
     <!-- comienza tabbable -->
     <div class="tabbable">
 		<ul class="nav nav-tabs" id="myTab">
-			<li class="active" runat="server" id="pest1"><a data-toggle="tab" href="#analisisSanitario"><i class="blue ace-icon fa fa-stethoscope bigger-120"></i> Análisis sanitario de muertes </a></li>
-            <li runat="server" id="pest2"><a data-toggle="tab" href="#listaMuertes" runat="server" id="listaM" ><i class="blue ace-icon fa fa-list bigger-120"></i> Lista de muertes <asp:Label ID="badgeCantOrdene" runat="server" cssClass="badge badge-success"></asp:Label></a></li>
+			<li class="active"><a data-toggle="tab" href="#analisisSanitario"><i class="blue ace-icon fa fa-stethoscope bigger-120"></i> Análisis sanitario de muertes </a></li>
+            <li><a data-toggle="tab" href="#listaMuertes" runat="server" id="listaM" ><i class="blue ace-icon fa fa-list bigger-120"></i> Lista de muertes <asp:Label ID="badgeCantOrdene" runat="server" cssClass="badge badge-success"></asp:Label></a></li>
 		</ul>
         <!-- comienza contenido de tabbable -->
 		<div class="tab-content">
@@ -206,6 +208,24 @@
     
     <script type="text/javascript">
 
+        // ------------- KEEP SELECTED TAB WHEN REFRESH -------------
+        //$('#myTab a').click(function (e) {
+        //    e.preventDefault();
+        //    $(this).tab('show');
+        //});
+
+        //// store the currently selected tab in the hash value
+        //$("ul.nav-tabs > li > a").on("shown.bs.tab", function (e) {
+        //    var id = $(e.target).attr("href").substr(1);
+        //    window.location.hash = id;
+        //});
+
+        //// on load of the page: switch to the currently selected tab
+        //var hash = window.location.hash;
+        //$('#myTab a[href="' + hash + '"]').tab('show');
+        
+
+        // ------------- DATEPICKER -------------
         $("#fechasVentas").daterangepicker({
             locale: {
                 applyLabel: 'Confirma',
@@ -229,13 +249,5 @@
 
     </script>
     
-    
-    
-    
-    
-    
-    
-    
-
 
 </asp:Content>

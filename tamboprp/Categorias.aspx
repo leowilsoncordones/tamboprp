@@ -21,13 +21,6 @@
     <script src="js/bootstrap.js"></script>
     
     
-    <script type="text/javascript">
-        function pageLoad() {
-            $('.bs-pagination td table').each(function (index, obj) {
-                convertToPagination(obj);
-            });
-        }
-    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     
@@ -39,22 +32,20 @@
             <div>
                 <p>        
                 <asp:GridView ID="gvCategorias" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" 
-                    CssClass="table table-hover table-striped table-bordered table-condensed dataTable" PagerStyle-CssClass="bs-pagination text-center"  
-                    AllowPaging="true" AllowSorting="true" PageSize="20" OnPageIndexChanging="GvCategorias_PageIndexChanging" >
+                    CssClass="table table-hover table-striped table-bordered table-condensed dataTable" >
                 <RowStyle HorizontalAlign="Left"  />
                 <Columns>
                     <asp:BoundField DataField="Id_categ" HeaderText="Id" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
                     <asp:BoundField DataField="Nombre" HeaderText="Nombre" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
                 </Columns>
                 <FooterStyle />
-                <PagerSettings mode="Numeric" pagebuttoncount="5" />
+                <PagerSettings />
                 <SelectedRowStyle />
                 <HeaderStyle />
                 <EditRowStyle />
                 <AlternatingRowStyle />
                 </asp:GridView>
                 </p>
-                <asp:Label ID="titCantEnf" runat="server" Text="Cantidad de categorías: " Visible="False"></asp:Label><asp:Label ID="lblCantEnf" runat="server" ></asp:Label><br/>
             </div>
         </div>
         <div class="col-md-8"></div>

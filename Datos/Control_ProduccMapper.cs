@@ -19,6 +19,7 @@ namespace Datos
         //private static string Control_Producc_BusqByID = "Control_Producc_BusqByID";
         private static string Control_producc_SelectByRegistro = "Control_producc_SelectByRegistro";
         private static string Control_producc_SelectUltimoVacaEnOrdene = "Control_producc_SelectUltimoVacaEnOrdene";
+        private static string Control_producc_ProdLecheLactanciaActual = "Control_producc_ProdLecheLactanciaActual";
         private static string Control_producc_PosterioresAlUltimoParto = "Control_producc_PosterioresAlUltimoParto";
         
         
@@ -50,7 +51,19 @@ namespace Datos
         {
         }
 
+        public double GetProdLecheControlesProduccDeLactanciaActual()
+        {
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@REGISTRO", _regAnimal));
+            cmd.CommandText = Control_producc_ProdLecheLactanciaActual;
 
+            var value = ReturnScalarValue(cmd);
+            return Convert.ToDouble(value);
+        }
+
+        
 
         protected override string GetConnectionString()
         {

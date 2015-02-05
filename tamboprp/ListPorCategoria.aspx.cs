@@ -58,13 +58,12 @@ namespace tamboprp
         private void CargarDdlCategorias()
         {
             var catMap = new CategoriaMapper();
-            List<Categoria> lst = catMap.GetAll();
+            //List<Categoria> lst = catMap.GetAll();
+            List<Categoria> lst = Fachada.Instance.GetCategoriasAnimalAll();
             this.ddlCategorias.DataSource = lst;
             this.ddlCategorias.DataTextField = "Nombre";
             this.ddlCategorias.DataValueField = "Id_categ";
             this.ddlCategorias.DataBind();
-            // valor por defecto SELECCIONAR?
-            
         }
 
         private void CargarAnimalesPorCategoria()

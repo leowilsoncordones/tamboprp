@@ -41,7 +41,7 @@
                     <label class="col-sm-3 control-label no-padding-right"> Fecha </label>
 					<div class="col-sm-2">
 						<div class="input-group date">
-						    <input type="text" id="mydate" name="mydate" class="form-control col-xs-10 col-sm-5"/>
+						    <input type="text" id="mydate" name="mydate" class="form-control col-xs-10 col-sm-5" style="border-color: #72aec2;"/>
 							<span class="input-group-addon"><i class="ace-icon fa fa-calendar"></i></span>
 						</div>
 					</div>
@@ -51,7 +51,7 @@
                 <div class="form-group">
 		            <label class="col-sm-3 control-label no-padding-right"> Empresa </label>
 			        <div class="col-sm-3">
-			            <asp:DropDownList ID="ddlEmpresa" CssClass="form-control col-xs-10 col-sm-5" AutoPostBack="True" OnSelectedIndexChanged="ddlEmpresa_SelectedIndexChanged" runat="server" ></asp:DropDownList>
+			            <asp:DropDownList ID="ddlEmpresa" CssClass="form-control col-xs-10 col-sm-5" AutoPostBack="True" OnSelectedIndexChanged="ddlEmpresa_SelectedIndexChanged" runat="server" style="border-color: #72aec2;" ></asp:DropDownList>
 			        </div>
                     <div class="col-sm-12"></div>
 		        </div>
@@ -59,10 +59,10 @@
                 <div class="form-group">
 		            <label class="col-sm-3 control-label no-padding-right"> Factura </label>
 			        <div class="col-sm-1">
-			            <input type="text" runat="server" id="fFactSerie" placeholder="A" class="form-control col-xs-10 col-sm-5" />
+			            <input type="text" runat="server" id="fFactSerie" placeholder="A" class="form-control col-xs-10 col-sm-5" style="border-color: #72aec2;" />
 			        </div>
                     <div class="col-sm-2">
-                        <input type="text" runat="server" id="fFactNum" placeholder="123456" class="form-control col-xs-10 col-sm-5" />
+                        <input type="text" runat="server" id="fFactNum" placeholder="123456" class="form-control col-xs-10 col-sm-5" style="border-color: #72aec2;" />
 			        </div>
                     <div class="col-sm-12"></div>
 		        </div>
@@ -77,7 +77,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label no-padding-right"> Litros </label>
                     <div class="col-sm-2">
-			            <input type="text" runat="server" id="fLitros" placeholder="" class="form-control col-xs-10 col-sm-5" />
+			            <input type="text" runat="server" id="fLitros" placeholder="" class="form-control col-xs-10 col-sm-5" style="border-color: #72aec2;" />
 			        </div>
                 </div>
                 <!-- TEMPERATURAS --> <!-- chequear que en los decimales ingresaen con coma -->

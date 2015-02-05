@@ -14,6 +14,7 @@ namespace Datos
     {
         private Parto _parto;
         private string _registroAnimal;
+        private string _nickname;
 
         private static string Parto_SelecByRegistro = "Parto_SelecByRegistro";
         private static string Parto_SelecNacimByRegistro = "Parto_SelecNacimByRegistro";
@@ -27,6 +28,12 @@ namespace Datos
         public PartoMapper(Parto parto)
         {
             _parto = parto;
+        }
+
+        public PartoMapper(Parto parto, string nickname)
+        {
+            _parto = parto;
+            _nickname = nickname;
         }
 
         public PartoMapper(string  registroAnimal)
@@ -208,6 +215,7 @@ namespace Datos
                 cmd.Parameters.Add(new SqlParameter("@OBSERVACIONES", _parto.Observaciones));
                 cmd.Parameters.Add(new SqlParameter("@SEXO_PARTO", _parto.Sexo_parto));
                 cmd.Parameters.Add(new SqlParameter("@REG_HIJO", _parto.Reg_hijo));
+                cmd.Parameters.Add(new SqlParameter("@NICKNAME", _nickname));
             }
             else if (opType == OperationType.UPDATE)
             {
@@ -221,6 +229,7 @@ namespace Datos
                 cmd.Parameters.Add(new SqlParameter("@OBSERVACIONES", _parto.Observaciones));
                 cmd.Parameters.Add(new SqlParameter("@SEXO_PARTO", _parto.Sexo_parto));
                 cmd.Parameters.Add(new SqlParameter("@REG_HIJO", _parto.Reg_hijo));
+                //cmd.Parameters.Add(new SqlParameter("@NICKNAME", _nickname));
             }
             return cmd;
         }

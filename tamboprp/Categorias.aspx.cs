@@ -42,8 +42,6 @@ namespace tamboprp
         {
             this.gvCategorias.DataSource = null;
             this.gvCategorias.DataBind();
-            this.titCantEnf.Visible = false;
-            this.lblCantEnf.Text = "";
         }
 
         private void GetCategorias()
@@ -51,8 +49,6 @@ namespace tamboprp
             var lst = Fachada.Instance.GetCategoriasAnimalAll();
             this.gvCategorias.DataSource = lst;
             this.gvCategorias.DataBind();
-            this.titCantEnf.Visible = true;
-            this.lblCantEnf.Text = lst.Count.ToString();
         }
 
         protected void GvCategorias_PageIndexChanging(object sender, GridViewPageEventArgs e)

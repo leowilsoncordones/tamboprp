@@ -23,9 +23,9 @@ namespace tamboprp
         private List<VOBaja> listaTempMuertes = new List<VOBaja>();
         protected void Page_Load(object sender, EventArgs e)
         {
-            if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]) &&
-               (Session["EsLector"] != null && !(bool)Session["EsLector"]))
-            {
+            //if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]) &&
+            //   (Session["EsLector"] != null && !(bool)Session["EsLector"]))
+            //{
                 if (!Page.IsPostBack)
                 {                    
                     this.SetPageBreadcrumbs();
@@ -36,13 +36,9 @@ namespace tamboprp
                     this.pnlFechasGraf.Visible = false;
                     CargarDdl1();
                     this.Panel1.Visible = false;
-
-                    // pestaña 1 activa por defecto
-                    this.pest1.Attributes.Add("class", "active");
-                    this.pest2.Attributes.Remove("class");
                 }
-            }
-            else Response.Redirect("~/Default.aspx", true);
+            //}
+            //else Response.Redirect("~/Default.aspx", true);
         }
 
         protected void SetPageBreadcrumbs()
@@ -81,12 +77,6 @@ namespace tamboprp
             this.lblCantAnimales.Text = listTemp.Count.ToString();
             this.titTotalMuertes.Visible = true;
             this.lblTotalMuertes.Text = listTemp.Count.ToString();
-
-            // pestaña 2 activa
-            this.pest2.Attributes.Add("class", "active");
-            //Response.Redirect("AnalisisMuertes#listaMuertes");
-            //this.listaM.Focus();
-            this.pest1.Attributes.Remove("class");
         }
 
         private void GetResumenMuertes()
@@ -102,9 +92,6 @@ namespace tamboprp
             this.titEnfDif.Visible = true;
             this.lblEnfDif.Text = listTemp.Count.ToString();
 
-            // pestaña 1 activa
-            this.pest1.Attributes.Add("class", "active");
-            this.pest2.Attributes.Remove("class");
         }
 
         protected void GvMuertes_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -120,9 +107,6 @@ namespace tamboprp
             gv.PageIndex = e.NewPageIndex;
             this.GetResumenMuertes();
 
-            // pestaña 1 activa
-            this.pest1.Attributes.Add("class", "active");
-            this.pest2.Attributes.Remove("class");
         }
 
 
@@ -171,9 +155,6 @@ namespace tamboprp
                     this.pnlFechasGraf.Visible = true;
                     break;
             }
-            // pestaña 1 activa
-            this.pest1.Attributes.Add("class", "active");
-            this.pest2.Attributes.Remove("class");
         }
 
         #region Export y print
@@ -356,10 +337,6 @@ namespace tamboprp
             this.titEnfDif.Visible = true;
             this.lblEnfDif.Text = listTemp1.Count.ToString();
 
-            // pestaña 1 activa
-            this.pest1.Attributes.Add("class", "active");
-            this.pest2.Attributes.Remove("class");
-
         }
 
         private string  FormatoFecha(string fecha) {
@@ -418,12 +395,6 @@ namespace tamboprp
                     this.Panel1.Visible = true;
                     break;
             }
-
-            // pestaña 2 activa
-            this.pest2.Attributes.Add("class", "active");
-            //Response.Redirect("AnalisisMuertes#listaMuertes");
-            //this.listaM.Focus();
-            this.pest1.Attributes.Remove("class");
         }
 
         protected void btnListar_gvMuertesResumen1(object sender, EventArgs e)
@@ -442,12 +413,6 @@ namespace tamboprp
             this.lblCantAnimales.Text = listTemp1.Count.ToString();
             this.titTotalMuertes.Visible = true;
             this.lblTotalMuertes.Text = listTemp1.Count.ToString();
-
-            // pestaña 2 activa
-            this.pest2.Attributes.Add("class", "active");
-            //Response.Redirect("AnalisisMuertes#listaMuertes");
-            //this.listaM.Focus();
-            this.pest1.Attributes.Remove("class");
         }
 
     }

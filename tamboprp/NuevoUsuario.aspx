@@ -86,7 +86,7 @@
                 <div class="form-group">
 		            <label class="col-sm-2 control-label no-padding-right"> Rol de usuario </label>
 			        <div class="col-sm-4">
-			            <asp:DropDownList ID="ddlRolUsuario" CssClass="form-control col-xs-10 col-sm-5" OnSelectedIndexChanged="ddlRolUsuario_SelectedIndexChanged" runat="server" ></asp:DropDownList>
+			            <asp:DropDownList ID="ddlRolUsuario" CssClass="form-control col-xs-10 col-sm-5" OnSelectedIndexChanged="ddlRolUsuario_SelectedIndexChanged" runat="server" style="border-color: #72aec2;" ></asp:DropDownList>
 			        </div>
                     <div class="col-sm-12"></div>
 		        </div>
@@ -94,13 +94,13 @@
                 <div class="form-group">
 		            <label class="col-sm-2 control-label no-padding-right"> Usuario </label>
 			        <div class="col-sm-4">
-			            <input type="text" runat="server" id="username" required class="form-control col-xs-10 col-sm-5" />
+			            <input type="text" runat="server" id="username" required class="form-control col-xs-10 col-sm-5" style="border-color: #72aec2;" />
 			        </div>
 		        </div>
                 <div class="form-group">
 		            <label class="col-sm-2 control-label no-padding-right"> Contraseña </label>
                     <div class="col-sm-4">
-			            <input type="password" runat="server" id="password" required class="form-control col-xs-10 col-sm-5" />
+			            <input type="password" runat="server" id="password" required class="form-control col-xs-10 col-sm-5" style="border-color: #72aec2;" />
 			        </div>
                     <!-- Chequeo de fortaleza de password-->
                     <div id="messages" class="col-sm-3">

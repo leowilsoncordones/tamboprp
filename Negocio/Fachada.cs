@@ -182,7 +182,15 @@ namespace Negocio
                 /* Cargo los secados del animal */
                 var secMap = new SecadoMapper(registro);
                 listTemp = secMap.GetSecadosByRegistro(registro);
-                if (listTemp.Count > 0) a.Eventos.AddRange(listTemp);
+                if (listTemp.Count > 0)
+                {
+                    foreach (Secado sec in listTemp)
+                    {
+                        sec.Motivo = (Motivos_Secado)(sec.Motivos_secado);
+                    }
+                    a.Eventos.AddRange(listTemp);
+                }
+                //if (listTemp.Count > 0) a.Eventos.AddRange(listTemp);
 
                 /* Cargo los servicios del animal */
                 var servMap = new ServicioMapper(registro);
@@ -380,61 +388,82 @@ namespace Negocio
 
         public List<VOControlProd> GetControlesProduccUltimo()
         {
-
-            var lstResult = new List<VOControlProd>();
-            List<Control_Producc> lstLact = _controlProdMapper.GetControlesProduccUltimo();
-            for (int i = 0; i < lstLact.Count; i++)
+            try
             {
-                var tmp = lstLact[i];
-                var numLact = 0;
-                var diasLact = 0;
-                var lactMap = new LactanciaMapper(tmp.Registro);
-                if (lactMap.LactancialExiste()) { 
-                 numLact = lactMap.GetMaxLactanciaByRegistro();
-                 diasLact = lactMap.GetDiasMaxLactanciaByRegistro();
-                }
-
-                /* var lactUlt = lactMap.GetUltimaLactanciaByRegistro();
-                if (lactUlt != null)
+                var lstResult = new List<VOControlProd>();
+                List<Control_Producc> lstLact = _controlProdMapper.GetControlesProduccUltimo();
+                for (int i = 0; i < lstLact.Count; i++)
                 {
-                    numLact = lactUlt.Numero;
-                    diasLact = lactUlt.Dias;
-                } */
-
-                // Armo el value object
-                var voLact = new VOControlProd(tmp.Registro, numLact, diasLact,
-                    tmp.Leche, tmp.Grasa, tmp.Fecha.ToShortDateString());
-                voLact.FechaServicio = "-";
-                voLact.FechaProbParto = "-";
-                voLact.Diag = '-';
-                // traigo los servicios luego del ultimo parto
-                var listServDespUltParto = _servMapper.GetServiciosByRegistroDespUltParto(tmp.Registro);
-                var cantServ = listServDespUltParto.Count();
-                if (cantServ > 0)
-                {
-                    listServDespUltParto.Sort();
-                    var fechaUltServicio = listServDespUltParto[cantServ - 1].Fecha;
-                    voLact.FechaServicio = fechaUltServicio.ToShortDateString();
-                    // traigo los diagnosticos hechos luego del ultimo servicio
-                    var listDiagDespUltServicio = _diagMapper.GetDiag_PrenezByRegistroUltDespFecha(tmp.Registro,
-                        fechaUltServicio);
-                    var cantDiag = listDiagDespUltServicio.Count();
-                    if (cantDiag > 0)
+                    var tmp = lstLact[i];
+                    var numLact = 0;
+                    var diasLact = 0;
+                    var lactMap = new LactanciaMapper(tmp.Registro);
+                    if (lactMap.LactancialExiste())
                     {
-                        listDiagDespUltServicio.Sort();
-                        var ultDiag = (Diag_Prenez) listDiagDespUltServicio[cantDiag - 1];
-                        voLact.Diag = ultDiag.Diagnostico;
-                        // si el disg en preñada sumo 285 días para obtener la fecha probable de parto
-                        if (ultDiag.Diagnostico == 'P')
-                            voLact.FechaProbParto = (fechaUltServicio.AddDays(285).ToShortDateString());
+                        // AHORA SE CALCULA LA LACTANCIA ACTUAL, NO ESTA MAS EN LA TABLA DE LACTANCIAS
+                        numLact = lactMap.GetMaxLactanciaByRegistro();
+                        diasLact = lactMap.GetDiasMaxLactanciaByRegistro();
                     }
 
-                }
+                    /* var lactUlt = lactMap.GetUltimaLactanciaByRegistro();
+                    if (lactUlt != null)
+                    {
+                        numLact = lactUlt.Numero;
+                        diasLact = lactUlt.Dias;
+                    } */
 
-                voLact.NumServicio = cantServ;
-                lstResult.Add(voLact);
+                    // Armo el value object
+                    var voLact = new VOControlProd(tmp.Registro, numLact, diasLact,
+                        tmp.Leche, tmp.Grasa, tmp.Fecha.ToShortDateString());
+                    voLact.FechaServicio = "-";
+                    voLact.FechaProbParto = "-";
+                    voLact.Diag = '-';
+                    voLact.ProdLeche = this.GetProdLecheLactanciaAnimalActual(tmp.Registro);
+                    // traigo los servicios luego del ultimo parto
+                    var listServDespUltParto = _servMapper.GetServiciosByRegistroDespUltParto(tmp.Registro);
+                    var cantServ = listServDespUltParto.Count();
+                    if (cantServ > 0)
+                    {
+                        listServDespUltParto.Sort();
+                        var fechaUltServicio = listServDespUltParto[cantServ - 1].Fecha;
+                        voLact.FechaServicio = fechaUltServicio.ToShortDateString();
+                        // traigo los diagnosticos hechos luego del ultimo servicio
+                        var listDiagDespUltServicio = _diagMapper.GetDiag_PrenezByRegistroUltDespFecha(tmp.Registro,
+                            fechaUltServicio);
+                        var cantDiag = listDiagDespUltServicio.Count();
+                        if (cantDiag > 0)
+                        {
+                            listDiagDespUltServicio.Sort();
+                            var ultDiag = (Diag_Prenez) listDiagDespUltServicio[cantDiag - 1];
+                            voLact.Diag = ultDiag.Diagnostico;
+                            // si el disg en preñada sumo 285 días para obtener la fecha probable de parto
+                            if (ultDiag.Diagnostico == 'P')
+                                voLact.FechaProbParto = (fechaUltServicio.AddDays(285).ToShortDateString());
+                        }
+                    }
+                    voLact.NumServicio = cantServ;
+                    lstResult.Add(voLact);
+                }
+                return lstResult;
             }
-            return lstResult;
+            catch (Exception ex)
+            {
+                return new List<VOControlProd>();
+            }
+            
+        }
+
+        public double GetProdLecheLactanciaAnimalActual(string registro)
+        {
+            try
+            {
+                _controlProdMapper = new Control_ProduccMapper(registro);
+                return _controlProdMapper.GetProdLecheControlesProduccDeLactanciaActual();
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
         }
 
         public VOAnalitico GetAnaliticoVacasEnOrdene()
@@ -766,9 +795,16 @@ namespace Negocio
 
         public bool GuardarEmpresaRemisora(VOEmpresa voEmp, string nickName)
         {
-            var empRem = this.CopiarEmpresaRemisoraVoEmpresa(voEmp);
-            var empMap = new EmpresaRemisoraMapper(empRem , nickName);
-            return empMap.Insert() > 0;
+            try
+            {
+                var empRem = this.CopiarEmpresaRemisoraVoEmpresa(voEmp);
+                var empMap = new EmpresaRemisoraMapper(empRem, nickName);
+                return empMap.Insert() > 0;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         private EmpresaRemisora CopiarEmpresaRemisoraVoEmpresa(VOEmpresa voEmpresaRemisora)
@@ -786,15 +822,29 @@ namespace Negocio
 
         public bool UpdateEmpresaRemisoraActual(int id)
         {
-            var empMap = new EmpresaRemisoraMapper();
-            return empMap.UpdateEmpresaRemisoraActual(id) == 0;
+            try
+            {
+                var empMap = new EmpresaRemisoraMapper();
+                return empMap.UpdateEmpresaRemisoraActual(id) == 0;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         public bool UpdateEmpleado(VOEmpleado voEmp)
         {
-            var empleado = CopiarEmpleadoVoEmpleado(voEmp);
-            _empMapper = new EmpleadoMapper(empleado);
-            return _empMapper.Update() > 0;
+            try
+            {
+                var empleado = CopiarEmpleadoVoEmpleado(voEmp);
+                _empMapper = new EmpleadoMapper(empleado);
+                return _empMapper.Update() > 0;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         private Empleado CopiarEmpleadoVoEmpleado(VOEmpleado voEmpleado)
@@ -1044,8 +1094,15 @@ namespace Negocio
 
         public bool CeloSinServicioInsert(Celo_Sin_Servicio celo)
         {
-            var celoMapper = new Celo_Sin_ServicioMapper(celo);
-            return celoMapper.Insert() > 0;
+            try
+            {
+                var celoMapper = new Celo_Sin_ServicioMapper(celo);
+                return celoMapper.Insert() > 0;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         public List<TipoEvento> GetTipoEventosAnimal()
@@ -1075,49 +1132,62 @@ namespace Negocio
 
         public bool InsertarEvento(Evento evento, string nickName)
         {
-            switch (evento.Id_evento)
+            try
             {
-                case 0: // ABORTO
-                    var abortoMap = new AbortoMapper((Aborto) evento, nickName);
-                    return abortoMap.Insert() > 1;
-                case 2: // CELO SIN SERVICIO
-                    var celoMap = new Celo_Sin_ServicioMapper((Celo_Sin_Servicio) evento, nickName);
-                    return celoMap.Insert() > 1;
-                case 3: // SERVICIO
-                    var servMap = new ServicioMapper((Servicio)evento, nickName);
-                    return servMap.Insert() > 1;
-                case 4: // SECADO
-                    var secMap = new SecadoMapper((Secado)evento, nickName);
-                    var lact = ConsolidarLactancia(evento.Registro);
-                    return (secMap.InsertSecado(lact));
-                case 7: // DIAGNOSTICO DE PRENEZ
-                    var diagMap = new Diag_PrenezMapper((Diag_Prenez)evento, nickName);
-                    return diagMap.Insert() > 1;
-                case 8: // CONTROL DE PRODUCCION
-                    var contMap = new Control_ProduccMapper((Control_Producc)evento, evento.Registro, nickName);
-                    return contMap.Insert() > 1;
-                case 9: // CALIFICACION
-                    var califMap = new CalificacionMapper((Calificacion)evento, nickName);
-                    return califMap.Insert() > 1;
-                case 10: // CONCURSO
-                    var concursMap = new ConcursoMapper((Concurso)evento, nickName);
-                    return concursMap.Insert() > 1;
-                case 11: // BAJA POR VENTA
-                    var bajaMap = new VentaMapper((Venta)evento, nickName);
-                    return bajaMap.Insert() > 1;
-                case 12: // BAJA POR MUERTE
-                    var muerteMap = new MuerteMapper((Muerte)evento, nickName);
-                    return muerteMap.Insert() > 1;
-                default:
-                    return false;
+                switch (evento.Id_evento)
+                {
+                    case 0: // ABORTO
+                        var abortoMap = new AbortoMapper((Aborto) evento, nickName);
+                        return abortoMap.Insert() > 1;
+                    case 2: // CELO SIN SERVICIO
+                        var celoMap = new Celo_Sin_ServicioMapper((Celo_Sin_Servicio) evento, nickName);
+                        return celoMap.Insert() > 1;
+                    case 3: // SERVICIO
+                        var servMap = new ServicioMapper((Servicio) evento, nickName);
+                        return servMap.Insert() > 1;
+                    case 4: // SECADO
+                        var secMap = new SecadoMapper((Secado) evento, nickName);
+                        return secMap.Insert() > 1;
+                    case 7: // DIAGNOSTICO DE PRENEZ
+                        var diagMap = new Diag_PrenezMapper((Diag_Prenez) evento, nickName);
+                        return diagMap.Insert() > 1;
+                    case 8: // CONTROL DE PRODUCCION
+                        var contMap = new Control_ProduccMapper((Control_Producc) evento, evento.Registro, nickName);
+                        return contMap.Insert() > 1;
+                    case 9: // CALIFICACION
+                        var califMap = new CalificacionMapper((Calificacion) evento, nickName);
+                        return califMap.Insert() > 1;
+                    case 10: // CONCURSO
+                        var concursMap = new ConcursoMapper((Concurso) evento, nickName);
+                        return concursMap.Insert() > 1;
+                    case 11: // BAJA POR VENTA
+                        var bajaMap = new VentaMapper((Venta) evento, nickName);
+                        return bajaMap.Insert() > 1;
+                    case 12: // BAJA POR MUERTE
+                        var muerteMap = new MuerteMapper((Muerte) evento, nickName);
+                        return muerteMap.Insert() > 1;
+                    default:
+                        return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
             }
 
         }
 
         public bool InsertarRemito(Remito remito, string nickName)
         {
-            var remitoMap = new RemitoMapper(remito, nickName);
-            return remitoMap.Insert() > 0;
+            try
+            {
+                var remitoMap = new RemitoMapper(remito, nickName);
+                return remitoMap.Insert() > 0;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         public List<Diag_PrenezMapper.VODiagnostico> GetInseminacionesExitosas(DateTime fecha)
@@ -1171,14 +1241,29 @@ namespace Negocio
 
         public bool InsertarUsuario(Usuario usuario)
         {
-            var userMap = new UsuarioMapper(usuario);
-            return userMap.Insert() > 0;
+            try
+            {
+                var userMap = new UsuarioMapper(usuario);
+                return userMap.Insert() > 0;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         public bool UpdateUsuario(Usuario usuario)
         {
-            var userMap = new UsuarioMapper(usuario);
-            return userMap.Update() > 0;
+            try
+            {
+                var userMap = new UsuarioMapper(usuario);
+                return userMap.Update() > 0;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            
         }
 
         public List<Cmt> GetCmtAll()
@@ -1324,8 +1409,15 @@ namespace Negocio
 
         public bool InsertarCasoSoporte(CasoSoporte caso)
         {
-            var casoMap = new CasoSoporteMapper(caso);
-            return casoMap.Insert() > 0;
+            try
+            {
+                var casoMap = new CasoSoporteMapper(caso);
+                return casoMap.Insert() > 0;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         private CasoSoporte CopiarVOCasoSoporte(VOCaso voCaso)
@@ -1345,12 +1437,19 @@ namespace Negocio
 
         public bool EnviarCasoSoporte(VOCaso voCaso)
         {
-            var caso = CopiarVOCasoSoporte(voCaso);
             // envia por mail el caso de soporte a la casilla definida para eso
             // e inserta en la base de datos para dejar el registro
-            var email = new Mail();
-            email.EnviarMail(caso.ToString(), caso.Titulo);
-            return InsertarCasoSoporte(caso);
+            try
+            {
+                var caso = CopiarVOCasoSoporte(voCaso);
+                var email = new Mail();
+                email.EnviarMail(caso.ToString(), caso.Titulo);
+                return InsertarCasoSoporte(caso);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         public List<VOToroUtilizado> GetTorosUtilizadosPorAnio(int anio)
@@ -1855,47 +1954,76 @@ namespace Negocio
 
         public bool UpdateDatosCorporativos(VOEmpresa voEmp)
         {
-            var empresa = new Empresa
+            try
             {
-                Id = voEmp.Id,
-                Nombre = voEmp.Nombre,
-                RazonSocial = voEmp.RazonSocial,
-                Rut = voEmp.Rut,
-                LetraSistema = voEmp.LetraSistema,
-                Direccion = voEmp.Direccion,
-                Ciudad = voEmp.Ciudad,
-                Telefono = voEmp.Telefono,
-                Celular = voEmp.Celular,
-                Web = voEmp.Web,
-                Cpostal = voEmp.Cpostal,
-                Logo = voEmp.Logo,
-                LogoCh = voEmp.LogoCh,
-                Actual = voEmp.Actual ? 'S' : 'N'
-            };
+                var empresa = new Empresa
+                {
+                    Id = voEmp.Id,
+                    Nombre = voEmp.Nombre,
+                    RazonSocial = voEmp.RazonSocial,
+                    Rut = voEmp.Rut,
+                    LetraSistema = voEmp.LetraSistema,
+                    Direccion = voEmp.Direccion,
+                    Ciudad = voEmp.Ciudad,
+                    Telefono = voEmp.Telefono,
+                    Celular = voEmp.Celular,
+                    Web = voEmp.Web,
+                    Cpostal = voEmp.Cpostal,
+                    Logo = voEmp.Logo,
+                    LogoCh = voEmp.LogoCh,
+                    Actual = voEmp.Actual ? 'S' : 'N'
+                };
 
-            var empMapper = new EmpresaMapper(empresa);
-            return empMapper.Update() > 0;
+                var empMapper = new EmpresaMapper(empresa);
+                return empMapper.Update() > 0;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
         }
 
         public bool EnfermedadInsert(Enfermedad enfermedad, string nickName)
         {
-            var enfMapper = new EnfermedadMapper();
-            var lastId = enfMapper.GetLastIdEnfermedad();
-            enfermedad.Id = lastId + 1;
-            enfMapper = new EnfermedadMapper(enfermedad, nickName);
-            return enfMapper.Insert() > 0;
+            try
+            {
+                var enfMapper = new EnfermedadMapper();
+                var lastId = enfMapper.GetLastIdEnfermedad();
+                enfermedad.Id = lastId + 1;
+                enfMapper = new EnfermedadMapper(enfermedad, nickName);
+                return enfMapper.Insert() > 0;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         public bool CategConcursoInsert(CategoriaConcurso categ)
         {
-            var catConcMap = new CategConcursoMapper(categ);
-            return catConcMap.Insert() > 0;
+            try
+            {
+                var catConcMap = new CategConcursoMapper(categ);
+                return catConcMap.Insert() > 0;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         public bool InsertarEmpleado(Empleado empleado, string nickName)
         {
-            var empMap = new EmpleadoMapper(empleado, nickName);
-            return empMap.Insert() > 0;
+            try
+            {
+                var empMap = new EmpleadoMapper(empleado, nickName);
+                return empMap.Insert() > 0;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         public VOAnimal GetArbolGenealogico(VOAnimal voA)
@@ -1908,6 +2036,7 @@ namespace Negocio
                 voA.Vendido = FueVendidoAnimal(voA.Registro);
                 if (voA.esHembra())
                 {
+                    // REVISAR LACTANCIAS, LA LACTANCIA ACTUAL SE CALCULA, YA NO ESTA EN LA TABLA
                     _lactMapper = new LactanciaMapper(voA.Registro);
                     voA.Lactancias = this.CopiarVOLactanciaList(_lactMapper.GetLactanciasByRegistro());
                 }
@@ -2263,20 +2392,34 @@ namespace Negocio
 
         public bool ResetearPassword(string admin, string user, string newPassword)
         {
-            if (admin != "" && user != "" && newPassword != "")
+            try
             {
-                return (_userMapper.UpdateContrasenaUsuario(admin, user, newPassword) > 0);
+                if (admin != "" && user != "" && newPassword != "")
+                {
+                    return (_userMapper.UpdateContrasenaUsuario(admin, user, newPassword) > 0);
+                }
+                return false;
             }
-            return false;
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         public bool EliminarUsuario(string admin, string user)
         {
-            if (admin != user && admin != "" && user != "")
+            try
             {
-                return (_userMapper.DeleteUsuario(admin, user) > 0);
+                if (admin != user && admin != "" && user != "")
+                {
+                    return (_userMapper.DeleteUsuario(admin, user) > 0);
+                }
+                return false;
             }
-            return false;
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         public List<Reporte> GetAllReportes()
@@ -2564,65 +2707,116 @@ namespace Negocio
 
         public bool ProgramarReporte(int idRepo, int dia, int frecuencia)
         {
-            var repMap = new ReporteMapper();
-            return repMap.UpdateProgramacionReporte(idRepo, dia, frecuencia) == 0;
+            try
+            {
+                var repMap = new ReporteMapper();
+                return repMap.UpdateProgramacionReporte(idRepo, dia, frecuencia) == 0;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
         
         public void CambiarDestinatariosReporte(int idRepo, List<Usuario> destinatarios)
         {
-            var repMap = new ReporteMapper();
-            repMap.LimpiarDestinatariosReporteById(idRepo);
-            foreach (var user in destinatarios)
+            try
             {
-                repMap.UpdateDestinatariosReporteById(idRepo, user.Nickname);
+                var repMap = new ReporteMapper();
+                repMap.LimpiarDestinatariosReporteById(idRepo);
+                foreach (var user in destinatarios)
+                {
+                    repMap.UpdateDestinatariosReporteById(idRepo, user.Nickname);
+                }
+            }
+            catch (Exception ex)
+            {
+                
             }
         }
 
-        public bool UpdateDatosAnimal(Animal animTemp)
+        public bool UpdateDatosAnimal(Animal animTemp, string nickname)
         {
-            _animalMapper=new AnimalMapper(animTemp);
-            return _animalMapper.UpdateDatosModificables() == 0;
+            try
+            {
+                _animalMapper = new AnimalMapper(animTemp, nickname);
+                return _animalMapper.UpdateDatosModificables() == 0;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         public bool SubirFotoAnimal(AnimalMapper.VOFoto foto)
         {
-            _animalMapper = new AnimalMapper();
-            return _animalMapper.SubirFotoAnimal(foto) == 0;
+            try
+            {
+                _animalMapper = new AnimalMapper();
+                return _animalMapper.SubirFotoAnimal(foto) == 0;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         public bool SubirFotoPerfilUsuario(Usuario u)
         {
-            _userMapper = new UsuarioMapper(u);
-            return _userMapper.UpdateFotoPerfilUsuario() == 0;
+            try
+            {
+                _userMapper = new UsuarioMapper(u);
+                return _userMapper.UpdateFotoPerfilUsuario() == 0;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         public bool DeshabilitarUsuario(string admin, string user)
         {
-            _userMapper = new UsuarioMapper();
-            return _userMapper.UsuarioDeshabilitar(admin, user) == 0;
+            try
+            {
+                _userMapper = new UsuarioMapper();
+                return _userMapper.UsuarioDeshabilitar(admin, user) == 0;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         public bool HabilitarUsuario(string admin, string user)
         {
-            _userMapper = new UsuarioMapper();
-            return _userMapper.UsuarioHabilitar(admin, user) == 0;
+            try
+            {
+                _userMapper = new UsuarioMapper();
+                return _userMapper.UsuarioHabilitar(admin, user) == 0;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
 
 
         public VOControlProdMU LeerArchivoControl(string archivo, string nickName)
         {
-            var listaFallida = new List<Control_Producc>();
-            var lista = new List<Control_Producc>();
-            DateTime fechaControl = new DateTime();
+            try
+            {
+                var listaFallida = new List<Control_Producc>();
+                var lista = new List<Control_Producc>();
+                DateTime fechaControl = new DateTime();
 
-            // recorro y leo datos de el archivo
-            using (CsvFileReader reader = new CsvFileReader(archivo))
-            {                               
-                CsvRow row = new CsvRow();
-                while (reader.ReadRow(row))
+                // recorro y leo datos de el archivo
+                using (CsvFileReader reader = new CsvFileReader(archivo))
                 {
-                    double leche = 0;
+                    CsvRow row = new CsvRow();
+                    while (reader.ReadRow(row))
+                    {
+                        double leche = 0;
                         bool guardar = row[0] == "11";
                         if (guardar)
                         {
@@ -2634,7 +2828,7 @@ namespace Negocio
                                 Dias_para_control = 99
                             };
                             for (int s = 0; s < row.Count; s++)
-                            {                                
+                            {
                                 if (s == 2)
                                 {
                                     string reg = row[s].Replace("'", "");
@@ -2645,7 +2839,7 @@ namespace Negocio
                                     CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
                                     string num = row[s];
                                     if (currentCulture.Name == "es-UY")
-                                     num = row[s].Replace('.', ',');
+                                        num = row[s].Replace('.', ',');
                                     leche += double.Parse(num);
                                 }
                                 if (s == 6)
@@ -2653,7 +2847,7 @@ namespace Negocio
                                     CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
                                     string num = row[s];
                                     if (currentCulture.Name == "es-UY")
-                                    num = row[s].Replace('.', ',');
+                                        num = row[s].Replace('.', ',');
                                     leche += double.Parse(num);
                                     string lecheLetra = leche.ToString();
                                     control.Leche = leche;
@@ -2664,56 +2858,62 @@ namespace Negocio
                                     fecha = FormatoFecha(fecha);
                                     fechaControl = Convert.ToDateTime(fecha);
                                     control.Fecha = Convert.ToDateTime(fecha);
-                                }                           
+                                }
                             }
                             lista.Add(control);
-                        }                   
-                }
-            }
-            // chequeo que los registros esten, sino se guardan en otra lista fallida y no se guardan en controles
-            foreach (var control in lista)
-            {               
-                if (_animalMapper.AnimalExiste(control.Registro))
-                {
-                    var contMap = new Control_ProduccMapper(control, control.Registro, nickName);
-                    try
-                    {
-                        var affected = contMap.Insert();
+                        }
                     }
-                    catch (Exception)
-                    {                       
-                        throw;
-                    }                   
                 }
-                else
+                // chequeo que los registros esten, sino se guardan en otra lista fallida y no se guardan en controles
+                foreach (var control in lista)
                 {
-                    listaFallida.Add(control);
+                    if (_animalMapper.AnimalExiste(control.Registro))
+                    {
+                        var contMap = new Control_ProduccMapper(control, control.Registro, nickName);
+                        try
+                        {
+                            var affected = contMap.Insert();
+                        }
+                        catch (Exception)
+                        {
+                            throw;
+                        }
+                    }
+                    else
+                    {
+                        listaFallida.Add(control);
+                    }
                 }
+
+                // armo objeto para devolver a la pagina
+                var voControl = new VOControlProdMU
+                {
+                    CantTotales = (short) lista.Count,
+                    CantExitosas = (short) (lista.Count - listaFallida.Count),
+                    ControlesFallidos = listaFallida
+                };
+
+                // armo control total para insertar en controles_totales
+                var lecheTotal = ConsolidarLeche(lista);
+                var grasaTotal = ConsolidarGrasa(lista);
+                var conTotal = new Control_Total
+                {
+                    Fecha = fechaControl,
+                    Vacas = voControl.CantTotales,
+                    Leche = lecheTotal,
+                    Grasa = grasaTotal,
+                };
+                var controlTotMap = new Controles_totalesMapper(conTotal, nickName);
+                controlTotMap.Insert();
+
+
+                return voControl;
             }
-
-            // armo objeto para devolver a la pagina
-            var voControl = new VOControlProdMU
+            catch (Exception ex)
             {
-                CantTotales = (short) lista.Count,
-                CantExitosas = (short)(lista.Count - listaFallida.Count),
-                ControlesFallidos = listaFallida
-            };
-
-            // armo control total para insertar en controles_totales
-            var lecheTotal = ConsolidarLeche(lista);
-            var grasaTotal = ConsolidarGrasa(lista);
-            var conTotal = new Control_Total
-            {
-                Fecha = fechaControl,
-                Vacas = voControl.CantTotales,
-                Leche = lecheTotal,
-                Grasa = grasaTotal,
-            };
-            var controlTotMap = new Controles_totalesMapper(conTotal, nickName);
-            controlTotMap.Insert();
-
-
-            return voControl;
+                // devuelve uno vacío si hay falla
+                return new VOControlProdMU();
+            }
         }
 
 
@@ -2786,25 +2986,6 @@ namespace Negocio
             return _animalMapper.AnimalEstaEnOrdene(registro);
         }
 
-        //public int DayNumber(DayOfWeek day)
-        //{
-        //    var hoyNumber = 0;
-        //    switch (day)
-        //    {
-        //        case DayOfWeek.Monday:
-        //            hoyNumber = 1;
-        //            break;
-        //        case DayOfWeek.Monday:
-        //            hoyNumber = 1;
-        //            break;
-        //        case DayOfWeek.Monday:
-        //            hoyNumber = 1;
-        //            break;
-        //        case DayOfWeek.Monday:
-        //            hoyNumber = 1;
-        //            break;
-        //    }
-        //}
 
         public bool BajaExiste(string registro)
         {
@@ -2878,43 +3059,60 @@ namespace Negocio
             return _logMap.CorrioTareaProgReporteCierreMes();
         }
 
-        public bool AnimalInsert(VOAnimal voA)
+        public bool AnimalInsert(VOAnimal voA, string nickname)
         {
-            if (voA == null || voA.Registro == null || voA.Registro == "") return false;
-            var a = new Animal
+            try
             {
-                Registro = voA.Registro,
-                Reg_madre = voA.Reg_madre,
-                Reg_padre = voA.Reg_padre,
-                Reg_trazab = voA.Reg_trazab,
-                Gen = voA.Gen,
-                Fecha_nacim = voA.Fecha_nacim,
-                IdCategoria = voA.IdCategoria,
-                Identificacion = voA.Identificacion,
-                Sexo = voA.Sexo,
-                Origen = voA.Origen,
-                Nombre = voA.Nombre
-            };
-            
-            _animalMapper=new AnimalMapper(a);
-            return _animalMapper.Insert() > 0;
+                if (nickname == "") return false;
+                if (AnimalExiste(voA.Registro)) return false;
+                if (!AnimalExiste(voA.Reg_madre) || !AnimalExiste(voA.Reg_padre)) return false;
+
+                var a = new Animal
+                {
+                    Registro = voA.Registro,
+                    Reg_madre = voA.Reg_madre,
+                    Reg_padre = voA.Reg_padre,
+                    Reg_trazab = voA.Reg_trazab,
+                    Gen = voA.Gen,
+                    Fecha_nacim = voA.Fecha_nacim,
+                    IdCategoria = voA.IdCategoria,
+                    Identificacion = voA.Identificacion,
+                    Sexo = voA.Sexo,
+                    Origen = voA.Origen,
+                    Nombre = voA.Nombre
+                };
+
+                _animalMapper = new AnimalMapper(a, nickname);
+                return _animalMapper.Insert() > 0;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
-        public bool PartoInsert(VOParto voP)
+        public bool PartoInsert(VOParto voP, string nickname)
         {
-            var p = new Parto
+            try
             {
-                Id_evento = 1,
-                Registro = voP.Registro,
-                Fecha = voP.Fecha,
-                Comentarios = voP.Comentarios,
-                Observaciones = voP.Observaciones,
-                Sexo_parto = voP.Sexo_parto,
-                Reg_hijo = voP.Reg_hijo
-            };
+                var p = new Parto
+                {
+                    Id_evento = 1,
+                    Registro = voP.Registro,
+                    Fecha = voP.Fecha,
+                    Comentarios = voP.Comentarios,
+                    Observaciones = voP.Observaciones,
+                    Sexo_parto = voP.Sexo_parto,
+                    Reg_hijo = voP.Reg_hijo
+                };
 
-            var _partoMapper = new PartoMapper(p);
-            return _partoMapper.Insert() > 0;
+                var _partoMapper = new PartoMapper(p, nickname);
+                return _partoMapper.Insert() > 0;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         public bool ExisteParto(VOParto voP)
@@ -2947,45 +3145,82 @@ namespace Negocio
 
         public int[] CalcularEdadYMD(DateTime dateOfBirth)
         {
-            DateTime currentDate = DateTime.Now;
-            TimeSpan difference = currentDate.Subtract(dateOfBirth);
-            // This is to convert the timespan to datetime object
-            DateTime age = DateTime.MinValue + difference;
-            // Min value is 01/01/0001
-            // Actual age is say 24 yrs, 9 months and 3 days represented as timespan
-            // Min Valye + actual age = 25 yrs , 10 months and 4 days.
-            // subtract our addition or 1 on all components to get the actual date.
-            int ageInYears = age.Year - 1;
-            int ageInMonths = age.Month - 1;
-            int ageInDays = age.Day - 1;
+            try
+            {
+                int[] result = {0, 0, 0};
+                DateTime currentDate = DateTime.Now;
+                // paso ambas fechas a un sistema comun
+                DateTime nacimiento = dateOfBirth.ToUniversalTime();
+                DateTime hoy = currentDate.ToUniversalTime();
 
-            int[] result = { ageInYears, ageInMonths, ageInDays };
-            return result;
+                string nacimientoStr = nacimiento.ToShortDateString();
+                string hoyStr = hoy.ToShortDateString();
+
+                if (hoyStr.Equals(nacimientoStr)) return result;
+                TimeSpan difference = currentDate.Subtract(dateOfBirth);
+                // This is to convert the timespan to datetime object
+                DateTime age = DateTime.MinValue + difference;
+                // Min value is 01/01/0001
+                // Actual age is say 24 yrs, 9 months and 3 days represented as timespan
+                // Min Valye + actual age = 25 yrs , 10 months and 4 days.
+                // subtract our addition or 1 on all components to get the actual date.
+                int ageInYears = age.Year - 1;
+                int ageInMonths = age.Month - 1;
+                int ageInDays = age.Day - 1;
+
+                int[] resultado = {ageInYears, ageInMonths, ageInDays};
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                int[] resultado =  {0, 0, 0};
+                return resultado;
+            }
         }
 
 
-        public Servicio GetUltimoServicio(string registro)
+        public Servicio GetUltimoServicioParaParto(string registro)
         {
-            var _partoMapper = new PartoMapper(registro);
-            var ultParto = _partoMapper.GetUltimoPartoByRegistro();
+            try
+            {
+                var _partoMapper = new PartoMapper(registro);
+                var ultParto = _partoMapper.GetUltimoPartoByRegistro();
 
-            var fecha = new DateTime(1900, 1, 1);
-            if (ultParto != null) fecha = ultParto.Fecha;
+                var fecha = new DateTime(1900, 1, 1);
+                if (ultParto != null) fecha = ultParto.Fecha;
 
-            _servMapper = new ServicioMapper(registro);
-            return _servMapper.GetUltimoServicioDespFechaByRegistro(fecha);    
+                _servMapper = new ServicioMapper(registro);
+                var servUlt = _servMapper.GetUltimoServicioDespFechaByRegistro(fecha);
+
+                if (servUlt != null && servUlt.Fecha >= DateTime.Today.AddDays(-300)) return servUlt;
+                else return null;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
-        public Diag_Prenez GetUltimoDiagnostico(string registro)
+        public Diag_Prenez GetUltimoDiagnosticoParaParto(string registro)
         {
-            var _partoMapper = new PartoMapper(registro);
-            var ultParto = _partoMapper.GetUltimoPartoByRegistro();
+            try
+            {
+                var _partoMapper = new PartoMapper(registro);
+                var ultParto = _partoMapper.GetUltimoPartoByRegistro();
 
-            var fecha = new DateTime(1900, 1, 1);
-            if (ultParto != null) fecha = ultParto.Fecha;
+                var fecha = new DateTime(1900, 1, 1);
+                if (ultParto != null) fecha = ultParto.Fecha;
 
-            _diagMapper = new Diag_PrenezMapper(registro);
-            return _diagMapper.GetUltimoDiagnosticoDespFechaByRegistro(fecha);
+                _diagMapper = new Diag_PrenezMapper(registro);
+                var diagUlt = _diagMapper.GetUltimoDiagnosticoDespFechaByRegistro(fecha);
+
+                if (diagUlt != null && diagUlt.Fecha >= DateTime.Today.AddDays(-300)) return diagUlt;
+                else return null;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
 

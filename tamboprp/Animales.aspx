@@ -27,9 +27,9 @@
         <div class="col-md-1"></div>
         <div class="col-md-10 container">
             <div class="col-md-5 jumbotron align-center lighter">
-                <a href="NuevoAnimal.aspx" class="bigger-160">
+                <a href="#select" role="button" data-toggle="modal" class="bigger-160">
 		            <i class="ace-icon fa fa-edit bigger-200"></i><br/>
-                    Ingreso de animal
+                    Ingreso de animales
 	            </a>
             </div>
             <div class="col-md-1"></div>
@@ -63,12 +63,44 @@
         <div class="col-md-1"></div>
     </div>
     
-    <asp:Panel ID="pnlLinks" Visible="false" runat="server">
-        <ul>
-            <li><i class="menu-icon fa fa-folder-open blue"></i><asp:HyperLink ID="hypFicha" NavigateUrl="FichaAnimal.aspx" runat="server"> Ficha de animal</asp:HyperLink></li>
-            <li><i class="menu-icon fa fa-edit blue"></i><asp:HyperLink ID="hypNuevoAnimal" NavigateUrl="NuevoAnimal.aspx" runat="server">  Ingreso de nuevo animal</asp:HyperLink></li>
-            <li><i class="menu-icon fa fa-list blue"></i><asp:HyperLink ID="hypListCategoria" NavigateUrl="ListPorCategoria.aspx" runat="server">  Listado Por Categoría</asp:HyperLink></li>
-            <li><i class="menu-icon fa fa-tags blue"></i><asp:HyperLink ID="hypCategorias" NavigateUrl="Categorias.aspx" runat="server">  Categorías de animales</asp:HyperLink></li>
-        </ul>
-    </asp:Panel>
+    <!-- SELECCIONAR MODAL -->
+    <div id="select" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4><i class="ace-icon fa fa-trash"></i> Seleccione</h4>
+                </div>
+                <div class="modal-body">
+                    <span id="bodySelectModal" class="text-warning center">
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-11 container">
+                                <div class="col-md-5 jumbotron align-center lighter">
+                                    <a href="NuevoAnimalParto.aspx" class="bigger-130">
+		                                <i class="ace-icon fa fa-tags bigger-180"></i><br/>
+                                         Parto y crías
+	                                </a>
+                                </div>
+                                <div class="col-md-1"></div>
+                                <div class="col-md-5 jumbotron align-center lighter">
+                                    <a href="NuevoAnimal.aspx" class="bigger-130">
+		                                <i class="ace-icon fa fa-usd bigger-180"></i><br/>
+                                        Adquisición
+	                                </a>
+                                </div>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FINAL MODAL -->
+    
+    
+    
+
 </asp:Content>
