@@ -14,6 +14,7 @@ namespace Datos
     {
         private Empleado _empleado;
         private string _nickName;
+        private readonly string Empleado_SelectAllActivos = "Empleado_SelectAllActivos";
 
         public EmpleadoMapper(Empleado empleado)
         {
@@ -47,6 +48,21 @@ namespace Datos
             var ls = new List<Empleado>();
             ls = loadAll(Find(OperationType.SELECT_DEF));
             return ls;
+        }
+
+        public List<Empleado> GetAllActivos()
+        {
+            var result = new List<Empleado>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = Empleado_SelectAllActivos;
+
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+                result.Add(load(dr));
+            dr.Close();
+            return result;
         }
 
 

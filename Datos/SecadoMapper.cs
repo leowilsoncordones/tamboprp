@@ -158,7 +158,7 @@ namespace Datos
         }
 
 
-        public bool InsertSecado(Lactancia lact)
+        public bool InsertSecadoLactancia(Lactancia lact)
         {
             bool salida = false;
             SqlConnection con = null;

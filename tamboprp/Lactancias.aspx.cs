@@ -163,6 +163,7 @@ namespace tamboprp
 
         protected void btnListar_Click(object sender, EventArgs e)
         {
+            this.gvLactancias.PageIndex = 0;
             this.panelBotonesExport.Visible = true;
             this.LimpiarTabla();
             switch (this.ddlTipoListado.SelectedValue)

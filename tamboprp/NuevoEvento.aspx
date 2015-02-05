@@ -155,7 +155,7 @@
 			            <input type="text" runat="server" id="fEnfermedad" placeholder="Enfermedad" class=" form-control col-xs-10 col-sm-5"/>
 			        </div>--%>
                     <div class="col-sm-3" id="inputEnfermedad">
-			            <input type="text"  id="inputEnf" placeholder="Enfermedad" class="typeahead form-control col-xs-10 col-sm-5" onblur="checkEnfVacia()"/>
+			            <input type="text"  id="inputEnf" placeholder="Enfermedad" class="typeahead form-control col-xs-10 col-sm-10" onblur="checkEnfVacia()"/>
 			        </div>
                     <div class="col-sm-12"></div>
                 </div>

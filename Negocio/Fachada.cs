@@ -302,9 +302,12 @@ namespace Negocio
             if (listRegs != null)
                 foreach (var reg in listRegs)
                 {
-                    var lact = ConsolidarLactancia(reg);
-                    var voLact = new VOLactancia(lact);
-                    lstResult.Add(voLact);
+                    var lact = ConsolidarLactancia(reg, false);
+                    if (lact != null)
+                    {
+                        var voLact = new VOLactancia(lact);
+                        lstResult.Add(voLact);
+                    }                   
                 }
             return lstResult;
         }
@@ -1125,6 +1128,11 @@ namespace Negocio
             return _empMapper.GetAll();
         }
 
+        public List<Empleado> GetInseminadoresActivos()
+        {
+            return _empMapper.GetAllActivos();
+        }
+
         public List<LugarConcurso> GetLugaresConcurso()
         {
             return _lugConcMapper.GetAll();
@@ -1146,8 +1154,9 @@ namespace Negocio
                         var servMap = new ServicioMapper((Servicio) evento, nickName);
                         return servMap.Insert() > 1;
                     case 4: // SECADO
-                        var secMap = new SecadoMapper((Secado) evento, nickName);
-                        return secMap.Insert() > 1;
+                        var secMap = new SecadoMapper((Secado)evento, nickName);
+                        var lact = ConsolidarLactancia(evento.Registro, false);
+                        return (secMap.InsertSecadoLactancia(lact));
                     case 7: // DIAGNOSTICO DE PRENEZ
                         var diagMap = new Diag_PrenezMapper((Diag_Prenez) evento, nickName);
                         return diagMap.Insert() > 1;
@@ -1162,10 +1171,28 @@ namespace Negocio
                         return concursMap.Insert() > 1;
                     case 11: // BAJA POR VENTA
                         var bajaMap = new VentaMapper((Venta) evento, nickName);
-                        return bajaMap.Insert() > 1;
+                        var lactVenta = ConsolidarLactancia(evento.Registro, true);
+                        if (lactVenta != null)
+                        {
+                            return bajaMap.InsertVentaLactancia(lactVenta);
+                        }
+                        else
+                        {
+                            return bajaMap.Insert() > 1;
+                        }
+                        
                     case 12: // BAJA POR MUERTE
                         var muerteMap = new MuerteMapper((Muerte) evento, nickName);
-                        return muerteMap.Insert() > 1;
+                        var lactMuerte = ConsolidarLactancia(evento.Registro, true);
+                        if (lactMuerte != null)
+                        {
+                            return muerteMap.InsertMuerteLactancia(lactMuerte);
+                        }
+                        else
+                        {
+                            return muerteMap.Insert() > 1;
+                        }
+                        
                     default:
                         return false;
                 }
@@ -3223,12 +3250,12 @@ namespace Negocio
             }
         }
 
-
-        public Lactancia ConsolidarLactancia(string registro)
+        // genero lactancia para insertar y/o mostrar en gridviews y cerrar lactancias de vacas activas y de bajas
+        //el booleano que recibe es para saber si es por baja o por cierre de lactancia comun
+        public Lactancia ConsolidarLactancia(string registro, bool esBaja)
         {
             var result = new Lactancia();
-            var hoy = DateTime.Now;
-           // var hoy = new DateTime(2014, 09, 10);
+
             var pMapper = new PartoMapper(registro);
             var parto = pMapper.GetUltimoPartoByRegistro();
             if (parto != null)
@@ -3239,8 +3266,16 @@ namespace Negocio
                 var cantLactancias = lactMapper.GetMaxLactanciaByRegistro() + 1;
 
                 var conMap = new Control_ProduccMapper(registro);
-                var listaControles = conMap.GetControlesProduccPosterioresUltimoParto();
-
+                var listaControles = new List<Control_Producc>();
+                if (esBaja)
+                {
+                     listaControles = conMap.GetControlesProduccPosterioresUltimoPartoYSecado();
+                }
+                else
+                {
+                     listaControles = conMap.GetControlesProduccPosterioresUltimoParto();
+                }
+                
                 bool continuar305 = true;
                 bool continuar365 = true;
                 double lechetotal = 0;
@@ -3255,61 +3290,84 @@ namespace Negocio
                 double subtotatGrasa365 = 0;
 
                 if (listaControles != null)
-                    foreach (var control in listaControles)
-                    {
-                        dias += control.Dias_para_control;
-                        lechetotal += control.Leche * control.Dias_para_control;
-                        grasatotal = control.Grasa / 100 * control.Leche * control.Dias_para_control;
-
-                        if (dias < 305)
-                        {
-                            subtotatLeche305 += control.Leche * control.Dias_para_control;
-                            subtotatGrasa305 += control.Grasa / 100 * control.Leche * control.Dias_para_control;
-                        }
-
-                        if (dias >= 305)
-                        {
-                            if (continuar305)
-                            {
-                                var diasDiferencia = dias - 305;
-                                leche305 = subtotatLeche305 +  control.Leche * (control.Dias_para_control - diasDiferencia);
-                                grasa305 = subtotatGrasa305 + control.Grasa / 100 * control.Leche * (control.Dias_para_control - diasDiferencia);
-                                continuar305 = false;
-                            }                                                                        
-                        }
-
-                        if (dias < 365)
-                        {
-                            subtotatLeche365 += control.Leche * control.Dias_para_control;
-                            subtotatGrasa365 += control.Grasa / 100 * control.Leche * control.Dias_para_control;
-                        }
-                        if (dias >= 365)
-                        {
-                            if (continuar365)
-                            {
-                                var diasDiferencia = dias - 365;
-                                leche365 = subtotatLeche365 + control.Leche * (control.Dias_para_control - diasDiferencia);
-                                grasa365 = subtotatGrasa365 + control.Grasa / 100 * control.Leche * (control.Dias_para_control - diasDiferencia);
-                                continuar365 = false;
-                            }                        
-                        }
-                    }
-
-                var lactancia = new Lactancia
                 {
-                    Registro = registro,
-                    Numero = cantLactancias,
-                    Dias = dias,
-                    Leche305 = Math.Round(leche305,2),
-                    Grasa305 = Math.Round(grasa305,2),
-                    Leche365 = Math.Round(leche365,2),
-                    Grasa365 = Math.Round(grasa365,2),
-                    ProdLeche = Math.Round(lechetotal,2),
-                    ProdGrasa = Math.Round(grasatotal,2)
-                };
-                result = lactancia;
+                    if (listaControles.Count > 0)
+                    {
+                        foreach (var control in listaControles)
+                        {
+                            dias += control.Dias_para_control;
+                            lechetotal += control.Leche*control.Dias_para_control;
+                            grasatotal += control.Grasa/100*control.Leche*control.Dias_para_control;
+
+                            if (dias < 305)
+                            {
+                                subtotatLeche305 += control.Leche*control.Dias_para_control;
+                                subtotatGrasa305 += control.Grasa/100*control.Leche*control.Dias_para_control;
+                            }
+
+                            if (dias >= 305)
+                            {
+                                if (continuar305)
+                                {
+                                    var diasDiferencia = dias - 305;
+                                    leche305 = subtotatLeche305 +
+                                               control.Leche*(control.Dias_para_control - diasDiferencia);
+                                    grasa305 = subtotatGrasa305 +
+                                               control.Grasa/100*control.Leche*
+                                               (control.Dias_para_control - diasDiferencia);
+                                    continuar305 = false;
+                                }
+                            }
+
+                            if (dias < 365)
+                            {
+                                subtotatLeche365 += control.Leche*control.Dias_para_control;
+                                subtotatGrasa365 += control.Grasa/100*control.Leche*control.Dias_para_control;
+                            }
+                            if (dias >= 365)
+                            {
+                                if (continuar365)
+                                {
+                                    var diasDiferencia = dias - 365;
+                                    leche365 = subtotatLeche365 +
+                                               control.Leche*(control.Dias_para_control - diasDiferencia);
+                                    grasa365 = subtotatGrasa365 +
+                                               control.Grasa/100*control.Leche*
+                                               (control.Dias_para_control - diasDiferencia);
+                                    continuar365 = false;
+                                }
+                            }
+                        }
+
+                        var lactancia = new Lactancia
+                        {
+                            Registro = registro,
+                            Numero = cantLactancias,
+                            Dias = dias,
+                            Leche305 = Math.Round(leche305, 2),
+                            Grasa305 = Math.Round(grasa305, 2),
+                            Leche365 = Math.Round(leche365, 2),
+                            Grasa365 = Math.Round(grasa365, 2),
+                            ProdLeche = Math.Round(lechetotal, 2),
+                            ProdGrasa = Math.Round(grasatotal, 2)
+                        };
+                        result = lactancia;
+                        return result;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
             }
-            return result;
+            else
+            {
+                return null;
+            }
         }
 
     }

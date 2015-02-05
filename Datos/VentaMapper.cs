@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
@@ -173,5 +174,75 @@ namespace Datos
             return venta;
         }
 
+        public bool InsertVentaLactancia(Lactancia lact)
+        {
+            bool salida = false;
+            SqlConnection con = null;
+            SqlCommand cmdVenta = null;
+            SqlCommand cmdVentaLac = null;
+            SqlTransaction trn = null;
+            int affected = 0;
+
+            try
+            {
+                con = new SqlConnection(GetConnectionString());
+                con.Open();
+                cmdVenta = GetStatement(OperationType.INSERT);
+                cmdVenta.Connection = con;
+                trn = con.BeginTransaction();
+                cmdVenta.Transaction = trn;
+                int affectedSec = cmdVenta.ExecuteNonQuery();
+
+                if (affectedSec > 0)
+                {
+                    cmdVentaLac = new SqlCommand();
+                    cmdVentaLac.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmdVentaLac.CommandText = "Lactancia_Insert";
+                    cmdVentaLac.Parameters.Add(new SqlParameter("@NICKNAME", _nickName));
+                    cmdVentaLac.Parameters.Add(new SqlParameter("@REGISTRO", lact.Registro));
+                    cmdVentaLac.Parameters.Add(new SqlParameter("@LACTANCIAS", lact.Numero));
+                    cmdVentaLac.Parameters.Add(new SqlParameter("@DIAS", lact.Dias));
+                    cmdVentaLac.Parameters.Add(new SqlParameter("@LECHE305", lact.Leche305));
+                    cmdVentaLac.Parameters.Add(new SqlParameter("@GRASA305", lact.Grasa305));
+                    cmdVentaLac.Parameters.Add(new SqlParameter("@LECHE365", lact.Leche365));
+                    cmdVentaLac.Parameters.Add(new SqlParameter("@GRASA365", lact.Grasa365));
+                    cmdVentaLac.Parameters.Add(new SqlParameter("@PRODLECHE", lact.ProdLeche));
+                    cmdVentaLac.Parameters.Add(new SqlParameter("@PRODGRASA", lact.ProdGrasa));
+                    cmdVentaLac.Transaction = trn;
+                    cmdVentaLac.Connection = con;
+                    affected = cmdVentaLac.ExecuteNonQuery();
+
+                    if (affected > 0)
+                    {
+                        trn.Commit();
+                        salida = true;
+                    }
+                    else { throw new Exception(); }
+                }
+                else { throw new Exception(); }
+            }
+            catch (SqlException e)
+            {
+                trn.Rollback();
+            }
+            catch (Exception e2)
+            {
+                trn.Rollback();
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    if (con.State == ConnectionState.Open) con.Close();
+                    con.Dispose();
+                    if (cmdVenta != null) cmdVenta.Dispose();
+                    if (cmdVentaLac != null) cmdVentaLac.Dispose();
+                    if (trn != null) trn.Dispose();
+                }
+            }
+
+            return salida;
+        }
     }
 }

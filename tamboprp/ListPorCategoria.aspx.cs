@@ -70,6 +70,7 @@ namespace tamboprp
         {
             int idCategoria = int.Parse(this.ddlCategorias.SelectedValue);
             var listTemp = Fachada.Instance.GetAnimalesByCategoria(idCategoria);
+            Session["listaTempListCategoria"] = listTemp;
             this.gvAnimales.DataSource = listTemp;
             this.gvAnimales.DataBind();
             this.panelBotonesExport.Visible = true;
@@ -79,6 +80,7 @@ namespace tamboprp
 
         protected void btnListar_Click(object sender, EventArgs e)
         {
+            this.gvAnimales.PageIndex = 0;
             this.CargarAnimalesPorCategoria();
             //this.lblCateg.Text = this.ddlCategorias.SelectedItem.Text;
         }
@@ -90,13 +92,15 @@ namespace tamboprp
             this.CargarAnimalesPorCategoria();
         }
 
+        #region Export y print
+
         private void CargarGridParaExportar()
         {
             this.gvAnimales.AllowPaging = false;
             this.gvAnimales.EnableViewState = false;
-            int idCategoria = int.Parse(this.ddlCategorias.SelectedValue);
-            var listTemp = Fachada.Instance.GetAnimalesByCategoria(idCategoria);
-            this.gvAnimales.DataSource = listTemp;
+            //int idCategoria = int.Parse(this.ddlCategorias.SelectedValue);
+            //var listTemp = Fachada.Instance.GetAnimalesByCategoria(idCategoria);
+            this.gvAnimales.DataSource = Session["listaTempListCategoria"];
             this.gvAnimales.DataBind();
         }
 
@@ -173,6 +177,7 @@ namespace tamboprp
             gvAnimales.PagerSettings.Visible = true;
         }
 
+        #endregion
 
     }
 }

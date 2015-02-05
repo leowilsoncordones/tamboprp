@@ -21,6 +21,8 @@ namespace Datos
         private static string Control_producc_SelectUltimoVacaEnOrdene = "Control_producc_SelectUltimoVacaEnOrdene";
         private static string Control_producc_ProdLecheLactanciaActual = "Control_producc_ProdLecheLactanciaActual";
         private static string Control_producc_PosterioresAlUltimoParto = "Control_producc_PosterioresAlUltimoParto";
+        private static string Control_producc_PosterioresAlUltimoPartoYSecado = "Control_producc_PosterioresAlUltimoPartoYSecado";
+        
         
         
 
@@ -124,6 +126,22 @@ namespace Datos
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.Add(new SqlParameter("@REGISTRO", _regAnimal));
             cmd.CommandText = Control_producc_PosterioresAlUltimoParto;
+
+            SqlDataReader dr = FindByCmd(cmd);
+            while (dr.Read())
+                result.Add(load(dr));
+            dr.Close();
+            return result;
+        }
+
+        public List<Control_Producc> GetControlesProduccPosterioresUltimoPartoYSecado()
+        {
+            var result = new List<Control_Producc>();
+            SqlCommand cmd = null;
+            cmd = new SqlCommand();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@REGISTRO", _regAnimal));
+            cmd.CommandText = Control_producc_PosterioresAlUltimoPartoYSecado;
 
             SqlDataReader dr = FindByCmd(cmd);
             while (dr.Read())

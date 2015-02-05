@@ -1156,7 +1156,7 @@ namespace tamboprp
         [WebMethod]
         public static List<Empleado> GetListaEmpleados()
         {
-            return Fachada.Instance.GetInseminadores();
+            return Fachada.Instance.GetInseminadoresActivos();
         }
 
 

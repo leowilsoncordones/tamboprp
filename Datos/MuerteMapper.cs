@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
@@ -182,5 +183,75 @@ namespace Datos
             return GetScalarIntReg("Baja_Existe", registro) > 0;
         }
 
+        public bool InsertMuerteLactancia(Lactancia lact)
+        {
+            bool salida = false;
+            SqlConnection con = null;
+            SqlCommand cmdMuerte = null;
+            SqlCommand cmdMuerteLac = null;
+            SqlTransaction trn = null;
+            int affected = 0;
+
+            try
+            {
+                con = new SqlConnection(GetConnectionString());
+                con.Open();
+                cmdMuerte = GetStatement(OperationType.INSERT);
+                cmdMuerte.Connection = con;
+                trn = con.BeginTransaction();
+                cmdMuerte.Transaction = trn;
+                int affectedSec = cmdMuerte.ExecuteNonQuery();
+
+                if (affectedSec > 0)
+                {
+                    cmdMuerteLac = new SqlCommand();
+                    cmdMuerteLac.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmdMuerteLac.CommandText = "Lactancia_Insert";
+                    cmdMuerteLac.Parameters.Add(new SqlParameter("@NICKNAME", _nickName));
+                    cmdMuerteLac.Parameters.Add(new SqlParameter("@REGISTRO", lact.Registro));
+                    cmdMuerteLac.Parameters.Add(new SqlParameter("@LACTANCIAS", lact.Numero));
+                    cmdMuerteLac.Parameters.Add(new SqlParameter("@DIAS", lact.Dias));
+                    cmdMuerteLac.Parameters.Add(new SqlParameter("@LECHE305", lact.Leche305));
+                    cmdMuerteLac.Parameters.Add(new SqlParameter("@GRASA305", lact.Grasa305));
+                    cmdMuerteLac.Parameters.Add(new SqlParameter("@LECHE365", lact.Leche365));
+                    cmdMuerteLac.Parameters.Add(new SqlParameter("@GRASA365", lact.Grasa365));
+                    cmdMuerteLac.Parameters.Add(new SqlParameter("@PRODLECHE", lact.ProdLeche));
+                    cmdMuerteLac.Parameters.Add(new SqlParameter("@PRODGRASA", lact.ProdGrasa));
+                    cmdMuerteLac.Transaction = trn;
+                    cmdMuerteLac.Connection = con;
+                    affected = cmdMuerteLac.ExecuteNonQuery();
+
+                    if (affected > 0)
+                    {
+                        trn.Commit();
+                        salida = true;
+                    }
+                    else { throw new Exception(); }
+                }
+                else { throw new Exception(); }
+            }
+            catch (SqlException e)
+            {
+                trn.Rollback();
+            }
+            catch (Exception e2)
+            {
+                trn.Rollback();
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    if (con.State == ConnectionState.Open) con.Close();
+                    con.Dispose();
+                    if (cmdMuerte != null) cmdMuerte.Dispose();
+                    if (cmdMuerteLac != null) cmdMuerteLac.Dispose();
+                    if (trn != null) trn.Dispose();
+                }
+            }
+
+            return salida;
+        }
     }
 }
