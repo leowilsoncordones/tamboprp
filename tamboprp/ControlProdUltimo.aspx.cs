@@ -17,6 +17,8 @@ namespace tamboprp
 {
     public partial class ControlProdUltimo : System.Web.UI.Page
     {
+        private List<VOControlProd> listTemp = Fachada.Instance.GetControlesProduccUltimo();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]) &&
@@ -56,7 +58,6 @@ namespace tamboprp
 
         private void GetControlesProduccUltimo()
         {
-            var listTemp = Fachada.Instance.GetControlesProduccUltimo();
             this.gvControlProdUltimo.DataSource = listTemp;
             this.gvControlProdUltimo.DataBind();
             this.titCantAnimales.Visible = true;
@@ -81,7 +82,7 @@ namespace tamboprp
         {
             this.gvControlProdUltimo.AllowPaging = false;
             this.gvControlProdUltimo.EnableViewState = false;
-            var listTemp = Fachada.Instance.GetControlesProduccUltimo();
+            //var listTemp = Fachada.Instance.GetControlesProduccUltimo();
             this.gvControlProdUltimo.DataSource = listTemp;
             this.gvControlProdUltimo.DataBind();
         }

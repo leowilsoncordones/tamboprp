@@ -12,30 +12,30 @@ namespace tamboprp
 {
     public partial class NuevoAnimalParto : System.Web.UI.Page
     {
-        //private VOParto _voParto = new VOParto();
-        //private List<VOAnimal> _listCrias = new List<VOAnimal>();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]) &&
-            //   (Session["EsLector"] != null && !(bool)Session["EsLector"]))
-            //{
+            if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]) &&
+               (Session["EsLector"] != null && !(bool)Session["EsLector"]))
+            {
                 if (!Page.IsPostBack)
                 {
                     this.SetPageBreadcrumbs();
+                    //this.fComentario.Value = "";
+                    //this.mydateServ.Value = "";
                     this.LimpiarTabla();
                     this.LimpiarFormularioCria();
                     this.LimpiarFormularioParto();
                 }
-            //}
-            //else Response.Redirect("~/Default.aspx", true);
+            }
+            else Response.Redirect("~/Default.aspx", true);
         }
 
         protected void SetPageBreadcrumbs()
         {
             var list = new List<VoListItemDuplaString>();
             list.Add(new VoListItemDuplaString("Animales", "Animales.aspx"));
-            list.Add(new VoListItemDuplaString("Nuevo animal", ""));
+            list.Add(new VoListItemDuplaString("Ingreso de parto y sus crías", ""));
             var strB = PageControl.SetBreadcrumbsPath(list);
             if (Master != null)
             {
@@ -48,38 +48,51 @@ namespace tamboprp
         {
             try
             {
-                var ok = true;
+                var u = (VOUsuario)Session["Usuario"];
+                //var registro = this.fRegistro.Text;
+                //var regCria = this.fRegCria.Value;
+                
                 var voParto = this.CargarParto();
-                var voCria = this.CargarCria();
-
-                if (voParto!=null && this.checkVivo.Checked && voCria != null)
+                if (voParto != null)
                 {
-                    if (Fachada.Instance.AnimalInsert(voCria))
+                    var voCria = this.CargarCria();
+                    var existeMadre = Fachada.Instance.AnimalExiste(voCria.Reg_madre);
+                    var existePadre = Fachada.Instance.AnimalExiste(voCria.Reg_padre);
+                    var existeCria = Fachada.Instance.AnimalExiste(voCria.Registro);
+                    
+                    if (existeCria) this.lblStatus.Text += " Ya existe una cría con registro" + voCria.Registro;
+                    else if (!existeMadre) this.lblStatus.Text = " No existe una vaca con registro " + voCria.Reg_madre;
+                    else if (!existePadre && voCria.Reg_padre != "M-DESCONOC") this.lblStatus.Text = " No existe un toro con registro " + voCria.Reg_padre;
+
+                    if (u != null && !existeCria && existeMadre && existePadre)
                     {
-                        if (!Fachada.Instance.ExisteParto(voParto))
+                        if (this.checkVivo.Checked)
                         {
-                            ok = Fachada.Instance.PartoInsert(voParto);
-                            if (ok)
+                            if (Fachada.Instance.AnimalInsert(voCria, u.Nickname))
                             {
-                                //this.lblStatus.Text = "Se guardó el parto y la cría";
+                                if (!Fachada.Instance.ExisteParto(voParto))
+                                {
+                                    if (Fachada.Instance.PartoInsert(voParto, u.Nickname))
+                                    {
+                                        this.lblStatus.Text = "Se guardó el parto y la cría";
+                                    }
+                                }
                             }
                         }
-                    }
-                }
-                else
-                {
-                    if (voParto != null && !Fachada.Instance.ExisteParto(voParto))
-                    {
-                        ok = Fachada.Instance.PartoInsert(voParto);
-                        if (ok)
+                        else
                         {
-                            //this.lblStatus.Text = "Se guardó el parto y la cría";
+                            if (!Fachada.Instance.ExisteParto(voParto))
+                            {
+                                if (Fachada.Instance.PartoInsert(voParto, u.Nickname))
+                                {
+                                    this.lblStatus.Text = "Se guardó el parto";
+                                }
+                            }
                         }
+                        this.CargarListaCriasIngresadas(voParto);
+                        this.LimpiarFormularioCria();
                     }
                 }
-                
-                this.CargarListaCriasIngresadas(voParto);
-                this.LimpiarFormularioCria();
             }
             catch (Exception ex)
             {
@@ -89,6 +102,7 @@ namespace tamboprp
 
         private VOAnimal CargarCria()
         {
+            var registro = this.fRegistro.Text;
             var voCria = new VOAnimal();
             if (this.checkVivo.Checked)
             {
@@ -96,12 +110,15 @@ namespace tamboprp
                 voCria.Registro = this.fRegCria.Value;
                 //voCria.Fecha_nacim = DateTime.Parse(this.mydate.Value);
                 string strDate = Request.Form["mydate"];
-                var fecha = DateTime.Parse(strDate, new CultureInfo("en-US"));
+                var fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
                 voCria.Fecha_nacim = fecha;
-                voCria.Gen = int.Parse(this.fGen.Value); // ojo
+                int gen;
+                bool ok = int.TryParse(this.fGen.Value, out gen);
+                if (ok) voCria.Gen = gen;
+                //voCria.Gen = int.Parse(this.fGen.Value); // ojo
                 voCria.Identificacion = this.fIdentif.Value;
-                voCria.Reg_madre = this.fRegistro.Text;
-                voCria.Reg_padre = this.fRegPadre.Value;
+                voCria.Reg_madre = registro;
+                voCria.Reg_padre = this.fRegPadre.Value == "" ? "M-DESCONOC" : this.fRegPadre.Value;
                 voCria.Reg_trazab = this.fTraz.Value;
                 voCria.Sexo = this.checkSexo.Checked ? 'H' : 'M';
                 voCria.IdCategoria = voCria.Sexo == 'H' ? 1 : 7;
@@ -111,9 +128,12 @@ namespace tamboprp
             return voCria;
         }
 
+        // si cargo mas de una cría ver que no se cambie el datepicker de fecha (se resetea a hoy)
+
         private VOParto CargarParto()
         {
-            if (this.fRegistro.Text != "") return null;
+            var registro = this.fRegistro.Text;
+            if (registro == "") return null;
             // registro con la primer cría el parto
             var voParto = new VOParto();
             voParto.Registro = this.fRegistro.Text;
@@ -121,7 +141,12 @@ namespace tamboprp
             voParto.Comentarios = this.fComentario.Value;
             //voParto.Fecha = DateTime.Parse(this.mydate.Value);
             string strDate = Request.Form["mydate"];
-            var fecha = DateTime.Parse(strDate, new CultureInfo("en-US"));
+            var fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
+            if (fecha > DateTime.Today)
+            {
+                this.lblStatus.Text = "No puede ingresar un parto de una fecha futura";
+                return null;
+            }
             voParto.Fecha = fecha;
             voParto.Reg_hijo = this.checkVivo.Checked ? this.fRegCria.Value : "DESCONOCIDO";
             voParto.Sexo_parto = this.checkSexo.Checked ? 'H' : 'M';
@@ -151,6 +176,7 @@ namespace tamboprp
             this.LimpiarFormularioCria();
             this.LimpiarTabla();
             this.LimpiarFormularioParto();
+            this.lblStatus.Text = "";
         }
 
         private void LimpiarFormularioCria()
@@ -166,27 +192,65 @@ namespace tamboprp
         private void LimpiarFormularioParto()
         {
             this.fRegistro.Text = "";
-            this.mydateServ.Value = "";
             this.fRegPadre.Value = "";
             this.fComentario.Value = "";
-
-            this.fOrigen.Value = "";
+            this.mydateServ.Value = "";
+            this.fOrigen.Value = "PROPIETARIO";
             this.fGen.Value = "";
+            this.lblStatus.Text = "";
+            //var corp = (VOEmpresa)Session["Corporativo"];
+            //if (corp != null) this.lblLetraSistema.Text = corp.LetraSistema;
         }
 
         protected void EventosRegistro(object sender, EventArgs e)
         {
-            if (this.fRegistro.Text != "")
+            this.lblStatus.Text = "";
+            this.LimpiarFormularioCria();
+            
+            var registro = this.fRegistro.Text;
+            if (registro != "" && Fachada.Instance.AnimalExiste(registro))
             {
-                var ultServicio = Fachada.Instance.GetUltimoServicio(this.fRegistro.Text);
-                var ultDiagnostico = Fachada.Instance.GetUltimoDiagnostico(this.fRegistro.Text);
-                if (ultServicio != null && ultDiagnostico != null && ultDiagnostico.Diagnostico == 'P')
+                var madreAnimal = Fachada.Instance.GetAnimalByRegistro(registro);
+                if (madreAnimal != null)
                 {
-                    this.fRegPadre.Value = ultServicio.Reg_padre;
-                    this.mydateServ.Value = ultServicio.Fecha.ToShortDateString();
+                    var corp = (VOEmpresa)Session["Corporativo"];
+                    if (corp != null) this.lblLetraSistema.Text = corp.LetraSistema;
+                    // Calculo algunos valores sugeridos para la cria
+                    var genCria = madreAnimal.Gen + 1;
+                    var strGen = genCria.ToString();
+                    this.fGen.Value = strGen;
+                    if (genCria < 10) strGen = "0" + strGen;
+                    if (corp != null && strGen != "")
+                    {
+                        this.fIdentif.Value = strGen + corp.LetraSistema + this.fRegCria.Value;
+                    }
                 }
-                
+
+                var ultServicio = Fachada.Instance.GetUltimoServicioParaParto(registro);
+                var ultDiagnostico = Fachada.Instance.GetUltimoDiagnosticoParaParto(registro);
+                if (ultDiagnostico != null && ultDiagnostico.Diagnostico == 'P')
+                {
+                    if (ultServicio != null)
+                    {
+                        this.fRegPadre.Value = ultServicio.Reg_padre;
+                        this.mydateServ.Value = ultServicio.Fecha.ToShortDateString();
+                    }
+                    else
+                    {
+                        this.lblStatus.Text = "No hay un servicio correspondiente para " + registro;
+                    }
+                }
+                else
+                {
+                    this.lblStatus.Text = "No hay un diagnóstico de preñez confirmado correspondiente para " + registro;
+                }
             }
+            else
+            {
+                if (registro == "") this.lblStatus.Text = "Ingrese un registro no vacío";
+                else this.lblStatus.Text = "No existe una vaca con el registro " + registro;
+            }
+            
         }
     }
 }

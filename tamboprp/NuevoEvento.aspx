@@ -43,7 +43,7 @@
                 <div class="form-group">
 		            <label class="col-sm-3 control-label no-padding-right"> Seleccione tipo de evento </label>
 			        <div class="col-sm-3">
-			            <asp:DropDownList ID="ddlEvento" CssClass="form-control col-xs-10 col-sm-5" AutoPostBack="True" OnSelectedIndexChanged="ddlEvento_SelectedIndexChanged" runat="server" ></asp:DropDownList>
+			            <asp:DropDownList ID="ddlEvento" CssClass="form-control col-xs-10 col-sm-5" AutoPostBack="True" OnSelectedIndexChanged="ddlEvento_SelectedIndexChanged" runat="server" style="border-color: #72aec2;" ></asp:DropDownList>
 			        </div>
                     <div class="col-sm-12"></div>
 		        </div>
@@ -52,7 +52,7 @@
 		            <label class="col-sm-3 control-label no-padding-right"> Registro </label>
 			        <div class="col-sm-2">
 			            <%--<input type="text" runat="server" id="fRegistro" placeholder="Registro" class="form-control col-xs-10 col-sm-5" />--%>
-                        <asp:TextBox runat="server" id="fRegistro" name="fRegistro" class="form-control col-xs-10 col-sm-5"  OnTextChanged="EventosRegistro" AutoPostBack="True"/>                                            
+                        <asp:TextBox runat="server" id="fRegistro" name="fRegistro" class="form-control col-xs-10 col-sm-5"  OnTextChanged="EventosRegistro" AutoPostBack="True" style="border-color: #72aec2;" />                                            
 			        </div>
                     <label runat="server" id="lblRegistro" class="col-sm-3 control-label text-warning" ></label>
                     <div class="col-sm-12"></div>
@@ -62,7 +62,7 @@
                     <label class="col-sm-3 control-label no-padding-right"> Fecha </label>
 					<div class="col-sm-2">
 						<div class="input-group date">
-						    <input type="text" id="mydate" name="mydate" class="form-control col-xs-10 col-sm-5"/>
+						    <input type="text" id="mydate" name="mydate" class="form-control col-xs-10 col-sm-5" style="border-color: #72aec2;" />
 							<span class="input-group-addon"><i class="ace-icon fa fa-calendar"></i></span>
 						</div>
                         <%--<asp:TextBox ID="DateTextBox" runat="server"  />
@@ -88,7 +88,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label no-padding-right"> Letras </label>
                     <div class="col-sm-2">
-                        <select id="selectLetras" name="selectLetras" class="form-control col-xs-10 col-sm-5" onchange="cargaSelectNumeros()">
+                        <select id="selectLetras" name="selectLetras" class="form-control col-xs-10 col-sm-5" onchange="cargaSelectNumeros()" style="border-color: #72aec2;">
 			            </select>
 			            <!--<asp:DropDownList ID="ddlCalificacion" CssClass="form-control col-xs-10 col-sm-5" AutoPostBack="True" OnSelectedIndexChanged="ddlCalif_SelectedIndexChanged" runat="server" ></asp:DropDownList>-->
 			        </div>
@@ -96,7 +96,7 @@
                 <div class="form-group" id="dCalifPuntos">
                     <label class="col-sm-3 control-label no-padding-right"> Puntos </label>
                     <div class="col-sm-2">
-                        <select id="selectNumeros" name="selectNumeros" class="form-control col-xs-10 col-sm-5">
+                        <select id="selectNumeros" name="selectNumeros" class="form-control col-xs-10 col-sm-5" style="border-color: #72aec2;">
 			            </select>
 			            <!--<asp:DropDownList ID="ddlCalificacionPts" CssClass="form-control col-xs-10 col-sm-5" runat="server" ></asp:DropDownList>-->
 			        </div>
@@ -109,15 +109,15 @@
                     <label class="col-sm-3 control-label no-padding-right"> Leche </label>
                     <div class="col-sm-2">
 			            <%--<input type="text" runat="server" id="fControl" placeholder="Leche en kilos" class="form-control col-xs-10 col-sm-5" />--%>
-                        <asp:TextBox runat="server" id="fLecheControl" class="form-control col-xs-10 col-sm-5"  OnTextChanged="EventosRegistro" AutoPostBack="True"/>
+                        <asp:TextBox runat="server" id="fLecheControl" class="form-control col-xs-10 col-sm-5"  OnTextChanged="EventosRegistro" AutoPostBack="True" style="border-color: #72aec2;" />
 			        </div>
                     <label runat="server" id="lblLecheControl" class="col-sm-3 control-label text-warning" ></label>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label no-padding-right"> Porcentaje de Grasa </label>
+                    <label class="col-sm-3 control-label no-padding-right"> % Grasa </label>
                     <div class="col-sm-2">
 			            <%--<input type="text" runat="server" id="fGrasa" placeholder="% Grasa" class="form-control col-xs-10 col-sm-5" />--%>
-                        <asp:TextBox runat="server" id="fGrasaControl" class="form-control col-xs-10 col-sm-5"  OnTextChanged="EventosRegistro" AutoPostBack="True"/>
+                        <asp:TextBox runat="server" id="fGrasaControl" class="form-control col-xs-10 col-sm-5"  OnTextChanged="EventosRegistro" AutoPostBack="True" style="border-color: #72aec2;" />
 			        </div>
                     <label runat="server" id="lblGrasaControl" class="col-sm-3 control-label text-warning" ></label>
                 </div>
@@ -134,7 +134,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label no-padding-right"> Diagnóstico </label>
                     <div class="col-sm-2">
-                        <asp:DropDownList ID="ddlDiagnostico" CssClass="form-control col-xs-10 col-sm-5" runat="server" ></asp:DropDownList>
+                        <asp:DropDownList ID="ddlDiagnostico" CssClass="form-control col-xs-10 col-sm-5" runat="server" style="border-color: #72aec2;" ></asp:DropDownList>
 			        </div>
                 </div>
                 </asp:Panel>
@@ -143,7 +143,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label no-padding-right"> Motivo de secado </label>
                     <div class="col-sm-3">
-			            <asp:DropDownList ID="ddlMotivoSec" AutoPostBack="True" CssClass="form-control col-xs-10 col-sm-5" OnSelectedIndexChanged="ddlMotivoSec_SelectedIndexChanged" runat="server" ></asp:DropDownList>
+			            <asp:DropDownList ID="ddlMotivoSec" AutoPostBack="True" CssClass="form-control col-xs-10 col-sm-5" OnSelectedIndexChanged="ddlMotivoSec_SelectedIndexChanged" runat="server" style="border-color: #72aec2;" ></asp:DropDownList>
 			        </div>
                 </div>
                 </asp:Panel>
@@ -166,7 +166,7 @@
                     <label class="col-sm-3 control-label no-padding-right"> Monta natural </label>
                     <div class="col-sm-2">
 					    <label>
-					        <input id="checkMontaNat" name="switchMontaNat" class="ace ace-switch ace-switch-6" type="checkbox" runat="server"/>
+					        <input id="checkMontaNat" name="switchMontaNat" class="ace ace-switch ace-switch-6" type="checkbox" runat="server" />
 						    <span class="lbl"></span>
 					    </label>
 				    </div>
@@ -195,13 +195,13 @@
                  <div class="form-group">
                     <label class="col-sm-3 control-label no-padding-right"> Nombre de concurso / Lugar </label>
                     <div class="col-sm-3">
-			            <asp:DropDownList ID="ddlNomConcurso" CssClass="form-control col-xs-10 col-sm-5" runat="server" ></asp:DropDownList>
+			            <asp:DropDownList ID="ddlNomConcurso" CssClass="form-control col-xs-10 col-sm-5" runat="server" style="border-color: #72aec2;" ></asp:DropDownList>
 			        </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 control-label no-padding-right"> Categoría de concurso </label>
                     <div class="col-sm-3">
-			            <asp:DropDownList ID="ddlCategConcurso" CssClass="form-control col-xs-10 col-sm-5" runat="server" ></asp:DropDownList>
+			            <asp:DropDownList ID="ddlCategConcurso" CssClass="form-control col-xs-10 col-sm-5" runat="server" style="border-color: #72aec2;" ></asp:DropDownList>
 			        </div>
                 </div>
                 <div class="form-group">

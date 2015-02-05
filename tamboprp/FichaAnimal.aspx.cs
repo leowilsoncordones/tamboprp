@@ -195,7 +195,7 @@ namespace tamboprp
                     this.CargarFichaHembra();
                 }
                 // eventos del animal al historico
-                ProcesarEventosAnimal();
+                this.ProcesarEventosAnimal();
                 //if (_animal.Fotos != null) this.CargarFotosAnimal(_animal.Fotos, this.ULFotos);
                 this.CargarFotosDelAnimal();
             }
@@ -405,6 +405,7 @@ namespace tamboprp
                 {
                     if (lst_lact[j].Numero > maxLact)
                     {
+                        // ESTO DEBIDO A LAS LACTANCIAS SUBTOTALIZADAS DEL CLIPPER
                         if (lst_lact[j].Dias > 0 && lst_lact[j].ProdLeche > 0)
                         {
                             maxLact = lst_lact[j].Numero;
@@ -705,7 +706,11 @@ namespace tamboprp
                 animTemp.Identificacion = id;
                 animTemp.Reg_trazab = traz;
                 animTemp.Origen = orig;
-                return Fachada.Instance.UpdateDatosAnimal(animTemp);
+                var u = (VOUsuario)Session["Usuario"];
+                if (u != null)
+                {
+                    return Fachada.Instance.UpdateDatosAnimal(animTemp, u.Nickname);
+                }
             }
             return false;
         }

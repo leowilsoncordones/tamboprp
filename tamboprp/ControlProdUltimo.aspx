@@ -55,7 +55,7 @@
             <Columns>
                 <asp:BoundField DataField="Registro" HeaderText="Registro" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
                 <asp:BoundField DataField="NumLact" HeaderText="Núm. Lact." HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
-                <asp:BoundField DataField="Dias" HeaderText="Dias Lact." HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
+                <asp:BoundField DataField="Dias" HeaderText="Días Lact." HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />
                 <asp:BoundField DataField="Leche" HeaderText="Leche" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />    
                 <asp:BoundField DataField="ProdLeche" HeaderText="Prod. Leche" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />    
                 <asp:BoundField DataField="FechaServicio" HeaderText="Fecha Servicio" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Left" />

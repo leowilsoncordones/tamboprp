@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="tamboprp | nuevo animal" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="NuevoAnimalParto.aspx.cs" Inherits="tamboprp.NuevoAnimalParto" %>
+<%@ Import Namespace="tamboprp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     
     <link href="css/datepicker.css" rel="stylesheet" />
@@ -33,7 +34,7 @@
             <div id="formulario" class="form-horizontal">
                 <div class="form-group">
                     <div class="col-sm-3 control-label no-padding-right">
-                        <h4 class="widget-title lighter blue">PARTO</h4>
+                        <h4 class="widget-title lighter blue">NUEVO PARTO</h4>
                     </div>
                     <div class="col-sm-12"></div>
                 </div>
@@ -41,7 +42,7 @@
                 <div class="form-group">
 		            <label class="col-sm-3 control-label no-padding-right"> Registro madre </label>
 			        <div class="col-sm-2">
-                        <asp:TextBox runat="server" id="fRegistro" class="form-control col-xs-10 col-sm-5"  OnTextChanged="EventosRegistro" AutoPostBack="True"/>
+                        <asp:TextBox runat="server" id="fRegistro" CssClass="form-control col-xs-10 col-sm-5" style="border-color: #72aec2;" OnTextChanged="EventosRegistro" AutoPostBack="True"/>
 			        </div>
                     <div class="col-sm-12"></div>
 		        </div>
@@ -50,7 +51,7 @@
                     <label class="col-sm-3 control-label no-padding-right"> Fecha </label>
 					<div class="col-sm-2">
 						<div class="input-group date">
-						    <input type="text" id="mydate" name="mydate" class="form-control col-xs-10 col-sm-5" />
+						    <input type="text" id="mydate" name="mydate" class="form-control col-xs-10 col-sm-5" style="border-color: #72aec2;" />
 							<span class="input-group-addon"><i class="ace-icon fa fa-calendar"></i></span>
 						</div>
                         <%--<asp:TextBox ID="DateTextBox" runat="server"  />
@@ -92,7 +93,7 @@
                 <div class="space-6"></div>
                 <div class="form-group">
                     <div class="col-md-offset-3 col-md-9">
-                        <a href="#nuevaCria" role="button" id="id-btn-nuevaCria" class="btn btn-info" data-toggle="modal"><i class="ace-icon fa fa-pencil"></i> Ingresar cría</a>
+                        <a href="#nuevaCria" role="button" id="id-btn-nuevaCria" class="btn btn-info" data-toggle="modal"><i class="ace-icon fa fa-save"></i> Ingresar cría</a>
                         &nbsp;&nbsp;&nbsp;
                         <asp:Button ID="btnReset" runat="server" CssClass="btn btn-default" Text="Limpiar" OnClick="btn_LimpiarFormulario" />
 				    </div>
@@ -100,6 +101,7 @@
                 
             </div>
          </div>
+        <asp:Label ID="lblStatus" runat="server" Text=""></asp:Label>
     </div>
    
     <div class="space-6"></div>
@@ -139,6 +141,7 @@
             <div class="col-md-2"></div>
         </div>
     </asp:Panel>
+    
     </div>
     <!-- NUEVA CRIA MODAL -->
     <div id="nuevaCria" class="modal fade">
@@ -179,7 +182,7 @@
                         <div class="form-group">
                             <label class="col-sm-4 control-label no-padding-right"> Registro cría </label>
 			                <div class="col-sm-4">
-			                    <input type="text" runat="server" id="fRegCria" placeholder="Registro cría" class="form-control col-xs-10 col-sm-5" />
+			                    <input type="text" runat="server" id="fRegCria" placeholder="Registro cría" class="form-control col-xs-10 col-sm-5" style="border-color: #72aec2;" />
 			                </div>
                             <div class="col-sm-12"></div>
                         </div>
@@ -209,14 +212,14 @@
                         <div class="form-group">
                             <label class="col-sm-4 control-label no-padding-right"> Generación </label>
 			                <div class="col-sm-2">
-			                    <input type="text" runat="server" id="fGen" placeholder="" class="form-control col-xs-10 col-sm-5" />
+			                    <input type="text" runat="server" id="fGen" class="form-control col-xs-10 col-sm-5" />
 			                </div>
                             <div class="col-sm-12"></div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-4 control-label no-padding-right"> Identificación </label>
 			                <div class="col-sm-4">
-			                    <input type="text" runat="server" id="fIdentif" placeholder="" class="form-control col-xs-10 col-sm-5" />
+			                    <input type="text" runat="server" id="fIdentif" class="form-control col-xs-10 col-sm-5" />
 			                </div>
                             <div class="col-sm-12"></div>
                         </div>
@@ -232,6 +235,7 @@
                 </div>
             </div>
         </div>
+        <asp:Label ID="lblLetraSistema" runat="server" Visible="False"></asp:Label>
     </div>
     <!-- NUEVA CRIA MODAL -->
     
@@ -239,6 +243,18 @@
     <script src="js/date-time/bootstrap-datepicker.js"></script>
         
     <script text="javascript">
+        
+        //
+<%--        $(document).on("click", "#nuevaCria", function () {
+
+            var gen = document.getElementById('<%=fGen.ClientID%>').value;
+            var letraSistema = document.getElementById('<%=lblLetraSistema.ClientID%>').value;
+            var registroCria = document.getElementById('fRegCria').value;
+            document.getElementById('fIdentif').innerHTML = gen + letraSistema + registroCria;
+
+        });--%>
+
+
         //   ---------DATEPICKER----------   //
 
         $("#mydate").datepicker({

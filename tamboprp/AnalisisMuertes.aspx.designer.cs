@@ -13,24 +13,6 @@ namespace tamboprp {
     public partial class AnalisisMuertes {
         
         /// <summary>
-        /// pest1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pest1;
-        
-        /// <summary>
-        /// pest2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pest2;
-        
-        /// <summary>
         /// listaM control.
         /// </summary>
         /// <remarks>

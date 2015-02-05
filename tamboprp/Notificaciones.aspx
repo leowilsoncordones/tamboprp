@@ -53,6 +53,7 @@
                     <li class="bigger-110">
                         <a href="#defProg" role="button" id="id-btn-defProg" class="btn btn-white btn-default btn-sm" data-toggle="modal"><i class="ace-icon fa fa-clock-o"></i> Definir programación</a>
                     </li>
+                    <hr/>
                     <li class="bigger-110">
                         <a href="#reporteSemanal" role="button" id="id-btn-VerSemanal" class="btn btn-white btn-default btn-sm" data-toggle="modal"><i class="ace-icon fa fa-newspaper-o"></i> Resumen operativo</a>
                     </li>

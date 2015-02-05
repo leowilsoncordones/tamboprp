@@ -18,8 +18,8 @@ namespace Negocio
             Dias = dias;
             Leche = leche;
             Grasa = grasa;
-            ProdLeche = Dias * Leche;
-            ProdGrasa = Dias * Grasa;
+            //ProdLeche = Dias * Leche;
+            //ProdGrasa = Dias * Grasa;
             FechaServicio = fechaServicio;
             NumServicio = numServicio;
             Diag = diag;
@@ -59,8 +59,10 @@ namespace Negocio
         public string Nombre { get; set; }
 
         public double ProdGrasa { get; set; }
-
+        // PROD TOTAL GRASA EN ESTA LACTANCIA ACTUAL
+        
         public double ProdLeche { get; set; }
+        // PROD TOTAL LECHE EN ESTA LACTANCIA ACTUAL
 
         public int Dias { get; set; }
 

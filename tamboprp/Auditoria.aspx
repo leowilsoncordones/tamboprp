@@ -39,7 +39,7 @@
 						<h4 class="header smaller lighter blue"><i class="menu-icon fa fa-paperclip"></i> Resumen</h4>
                         <ul class="list-unstyled spaced2">
                             <li class="bigger-110">
-                                <asp:Button ID="btnExport" runat="server" CssClass="btn btn-sm btn-white btn-default" Text="Exportar Log" OnClick="btn_ExportarLog" />
+                                <asp:Button ID="btnExport" runat="server" CssClass="btn btn-sm btn-white btn-default" Text="Exportar Log Completo" OnClick="btn_ExportarLog" />
                             </li>
                         </ul>
                     <asp:Label ID="lblStatus" runat="server" Text=""></asp:Label>

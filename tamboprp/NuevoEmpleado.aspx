@@ -52,7 +52,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label no-padding-right"> Iniciales </label>
 			        <div class="col-sm-1">
-			            <input type="text" runat="server" id="fIniciales" class="form-control col-xs-10 col-sm-1" />
+			            <input type="text" runat="server" id="fIniciales" class="form-control col-xs-10 col-sm-1" style="border-color: #72aec2;" />
 			        </div>
                     <label class="col-sm-2 control-label"> * únicas en el sistema </label>
 		        </div>

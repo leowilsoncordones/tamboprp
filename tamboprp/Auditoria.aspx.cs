@@ -178,6 +178,9 @@ namespace tamboprp
                 case "abortos":
                     operation += " ABORTO de la vaca ";
                     break;
+                case "animales":
+                    operation += " ANIMAL con registro ";
+                    break;
                 case "partos":
                     operation += " PARTO de la vaca ";
                     break;

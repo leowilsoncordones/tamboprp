@@ -15,10 +15,12 @@ namespace tamboprp
 {
     public partial class Help : System.Web.UI.Page
     {
+        //private string pestanaActiva = "1";
         protected void Page_Load(object sender, EventArgs e)
         {
-            if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]))
-            {
+            //if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]))
+            //{
+                //selected_tab.Value = Request.Form[selected_tab.UniqueID];
                 if (!Page.IsPostBack)
                 {
                     this.SetPageBreadcrumbs();
@@ -27,8 +29,9 @@ namespace tamboprp
                     //this.LimpiarFormulario();
                     this.PreCargarFormulario();
                 }
-            }
-            else Response.Redirect("~/Default.aspx", true);
+                //this.lblTabValue.Text = pestanaActiva;
+            //}
+            //else Response.Redirect("~/Default.aspx", true);
         }
 
         protected void SetPageBreadcrumbs()
@@ -54,7 +57,6 @@ namespace tamboprp
                 this.fNomApe.Value = u.Nombre + " " + u.Apellido;
                 this.fEmail.Value = u.Email;
             }
-            
         }
 
         private void CargarDdlTipoProblema()
@@ -114,7 +116,6 @@ namespace tamboprp
             {
                 this.lblStatus.Text = "Los datos no se han podido enviar";
             }
-            
         }
 
         protected void btn_LimpiarFormulario(object sender, EventArgs e)

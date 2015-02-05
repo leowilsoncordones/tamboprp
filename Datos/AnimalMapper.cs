@@ -16,6 +16,7 @@ namespace Datos
     public class AnimalMapper: AbstractMapper
     {
         private Animal _animal;
+        private string _nickname;
 
         private static string Animal_BusqByID = "Animal_BusqByID";
         //private static string Animal_BusqByCategoria = "Animal_BusqByCategoria";
@@ -41,6 +42,12 @@ namespace Datos
         public AnimalMapper(Animal animal)
         {
             _animal = animal;
+        }
+
+        public AnimalMapper(Animal animal, string nickname)
+        {
+            _animal = animal;
+            _nickname = nickname;
         }
 
         public AnimalMapper()
@@ -198,7 +205,8 @@ namespace Datos
                 cmd.Parameters.Add(new SqlParameter("@NOMBRE", _animal.Nombre));
                 // al insertar el nuevo animal, tambien inserto la categoria 
                 // en la tabla animales_categ, como una transaccion conjunta
-                cmd.Parameters.Add(new SqlParameter("@CATEGORIA", _animal.IdCategoria)); 
+                cmd.Parameters.Add(new SqlParameter("@CATEGORIA", _animal.IdCategoria));
+                cmd.Parameters.Add(new SqlParameter("@NICKNAME", _nickname));
             }
             else if (opType == OperationType.UPDATE)
             {
@@ -215,7 +223,7 @@ namespace Datos
                 cmd.Parameters.Add(new SqlParameter("@FECHA_NACIM", _animal.Fecha_nacim));
                 cmd.Parameters.Add(new SqlParameter("@ORIGEN", _animal.Origen));
                 cmd.Parameters.Add(new SqlParameter("@NOMBRE", _animal.Nombre));
-
+                cmd.Parameters.Add(new SqlParameter("@NICKNAME", _nickname));
                 //cmd.Parameters.Add(new SqlParameter("@CATEGORIA", _animal.IdCategoria)); 
             }
             return cmd;

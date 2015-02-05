@@ -85,7 +85,7 @@
                             <div class="form-group">
 		                        <label class="col-sm-3 control-label no-padding-right"> Título de la consulta </label>
 			                    <div class="col-sm-4">
-			                        <input type="text" runat="server" id="fTitulo" required class="form-control col-xs-10 col-sm-5" />
+			                        <input type="text" runat="server" id="fTitulo" required class="form-control col-xs-10 col-sm-5" style="border-color: #72aec2;" />
 			                    </div>
                                 <div class="col-sm-12"></div>
 		                    </div>
@@ -93,7 +93,7 @@
                             <div class="form-group">
 			                    <label class="col-sm-3 control-label no-padding-right "> Tipo de problema </label>
 			                    <div class="col-sm-4">
-			                        <asp:DropDownList ID="ddlTipo" CssClass="form-control col-xs-10 col-sm-5" AutoPostBack="False" runat="server" ></asp:DropDownList>
+			                        <asp:DropDownList ID="ddlTipo" CssClass="form-control col-xs-10 col-sm-5" AutoPostBack="False" runat="server" style="border-color: #72aec2;" ></asp:DropDownList>
 			                    </div>
                                 <div class="col-sm-12"></div>
 		                    </div>
@@ -101,7 +101,7 @@
                             <div class="form-group">
 			                    <label class="col-sm-3 control-label no-padding-right"> Descripción del problema </label>
 			                    <div class="col-sm-6">
-			                        <textarea class="form-control" runat="server" id="fComentario" required rows="5" ></textarea>
+			                        <textarea class="form-control" runat="server" id="fComentario" required rows="5" style="border-color: #72aec2;" ></textarea>
 			                    </div>
                                 <div class="col-sm-12"></div>
 		                    </div>
@@ -127,10 +127,130 @@
                      </div>
                 </div>
                 <asp:Label ID="lblStatus" runat="server" Text=""></asp:Label>
+                <asp:Label ID="lblTabValue" runat="server" Text="" Visible="False"></asp:Label>
             </div> <!-- fin PESTANA 2 -->
         </div>
 	</div> <!-- fin tabbable -->
     
+    
+    <%--<asp:HiddenField ID="selected_tab" runat="server" />--%>
+    <!-- KEEP SELECTED TAB WHEN REFRESH -->
+    <script type="text/javascript">
+        
+
+        // 1
+        //$('#myTab a').click(function (e) {
+        //    e.preventDefault();
+        //    $(this).tab('show');
+        //});
+
+        //// store the currently selected tab in the hash value
+        //$("ul.nav-tabs > li > a").on("shown.bs.tab", function (e) {
+        //    var id = $(e.target).attr("href").substr(1);
+        //    window.location.hash = id;
+        //});
+
+        //// on load of the page: switch to the currently selected tab
+        //var hash = window.location.hash;
+        //$('#myTab a[href="' + hash + '"]').tab('show');
+
+        //
+        <%--$(document).on("click", "#btnGuardar", function () {
+
+            var pestAct = document.getElementById('<%=lblTabValue.ClientID%>');
+            if (pestAct.value == "2") {
+                $('#myTab a[href="casoSoporte"]').tab('show');
+            };
+
+        });--%>
+
+
+
+        // 2
+        // Javascript to enable link to tab
+        //var url = document.location.toString();
+        //if (url.match('#')) {
+        //    $('.nav-tabs a[href=#' + url.split('#')[1] + ']').tab('show');
+        //}
+
+        ////// Change hash for page-reload
+        //$('.nav-tabs a').on('shown', function(e) {
+        //    window.location.hash = e.target.hash;
+        //    window.scrollTo(0, 0);
+        //});
+
+
+        // 3
+
+        //$(function () {
+        //    //for bootstrap 3 use 'shown.bs.tab' instead of 'shown' in the next line
+        //    $('a[data-toggle="tab"]').on('shown', function (e) {
+        //        //save the latest tab; use cookies if you like 'em better:
+        //        localStorage.setItem('lastTab', $(e.target).attr('id'));
+        //    });
+
+        //    //go to the latest tab, if it exists:
+        //    var lastTab = localStorage.getItem('lastTab');
+        //    if (lastTab) {
+        //        $('#' + lastTab).tab('show');
+        //        window.scrollTo(0, 0);
+        //    }
+        //});
+
+
+        // 3
+<%--        $(function() {
+
+            $("#myTab").tabs();
+            var currTab = $("#<%= HFCurrTabIndex.ClientID %>").val();
+            $("#myTab").tabs({ selected: currTab });
+        });--%>
+        
+
+        // 4
+        //var selected_tab = 1;
+        //$(function () {
+        //    var tabs = $("#myTab").tabs({
+        //        select: function (e, i) {
+        //            selected_tab = i.index;
+        //        }
+        //    });
+        //    selected_tab = $("[id$=selected_tab]").val() != "" ? parseInt($("[id$=selected_tab]").val()) : 0;
+        //    tabs.tabs('select', selected_tab);
+        //    $("form").submit(function () {
+        //        $("[id$=selected_tab]").val(selected_tab);
+        //    });
+        //});
+
+        //5
+        //var selTab;
+        //$(function () {
+        //    var tabs = $("#myTab").tabs({
+        //        show: function () {
+        //            //get the selected tab index
+        //            selTab = $('#myTab').tabs('option', 'selected');
+
+        //        }
+        //    });
+        //});
+        //function pageLoad(sender, args) {
+
+        //    if (args.get_isPartialLoad()) {
+
+        //        $("#myTab").tabs({
+        //            show: function () {
+        //                //get the selected tab index on partial postback
+        //                selTab = $('#myTab').tabs('option', 'selected');
+
+        //            }, selected: selTab
+        //        });
+
+        //    }
+        //};
+
+    </script>
+    
+
     <!-- CONFIRMATION MODAL -->
     
     <div id="sendModal" class="modal fade">
