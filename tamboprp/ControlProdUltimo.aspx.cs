@@ -17,8 +17,6 @@ namespace tamboprp
 {
     public partial class ControlProdUltimo : System.Web.UI.Page
     {
-        private List<VOControlProd> listTemp = Fachada.Instance.GetControlesProduccUltimo();
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]) &&
@@ -58,8 +56,9 @@ namespace tamboprp
 
         private void GetControlesProduccUltimo()
         {
-            this.gvControlProdUltimo.DataSource = listTemp;
-            this.gvControlProdUltimo.DataBind();
+            var listTemp = Fachada.Instance.GetControlesProduccUltimo();
+            Session["ControlesProduccUltimo"] = listTemp;
+            this.GvControlesProduccUltimo();
             this.titCantAnimales.Visible = true;
             this.lblFecha.Visible = true;
             this.lblCantAnimales.Text = listTemp.Count.ToString();
@@ -69,21 +68,29 @@ namespace tamboprp
             }
         }
 
+        private void GvControlesProduccUltimo()
+        {
+            var lactActTemp = (List<VOControlProd>)Session["ControlesProduccUltimo"];
+            this.gvControlProdUltimo.DataSource = lactActTemp;
+            this.gvControlProdUltimo.DataBind();
+        }
 
         protected void GvControlProdUltimo_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             var gv = (GridView)sender;
             gv.PageIndex = e.NewPageIndex;
-            this.GetControlesProduccUltimo();
+            this.GvControlesProduccUltimo();
         }
 
+
+        #region Export y Print
 
         private void CargarGridParaExportar()
         {
             this.gvControlProdUltimo.AllowPaging = false;
             this.gvControlProdUltimo.EnableViewState = false;
-            //var listTemp = Fachada.Instance.GetControlesProduccUltimo();
-            this.gvControlProdUltimo.DataSource = listTemp;
+            var lactActTemp = (List<VOControlProd>)Session["ControlesProduccUltimo"];
+            this.gvControlProdUltimo.DataSource = lactActTemp;
             this.gvControlProdUltimo.DataBind();
         }
 
@@ -102,6 +109,7 @@ namespace tamboprp
 
         public override void VerifyRenderingInServerForm(Control control) { }
 
+        
         protected void pdfExport_Click(object sender, EventArgs e)
         {
 
@@ -159,6 +167,8 @@ namespace tamboprp
             ClientScript.RegisterStartupScript(this.GetType(), "GridPrint", sb.ToString());
             gvControlProdUltimo.PagerSettings.Visible = true;
         }
+
+        #endregion
 
     }
 }

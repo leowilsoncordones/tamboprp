@@ -120,7 +120,7 @@ namespace Datos
                 cmd.Parameters.Add(new SqlParameter("@EVENTO", _secado.Id_evento));
                 cmd.Parameters.Add(new SqlParameter("@FECHA", _secado.Fecha));
                 cmd.Parameters.Add(new SqlParameter("@COMENTARIO", _secado.Comentarios));
-                cmd.Parameters.Add(new SqlParameter("@MOTIVO_SECADO", _secado.Motivos_secado));
+                cmd.Parameters.Add(new SqlParameter("@MOTIVO_SECADO", _secado.IdMotivoSecado));
                 cmd.Parameters.Add(new SqlParameter("@ENFERMEDAD", _secado.Enfermedad));
             }
             else if (opType == OperationType.UPDATE)
@@ -132,7 +132,7 @@ namespace Datos
                 cmd.Parameters.Add(new SqlParameter("@EVENTO", _secado.Id_evento));
                 cmd.Parameters.Add(new SqlParameter("@FECHA", _secado.Fecha));
                 cmd.Parameters.Add(new SqlParameter("@COMENTARIO", _secado.Comentarios));
-                cmd.Parameters.Add(new SqlParameter("@MOTIVO_SECADO", _secado.Motivos_secado));
+                cmd.Parameters.Add(new SqlParameter("@MOTIVO_SECADO", _secado.IdMotivoSecado));
                 cmd.Parameters.Add(new SqlParameter("@ENFERMEDAD", _secado.Enfermedad));
             }
             return cmd;
@@ -146,10 +146,10 @@ namespace Datos
             //if (strDate != string.Empty) sec.Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR"));
             if (strDate != string.Empty) sec.Fecha = DateTime.Parse(strDate);
             sec.Comentarios = (DBNull.Value == record["COMENTARIO"]) ? string.Empty : (string)record["COMENTARIO"];
-            //sec.Motivos_secado = (DBNull.Value == record["MOTIVO_SECADO"]) ? 0 : (Int16)record["MOTIVO_SECADO"];
-            
-            sec.Motivos_secado = (short)((DBNull.Value == record["MOTIVO_SECADO"]) ? 0 : (Int16)record["MOTIVO_SECADO"]);
-            if (sec.Motivos_secado.Equals(2))
+            //sec.IdMotivoSecado = (DBNull.Value == record["MOTIVO_SECADO"]) ? 0 : (Int16)record["MOTIVO_SECADO"];
+
+            sec.IdMotivoSecado = (short)((DBNull.Value == record["MOTIVO_SECADO"]) ? 0 : (Int16)record["MOTIVO_SECADO"]);
+            if (sec.IdMotivoSecado.Equals(2))
             {
                 sec.Enfermedad = (short)((DBNull.Value == record["ENFERMEDAD"]) ? 0 : (Int16)record["ENFERMEDAD"]);             
             }

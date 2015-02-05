@@ -16,27 +16,59 @@ namespace Entidades
 
         public Secado(short motivosSecado)
         {
-            Motivos_secado = motivosSecado;
+            IdMotivoSecado = motivosSecado;
         }
 
         public Secado(short motivosSecado, short enfermedad)
         {
-            Motivos_secado = motivosSecado;
+            IdMotivoSecado = motivosSecado;
             Enfermedad = enfermedad;
         }
 
-        public virtual short Motivos_secado { get; set; }
+        public virtual short IdMotivoSecado { get; set; }
 
-        public Motivos_Secado Motivo { get; set; }
+        //public Motivos_Secado Motivo { get; set; }
+
+        public string MotivoSecado { get; set; }
 
         public short? Enfermedad { get; set; }
 
+        public string EnfermedadNombre { get; set; }
+
+        public string LiquidacionLact { get; set; }
+
+   
         public override string ToString()
         {
-            string str = "";
-            if (Motivos_secado == 2 && Enfermedad != null) 
-                str = ". " + Enfermedad.ToString();
-            return "Motivo del secado: " + Motivo.ToString() + str;
+            string strLiqLact = "";
+            string strEnf = "";
+            string motivoStr = "";
+
+            if (IdMotivoSecado == 2 && EnfermedadNombre != "")
+                strEnf = " (" + EnfermedadNombre + ")";
+
+            if (LiquidacionLact != "")
+            {
+                strLiqLact = " - " + LiquidacionLact;
+            }
+
+            switch (IdMotivoSecado)
+            {
+                case 1:
+                    motivoStr = "LACTANCIA COMPLETA";
+                    break;
+                case 2: 
+                    motivoStr = "RAZONES SANITARIAS";
+                    break;
+                case 3:
+                    motivoStr = "BAJA PRODUCCION";
+                    break;
+                case 4: 
+                    motivoStr = "PREÑEZ AVANZADA";
+                    break;
+            }
+
+            return "Motivo del secado: " + motivoStr + strEnf + strLiqLact;
         }
 
     }
