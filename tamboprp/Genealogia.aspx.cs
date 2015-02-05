@@ -307,18 +307,6 @@ namespace tamboprp
                     sb.Append("<a data-rel='colorbox' title='" + lst[i].PieDeFoto + "' href='" + lst[i].Ruta + "' >");
                     sb.Append("<img src='" + lst[i].Thumb + "' alt='150x150' /></a>");
                     sb.Append("</li>");
-
-                    //<li>
-                    //    <a data-rel="colorbox" title="YJ3110, Expo Prado 2013" href="img_tamboprp/animales/reg_3110_expoprado2013.jpg">
-                    //    <img src="img_tamboprp/animales/animales_thumbs/reg_3110_expoprado2013_th.png" alt="150x150" />
-                    //    <!-- optional tags here -->
-                    //    <!-- optional caption here -->
-                    //    </a>
-                    //    <!-- optional tags here -->
-                    //    <!-- optional caption here -->
-                    //    <!-- optional tools -->
-                    //</li>
-
                 }
                 ul.InnerHtml += sb.ToString();
             }
@@ -343,25 +331,13 @@ namespace tamboprp
                     // la primera en grande, las demas como thumbnails
                     if (i == 0)
                     {
-                        sb.Append("<img src='" + lst[i].Ruta + "' /></a>");
+                        sb.Append("<img src='" + lst[i].Ruta + "' style='max-width: 400px;' /></a>");
                     }
                     else
                     {
-                        sb.Append("<img src='" + lst[i].Thumb + "' /></a>");
+                        sb.Append("<img src='" + lst[i].Thumb + "' style='max-width: 150px;' /></a>");
                     }
                     sb.Append("</li>");
-
-                    //<li>
-                    //    <a data-rel="colorbox" title="YJ3110, Expo Prado 2013" href="img_tamboprp/animales/reg_3110_expoprado2013.jpg">
-                    //    <img src="img_tamboprp/animales/animales_thumbs/reg_3110_expoprado2013_th.png" alt="150x150" />
-                    //    <!-- optional tags here -->
-                    //    <!-- optional caption here -->
-                    //    </a>
-                    //    <!-- optional tags here -->
-                    //    <!-- optional caption here -->
-                    //    <!-- optional tools -->
-                    //</li>
-
                 }
                 ul.InnerHtml += sb.ToString();
             }

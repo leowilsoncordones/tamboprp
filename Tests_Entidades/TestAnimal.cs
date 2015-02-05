@@ -34,7 +34,7 @@ namespace Tests_Entidades
 
         public void consolidarLactanciaTest()
         {
-            var result = Fachada.Instance.ConsolidarLactancia("3451");
+            var result = Fachada.Instance.ConsolidarLactancia("3451", false);
             Assert.IsTrue(result.Registro == "3451");
         }
 

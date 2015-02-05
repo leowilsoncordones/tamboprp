@@ -180,13 +180,33 @@ namespace Negocio
                 if (listTemp.Count > 0) a.Eventos.AddRange(listTemp);
 
                 /* Cargo los secados del animal */
+                var lactancias = GetLactanciaByRegistro(registro);
                 var secMap = new SecadoMapper(registro);
                 listTemp = secMap.GetSecadosByRegistro(registro);
                 if (listTemp.Count > 0)
                 {
-                    foreach (Secado sec in listTemp)
+                    for (int i = 0; i < listTemp.Count; i++)
                     {
-                        sec.Motivo = (Motivos_Secado)(sec.Motivos_secado);
+                        var sec = (Secado)listTemp[i];
+                        switch (sec.IdMotivoSecado)
+                        {
+                            case 1:
+                                sec.MotivoSecado = "LACTANCIA COMPLETA";
+                                break;
+                            case 2:
+                                sec.MotivoSecado = "RAZONES SANITARIAS";
+                                Enfermedad enf = lstEnfermedades.FirstOrDefault(e => e.Id == sec.Enfermedad);
+                                if (enf != null) sec.EnfermedadNombre = enf.Nombre_enfermedad;
+                                break;
+                            case 3:
+                                sec.MotivoSecado = "BAJA PRODUCCION";
+                                break;
+                            case 4:
+                                sec.MotivoSecado = "PREÑEZ AVANZADA";
+                                break;
+                        }
+                        VOLactancia lact = lactancias.FirstOrDefault(l => l.Numero == i+1);
+                        if (lact != null) sec.LiquidacionLact = lact.Dias + "d " + lact.ProdLeche + "kg " + lact.ProdGrasa+ "kg";
                     }
                     a.Eventos.AddRange(listTemp);
                 }
@@ -2063,9 +2083,9 @@ namespace Negocio
                 voA.Vendido = FueVendidoAnimal(voA.Registro);
                 if (voA.esHembra())
                 {
-                    // REVISAR LACTANCIAS, LA LACTANCIA ACTUAL SE CALCULA, YA NO ESTA EN LA TABLA
-                    _lactMapper = new LactanciaMapper(voA.Registro);
-                    voA.Lactancias = this.CopiarVOLactanciaList(_lactMapper.GetLactanciasByRegistro());
+                    //_lactMapper = new LactanciaMapper(voA.Registro);
+                    //voA.Lactancias = this.CopiarVOLactanciaList(_lactMapper.GetLactanciasByRegistro());
+                    voA.Lactancias = this.GetLactanciasInclusoLaActual(voA);
                 }
                 voA.Concursos = this.GetConcursosAnimal(voA.Registro);
                 // ARBOL POR PARTE DE MADRE
@@ -2074,8 +2094,7 @@ namespace Negocio
                     voA.Madre = CopiarVOAnimal(GetAnimalByRegistro(voA.Reg_madre));
                     voA.Madre.Vivo = !EstaMuertoAnimal(voA.Reg_madre);
                     voA.Madre.Vendido = FueVendidoAnimal(voA.Reg_madre);
-                    _lactMapper = new LactanciaMapper(voA.Reg_madre);
-                    voA.Madre.Lactancias = this.CopiarVOLactanciaList(_lactMapper.GetLactanciasByRegistro());
+                    voA.Madre.Lactancias =  this.GetLactanciasInclusoLaActual(voA.Madre);
 
                     if (voA.Madre != null && voA.Madre.Registro != "H-DESCONOC")
                     {
@@ -2086,8 +2105,7 @@ namespace Negocio
                             voA.Madre.Madre = CopiarVOAnimal(GetAnimalByRegistro(strAbuelaM));
                             voA.Madre.Madre.Vivo = !EstaMuertoAnimal(strAbuelaM);
                             voA.Madre.Madre.Vendido = FueVendidoAnimal(strAbuelaM);
-                            _lactMapper = new LactanciaMapper(strAbuelaM);
-                            voA.Madre.Madre.Lactancias = this.CopiarVOLactanciaList(_lactMapper.GetLactanciasByRegistro());
+                            voA.Madre.Madre.Lactancias = this.GetLactanciasInclusoLaActual(voA.Madre.Madre);
                         }
                         if (strAbueloM != "M-DESCONOC")
                         {
@@ -2112,8 +2130,7 @@ namespace Negocio
                             voA.Padre.Madre = CopiarVOAnimal(GetAnimalByRegistro(strAbuelaP));
                             voA.Padre.Madre.Vivo = !EstaMuertoAnimal(strAbuelaP);
                             voA.Padre.Madre.Vendido = FueVendidoAnimal(strAbuelaP);
-                            _lactMapper = new LactanciaMapper(strAbuelaP);
-                            voA.Padre.Madre.Lactancias = this.CopiarVOLactanciaList(_lactMapper.GetLactanciasByRegistro());
+                            voA.Padre.Madre.Lactancias = this.GetLactanciasInclusoLaActual(voA.Padre.Madre);
                         }
                         if (strAbueloP != "M-DESCONOC")
                         {
@@ -2126,6 +2143,47 @@ namespace Negocio
 
             }
             return voA;
+        }
+
+
+        public List<VOLactancia> GetLactanciasInclusoLaActual(VOAnimal voA)
+        {
+            try
+            {
+                // traigo las lactancias historicas
+                _lactMapper = new LactanciaMapper(voA.Registro);
+                var lactList = this.CopiarVOLactanciaList(_lactMapper.GetLactanciasByRegistro());
+                // Si esta en ordeñe me traigo la lactancia actual calculada
+                // (no esta en la tabla de lactancias consolidadas al momento del secado)
+
+                //if (voA.IdCategoria == 4 || voA.IdCategoria == 9)
+                // DATABASE VOLVER A TRAER LAS LACTANCIAS "TEMPORALES" 
+                // DE VACAS QUE SE DIERON DE BAJA Y NO SE LIQUIDO LA LACT ULTIMA, 
+                // DEBEN DE QUEDAR LIQUIDADAS COMO HISTORICAS
+                if (voA.IdCategoria == 4)  
+                {
+                    var lactActual = this.ConsolidarLactancia(voA.Registro, false);
+                    if (lactActual != null)
+                    {
+                        var voLactActual = new VOLactancia();
+                        voLactActual.Numero = lactActual.Numero;
+                        voLactActual.Dias = lactActual.Dias;
+                        voLactActual.ProdLeche = lactActual.ProdLeche;
+                        voLactActual.ProdGrasa = lactActual.ProdGrasa;
+                        voLactActual.Leche305 = lactActual.Leche305;
+                        voLactActual.Grasa305 = lactActual.Grasa305;
+                        voLactActual.Leche365 = lactActual.Leche365;
+                        voLactActual.Grasa365 = lactActual.Grasa365;
+                        voLactActual.PorcentajeGrasa = Math.Round(lactActual.ProdGrasa/lactActual.ProdLeche*100, 2);
+                        lactList.Add(voLactActual);
+                    }
+                }
+                return lactList;
+            }
+            catch (Exception ex)
+            {
+                return new List<VOLactancia>();
+            }
         }
 
         public List<VOLactancia> CopiarVOLactanciaList(List<Lactancia> lst)

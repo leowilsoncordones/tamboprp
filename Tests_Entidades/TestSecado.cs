@@ -21,7 +21,7 @@ namespace Tests_Entidades
                 Id_evento = 4,
                 Fecha = DateTime.Now,
                 Comentarios = "test_tamboprp",
-                Motivos_secado = 1,
+                IdMotivoSecado = 1,
             };
             var secmap = new SecadoMapper(secado);
             var result = secmap.Insert();

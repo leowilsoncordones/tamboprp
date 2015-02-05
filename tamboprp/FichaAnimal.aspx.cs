@@ -313,7 +313,7 @@ namespace tamboprp
                     {
                         var sec = (Secado)list[i];
                         // traigo el nombre del motivo de secado con id dado
-                        varMotivoUltSecado = ((Motivos_Secado)sec.Motivos_secado).ToString();
+                        varMotivoUltSecado = sec.MotivoSecado;
                         varFechaUltSecado = sec.Fecha.ToShortDateString();
                         //string strDate = sec.Fecha.ToShortDateString();
                         //if (strDate != string.Empty) varFechaUltSecado = DateTime.Parse(strDate, new CultureInfo("fr-FR")).ToShortDateString();
@@ -394,10 +394,14 @@ namespace tamboprp
                 this.lblCalif.Text = _animal.Calific;
             }
 
-            // cargo y proceso la parte de lactancia
+            // cargo y proceso las lactancias
             var lst_lact = Fachada.Instance.GetLactanciaByRegistro(_animal.Registro);
             int maxLact = 0;
             int maxInd = 0;
+            var diasLact = 0;
+            var prodLecheUlt = 0.0;
+            var prodGrasaUlt = 0.0;
+            var avgGrasaUlt = 0.0;
             int tam = lst_lact.Count;
             if (tam > 0)
             {
@@ -405,7 +409,6 @@ namespace tamboprp
                 {
                     if (lst_lact[j].Numero > maxLact)
                     {
-                        // ESTO DEBIDO A LAS LACTANCIAS SUBTOTALIZADAS DEL CLIPPER
                         if (lst_lact[j].Dias > 0 && lst_lact[j].ProdLeche > 0)
                         {
                             maxLact = lst_lact[j].Numero;
@@ -413,13 +416,33 @@ namespace tamboprp
                         }
                     }
                 }
-                this.lblDiasLact.Text = lst_lact[maxInd].Dias.ToString();
-                this.lblNumLact.Text = maxLact.ToString();
-                this.lblProdLecheUlt.Text = lst_lact[maxInd].ProdLeche.ToString();
-                this.lblProdGrasaUlt.Text = lst_lact[maxInd].ProdGrasa.ToString();
-                this.lblAvgGrasaUlt.Text = Math.Round(lst_lact[maxInd].ProdGrasa / lst_lact[maxInd].ProdLeche * 100, 2).ToString();
+                diasLact = lst_lact[maxInd].Dias;
+                prodLecheUlt = lst_lact[maxInd].ProdLeche;
+                prodGrasaUlt = lst_lact[maxInd].ProdGrasa;
+                if (lst_lact[maxInd].ProdLeche > 0)
+                    avgGrasaUlt = Math.Round(lst_lact[maxInd].ProdGrasa/lst_lact[maxInd].ProdLeche*100, 2);
+                else avgGrasaUlt = 0;
+            }
+            // Si esta en ordeñe me traigo la lactancia actual calculada
+            // (no esta en la tabla de lactancias consolidadas al momento del secado)
+            if (_animal.IdCategoria == 4)
+            {
+                var lactActual = Fachada.Instance.ConsolidarLactancia(_animal.Registro, false);
+                maxLact = lactActual.Numero;
+                diasLact = lactActual.Dias;
+                prodLecheUlt = lactActual.ProdLeche;
+                prodGrasaUlt = lactActual.ProdGrasa;
+                if (lactActual.ProdLeche > 0)
+                    avgGrasaUlt = Math.Round(lactActual.ProdGrasa / lactActual.ProdLeche * 100, 2);
+                else avgGrasaUlt = 0;
             }
 
+            this.lblDiasLact.Text = diasLact.ToString();
+            this.lblNumLact.Text = maxLact.ToString();
+            this.lblProdLecheUlt.Text = prodLecheUlt.ToString();
+            this.lblProdGrasaUlt.Text = prodGrasaUlt.ToString();
+            this.lblAvgGrasaUlt.Text = Math.Round(avgGrasaUlt, 2).ToString();
+            
             //GetControlesByRegistro(_animal.Registro);
         }
 
@@ -510,7 +533,6 @@ namespace tamboprp
             //this.titFooterPanel.Visible = false;
             this.lblFooterPanel.Visible = false;
 
-            // modal modificar ------------------------------ SE TRANCA LUEGO LA BUSQUEDA PORQ SON RUNAT SERVER
             this.fNombre.Value = "";
             this.fIdentif.Value = "";
             this.fTraz.Value = "";
@@ -593,19 +615,6 @@ namespace tamboprp
             }
         }
 
-        //protected void btn_update_Click(object sender, EventArgs e)
-        //{
-        //    foreach (GridViewRow gvr in GridView1.Rows)
-        //    {
-        //        if (((CheckBox)gvr.findcontrol("Checkbox")).Checked == true)
-        //        {
-        //            //Do stuff with checked row
-        //            gvr.Visible = false;
-        //        }
-
-        //    }
-        //}
-
         protected void cBoxControles_CheckedChanging(object sender, EventArgs e)
         {
             if (this.cboxControles.Checked)
@@ -627,13 +636,6 @@ namespace tamboprp
                 this.lblCantEventos.Text = list.Count.ToString();
             }
             else this.ProcesarEventosAnimal();
-
-            //foreach (GridViewRow rw in gvHistoria.Rows)
-            //{
-            //    if (rw.Cells[1].Text == "Control de Producción")
-            //        rw.Visible = false;
-            //}
-
         }
 
         protected void gvHistoria_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -671,11 +673,11 @@ namespace tamboprp
                     // la primera en grande, las demas como thumbnails
                     if (i == 0)
                     {
-                        sb.Append("<img src='" + lst[i].Ruta + "' /></a>");
+                        sb.Append("<img src='" + lst[i].Ruta + "' style='max-width: 520px;' /></a>");
                     }
                     else
                     {
-                        sb.Append("<img src='" + lst[i].Thumb + "' /></a>");
+                        sb.Append("<img src='" + lst[i].Thumb + "' style='max-width: 150px;' /></a>");
                     }
                     sb.Append("</li>");
                 }

@@ -653,7 +653,7 @@ namespace tamboprp
                     Registro = fRegistro.Text,
                     Fecha = DateTime.Parse(strDate, new CultureInfo("fr-FR")),
                     Comentarios = fComentario.Value,
-                    Motivos_secado = Int16.Parse(ddlMotivoSec.SelectedValue),
+                    IdMotivoSecado = Int16.Parse(ddlMotivoSec.SelectedValue),
                     Enfermedad = enf == "" ? (short?) null : Int16.Parse(enf)
                 };
                 _dato = "";
