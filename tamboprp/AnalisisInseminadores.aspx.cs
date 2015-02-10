@@ -213,40 +213,43 @@ namespace tamboprp
 
         protected void btnListar_Inseminadores(object sender, EventArgs e)
         {
-            string strValue = Request.Form["fechas"];
-            if (strValue.Contains(",")) { strValue = strValue.Replace(",", ""); }
-            string str1 = strValue.Replace(" ", "");
-            var res = str1.Split(Convert.ToChar("-"));
-            var fecha1 = FormatoFecha(res[0]);
-            var fecha2 = FormatoFecha(res[1]);
-
-            var lst = Fachada.Instance.GetRankingInseminadores2fechas(fecha1, fecha2);
-            Session["listaTemporal"] = lst;
-            int totalServ = 0;
-            int totalPren = 0;
-            if (lst.Count > 0)
+            if (Request.Form["fechas"]!="")
             {
-                for (int i = 0; i < lst.Count; i++)
+                string strValue = Request.Form["fechas"];
+                if (strValue.Contains(",")) { strValue = strValue.Replace(",", ""); }
+                string str1 = strValue.Replace(" ", "");
+                var res = str1.Split(Convert.ToChar("-"));
+                var fecha1 = FormatoFecha(res[0]);
+                var fecha2 = FormatoFecha(res[1]);
+
+                var lst = Fachada.Instance.GetRankingInseminadores2fechas(fecha1, fecha2);
+                Session["listaTemporal"] = lst;
+                int totalServ = 0;
+                int totalPren = 0;
+                if (lst.Count > 0)
                 {
-                    totalServ += lst[i].CantServicios;
-                    totalPren += lst[i].CantPrenadas;
+                    for (int i = 0; i < lst.Count; i++)
+                    {
+                        totalServ += lst[i].CantServicios;
+                        totalPren += lst[i].CantPrenadas;
+                    }
+
+                    this.lblTotalServicios.Text = totalServ.ToString();
+                    this.lblTotalPrenadas.Text = totalPren.ToString();
+                    if (totalServ > 0)
+                    {
+                        var porcEfect = Math.Round((double)totalPren / totalServ * 100, 1);
+                        this.lblPorcEfectividad.Text = porcEfect.ToString() + "%";
+                    }
+
                 }
+                this.lblCantInsem.Text = lst.Count.ToString();
+                this.lblCantInsem.Visible = true;
+                this.titCantInsem.Visible = true;
 
-                this.lblTotalServicios.Text = totalServ.ToString();
-                this.lblTotalPrenadas.Text = totalPren.ToString();
-                if (totalServ > 0)
-                {
-                    var porcEfect = Math.Round((double)totalPren / totalServ * 100, 1);
-                    this.lblPorcEfectividad.Text = porcEfect.ToString() + "%";
-                }
-
-            }
-            this.lblCantInsem.Text = lst.Count.ToString();
-            this.lblCantInsem.Visible = true;
-            this.titCantInsem.Visible = true;
-
-            this.gvRanking.DataSource = lst;
-            this.gvRanking.DataBind();
+                this.gvRanking.DataSource = lst;
+                this.gvRanking.DataBind();
+            }          
 
         }
 

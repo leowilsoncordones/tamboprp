@@ -60,30 +60,40 @@ namespace tamboprp
                 {
                     // ruta de las textos de controles en el sitio
                     string filename = Path.GetFileName(fupTxt.FileName);
-                    var rutaSiteTxt = "~/controlesMU/" + filename;
-                    //var rutaSiteTxtcheck = "http://www.tamboprp.uy/controlesMU/" + filename;
-                    var websiteLocalPath = "d:\\DZHosts\\LocalUser\\tamboprp_admin\\www.tamboprp.somee.com\\controlesMU\\" + filename;
-                    if (!File.Exists(websiteLocalPath))
+                    var extension = Path.GetExtension(filename);
+                    if (extension == "._hy")
                     {
-                        var usu = (VOUsuario)Session["Usuario"];
-                        fupTxt.SaveAs(Server.MapPath(rutaSiteTxt));
-                        var ruta = Server.MapPath("~/controlesMU/" + filename);
-                        var resultado = Fachada.Instance.LeerArchivoControl(ruta , usu.Nickname);
-                        lblTotales.Text = "Se procesaron un total de " + resultado.CantTotales + " controles.";
-                        this.panelExitosas.Visible = true;
-                        var cantFallidas = resultado.ControlesFallidos.Count;
-                        if (cantFallidas > 0)
+                        var rutaSiteTxt = "~/controlesMU/" + filename;
+                        //var rutaSiteTxtcheck = "http://www.tamboprp.uy/controlesMU/" + filename;
+                        var websiteLocalPath =
+                            "d:\\DZHosts\\LocalUser\\tamboprp_admin\\www.tamboprp.somee.com\\controlesMU\\" + filename;
+                        if (!File.Exists(websiteLocalPath))
                         {
-                            lblExitosas.Text = resultado.CantExitosas + " controles se procesaron con éxito.";
-                            lblFallidas.Text = cantFallidas + " controles no pudieron ser procesados.";
-                            CargarGrillaFallidas(resultado.ControlesFallidos);
-                            this.panelFallidas.Visible = true;
+                            var usu = (VOUsuario) Session["Usuario"];
+                            fupTxt.SaveAs(Server.MapPath(rutaSiteTxt));
+                            var ruta = Server.MapPath("~/controlesMU/" + filename);
+                            var resultado = Fachada.Instance.LeerArchivoControl(ruta, usu.Nickname);
+                            lblTotales.Text = "Se procesaron un total de " + resultado.CantTotales + " controles.";
+                            this.panelExitosas.Visible = true;
+                            var cantFallidas = resultado.ControlesFallidos.Count;
+                            if (cantFallidas > 0)
+                            {
+                                lblExitosas.Text = resultado.CantExitosas + " controles se procesaron con éxito.";
+                                lblFallidas.Text = cantFallidas + " controles no pudieron ser procesados.";
+                                CargarGrillaFallidas(resultado.ControlesFallidos);
+                                this.panelFallidas.Visible = true;
+                            }
+                        }
+                        else
+                        {
+                            lblStatus.Visible = true;
+                            lblStatus.Text = "El archivo : '" + filename + "' ya fue cargado";
                         }
                     }
                     else
                     {
                         lblStatus.Visible = true;
-                        lblStatus.Text = "El archivo : '"+ filename +"' ya fue cargado"; 
+                        lblStatus.Text = "Este tipo de archivo: '" + filename + "' no puede ser cargado.";
                     }
 
                 }

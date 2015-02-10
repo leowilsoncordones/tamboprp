@@ -244,20 +244,24 @@ namespace tamboprp
 
         protected void btnListar_Inseminaciones(object sender, EventArgs e)
         {
-            string strValue = Request.Form["fechas"];
-            if (strValue.Contains(",")) { strValue = strValue.Replace(",", ""); }
-            string str1 = strValue.Replace(" ", "");
-            var res = str1.Split(Convert.ToChar("-"));
-            var fecha1 = FormatoFecha(res[0]);
-            var fecha2 = FormatoFecha(res[1]);
+            if (Request.Form["fechas"]!="")
+            {
+                string strValue = Request.Form["fechas"];
+                if (strValue.Contains(",")) { strValue = strValue.Replace(",", ""); }
+                string str1 = strValue.Replace(" ", "");
+                var res = str1.Split(Convert.ToChar("-"));
+                var fecha1 = FormatoFecha(res[0]);
+                var fecha2 = FormatoFecha(res[1]);
 
-            var list = Fachada.Instance.GetInseminacionesExitosas2fechas(fecha1, fecha2);
-            Session["listaTemporal"] = list;
-            this.lblCantAnimales.Text = list.Count.ToString();
-            this.lblCantAnimales.Visible = true;
-            this.gvInseminaciones.DataSource = list;
-            this.gvInseminaciones.DataBind();
-            this.ConsolidarResumen(list);
+                var list = Fachada.Instance.GetInseminacionesExitosas2fechas(fecha1, fecha2);
+                Session["listaTemporal"] = list;
+                this.lblCantAnimales.Text = list.Count.ToString();
+                this.lblCantAnimales.Visible = true;
+                this.gvInseminaciones.DataSource = list;
+                this.gvInseminaciones.DataBind();
+                this.ConsolidarResumen(list);
+            }
+            
         }
 
         private string FormatoFecha(string fecha)

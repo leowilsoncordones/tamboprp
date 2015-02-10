@@ -324,18 +324,22 @@ namespace tamboprp
 
         protected void btnListar_gvMuertesResumen(object sender, EventArgs e)
         {
-            string strValue = Request.Form["fechasVentas"];
-            string str1 = strValue.Replace(" ", "");
-            var res = str1.Split(Convert.ToChar("-"));
-            var fecha1 = FormatoFecha(res[0]);
-            var fecha2 = FormatoFecha(res[1]);
+            if (Request.Form["fechasVentas"]!="")
+            {
+                string strValue = Request.Form["fechasVentas"];
+                string str1 = strValue.Replace(" ", "");
+                var res = str1.Split(Convert.ToChar("-"));
+                var fecha1 = FormatoFecha(res[0]);
+                var fecha2 = FormatoFecha(res[1]);
 
-            var listTemp1 = Fachada.Instance.GetCantidadMuertesPorEnfermedadPor2fechas(fecha1, fecha2);
-            Session["listaTempREsumenMuerte"] = listTemp1;
-            this.gvMuertesResumen.DataSource = listTemp1;
-            this.gvMuertesResumen.DataBind();
-            this.titEnfDif.Visible = true;
-            this.lblEnfDif.Text = listTemp1.Count.ToString();
+                var listTemp1 = Fachada.Instance.GetCantidadMuertesPorEnfermedadPor2fechas(fecha1, fecha2);
+                Session["listaTempREsumenMuerte"] = listTemp1;
+                this.gvMuertesResumen.DataSource = listTemp1;
+                this.gvMuertesResumen.DataBind();
+                this.titEnfDif.Visible = true;
+                this.lblEnfDif.Text = listTemp1.Count.ToString();
+            }
+            
 
         }
 
@@ -399,20 +403,24 @@ namespace tamboprp
 
         protected void btnListar_gvMuertesResumen1(object sender, EventArgs e)
         {
-            string strValue = Request.Form["fechasVentas1"];
-            string str1 = strValue.Replace(" ", "");
-            var res = str1.Split(Convert.ToChar("-"));
-            var fecha1 = FormatoFecha(res[0]);
-            var fecha2 = FormatoFecha(res[1]);
+            if (Request.Form["fechasVentas1"] !="")
+            {
+                string strValue = Request.Form["fechasVentas1"];
+                string str1 = strValue.Replace(" ", "");
+                var res = str1.Split(Convert.ToChar("-"));
+                var fecha1 = FormatoFecha(res[0]);
+                var fecha2 = FormatoFecha(res[1]);
 
-            var listTemp1 = Fachada.Instance.GetMuertesPor2fechas(fecha1, fecha2);
-            Session["listaTempREsumenMuerte"] = listTemp1;
-            this.gvMuertes.DataSource = listTemp1;
-            this.gvMuertes.DataBind();
-            this.titCantAnimales.Visible = true;
-            this.lblCantAnimales.Text = listTemp1.Count.ToString();
-            this.titTotalMuertes.Visible = true;
-            this.lblTotalMuertes.Text = listTemp1.Count.ToString();
+                var listTemp1 = Fachada.Instance.GetMuertesPor2fechas(fecha1, fecha2);
+                Session["listaTempREsumenMuerte"] = listTemp1;
+                this.gvMuertes.DataSource = listTemp1;
+                this.gvMuertes.DataBind();
+                this.titCantAnimales.Visible = true;
+                this.lblCantAnimales.Text = listTemp1.Count.ToString();
+                this.titTotalMuertes.Visible = true;
+                this.lblTotalMuertes.Text = listTemp1.Count.ToString();
+            }
+            
         }
 
     }

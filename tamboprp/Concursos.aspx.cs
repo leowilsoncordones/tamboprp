@@ -218,7 +218,9 @@ namespace tamboprp
 
         protected void btnListar_Concursos(object sender, EventArgs e)
         {
-            string strValue = Request.Form["fechas"];
+            if (Request.Form["fechas"] != "")
+            {
+                string strValue = Request.Form["fechas"];
             if (strValue.Contains(",")) { strValue = strValue.Replace(",", ""); }
             string str1 = strValue.Replace(" ", "");
             var res = str1.Split(Convert.ToChar("-"));
@@ -231,6 +233,8 @@ namespace tamboprp
             this.gvCategorias.DataBind();
             this.titCantEnf.Visible = true;
             this.lblCantEnf.Text = lst.Count.ToString();
+            }
+            
         }
         
         
@@ -246,13 +250,17 @@ namespace tamboprp
 
         protected void btnListar_PorRegistro(object sender, EventArgs e)
         {
-            string reg = txtRegistro.Text;
+            if (txtRegistro.Text!="")
+            {
+                string reg = txtRegistro.Text;
             var lst = Fachada.Instance.GetConcursosByRegistro(reg);
             Session["listaTemporal"] = lst;
             this.gvCategorias.DataSource = lst;
             this.gvCategorias.DataBind();
             this.titCantEnf.Visible = true;
             this.lblCantEnf.Text = lst.Count.ToString();
+            }
+            
         }
     }
 }
