@@ -452,7 +452,10 @@ namespace tamboprp
 
         protected void btnBuscarAnimal_Click(object sender, EventArgs e)
         {
-            this.BuscarAnimal(this.regBuscar.Value);
+            if (this.regBuscar.Value != "")
+            {
+                this.BuscarAnimal(this.regBuscar.Value);
+            }
         }
 
         protected void BuscarAnimal(string registro)

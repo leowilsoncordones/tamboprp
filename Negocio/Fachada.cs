@@ -1176,7 +1176,11 @@ namespace Negocio
                     case 4: // SECADO
                         var secMap = new SecadoMapper((Secado)evento, nickName);
                         var lact = ConsolidarLactancia(evento.Registro, false);
-                        return (secMap.InsertSecadoLactancia(lact));
+                        if (lact != null)
+                        {
+                            return (secMap.InsertSecadoLactancia(lact));
+                        }
+                        else return false;
                     case 7: // DIAGNOSTICO DE PRENEZ
                         var diagMap = new Diag_PrenezMapper((Diag_Prenez) evento, nickName);
                         return diagMap.Insert() > 1;

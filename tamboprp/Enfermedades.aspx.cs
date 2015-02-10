@@ -139,9 +139,27 @@ namespace tamboprp
             HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
             PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
             pdfDoc.Open();
+
+            ///////////////// TESTING ////////////////////
+            /*
+            var p = new Paragraph(40f, "Enfermedades", new Font(Font.FontFamily.HELVETICA, 14f));
+            p.Font = FontFactory.GetFont(FontFactory.HELVETICA, 20, Font.BOLD);
+            p.Alignment = Element.ALIGN_LEFT;
+            pdfDoc.Add(p);
+             */
+
+            /*
+            var font = new Font(Font.FontFamily.HELVETICA, 10, 10);
+            font.IsUnderlined();
+            font.IsBold();
+            font.SetColor(8, 4, 5);
+            pdfDoc.Add(new Paragraph(40f, "Enfermedades", font));
+            */
+
+            ///////////////// FIN TESTING ////////////////////
+
             pdfDoc.Add(new Paragraph(40f, "Enfermedades", new Font(Font.FontFamily.HELVETICA, 14f)));
             var pathLogo = "http://www.tamboprp.uy/img_tamboprp/corporativo/logojpeg.jpg";
-            //pdfDoc.Add(new Chunk(new Jpeg(new Uri("D:/ORT laptop/2014-S5-Proyecto/tamboprp-git/tamboprp/img_tamboprp/corporativo/logojpeg.jpg")),300f,-10f));
             pdfDoc.Add(new Chunk(new Jpeg(new Uri(pathLogo)), 300f, -10f));
             htmlparser.Parse(sr);
             pdfDoc.Close();

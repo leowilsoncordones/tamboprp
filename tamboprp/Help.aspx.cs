@@ -15,11 +15,10 @@ namespace tamboprp
 {
     public partial class Help : System.Web.UI.Page
     {
-        //private string pestanaActiva = "1";
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]))
-            //{
+            if ((Session["EstaLogueado"] != null && (bool)Session["EstaLogueado"]))
+            {
                 //selected_tab.Value = Request.Form[selected_tab.UniqueID];
                 if (!Page.IsPostBack)
                 {
@@ -29,9 +28,8 @@ namespace tamboprp
                     //this.LimpiarFormulario();
                     this.PreCargarFormulario();
                 }
-                //this.lblTabValue.Text = pestanaActiva;
-            //}
-            //else Response.Redirect("~/Default.aspx", true);
+            }
+            else Response.Redirect("~/Default.aspx", true);
         }
 
         protected void SetPageBreadcrumbs()

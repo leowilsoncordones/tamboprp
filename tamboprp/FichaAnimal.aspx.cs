@@ -382,7 +382,8 @@ namespace tamboprp
                 this.lblProdLeche.CssClass = "label label-yellow arrowed bolder";
             }
             this.lblProdLeche.Text = varProdLeche.ToString(); // NO DA IGUAL QUE CUANDO SUMAMOS LAS LACTANCIAS (VER VITALICIAS)
-            this.lblProdGrasa.Text = varProdGrasa.ToString();
+            var lProdGrasa = Math.Round(varProdGrasa, 2);
+            this.lblProdGrasa.Text = lProdGrasa.ToString();
             this.lblAvgGrasa.Text = (varCantDias.Equals(0)) ? "0" : Math.Round(varProdGrasa / varCantDias, 2).ToString();
             this.lblMotivoSecado.Text = varMotivoUltSecado;
             this.lblFechaSecado.Text = varFechaUltSecado;
@@ -428,13 +429,16 @@ namespace tamboprp
             if (_animal.IdCategoria == 4)
             {
                 var lactActual = Fachada.Instance.ConsolidarLactancia(_animal.Registro, false);
-                maxLact = lactActual.Numero;
-                diasLact = lactActual.Dias;
-                prodLecheUlt = lactActual.ProdLeche;
-                prodGrasaUlt = lactActual.ProdGrasa;
-                if (lactActual.ProdLeche > 0)
-                    avgGrasaUlt = Math.Round(lactActual.ProdGrasa / lactActual.ProdLeche * 100, 2);
-                else avgGrasaUlt = 0;
+                if (lactActual != null)
+                {
+                    maxLact = lactActual.Numero;
+                    diasLact = lactActual.Dias;
+                    prodLecheUlt = lactActual.ProdLeche;
+                    prodGrasaUlt = lactActual.ProdGrasa;
+                    if (lactActual.ProdLeche > 0)
+                        avgGrasaUlt = Math.Round(lactActual.ProdGrasa / lactActual.ProdLeche * 100, 2);
+                    else avgGrasaUlt = 0;
+                }
             }
 
             this.lblDiasLact.Text = diasLact.ToString();
@@ -673,7 +677,7 @@ namespace tamboprp
                     // la primera en grande, las demas como thumbnails
                     if (i == 0)
                     {
-                        sb.Append("<img src='" + lst[i].Ruta + "' style='max-width: 520px;' /></a>");
+                        sb.Append("<img src='" + lst[i].Ruta + "' style='max-width: 560px;' /></a>");
                     }
                     else
                     {
