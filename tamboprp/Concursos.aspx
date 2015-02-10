@@ -49,7 +49,7 @@
         <div class="col-md-8">
             <div>       
                 <asp:GridView ID="gvCategorias" runat="server" AutoGenerateColumns="False" GridLines="Both" HorizontalAlign="Left" 
-                    CssClass="table table-hover table-striped table-bordered table-condensed dataTable" PagerStyle-CssClass="bs-pagination"  
+                    CssClass="table table-hover table-striped table-bordered table-condensed dataTable"  PagerStyle-CssClass="bs-pagination text-center"  
                     AllowPaging="true" AllowSorting="true" PageSize="20" OnPageIndexChanging="GvConcursos_PageIndexChanging" >
                 <RowStyle HorizontalAlign="Left"  />
                 <Columns>

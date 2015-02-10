@@ -52,17 +52,6 @@ namespace tamboprp
             try
             {
                 var listaLog = Fachada.Instance.ExportarLogCompleto();
-                //string path = @"C:\tamboprpLog.txt";
-                //using (var file = new System.IO.StreamWriter(path))
-                //{
-                //    foreach (string line in listaLog)
-                //    {
-                //        file.WriteLine(line);
-                //    }
-                //}
-                //this.lblStatus.Text = "Verifique el archivo en C:\\tamboprpLog.txt";
-
-
                 var ms = new MemoryStream();
                 TextWriter tw = new StreamWriter(ms);
                 foreach (string line in listaLog)
@@ -75,7 +64,6 @@ namespace tamboprp
 
                 Response.Clear();
                 Response.ContentType = "application/force-download";
-                //Response.ContentType = "text/plain";
                 Response.AddHeader("Content-Disposition", "attachment; filename=tamboprpLog.txt");
                 Response.BinaryWrite(bytes);
                 Response.End(); 

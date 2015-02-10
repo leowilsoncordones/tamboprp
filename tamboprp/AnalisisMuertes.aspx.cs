@@ -44,7 +44,7 @@ namespace tamboprp
         protected void SetPageBreadcrumbs()
         {
             var list = new List<VoListItemDuplaString>();
-            list.Add(new VoListItemDuplaString("Sanidad", "Sanidad.aspx"));
+            list.Add(new VoListItemDuplaString("Análisis", "Analisis.aspx"));
             list.Add(new VoListItemDuplaString("Información sobre muertes", ""));
             var strB = PageControl.SetBreadcrumbsPath(list);
             if (Master != null)

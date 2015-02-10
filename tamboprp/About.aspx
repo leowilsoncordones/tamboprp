@@ -19,14 +19,14 @@
                 <p>        
                     El conocimiento acerca de su rodeo cambiará para siempre, contará con herramientas 
                     adecuadas presentadas de forma simple e intuitiva. Con el aporte de información fidedigna y confiable, y 
-                    mediante un análisis adecuado podrá tomar las mejores decisiones con el fin de lograr un impacto positivo en su negocio.
+                    mediante un análisis adecuado podrá tomar las mejores decisiones con el fin de lograr un impacto positivo en su rodeo.
                 </p>
                 <br/>
                 <h4 class="widget-title blue lighter">La tecnología a tu servicio</h4>
                 <p>
                     Creado con las tecnologías más recientes, podrá acceder desde cualquier equipo con conexión a internet, 
                     ya que se adapta perfectamente a dispositivos móviles tipo smartphones o tablets; brindando la posibilidad de 
-                    actualizar y consultar la información, y de esa manera estar enterado en cualquier momento del estado de su negocio. <br/>
+                    actualizar y consultar la información, y de esa manera estar enterado en cualquier momento del estado de su establecimiento. <br/>
                 </p>
                 <p>
                     Encontrará información acerca de preguntas frecuentes y temas de ayuda, e incluso ante cualquier consulta, 
