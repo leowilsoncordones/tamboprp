@@ -36,25 +36,10 @@
             </div>
             <div class="col-md-1"></div>
             <div class="col-md-5 jumbotron align-center lighter">
-                <a href="AnalisisToros.aspx" class="bigger-160">
-		            <i class="ace-icon fa fa-flask bigger-200"></i><br/>
-                    Toros y su efectividad
-	            </a>
-            </div>
-        </div>
-        <div class="col-md-1"></div>
-    </div>
-    <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-10 container">
-            <div class="col-md-5 jumbotron align-center lighter">
                 <a href="AnalisisVentas.aspx" class="bigger-160">
 		            <i class="ace-icon fa fa-money bigger-200"></i><br/>
                     Analisis de Ventas
 	            </a>
-            </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-5  align-center lighter">
             </div>
         </div>
         <div class="col-md-1"></div>

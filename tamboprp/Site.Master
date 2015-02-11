@@ -59,7 +59,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <!-- logo y nombre de la aplicacion -->
-                    <a class="navbar-brand" runat="server" href="~/">
+                    <a class="navbar-brand" runat="server" href="Default.aspx">
                         <small><span class="ace-icon fa fa-check-square-o" aria-hidden="true"></span></small>
                         <span> tambo</span><strong><span>prp</span></strong>
                     </a>

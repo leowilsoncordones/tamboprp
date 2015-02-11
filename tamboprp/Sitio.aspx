@@ -29,7 +29,8 @@
     <a href="Animales.aspx" class="dropdown-toggle"><i class="menu-icon fa fa-folder-open"></i><span class="menu-text"> Animales </span></a>
         <ul class="submenu">
             <li><a href="FichaAnimal.aspx">Ficha de animal</a></li>
-            <li><a href="NuevoAnimal.aspx">Nuevo Animal</a></li>
+            <li><a href="NuevoAnimalParto.aspx">Ingreso de partos y sus crías</a></li>
+            <li><a href="NuevoAnimal.aspx">Ingreso por adquisición</a></li>
             <li><a href="ListPorCategoria.aspx">Listado Por Categoría</a></li>
             <li><a href="Categorias.aspx">Categorías</a></li>
             </ul>

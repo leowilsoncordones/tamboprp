@@ -199,7 +199,7 @@
                             <div class="row">
                                   <div class="col-md-4"></div>
                                   <div class="col-md-8 text-right text-info">
-                                      <asp:CheckBox ID="cboxControles" Text="  Filtrar Controles" AutoPostBack="True" OnCheckedChanging="cBoxControles_CheckedChanging" runat="server" />
+                                      <asp:CheckBox ID="cboxControles" Visible="False" Text="  Filtrar Controles" AutoPostBack="True" OnCheckedChanging="cBoxControles_CheckedChanging" runat="server" />
                                   </div>
                             </div>
                             <asp:GridView ID="gvHistoria" runat="server" AutoGenerateColumns="False" GridLines="None" HorizontalAlign="Left" 
