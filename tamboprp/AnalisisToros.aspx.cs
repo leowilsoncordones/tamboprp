@@ -79,7 +79,7 @@ namespace tamboprp
 
             }
             this.lblCantToros.Text = lst.Count.ToString();
-            Session["listaTemporal"] = lst;
+            Session["listaTemporalTorosUtilizados"] = lst;
             this.gvTorosUtilizados.DataSource = lst;
             this.gvTorosUtilizados.DataBind();
             this.titCant.Visible = true;
@@ -132,7 +132,7 @@ namespace tamboprp
             var fecha1 = fecha.ToString("yyyy-MM-dd");
             var fecha2 = DateTime.Now.ToString("yyyy-MM-dd");
             var lst = Fachada.Instance.GetTorosNacimPorGenero2fechas(fecha1, fecha2);
-            Session["listaTemporal"] = lst;
+            Session["listaTemporalNacimGenero"] = lst;
             this.gvTorosNacimPorGenero.DataSource = lst;
             this.gvTorosNacimPorGenero.DataBind();
 
@@ -175,7 +175,7 @@ namespace tamboprp
         {
             this.gvTorosUtilizados.AllowPaging = false;
             this.gvTorosUtilizados.EnableViewState = false;
-            var lst = Session["listaTemporal"];
+            var lst = Session["listaTemporalTorosUtilizados"];
             this.gvTorosUtilizados.DataSource = lst;
             this.gvTorosUtilizados.DataBind();
         }
@@ -260,7 +260,7 @@ namespace tamboprp
         {
             this.gvTorosNacimPorGenero.AllowPaging = false;
             this.gvTorosNacimPorGenero.EnableViewState = false;
-            var lst = Session["listaTemporal"];
+            var lst = Session["listaTemporalNacimGenero"];
             this.gvTorosNacimPorGenero.DataSource = lst;
             this.gvTorosNacimPorGenero.DataBind();
         }
