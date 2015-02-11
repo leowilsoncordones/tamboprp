@@ -42,8 +42,8 @@ namespace tamboprp
         protected void SetPageBreadcrumbs()
         {
             var list = new List<VoListItemDuplaString>();
-            list.Add(new VoListItemDuplaString("Análisis", "Analisis.aspx"));
-            list.Add(new VoListItemDuplaString("Análisis de toros utilizados y su efectividad", ""));
+            list.Add(new VoListItemDuplaString("Reproducción", "Reproduccion.aspx"));
+            list.Add(new VoListItemDuplaString("Toros utilizados y su efectividad", ""));
             var strB = PageControl.SetBreadcrumbsPath(list);
             if (Master != null)
             {

@@ -2485,7 +2485,7 @@ namespace Negocio
             {
                 if (admin != "" && user != "" && newPassword != "")
                 {
-                    return (_userMapper.UpdateContrasenaUsuario(admin, user, newPassword) > 0);
+                    return (_userMapper.UpdateContrasenaUsuario(admin, user, newPassword) == 0);
                 }
                 return false;
             }

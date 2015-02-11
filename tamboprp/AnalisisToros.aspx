@@ -33,7 +33,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="page-header">
-        <h1><i class="menu-icon fa fa-flask"></i> Análisis de toros utilizados y su efectividad </h1>
+        <h1><i class="menu-icon fa fa-flask"></i> Toros utilizados y su efectividad </h1>
     </div>
     
     <!-- comienza tabbable -->
