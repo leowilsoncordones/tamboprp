@@ -290,58 +290,61 @@ namespace tamboprp
 
         protected void btnListar_Partos(object sender, EventArgs e)
         {
-            string strValue = Request.Form["fechas"];
-            if (strValue.Contains(",")) { strValue = strValue.Replace(",", ""); }
-            string str1 = strValue.Replace(" ", "");
-            var res = str1.Split(Convert.ToChar("-"));
-            var fecha1 = FormatoFecha(res[0]);
-            var fecha2 = FormatoFecha(res[1]);
-
-            var lst = Fachada.Instance.GetPartosPor2fechas(fecha1, fecha2);
-            var cantNacim = Fachada.Instance.GetCantNacimientosPor2fechas(fecha1, fecha2);
-            var cantMellizos = Fachada.Instance.GetCantMellizosPor2fechas(fecha1, fecha2);
-            var cantTrillizos = Fachada.Instance.GetCantTrillizosPor2fechas(fecha1, fecha2);
-            int cant = lst.Count;
-            int hembras = 0;
-            int machos = 0;
-            int muertos = 0;
-            for (int i = 0; i < cant; i++)
+            if (Request.Form["fechas"]!="")
             {
-                if (lst[i].Sexo_parto == 'M') machos++;
-                if (lst[i].Sexo_parto == 'H') hembras++;
-                if (lst[i].Reg_hijo == "-") muertos++;
-            }
-            double promHembras = 0;
-            double promMachos = 0;
-            if (cant > 0)
-            {
-                promHembras = Math.Round((double)hembras / cant * 100, 1);
-                promMachos = Math.Round((double)machos / cant * 100, 1);
-            }
+                string strValue = Request.Form["fechas"];
+                if (strValue.Contains(",")) { strValue = strValue.Replace(",", ""); }
+                string str1 = strValue.Replace(" ", "");
+                var res = str1.Split(Convert.ToChar("-"));
+                var fecha1 = FormatoFecha(res[0]);
+                var fecha2 = FormatoFecha(res[1]);
 
-            Session["listaTemporal"] = lst;
-            this.gvListPartos.DataSource = lst;
-            this.gvListPartos.DataBind();
+                var lst = Fachada.Instance.GetPartosPor2fechas(fecha1, fecha2);
+                var cantNacim = Fachada.Instance.GetCantNacimientosPor2fechas(fecha1, fecha2);
+                var cantMellizos = Fachada.Instance.GetCantMellizosPor2fechas(fecha1, fecha2);
+                var cantTrillizos = Fachada.Instance.GetCantTrillizosPor2fechas(fecha1, fecha2);
+                int cant = lst.Count;
+                int hembras = 0;
+                int machos = 0;
+                int muertos = 0;
+                for (int i = 0; i < cant; i++)
+                {
+                    if (lst[i].Sexo_parto == 'M') machos++;
+                    if (lst[i].Sexo_parto == 'H') hembras++;
+                    if (lst[i].Reg_hijo == "-") muertos++;
+                }
+                double promHembras = 0;
+                double promMachos = 0;
+                if (cant > 0)
+                {
+                    promHembras = Math.Round((double)hembras / cant * 100, 1);
+                    promMachos = Math.Round((double)machos / cant * 100, 1);
+                }
 
-            this.titCant.Visible = true;
-            this.lblCant.Text = cant.ToString();
+                Session["listaTemporal"] = lst;
+                this.gvListPartos.DataSource = lst;
+                this.gvListPartos.DataBind();
 
-            this.lblTotalPartos.Text = cant.ToString();
-            //int nac = cant + cantMellizos + (cantTrillizos * 2) - muertos;
-            this.lblTotalNac.Text = cantNacim.ToString();
-            this.lblH.Text = hembras.ToString();
-            this.lblPromH.Text = promHembras.ToString() + "%";
-            this.lblM.Text = machos.ToString();
-            this.lblPromM.Text = promMachos.ToString() + "%";
+                this.titCant.Visible = true;
+                this.lblCant.Text = cant.ToString();
 
-            this.lblMellizos.Text = cantMellizos.ToString();
-            this.lblTrillizos.Text = cantTrillizos.ToString();
+                this.lblTotalPartos.Text = cant.ToString();
+                //int nac = cant + cantMellizos + (cantTrillizos * 2) - muertos;
+                this.lblTotalNac.Text = cantNacim.ToString();
+                this.lblH.Text = hembras.ToString();
+                this.lblPromH.Text = promHembras.ToString() + "%";
+                this.lblM.Text = machos.ToString();
+                this.lblPromM.Text = promMachos.ToString() + "%";
 
-            this.lblTotalMuertos.Text = muertos.ToString();
-            double promMuertos = Math.Round((double)muertos / cant * 100, 1);
-            this.lblPromMuertos.Text = promMuertos.ToString() + "%";
-            double promNac = Math.Round((double)cantNacim / cant * 100, 1);
-            this.lblPromNac.Text = promNac.ToString() + "%";
+                this.lblMellizos.Text = cantMellizos.ToString();
+                this.lblTrillizos.Text = cantTrillizos.ToString();
+
+                this.lblTotalMuertos.Text = muertos.ToString();
+                double promMuertos = Math.Round((double)muertos / cant * 100, 1);
+                this.lblPromMuertos.Text = promMuertos.ToString() + "%";
+                double promNac = Math.Round((double)cantNacim / cant * 100, 1);
+                this.lblPromNac.Text = promNac.ToString() + "%";
+            }           
 
         }
 

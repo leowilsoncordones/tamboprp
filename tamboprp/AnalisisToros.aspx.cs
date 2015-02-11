@@ -402,41 +402,44 @@ namespace tamboprp
 
         protected void btnListar_rankingToros(object sender, EventArgs e)
         {
-            string strValue = Request.Form["fechasVentas"];
-            if(strValue.Contains(",")) {strValue =  strValue.Replace(",", "");}
-            string str1 = strValue.Replace(" ", "");
-            var res = str1.Split(Convert.ToChar("-"));
-            var fecha1 = FormatoFecha(res[0]);
-            var fecha2 = FormatoFecha(res[1]);
-
-            var lst = Fachada.Instance.GetTorosUtilizadosPorAnio2fechas(fecha1, fecha2);
-            int totalServ = 0;
-            int totalPren = 0;
-            if (lst.Count > 0)
+            if (Request.Form["fechasVentas"]!="")
             {
-                this.ImprimirTopUtilizados(lst);
-                for (int i = 0; i < lst.Count; i++)
-                {
-                    totalServ += lst[i].CantServicios;
-                    totalPren += lst[i].CantDiagP;
-                }
+                string strValue = Request.Form["fechasVentas"];
+                if (strValue.Contains(",")) { strValue = strValue.Replace(",", ""); }
+                string str1 = strValue.Replace(" ", "");
+                var res = str1.Split(Convert.ToChar("-"));
+                var fecha1 = FormatoFecha(res[0]);
+                var fecha2 = FormatoFecha(res[1]);
 
-                this.lblTotalServ.Text = totalServ.ToString();
-                this.lblTotalEfect.Text = totalPren.ToString();
-                if (totalServ > 0)
+                var lst = Fachada.Instance.GetTorosUtilizadosPorAnio2fechas(fecha1, fecha2);
+                int totalServ = 0;
+                int totalPren = 0;
+                if (lst.Count > 0)
                 {
-                    var porcEfect = Math.Round((double)totalPren / totalServ * 100, 2);
-                    this.lblPorcEfect.Text = porcEfect.ToString() + "% efect.";
-                }
+                    this.ImprimirTopUtilizados(lst);
+                    for (int i = 0; i < lst.Count; i++)
+                    {
+                        totalServ += lst[i].CantServicios;
+                        totalPren += lst[i].CantDiagP;
+                    }
 
+                    this.lblTotalServ.Text = totalServ.ToString();
+                    this.lblTotalEfect.Text = totalPren.ToString();
+                    if (totalServ > 0)
+                    {
+                        var porcEfect = Math.Round((double)totalPren / totalServ * 100, 2);
+                        this.lblPorcEfect.Text = porcEfect.ToString() + "% efect.";
+                    }
+
+                }
+                this.lblCantToros.Text = lst.Count.ToString();
+                Session["listaTemporal"] = lst;
+                this.gvTorosUtilizados.DataSource = lst;
+                this.gvTorosUtilizados.DataBind();
+                this.titCant.Visible = true;
+                this.lblCant.Text = lst.Count.ToString();
             }
-            this.lblCantToros.Text = lst.Count.ToString();
-            Session["listaTemporal"] = lst;
-            this.gvTorosUtilizados.DataSource = lst;
-            this.gvTorosUtilizados.DataBind();
-            this.titCant.Visible = true;
-            this.lblCant.Text = lst.Count.ToString();
-
+           
         }
 
         private string FormatoFecha(string fecha)
@@ -495,20 +498,23 @@ namespace tamboprp
 
         protected void btnListar_nacimGenero(object sender, EventArgs e)
         {
-            string strValue = Request.Form["fechasVentas1"];
-            if (strValue.Contains(",")) { strValue = strValue.Replace(",", ""); }
-            string str1 = strValue.Replace(" ", "");
-            var res = str1.Split(Convert.ToChar("-"));
-            var fecha1 = FormatoFecha(res[0]);
-            var fecha2 = FormatoFecha(res[1]);
+            if (Request.Form["fechasVentas1"]!="")
+            {
+                string strValue = Request.Form["fechasVentas1"];
+                if (strValue.Contains(",")) { strValue = strValue.Replace(",", ""); }
+                string str1 = strValue.Replace(" ", "");
+                var res = str1.Split(Convert.ToChar("-"));
+                var fecha1 = FormatoFecha(res[0]);
+                var fecha2 = FormatoFecha(res[1]);
 
-            var lst = Fachada.Instance.GetTorosNacimPorGenero2fechas(fecha1, fecha2);
-            Session["listaTemporal"] = lst;
-            this.gvTorosNacimPorGenero.DataSource = lst;
-            this.gvTorosNacimPorGenero.DataBind();
+                var lst = Fachada.Instance.GetTorosNacimPorGenero2fechas(fecha1, fecha2);
+                Session["listaTemporal"] = lst;
+                this.gvTorosNacimPorGenero.DataSource = lst;
+                this.gvTorosNacimPorGenero.DataBind();
 
-            this.titCant2.Visible = true;
-            this.lblCant2.Text = lst.Count.ToString();
+                this.titCant2.Visible = true;
+                this.lblCant2.Text = lst.Count.ToString();
+            }
 
         }
 

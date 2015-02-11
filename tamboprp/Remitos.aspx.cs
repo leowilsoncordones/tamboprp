@@ -279,28 +279,30 @@ namespace tamboprp
 
         protected void btnListar_Remitos(object sender, EventArgs e)
         {
-            string strValue = Request.Form["fechas"];
-            if (strValue.Contains(",")) { strValue = strValue.Replace(",", ""); }
-            string str1 = strValue.Replace(" ", "");
-            var res = str1.Split(Convert.ToChar("-"));
-            var fecha1 = FormatoFecha(res[0]);
-            var fecha2 = FormatoFecha(res[1]);
-
-            var empresaActual = Fachada.Instance.GetEmpresaRemisoraActual();
-            // CARGO LISTADO
-            if (empresaActual.Count > 0) // hay al menos una empresa actual, se lista la primera
+            if (Request.Form["fechas"]!="")
             {
-                var emp = empresaActual[0];
-                this.lblTituloListado.Text = emp.ToString();
-                this.lblTituloGrafica.Text = emp.ToString();
+                string strValue = Request.Form["fechas"];
+                if (strValue.Contains(",")) { strValue = strValue.Replace(",", ""); }
+                string str1 = strValue.Replace(" ", "");
+                var res = str1.Split(Convert.ToChar("-"));
+                var fecha1 = FormatoFecha(res[0]);
+                var fecha2 = FormatoFecha(res[1]);
+
+                var empresaActual = Fachada.Instance.GetEmpresaRemisoraActual();
+                // CARGO LISTADO
+                if (empresaActual.Count > 0) // hay al menos una empresa actual, se lista la primera
+                {
+                    var emp = empresaActual[0];
+                    this.lblTituloListado.Text = emp.ToString();
+                    this.lblTituloGrafica.Text = emp.ToString();
 
 
-                var list = Fachada.Instance.GetRemitoByEmpresa2fechas(emp.Id, fecha1, fecha2);
-                Session["listaTemporal"] = list;
-                this.gvRemitos.DataSource = list;
-                this.gvRemitos.DataBind();
-            }
-
+                    var list = Fachada.Instance.GetRemitoByEmpresa2fechas(emp.Id, fecha1, fecha2);
+                    Session["listaTemporal"] = list;
+                    this.gvRemitos.DataSource = list;
+                    this.gvRemitos.DataBind();
+                }
+            }            
         }
 
         private string FormatoFecha(string fecha)
