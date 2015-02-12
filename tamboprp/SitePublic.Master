@@ -40,7 +40,7 @@
                         <span> tambo</span><strong><span>prp</span></strong>
                     </a>
                 </div>
-                <div class="navbar-buttons navbar-header pull-right">
+                <div class="navbar-buttons navbar-header pull-right" id="barraDerechaPublic">
                     <!-- nav de botones a la derecha -->
                     <asp:LoginView runat="server" ViewStateMode="Disabled">
                         <AnonymousTemplate>

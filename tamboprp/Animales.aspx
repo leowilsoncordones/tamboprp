@@ -27,7 +27,7 @@
         <div class="col-md-1"></div>
         <div class="col-md-10 container">
             <div class="col-md-5 jumbotron align-center lighter">
-                <a href="#selectModal" role="button" data-toggle="modal" class="bigger-160">
+                <a href="#selectModal" role="button" data-toggle="modal" id="id-btn-SelectModal" class="bigger-160">
 		            <i class="ace-icon fa fa-edit bigger-200"></i><br/>
                     Ingreso de animales
 	            </a>
@@ -68,7 +68,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4><i class="ace-icon fa fa-trash"></i> Seleccione</h4>
+                    <h4><i class="ace-icon fa fa-check"></i> Seleccione</h4>
                 </div>
                 <div class="modal-body">
                     <span id="bodySelectModal" class="text-warning center">

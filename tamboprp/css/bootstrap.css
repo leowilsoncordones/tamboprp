@@ -5547,6 +5547,7 @@ button.close {
   .modal-sm {
     width: 300px;
   }
+  
 }
 @media (min-width: 992px) {
   .modal-lg {
@@ -6110,6 +6111,12 @@ button.close {
   th.visible-xs,
   td.visible-xs {
     display: table-cell !important;
+  }
+  #barraDerecha {
+      display: none;
+  }
+  #barraDerechaPublic {
+      display: none;
   }
 }
 @media (max-width: 767px) {

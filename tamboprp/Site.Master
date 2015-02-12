@@ -50,7 +50,7 @@
 <body class="no-skin">
     <form runat="server">
         <!-- navbar top -->
-        <div class="navbar navbar-default navbar-inverse navbar-fixed-top">
+        <div class="navbar navbar-default">
             <div class="navbar-container">
                 <div class="navbar-header pull-left">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -64,7 +64,7 @@
                         <span> tambo</span><strong><span>prp</span></strong>
                     </a>
                 </div>
-                <div class="navbar-buttons navbar-header pull-right">
+                <div class="navbar-buttons navbar-header pull-right" id="barraDerecha">
                     <!-- nav de botones a la derecha -->
                     <ul class="nav navbar-nav navbar-right">
                             <li><a runat="server" href="~/MiPerfil.aspx" title="Mi perfil" id="fProfile">Mi perfil</a></li>
