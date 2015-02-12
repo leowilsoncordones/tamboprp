@@ -50,7 +50,7 @@
 <body class="no-skin">
     <form runat="server">
         <!-- navbar top -->
-        <div class="navbar navbar-default">
+        <div class="navbar navbar-default  navbar-inverse navbar-fixed-top">
             <div class="navbar-container">
                 <div class="navbar-header pull-left">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
